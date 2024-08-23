@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { poppins } from "./fonts";
+import cx from "classnames";
+import Navbar from "@/components/layout/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        suppressHydrationWarning={true}
+        className={cx(poppins, poppins.className)}
+      >
+        <Navbar />
+        <div>{children}</div>
+      </body>
     </html>
   );
 }
