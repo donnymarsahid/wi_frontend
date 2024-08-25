@@ -130,9 +130,9 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
           </div>
         </div>
       </div>
-      <div className="absolute bg-red-100 w-full">
+      <div className="absolute w-full">
         <div className="container mx-auto">
-          <div className="mx-10 flex bg-blue-200 justify-between">
+          <div className="mx-10 flex justify-between">
             <div>
               <Image
                 src="/assets/images/logo.png"
@@ -143,7 +143,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
               />
             </div>
             <div>
-              <ul className="flex items-center bg-red-300 h-full">
+              <ul className="flex items-center h-full">
                 {link.map((item, index) => (
                   <li key={index}>
                     <Link href={item.url} className="uppercase me-4 text-sm">
@@ -153,22 +153,42 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                 ))}
               </ul>
             </div>
-            <div className="bg-red-500 flex items-center">
+            <div className="flex items-center">
               <form onSubmit={handleSubmit(onSubmit)}>
-                <input
-                  type="text"
-                  placeholder="Temukan produk pilihan di sini..."
-                  className="custom-input me-2 w-full rounded-full border-none bg-transparent text-sm focus:outline-none md:text-base"
-                  onChange={handleSearch}
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Temukan produk pilihan di sini..."
+                    className="outline-none py-2 ps-2 pe-8 rounded-md border border-2 border-[#2FCFCC] text-xs relative w-[250px]"
+                    onChange={handleSearch}
+                  />
+                  <Image
+                    src="/assets/icons/search.svg"
+                    width={18}
+                    height={18}
+                    alt="wa-logo"
+                    className="absolute top-2 right-2"
+                  />
+                </div>
               </form>
             </div>
             <div className="flex items-center">
-              <div>
-                <p>Cart</p>
+              <div className="bg-[#44CBEB] p-2 rounded-2xl me-2">
+                <Image
+                  src="/assets/icons/cart.svg"
+                  width={18}
+                  height={18}
+                  alt="wa-logo"
+                />
               </div>
-              <div>
-                <p>Flag</p>
+              <div className="flex items-center">
+                <Image
+                  src="/assets/icons/flag-idn.svg"
+                  width={30}
+                  height={30}
+                  alt="wa-logo"
+                />
+                <p className="font-semibold">ID</p>
               </div>
             </div>
           </div>
