@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { buildPathWithQueryParams } from "@/utils/queryParams";
+import { poppins } from "@/app/fonts";
+import cx from "classnames";
 
 type SectionNavbarProps = {
   path: string;
@@ -70,7 +72,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
 
   return (
     <>
-      <div className="overflow-hidden">
+      <div className={`overflow-hidden ${cx(poppins, poppins.className)}`}>
         <div className="relative w-full h-4 bg-gradient-to-r from-teal-400 to-blue-400 h-[50px]">
           <div className="bg-white lg:w-[15%] 2xl:w-[20%] w-[10%] h-[50px] absolute top-2 left-0 skew-x-[30deg]"></div>
           <div className="bg-white absolute top-2 left-0 w-[5%] h-[50px]"></div>
@@ -110,7 +112,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                   </div>
                   <div className="flex items-center">
                     <div>
-                      <button className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center me-2 hover:bg-[#76E5FF] text-white">
+                      <button className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center me-2 hover:bg-[#76E5FF] text-white transition">
                         <p className="lg:text-xs text-[10px] me-1">
                           Cara Belanja
                         </p>
@@ -123,7 +125,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                       </button>
                     </div>
                     <div>
-                      <button className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center bg-[#1FAF38] hover:bg-[#2EED4F] text-white">
+                      <button className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center bg-[#1FAF38] hover:bg-[#2EED4F] text-white transition">
                         <p className="lg:text-xs text-[10px] me-1">
                           Login / Daftar
                         </p>
@@ -177,7 +179,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                     <li key={index}>
                       <Link
                         href={item.url}
-                        className="uppercase me-4 hover:text-[#44CBEB]"
+                        className="uppercase me-4 hover:text-[#44CBEB] transition"
                       >
                         {item.title}
                       </Link>
@@ -205,7 +207,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                 </form>
               </div>
               <div className="flex items-center">
-                <button className="bg-[#44CBEB] p-3 rounded-full me-2 relative hover:bg-[#76E5FF]">
+                <button className="bg-[#44CBEB] p-3 rounded-full me-2 relative hover:bg-[#76E5FF] transition">
                   <Image
                     src="/assets/icons/cart.svg"
                     width={18}
@@ -257,9 +259,10 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
         </div>
       </div>
       <div
-        className={`fixed top-0 right-0 h-full bg-[#44CBEB] z-[99999] duration-300 ${
-          open ? "w-[60%]" : "w-[0px]"
-        }`}
+        className={`fixed top-0 right-0 h-full bg-[#44CBEB] z-[99999] duration-300 ${cx(
+          poppins,
+          poppins.className
+        )} ${open ? "w-[60%]" : "w-[0px]"}`}
       >
         <div className="bg-white flex items-center justify-center p-2">
           <Image
@@ -311,7 +314,10 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
       </div>
       <div
         onClick={() => handleOpen()}
-        className={`fixed right-0 top-0 z-[9999] h-screen w-full border-r-2 border-gray-200 bg-black bg-opacity-50 ${
+        className={`${cx(
+          poppins,
+          poppins.className
+        )} fixed right-0 top-0 z-[9999] h-screen w-full border-r-2 border-gray-200 bg-black bg-opacity-50 ${
           !open && "hidden"
         } `}
       ></div>
