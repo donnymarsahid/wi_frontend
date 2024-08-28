@@ -2,6 +2,7 @@
 import React, { ChangeEvent, useState } from "react";
 import CarouselBanner from "../atoms/carouselbanner";
 import cx from "classnames";
+import Image from "next/image";
 import { poppins } from "@/app/fonts";
 import styled, { keyframes, css } from "styled-components";
 import CarouselReview from "../atoms/carouselreview";
@@ -55,14 +56,26 @@ export default function Clients() {
                     <MarqueeGroup>
                       {clients.map((el, index) => (
                         <ImageGroup key={index}>
-                          <Image src={el.url} />
+                          <Image
+                            src={el.url}
+                            width={1000}
+                            height={1000}
+                            alt="logo"
+                            className="w-full h-full flex object-contain rounded-md"
+                          />
                         </ImageGroup>
                       ))}
                     </MarqueeGroup>
                     <MarqueeGroup>
                       {clients.map((el, index) => (
                         <ImageGroup key={index}>
-                          <Image src={el.url} />
+                          <Image
+                            src={el.url}
+                            width={1000}
+                            height={1000}
+                            alt="logo"
+                            className="w-full h-full flex object-contain rounded-md"
+                          />
                         </ImageGroup>
                       ))}
                     </MarqueeGroup>
@@ -162,14 +175,16 @@ const ImageGroup = styled.div`
   place-items: center;
   width: clamp(10rem, 1rem + 40vmin, 30rem);
   padding: 0;
+  margin-right: 5px;
+  margin-left: 5px;
 `;
 
-const Image = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-  /* border: 1px solid black; */
-  border-radius: 0.5rem;
-  aspect-ratio: 16/9;
-  padding: 5px 20px;
-`;
+// const Image = styled.img`
+//   object-fit: contain;
+//   width: 100%;
+//   height: 100%;
+//   /* border: 1px solid black; */
+//   border-radius: 0.5rem;
+//   aspect-ratio: 16/9;
+//   padding: 5px 20px;
+// `;

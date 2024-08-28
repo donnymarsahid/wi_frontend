@@ -143,8 +143,10 @@ export default function CarouselReview() {
                 ))}
               </div>
               <div>
-                <h3 className="font-semibold text-sm">Cantika</h3>
-                <p className="text-xs mb-4">
+                <h3 className="font-semibold md:text-sm text-xs mt-2">
+                  Cantika
+                </h3>
+                <p className="md:text-xs text-[10px] mb-4">
                   Pasang Wallpaper dinding di bantu tukang yg berpengalaman
                 </p>
               </div>
