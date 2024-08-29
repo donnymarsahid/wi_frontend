@@ -17,6 +17,7 @@ export default function Home() {
       <WallpaperByColor />
       <WallpaperByDesigner />
       <CallculatorWallpaper />
+      <Socmed />
     </main>
   );
 }

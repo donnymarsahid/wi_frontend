@@ -164,7 +164,10 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                   </svg>
                 </button>
               </div>
-              <div className="flex justify-center lg:justify-start lg:w-[200px] w-full">
+              <Link
+                href={"/"}
+                className="flex justify-center lg:justify-start lg:w-[200px] w-full"
+              >
                 <Image
                   src="/assets/images/logo.png"
                   width={140}
@@ -172,7 +175,7 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                   alt="logo"
                   className="lg:mt-[-30px] md:w-[130px] md:h-[100px] w-[90px] h-[70px]"
                 />
-              </div>
+              </Link>
               <div>
                 <ul className="lg:flex items-center h-full hidden">
                   {link.map((item, index) => (

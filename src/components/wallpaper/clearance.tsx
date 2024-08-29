@@ -39,7 +39,7 @@ export default function Clearance() {
               </h1>
               <div className="md:h-[3px] h-[1px] w-[270px] bg-[#20D3B6] text-center"></div>
               <div>
-                <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
+                <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                   {wallpapers.map((item, index) => (
                     <Link href={""}>
                       <div
@@ -66,12 +66,12 @@ export default function Clearance() {
                                 poppins.className
                               )} flex justify-between items-center p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
                             >
-                              <div className="text-xs text-[#474747]">
+                              <div className="md:text-xs text-[9px] text-[#474747]">
                                 <p>Ukuran</p>
                                 <p>Lebar: 1.06 meter</p>
                                 <p>Panjang: 1.06 meter</p>
                               </div>
-                              <div className="font-semibold flex items-center flex-col text-white bg-[#FF0000] px-4 py-3 rounded-full lucida-bright">
+                              <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                                 <p className="uppercase">Disc</p>
                                 <p>50%</p>
                               </div>
@@ -84,14 +84,14 @@ export default function Clearance() {
                             >
                               <div className="text-sm">
                                 <div>
-                                  <p className="text-[#FF0000] line-through">
+                                  <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
                                     Rp. 600.000
                                   </p>
                                 </div>
                               </div>
                               <div className="text-sm">
                                 <div>
-                                  <p className="text-lg font-medium text-[#474747]">
+                                  <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
                                     Rp. 300.000 / Roll
                                   </p>
                                 </div>

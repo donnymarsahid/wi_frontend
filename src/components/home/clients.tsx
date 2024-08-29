@@ -92,7 +92,7 @@ export default function Clients() {
                 poppins.className
               )} absolute bottom-4 right-4`}
             >
-              <button className="bg-[#44CBEB] p-2 font-medium text-white rounded-lg">
+              <button className="bg-[#44CBEB] p-2 font-medium text-white rounded-lg text-[10px] md:text-sm">
                 Tulis Review
               </button>
             </div>

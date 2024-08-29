@@ -79,19 +79,50 @@ const styles = `
 export default function CarouselReview() {
   const banners = [
     {
-      url: "/assets/dummy/review.png",
+      url: [
+        {
+          url: "/assets/dummy/review.png",
+        },
+        {
+          url: "/assets/dummy/review.png",
+        },
+        {
+          url: "/assets/dummy/review.png",
+        },
+      ],
       rating: 4,
     },
     {
-      url: "/assets/dummy/review.png",
+      url: [
+        {
+          url: "/assets/dummy/review.png",
+        },
+        {
+          url: "/assets/dummy/review.png",
+        },
+      ],
       rating: 5,
     },
     {
-      url: "/assets/dummy/review.png",
+      url: [
+        {
+          url: "/assets/dummy/review.png",
+        },
+        {
+          url: "/assets/dummy/review.png",
+        },
+        {
+          url: "/assets/dummy/review.png",
+        },
+      ],
       rating: 3,
     },
     {
-      url: "/assets/dummy/review.png",
+      url: [
+        {
+          url: "/assets/dummy/review.png",
+        },
+      ],
       rating: 2,
     },
   ];
@@ -150,13 +181,62 @@ export default function CarouselReview() {
                   Pasang Wallpaper dinding di bantu tukang yg berpengalaman
                 </p>
               </div>
-              <Image
-                src={item.url}
-                width={1000}
-                height={600}
-                className="bg-cover bg-center w-full h-full pb-4"
-                alt="banners"
-              />
+              <div className={`${item.url.length === 1 ? "" : "hidden"}`}>
+                <div>
+                  <Image
+                    src={item.url[0]?.url} // replace with your image path
+                    alt="Wall construction"
+                    width={400}
+                    height={300}
+                    className="h-[201px] object-cover"
+                  />
+                </div>
+              </div>
+              <div className={`${item.url.length === 2 ? "" : "hidden"}`}>
+                <div>
+                  <Image
+                    src={item.url[0]?.url} // replace with your image path
+                    alt="Wall construction"
+                    width={400}
+                    height={300}
+                    className="h-[100px] object-cover"
+                  />
+                  <Image
+                    src={item.url[0]?.url} // replace with your image path
+                    alt="Wall construction"
+                    width={400}
+                    height={300}
+                    className="h-[100px] object-cover mt-1"
+                  />
+                </div>
+              </div>
+              <div className={`${item.url.length === 3 ? "" : "hidden"}`}>
+                <div>
+                  <Image
+                    src={item.url[0]?.url} // replace with your image path
+                    alt="Wall construction"
+                    width={400}
+                    height={300}
+                    className="h-[100px] object-cover"
+                  />
+                  <div className="flex justify-between">
+                    <Image
+                      src={item.url[0]?.url} // replace with your image path
+                      alt="Wall construction"
+                      width={400}
+                      height={300}
+                      className="h-[100px] w-[49%] object-cover mt-1 me-[2.5px]"
+                    />
+                    <Image
+                      src={item.url[0]?.url} // replace with your image path
+                      alt="Wall construction"
+                      width={400}
+                      height={300}
+                      className="h-[100px] w-[49%] object-cover mt-1 ms-[2.5px]"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </Carousel>
