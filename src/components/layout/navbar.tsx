@@ -266,9 +266,9 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
       >
         <div className="bg-white flex items-center justify-center p-2">
           <Image
-            src="/assets/images/head-mobile.png"
-            width={110}
-            height={110}
+            src="/assets/images/logo-horizontal.png"
+            width={200}
+            height={200}
             alt="head-logo"
           />
         </div>

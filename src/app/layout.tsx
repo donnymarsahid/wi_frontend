@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import { buildPathWithQueryParams } from "@/utils/queryParams";
+import { Footer } from "@/components/layout/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <Navbar path={path} />
         <div>{children}</div>
+        <Footer />
       </body>
     </html>
   );
