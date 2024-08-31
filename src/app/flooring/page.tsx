@@ -1,14 +1,13 @@
 import Socmed from "@/components/home/socmed";
-import CallculatorWallpaper from "@/components/wallpaper/calculatorwallpaper";
-import Clearance from "@/components/wallpaper/clearance";
-import Hero from "@/components/wallpaper/hero";
-import Wallpapers from "@/components/wallpaper/wallpapers";
+import Hero from "@/components/flooring/hero";
+import Floors from "@/components/flooring/floors";
+import Categories from "@/components/flooring/categories";
 
 export default function Page() {
-  const dataWallpaper = [
+  const dataFlooring = [
     {
-      title: "Wallpaper by Style",
-      wallpapers: [
+      title: "Lantai Vinyl",
+      floors: [
         {
           url: "/assets/dummy/wp-style-1.png",
           title: "Wallpaper",
@@ -44,8 +43,8 @@ export default function Page() {
       ],
     },
     {
-      title: "Wallpaper by Color",
-      wallpapers: [
+      title: "Lantai Vinyl Sticker",
+      floors: [
         {
           url: "/assets/dummy/wp-style-1.png",
           title: "Wallpaper",
@@ -81,8 +80,8 @@ export default function Page() {
       ],
     },
     {
-      title: "Wallpaper by Designer",
-      wallpapers: [
+      title: "Lantai SPC (Click)",
+      floors: [
         {
           url: "/assets/dummy/wp-style-1.png",
           title: "Wallpaper",
@@ -121,11 +120,10 @@ export default function Page() {
   return (
     <main className="mt-[100px]">
       <Hero />
-      <Clearance />
-      {dataWallpaper.map((item, index) => (
-        <Wallpapers data={item} key={index} />
+      <Categories />
+      {dataFlooring.map((item, index) => (
+        <Floors data={item} key={index} />
       ))}
-      <CallculatorWallpaper />
       <Socmed />
     </main>
   );
