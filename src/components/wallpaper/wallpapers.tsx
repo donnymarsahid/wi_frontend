@@ -21,7 +21,7 @@ export default function Wallpapers({ data }: WallpaperPageProps) {
               <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
                 {data.title}
               </h1>
-              <div className="md:h-[3px] h-[1px] lg:w-[300px] md:w-[500px] w-[300px] bg-[#20D3B6] text-center"></div>
+              <div className="md:h-[3px] h-[1px] md:w-[300px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
                 <div className="grid gap-4 2xl:grid-cols-6 md:grid-cols-4 grid-cols-2">
                   {data.wallpapers.map((item: any, index: any) => (

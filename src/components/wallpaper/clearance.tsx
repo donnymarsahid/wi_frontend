@@ -37,7 +37,7 @@ export default function Clearance() {
                 </span>{" "}
                 Wallpaper
               </h1>
-              <div className="md:h-[3px] h-[1px] w-[270px] bg-[#20D3B6] text-center"></div>
+              <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
                 <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                   {wallpapers.map((item, index) => (

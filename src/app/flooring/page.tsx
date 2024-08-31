@@ -2,6 +2,7 @@ import Socmed from "@/components/home/socmed";
 import Hero from "@/components/flooring/hero";
 import Floors from "@/components/flooring/floors";
 import Categories from "@/components/flooring/categories";
+import Accessories from "@/components/flooring/accessories";
 
 export default function Page() {
   const dataFlooring = [
@@ -124,6 +125,7 @@ export default function Page() {
       {dataFlooring.map((item, index) => (
         <Floors data={item} key={index} />
       ))}
+      <Accessories />
       <Socmed />
     </main>
   );
