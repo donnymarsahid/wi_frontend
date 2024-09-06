@@ -4,6 +4,10 @@ import "./globals.css";
 import Navbar from "@/components/layout/navbar";
 import { buildPathWithQueryParams } from "@/utils/queryParams";
 import { Footer } from "@/components/layout/footer";
+import { getData } from "./utils/fetching";
+import React, { Suspense } from "react";
+import Loading from "./loading";
+import { UserProvider } from "@/components/authContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,13 +34,22 @@ export default async function RootLayout({
   searchParams: PageProps["searchParams"];
 }) {
   const path = buildPathWithQueryParams("/categories", searchParams);
+
+  const { url: urlLogin } = await getData({
+    path: "/strapi-google-auth/init",
+  });
+
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/favicon.ico" />
       <body suppressHydrationWarning={true}>
-        <Navbar path={path} />
-        <div>{children}</div>
-        <Footer />
+        <UserProvider>
+          <Navbar path={path} loginUrl={urlLogin} />
+          <Suspense fallback={<Loading />}>
+            <div>{children}</div>
+          </Suspense>
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   );

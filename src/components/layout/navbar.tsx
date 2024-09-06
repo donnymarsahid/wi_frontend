@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useEffect } from "react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,11 @@ import { useForm } from "react-hook-form";
 import { buildPathWithQueryParams } from "@/utils/queryParams";
 import { poppins } from "@/app/fonts";
 import cx from "classnames";
+import ModalLogin from "../atoms/modallogin";
+import { getDecryptedLocalStorage } from "@/app/lib/utils";
+import { getData } from "@/app/utils/fetching";
+import { IP_URL } from "@/app/utils/constans";
+import { useUser } from "../authContext";
 
 type SectionNavbarProps = {
   path: string;
@@ -18,6 +23,10 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
+  const { value, setUser } = useUser();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
@@ -69,6 +78,36 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
     e.preventDefault();
     setSearch(e.target.value);
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = getDecryptedLocalStorage(
+        window.localStorage.getItem("token")
+      );
+      if (token) {
+        getData({
+          path: `${IP_URL}/auth/me`,
+          headers: {
+            Authorization: token ?? "",
+          },
+          revalidate: 0,
+        }).then((res) => setUser(res.data));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const productItems = [
+    "Wallpaper",
+    "Wallpanel",
+    "Lantai Vinyl & SPC",
+    "Kaca Sanblast",
+    "Karpet & Rumput Sintetis",
+    "Tirai Blind",
+    "Lem & Sealant",
+    "Aksesoris Lantai Vinyl",
+    "Decking Outdoor",
+  ];
 
   return (
     <>
@@ -125,17 +164,35 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                       </button>
                     </div>
                     <div>
-                      <button className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center bg-[#1FAF38] hover:bg-[#2EED4F] text-white transition">
-                        <p className="lg:text-xs text-[10px] me-1">
-                          Login / Daftar
-                        </p>
-                        <Image
-                          src="/assets/icons/profile.svg"
-                          width={15}
-                          height={15}
-                          alt="info"
-                        />
-                      </button>
+                      {value ? (
+                        <Link
+                          href={"/profile"}
+                          className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center bg-[#0EB289] hover:bg-[#2EED4F] text-white transition"
+                        >
+                          <p className="lg:text-xs text-[10px] me-1">Profile</p>
+                          <Image
+                            src="/assets/icons/profile.svg"
+                            width={15}
+                            height={15}
+                            alt="info"
+                          />
+                        </Link>
+                      ) : (
+                        <button
+                          onClick={() => setOpenModal(!openModal)}
+                          className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center bg-[#1FAF38] hover:bg-[#2EED4F] text-white transition"
+                        >
+                          <p className="lg:text-xs text-[10px] me-1">
+                            Login / Daftar
+                          </p>
+                          <Image
+                            src="/assets/icons/profile.svg"
+                            width={15}
+                            height={15}
+                            alt="info"
+                          />
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -179,13 +236,52 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
               <div>
                 <ul className="lg:flex items-center h-full hidden">
                   {link.map((item, index) => (
-                    <li key={index}>
+                    <li
+                      key={index}
+                      className="relative group font-medium" // Grup untuk mengontrol hover
+                      onMouseEnter={() =>
+                        item.title === "Produk" && setIsHovered(true)
+                      }
+                      onMouseLeave={() =>
+                        item.title === "Produk" && setIsHovered(false)
+                      }
+                    >
                       <Link
                         href={item.url}
                         className="uppercase me-4 hover:text-[#44CBEB] transition"
                       >
                         {item.title}
                       </Link>
+
+                      {item.title === "Produk" && (
+                        <div className="absolute left-0 mt-2 w-48 z-[9999]">
+                          {/* Segitiga kecil di atas dropdown */}
+                          <div
+                            className={`w-full absolute -top-2  ${
+                              isHovered ? "block" : "hidden"
+                            }`}
+                          >
+                            <div
+                              className={`ms-4 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-[#44CBEB]`}
+                            ></div>
+                          </div>
+                          <ul
+                            className={`bg-[#44CBEB] text-white shadow-lg rounded-md ${
+                              isHovered ? "block" : "hidden"
+                            }`}
+                          >
+                            {productItems.map((product, i) => (
+                              <Link
+                                href={""}
+                                key={i}
+                                className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md"
+                              >
+                                {product}
+                              </Link>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -324,6 +420,11 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
           !open && "hidden"
         } `}
       ></div>
+      <ModalLogin
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        loginUrl={loginUrl as string}
+      />
     </>
   );
 }

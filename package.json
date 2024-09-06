@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/crypto-js": "^4.2.2",
     "classnames": "^2.5.1",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "flowbite-react": "^0.10.1",
     "next": "^13.5.5-canary.19",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
