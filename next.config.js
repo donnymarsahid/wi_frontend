@@ -2,7 +2,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["img.youtube.com"], // Tambahkan domain di sini
+    domains: ["i.ytimg.com"], // Tambahkan domain di sini
   },
 };
 

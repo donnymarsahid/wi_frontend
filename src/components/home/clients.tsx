@@ -58,10 +58,10 @@ export default function Clients() {
                         <ImageGroup key={index}>
                           <Image
                             src={el.url}
-                            width={1000}
-                            height={1000}
+                            width={500}
+                            height={500}
                             alt="logo"
-                            className="w-full h-full flex object-contain rounded-md"
+                            className="flex object-contain rounded-md"
                           />
                         </ImageGroup>
                       ))}
@@ -71,10 +71,10 @@ export default function Clients() {
                         <ImageGroup key={index}>
                           <Image
                             src={el.url}
-                            width={1000}
-                            height={1000}
+                            width={500}
+                            height={500}
                             alt="logo"
-                            className="w-full h-full flex object-contain rounded-md"
+                            className="flex object-contain rounded-md"
                           />
                         </ImageGroup>
                       ))}
