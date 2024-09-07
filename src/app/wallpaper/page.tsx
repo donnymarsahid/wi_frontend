@@ -3,8 +3,10 @@ import CallculatorWallpaper from "@/components/wallpaper/calculatorwallpaper";
 import Clearance from "@/components/wallpaper/clearance";
 import Hero from "@/components/wallpaper/hero";
 import Wallpapers from "@/components/wallpaper/wallpapers";
+import { getData } from "../utils/fetching";
+import { WallpaperProps } from "@/types/wallpaper";
 
-export default function Page() {
+export default async function Page() {
   const dataWallpaper = [
     {
       title: "Wallpaper by Style",
@@ -118,9 +120,17 @@ export default function Page() {
       ],
     },
   ];
+
+  const wallpaper: WallpaperProps = await getData({
+    path: `wallpaper`,
+    params: {
+      populate: "banners",
+    },
+  });
+
   return (
     <main className="mt-[100px]">
-      <Hero />
+      <Hero wallpaper={wallpaper} />
       <Clearance />
       {dataWallpaper.map((item, index) => (
         <Wallpapers data={item} key={index} />

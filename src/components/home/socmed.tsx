@@ -5,30 +5,14 @@ import Image from "next/image";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import Link from "next/link";
+import { HomepageProps } from "@/types/homepage";
+import { STRAPI_URL } from "@/app/utils/constans";
 
-export default function Socmed() {
-  const socmed = [
-    {
-      url: "/assets/dummy/yt.png",
-      link: "#",
-    },
-    {
-      url: "/assets/dummy/tt.png",
-      link: "#",
-    },
-    {
-      url: "/assets/dummy/ig.png",
-      link: "#",
-    },
-    {
-      url: "/assets/dummy/sp.png",
-      link: "#",
-    },
-    {
-      url: "/assets/dummy/tp.png",
-      link: "#",
-    },
-  ];
+type SocmedSectionProps = {
+  homepage: HomepageProps;
+};
+
+export default function Socmed({ homepage }: SocmedSectionProps) {
   return (
     <>
       <div className="mt-6 mb-4">
@@ -44,10 +28,15 @@ export default function Socmed() {
             </div>
             <div>
               <ul className="flex">
-                {socmed.map((item, index) => (
+                {homepage.data.attributes.socmed.map((item, index) => (
                   <li key={index} className="me-2">
-                    <Link href={item.link}>
-                      <Image src={item.url} width={50} height={50} alt="wp" />
+                    <Link href={item.link} target="blank">
+                      <Image
+                        src={`${STRAPI_URL}${item.logo.data.attributes.url}`}
+                        width={50}
+                        height={50}
+                        alt="wp"
+                      />
                     </Link>
                   </li>
                 ))}

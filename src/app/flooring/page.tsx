@@ -3,8 +3,10 @@ import Hero from "@/components/flooring/hero";
 import Floors from "@/components/flooring/floors";
 import Categories from "@/components/flooring/categories";
 import Accessories from "@/components/flooring/accessories";
+import { FlooringProps } from "@/types/flooring";
+import { getData } from "../utils/fetching";
 
-export default function Page() {
+export default async function Page() {
   const dataFlooring = [
     {
       title: "Lantai Vinyl",
@@ -118,9 +120,16 @@ export default function Page() {
       ],
     },
   ];
+
+  const flooring: FlooringProps = await getData({
+    path: `flooring`,
+    params: {
+      populate: "banners",
+    },
+  });
   return (
     <main className="mt-[100px]">
-      <Hero />
+      <Hero flooring={flooring} />
       <Categories />
       {dataFlooring.map((item, index) => (
         <Floors data={item} key={index} />

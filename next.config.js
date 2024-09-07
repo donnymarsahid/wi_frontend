@@ -2,7 +2,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["i.ytimg.com"], // Tambahkan domain di sini
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "http://localhost:1337",
+      },
+    ],
+    domains: ["i.ytimg.com", "localhost:1337"],
   },
 };
 

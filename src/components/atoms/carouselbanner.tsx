@@ -4,6 +4,12 @@ import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Link from "next/link";
+import { HomepageProps } from "@/types/homepage";
+import { STRAPI_URL } from "@/app/utils/constans";
+
+type HeroHomeProps = {
+  homepage: HomepageProps;
+};
 
 const responsive = {
   superLargeDesktop: {
@@ -74,18 +80,7 @@ const styles = `
 }
 `;
 
-export default function CarouselBanner() {
-  const banners = [
-    {
-      url: "/assets/dummy/banner-1.png",
-    },
-    {
-      url: "/assets/dummy/banner-1.png",
-    },
-    {
-      url: "/assets/dummy/banner-1.png",
-    },
-  ];
+export default function CarouselBanner({ homepage }: HeroHomeProps) {
   return (
     <>
       <style>{styles}</style>
@@ -93,7 +88,10 @@ export default function CarouselBanner() {
         <Carousel
           additionalTransfrom={0}
           arrows
-          autoPlaySpeed={3000}
+          autoPlay
+          autoPlaySpeed={4500}
+          customTransition="2s"
+          transitionDuration={5000}
           centerMode={false}
           className=""
           containerClass="container-with-dots"
@@ -119,10 +117,10 @@ export default function CarouselBanner() {
           slidesToSlide={1}
           swipeable
         >
-          {banners.map((item, index) => (
+          {homepage.data.attributes.banners.data.map((item, index) => (
             <div key={index}>
               <Image
-                src={item.url}
+                src={`${STRAPI_URL}${item.attributes.url}`}
                 width={1000}
                 height={600}
                 className="bg-cover bg-center w-full h-full pb-4"

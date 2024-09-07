@@ -13,13 +13,19 @@ import { getDecryptedLocalStorage } from "@/app/lib/utils";
 import { getData } from "@/app/utils/fetching";
 import { IP_URL } from "@/app/utils/constans";
 import { useUser } from "../authContext";
+import { CategoryProps } from "@/types/categories";
 
 type SectionNavbarProps = {
   path: string;
   loginUrl?: string;
+  categories: CategoryProps;
 };
 
-export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
+export default function Navbar({
+  path,
+  loginUrl,
+  categories,
+}: SectionNavbarProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
@@ -96,18 +102,6 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const productItems = [
-    "Wallpaper",
-    "Wallpanel",
-    "Lantai Vinyl & SPC",
-    "Kaca Sanblast",
-    "Karpet & Rumput Sintetis",
-    "Tirai Blind",
-    "Lem & Sealant",
-    "Aksesoris Lantai Vinyl",
-    "Decking Outdoor",
-  ];
 
   return (
     <>
@@ -270,13 +264,13 @@ export default function Navbar({ path, loginUrl }: SectionNavbarProps) {
                               isHovered ? "block" : "hidden"
                             }`}
                           >
-                            {productItems.map((product, i) => (
+                            {categories.data.map((product, i) => (
                               <Link
                                 href={""}
                                 key={i}
                                 className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md"
                               >
-                                {product}
+                                {product.attributes.title}
                               </Link>
                             ))}
                           </ul>

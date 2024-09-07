@@ -8,6 +8,7 @@ import { getData } from "./utils/fetching";
 import React, { Suspense } from "react";
 import Loading from "./loading";
 import { UserProvider } from "@/components/authContext";
+import { CategoryProps } from "@/types/categories";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,12 +40,21 @@ export default async function RootLayout({
     path: "/strapi-google-auth/init",
   });
 
+  const categories: CategoryProps = await getData({
+    path: `categories`,
+    params: {
+      populate: "image",
+      "sort[0]": "createdAt:desc",
+      "pagination[pageSize]": "6",
+    },
+  });
+
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/favicon.ico" />
       <body suppressHydrationWarning={true}>
         <UserProvider>
-          <Navbar path={path} loginUrl={urlLogin} />
+          <Navbar path={path} loginUrl={urlLogin} categories={categories} />
           <Suspense fallback={<Loading />}>
             <div>{children}</div>
           </Suspense>

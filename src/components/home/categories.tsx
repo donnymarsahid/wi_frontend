@@ -4,49 +4,19 @@ import CarouselBanner from "../atoms/carouselbanner";
 import Image from "next/image";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
+import { CategoryProps } from "@/types/categories";
+import { STRAPI_URL } from "@/app/utils/constans";
+import { ServiceProps } from "@/types/services";
 
-export default function Categories() {
-  const wallpapers = [
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Wallpaper",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Lantai Vinyl & SPC",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Wallpanel",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Karpet & Rumput Sintetis",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Tirai Blind",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Decking Outdoor",
-    },
-  ];
+type CategoriesSectionProps = {
+  categories: CategoryProps;
+  services: ServiceProps;
+};
 
-  const services = [
-    {
-      url: "/assets/dummy/service-1.svg",
-      desc: "Layanan dan informasi solutif perihal interior yg sedang kamu butuhkan",
-    },
-    {
-      url: "/assets/dummy/service-2.svg",
-      desc: "Tenaga pemasangan berpengalaman dan handal",
-    },
-    {
-      url: "/assets/dummy/service-3.svg",
-      desc: "Koleksi pilihan lengkap untuk memenuhi kebutuhan dekorasi interior / eksterior",
-    },
-  ];
+export default function Categories({
+  categories,
+  services,
+}: CategoriesSectionProps) {
   return (
     <>
       <div className="mt-10">
@@ -59,14 +29,14 @@ export default function Categories() {
               <div className="md:h-[3px] h-[1px] lg:w-[600px] md:w-[500px] w-[300px] bg-[#20D3B6] text-center"></div>
               <div>
                 <div className="grid gap-4 md:grid-cols-3 grid-cols-2">
-                  {wallpapers.map((item, index) => (
+                  {categories.data.map((item, index) => (
                     <div>
                       <div
                         key={index}
                         className="relative mt-4 overflow-hidden rounded-lg cursor-pointer"
                       >
                         <Image
-                          src={item.url}
+                          src={`${STRAPI_URL}${item.attributes.image.data.attributes.url}`}
                           width={400}
                           height={400}
                           alt="wall"
@@ -77,7 +47,7 @@ export default function Categories() {
                         <div className="font-semibold flex justify-center">
                           <div>
                             <h3 className="bg-white py-2 md:px-6 px-2 rounded-lg shadow-lg bg-opacity-85 lg:text-[18px] text-[10px] text-center">
-                              {item.title}
+                              {item.attributes.title}
                             </h3>
                           </div>
                         </div>
@@ -89,17 +59,17 @@ export default function Categories() {
             </div>
             <div className={`md:mt-16 mt-6 ${cx(poppins, poppins.className)}`}>
               <div className="p-4 bg-[#F5F5F5] rounded-lg border border-2 border-[#10D3A2] grid gap-3 md:grid-cols-3 grid-cols-1">
-                {services.map((item, index) => (
+                {services.data.map((item, index) => (
                   <div key={index} className="flex items-center">
                     <Image
-                      src={item.url}
+                      src={`${STRAPI_URL}${item.attributes.icon.data.attributes.url}`}
                       width={50}
                       height={50}
                       alt="wall"
                       className="w-[40px] lg:w-[50px]"
                     />
                     <p className="ms-2 lg:text-sm text-xs font-medium">
-                      {item.desc}
+                      {item.attributes.desc}
                     </p>
                   </div>
                 ))}
