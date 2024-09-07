@@ -114,13 +114,11 @@ export default function CarouselYoutube({ data }: any) {
               key={index}
               className="relative mt-4 overflow-hidden cursor-pointer me-4"
             >
-              <YouTubeEmbed videoId={item.id} />
+              <YouTubeEmbed videoId={item.videoId} />
               <p className="title-custom font-medium text-sm mt-2">
-                {item?.snippet?.title}
+                {item?.title}
               </p>
-              <p className="font-medium text-xs">
-                {item?.statistics?.viewCount} views
-              </p>
+              <p className="font-medium text-xs">{item?.views} views</p>
             </div>
           ))}
         </Carousel>
