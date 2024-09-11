@@ -1,27 +1,29 @@
-export interface CategoryProps {
-  data: CategoryPropsDaum[];
+export interface ReviewsProps {
+  data: ReviewsPropsDaum[];
   meta: Meta;
 }
 
-export interface CategoryPropsDaum {
+export interface ReviewsPropsDaum {
   id: number;
   attributes: Attributes;
 }
 
 export interface Attributes {
-  title: string;
-  slug: string;
+  idUser: number;
+  username: string;
+  desc: string;
+  rate: number;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  image: Image;
+  images: Images;
 }
 
-export interface Image {
-  data: Data;
+export interface Images {
+  data: Daum2[];
 }
 
-export interface Data {
+export interface Daum2 {
   id: number;
   attributes: Attributes2;
 }
@@ -47,8 +49,9 @@ export interface Attributes2 {
 
 export interface Formats {
   thumbnail: Thumbnail;
-  small: Small;
-  medium: Medium;
+  small?: Small;
+  medium?: Medium;
+  large?: Large;
 }
 
 export interface Thumbnail {
@@ -76,6 +79,18 @@ export interface Small {
 }
 
 export interface Medium {
+  name: string;
+  hash: string;
+  ext: string;
+  mime: string;
+  path: any;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
+}
+
+export interface Large {
   name: string;
   hash: string;
   ext: string;

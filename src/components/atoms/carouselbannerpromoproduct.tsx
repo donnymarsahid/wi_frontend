@@ -4,6 +4,12 @@ import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Link from "next/link";
+import { PromosProps } from "@/types/promos";
+import { STRAPI_URL } from "@/app/utils/constans";
+
+type PromosHomeProps = {
+  promos: PromosProps;
+};
 
 const responsive = {
   superLargeDesktop: {
@@ -74,41 +80,20 @@ const styles = `
 }
 `;
 
-export default function CarouselBannerPromoProduct() {
-  const banners = [
-    {
-      arr: [
-        {
-          url: "/assets/dummy/promo-1.png",
-        },
-        {
-          url: "/assets/dummy/promo-2.png",
-        },
-        {
-          url: "/assets/dummy/promo-3.png",
-        },
-        {
-          url: "/assets/dummy/promo-4.png",
-        },
-      ],
-    },
-    {
-      arr: [
-        {
-          url: "/assets/dummy/promo-4.png",
-        },
-        {
-          url: "/assets/dummy/promo-3.png",
-        },
-        {
-          url: "/assets/dummy/promo-2.png",
-        },
-        {
-          url: "/assets/dummy/promo-1.png",
-        },
-      ],
-    },
-  ];
+export default function CarouselBannerPromoProduct({
+  promos,
+}: PromosHomeProps) {
+  // Fungsi untuk membagi array ke dalam kelompok-kelompok dengan ukuran tertentu
+  const groupData = (data: PromosProps, chunkSize: number) => {
+    const result = [];
+    for (let i = 0; i < data.data.length; i += chunkSize) {
+      result.push({ arr: data.data.slice(i, i + chunkSize) });
+    }
+    return result;
+  };
+
+  // Mengelompokkan data menjadi array dengan maksimal 2 data per kelompok
+  const groupedData = groupData(promos, 4);
   return (
     <>
       <style>{styles}</style>
@@ -142,19 +127,19 @@ export default function CarouselBannerPromoProduct() {
           slidesToSlide={1}
           swipeable
         >
-          {banners.map((item, index) => (
+          {groupedData.map((item, index) => (
             <div key={index} className="grid gap-4 md:grid-cols-2 grid-cols-2">
               {item.arr.map((child, indexChild) => (
                 <div key={indexChild} className="relative group">
                   <Image
-                    src={child.url}
+                    src={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}`}
                     width={1000}
                     height={600}
                     className="w-full h-full pb-4 rounded-lg"
                     alt="banners"
                   />
                   <Link
-                    href={""}
+                    href={`/promos/${child.attributes.slug}`}
                     className="absolute top-0 w-full h-full rounded-lg"
                   >
                     <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-25 rounded-lg transition"></span>

@@ -8,12 +8,14 @@ import styled, { keyframes, css } from "styled-components";
 import CarouselReview from "../atoms/carouselreview";
 import { ClientProps } from "@/types/client";
 import { STRAPI_URL } from "@/app/utils/constans";
+import { ReviewsProps } from "@/types/reviews";
 
 type ClientSectionProps = {
   clients: ClientProps;
+  reviews: ReviewsProps;
 };
 
-export default function Clients({ clients }: ClientSectionProps) {
+export default function Clients({ clients, reviews }: ClientSectionProps) {
   return (
     <>
       <div className="mt-10">
@@ -56,7 +58,7 @@ export default function Clients({ clients }: ClientSectionProps) {
                   </Marquee>
                 </Wrapper>
                 <div className="mt-4">
-                  <CarouselReview />
+                  <CarouselReview reviews={reviews} />
                 </div>
               </div>
             </div>

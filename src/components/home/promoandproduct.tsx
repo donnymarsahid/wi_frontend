@@ -5,49 +5,16 @@ import Image from "next/image";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import CarouselBannerPromoProduct from "../atoms/carouselbannerpromoproduct";
+import { PromosProps } from "@/types/promos";
 
-export default function PromoAndProduct() {
-  const wallpapers = [
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Wallpaper",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Lantai Vinyl & SPC",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Wallpanel",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Karpet & Rumput Sintetis",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Tirai Blind",
-    },
-    {
-      url: "/assets/dummy/wallpaper-1.png",
-      title: "Decking Outdoor",
-    },
-  ];
 
-  const services = [
-    {
-      url: "/assets/dummy/service-1.svg",
-      desc: "Layanan dan informasi solutif perihal interior yg sedang kamu butuhkan",
-    },
-    {
-      url: "/assets/dummy/service-2.svg",
-      desc: "Tenaga pemasangan berpengalaman dan handal",
-    },
-    {
-      url: "/assets/dummy/service-3.svg",
-      desc: "Koleksi pilihan lengkap untuk memenuhi kebutuhan dekorasi interior / eksterior",
-    },
-  ];
+type PromosSectionProps = {
+  promos: PromosProps; 
+};
+
+
+export default function PromoAndProduct({promos}: PromosSectionProps) {
+  
   return (
     <>
       <div className="mt-10">
@@ -59,7 +26,7 @@ export default function PromoAndProduct() {
               </h1>
               <div className="md:h-[3px] h-[1px] lg:w-[300px] md:w-[500px] w-[300px] bg-[#20D3B6] text-center"></div>
               <div className="w-full mt-6">
-                <CarouselBannerPromoProduct />
+                <CarouselBannerPromoProduct promos={promos} />
               </div>
             </div>
           </div>

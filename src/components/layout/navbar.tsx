@@ -14,17 +14,23 @@ import { getData } from "@/app/utils/fetching";
 import { IP_URL } from "@/app/utils/constans";
 import { useUser } from "../authContext";
 import { CategoryProps } from "@/types/categories";
+import { CustomerServicesProps } from "@/types/customerServices";
+import { HeaderProps } from "@/types/header";
 
 type SectionNavbarProps = {
   path: string;
   loginUrl?: string;
   categories: CategoryProps;
+  customerServices: CustomerServicesProps;
+  header: HeaderProps;
 };
 
 export default function Navbar({
   path,
   loginUrl,
   categories,
+  customerServices,
+  header,
 }: SectionNavbarProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
@@ -41,17 +47,6 @@ export default function Navbar({
     handleSubmit,
     formState: { errors },
   } = useForm<any>();
-
-  const whatsapp = [
-    {
-      name: "Nita",
-      phone: "083872239021",
-    },
-    {
-      name: "Tika",
-      phone: "083872239021",
-    },
-  ];
 
   const link = [
     {
@@ -118,14 +113,26 @@ export default function Navbar({
                   <div className="md:flex items-center hidden">
                     <p className="text-white font-medium lg:text-sm text-[10px]">
                       Customer Service:{" "}
-                      <a href="" className="font-bold">
-                        021 3005 1603
-                      </a>
+                      <Link
+                        target="blank"
+                        href={`tel:${header.data.attributes.office_telp.replace(
+                          /\s+/g,
+                          ""
+                        )}`}
+                        className="font-bold"
+                      >
+                        {header.data.attributes.office_telp}
+                      </Link>
                     </p>
                   </div>
                   <div className="md:flex hidden">
-                    {whatsapp.map((item, index) => (
-                      <div className="flex items-center me-4" key={index}>
+                    {customerServices.data.map((item, index) => (
+                      <Link
+                        target="blank"
+                        href={`https://api.whatsapp.com/send?phone=${item.attributes.whatsapp}&text=Halo%20Ka%20${item.attributes.name}%20Wallpaper%20Indonesia`}
+                        className="flex items-center me-4"
+                        key={index}
+                      >
                         <Image
                           src="/assets/icons/logos_whatsapp-icon.svg"
                           width={25}
@@ -137,10 +144,10 @@ export default function Navbar({
                             Whatsapp
                           </p>
                           <p className="text-white lg:text-sm text-[10px] font-bold">
-                            {item.name}
+                            {item.attributes.name}
                           </p>
                         </button>
-                      </div>
+                      </Link>
                     ))}
                   </div>
                   <div className="flex items-center">
@@ -266,7 +273,7 @@ export default function Navbar({
                           >
                             {categories.data.map((product, i) => (
                               <Link
-                                href={""}
+                                href={`/category/${product.attributes.slug}`}
                                 key={i}
                                 className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md"
                               >
@@ -384,12 +391,24 @@ export default function Navbar({
           </ul>
           <div className="p-4">
             <h1 className="text-white text-xs font-bold">Customer Service</h1>
-            <a href="" className="text-xs text-white">
-              021 3005 1603
-            </a>
+            <Link
+              target="blank"
+              href={`tel:${header.data.attributes.office_telp.replace(
+                /\s+/g,
+                ""
+              )}`}
+              className="text-xs text-white"
+            >
+              {header.data.attributes.office_telp}
+            </Link>
             <div className="mb-4"></div>
-            {whatsapp.map((item, index) => (
-              <div className="flex items-center mb-4" key={index}>
+            {customerServices.data.map((item, index) => (
+              <Link
+                target="blank"
+                href={`https://api.whatsapp.com/send?phone=${item.attributes.whatsapp}&text=Halo%20Ka%20${item.attributes.name}%20Wallpaper%20Indonesia`}
+                className="flex items-center mb-4"
+                key={index}
+              >
                 <Image
                   src="/assets/icons/logos_whatsapp-icon.svg"
                   width={25}
@@ -398,9 +417,11 @@ export default function Navbar({
                 />
                 <button className="ms-1 flex flex-col">
                   <p className="text-white text-xs">Whatsapp</p>
-                  <p className="text-white text-xs font-bold">{item.name}</p>
+                  <p className="text-white text-xs font-bold">
+                    {item.attributes.name}
+                  </p>
                 </button>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

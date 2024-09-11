@@ -1,11 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import React, { ChangeEvent, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Link from "next/link";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
+import { ReviewsProps, ReviewsPropsDaum } from "@/types/reviews";
+import { STRAPI_URL } from "@/app/utils/constans";
+import { Modal } from "flowbite-react";
+
+type ReviewsHomeProps = {
+  reviews: ReviewsProps;
+};
 
 const responsive = {
   superLargeDesktop: {
@@ -23,6 +31,25 @@ const responsive = {
   mobile: {
     breakpoint: { max: 464, min: 0 },
     items: 2,
+  },
+};
+
+const responsiveCstm = {
+  superLargeDesktop: {
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
   },
 };
 
@@ -76,56 +103,22 @@ const styles = `
 }
 `;
 
-export default function CarouselReview() {
-  const banners = [
-    {
-      url: [
-        {
-          url: "/assets/dummy/review.png",
-        },
-        {
-          url: "/assets/dummy/review.png",
-        },
-        {
-          url: "/assets/dummy/review.png",
-        },
-      ],
-      rating: 4,
-    },
-    {
-      url: [
-        {
-          url: "/assets/dummy/review.png",
-        },
-        {
-          url: "/assets/dummy/review.png",
-        },
-      ],
-      rating: 5,
-    },
-    {
-      url: [
-        {
-          url: "/assets/dummy/review.png",
-        },
-        {
-          url: "/assets/dummy/review.png",
-        },
-        {
-          url: "/assets/dummy/review.png",
-        },
-      ],
-      rating: 3,
-    },
-    {
-      url: [
-        {
-          url: "/assets/dummy/review.png",
-        },
-      ],
-      rating: 2,
-    },
-  ];
+export default function CarouselReview({ reviews }: ReviewsHomeProps) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<ReviewsPropsDaum | any>(
+    null
+  );
+
+  const openModal = (review: any) => {
+    setSelectedReview(review);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedReview(null);
+  };
+
   return (
     <>
       <style>{styles}</style>
@@ -159,10 +152,14 @@ export default function CarouselReview() {
           slidesToSlide={1}
           swipeable
         >
-          {banners.map((item, index) => (
-            <div key={index} className="bg-white p-2 rounded-lg mx-2">
+          {reviews.data.map((item, index) => (
+            <button
+              onClick={() => openModal(item)}
+              key={index}
+              className="bg-white p-2 rounded-lg mx-2"
+            >
               <div className="flex justify-center">
-                {Array.from({ length: item.rating }).map((_, i) => (
+                {Array.from({ length: item.attributes.rate }).map((_, i) => (
                   <Image
                     key={i}
                     src="/assets/icons/star.svg"
@@ -175,16 +172,24 @@ export default function CarouselReview() {
               </div>
               <div>
                 <h3 className="font-semibold md:text-sm text-xs mt-2">
-                  Cantika
+                  {item.attributes.username}
                 </h3>
-                <p className="md:text-xs text-[10px] mb-4">
-                  Pasang Wallpaper dinding di bantu tukang yg berpengalaman
+                <p className="md:text-xs text-[10px] mb-4 title-custom">
+                  {item.attributes.desc}
                 </p>
               </div>
-              <div className={`${item.url.length === 1 ? "" : "hidden"}`}>
+              <div
+                className={`${
+                  item.attributes.images.data.length === 1 ? "" : "hidden"
+                }`}
+              >
                 <div>
                   <Image
-                    src={item.url[0]?.url} // replace with your image path
+                    src={
+                      item.attributes.images.data[0]?.attributes?.url
+                        ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
+                        : "/assets/images/review.png"
+                    } // replace with your image path
                     alt="Wall construction"
                     width={400}
                     height={300}
@@ -192,17 +197,29 @@ export default function CarouselReview() {
                   />
                 </div>
               </div>
-              <div className={`${item.url.length === 2 ? "" : "hidden"}`}>
+              <div
+                className={`${
+                  item.attributes.images.data.length === 2 ? "" : "hidden"
+                }`}
+              >
                 <div>
                   <Image
-                    src={item.url[0]?.url} // replace with your image path
+                    src={
+                      item.attributes.images.data[0]?.attributes?.url
+                        ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
+                        : "/assets/images/review.png"
+                    } // replace with your image path
                     alt="Wall construction"
                     width={400}
                     height={300}
                     className="h-[100px] object-cover"
                   />
                   <Image
-                    src={item.url[0]?.url} // replace with your image path
+                    src={
+                      item.attributes.images.data[1]?.attributes?.url
+                        ? `${STRAPI_URL}${item.attributes.images.data[1]?.attributes?.url}`
+                        : "/assets/images/review.png"
+                    } // replace with your image path
                     alt="Wall construction"
                     width={400}
                     height={300}
@@ -210,10 +227,18 @@ export default function CarouselReview() {
                   />
                 </div>
               </div>
-              <div className={`${item.url.length === 3 ? "" : "hidden"}`}>
+              <div
+                className={`${
+                  item.attributes.images.data.length === 3 ? "" : "hidden"
+                }`}
+              >
                 <div>
                   <Image
-                    src={item.url[0]?.url} // replace with your image path
+                    src={
+                      item.attributes.images.data[0]?.attributes?.url
+                        ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
+                        : "/assets/images/review.png"
+                    } // replace with your image path
                     alt="Wall construction"
                     width={400}
                     height={300}
@@ -221,14 +246,22 @@ export default function CarouselReview() {
                   />
                   <div className="flex justify-between">
                     <Image
-                      src={item.url[0]?.url} // replace with your image path
+                      src={
+                        item.attributes.images.data[1]?.attributes?.url
+                          ? `${STRAPI_URL}${item.attributes.images.data[1]?.attributes?.url}`
+                          : "/assets/images/review.png"
+                      } // replace with your image path
                       alt="Wall construction"
                       width={400}
                       height={300}
                       className="h-[100px] w-[49%] object-cover mt-1 me-[2.5px]"
                     />
                     <Image
-                      src={item.url[0]?.url} // replace with your image path
+                      src={
+                        item.attributes.images.data[2]?.attributes?.url
+                          ? `${STRAPI_URL}${item.attributes.images.data[2]?.attributes?.url}`
+                          : "/assets/images/review.png"
+                      } // replace with your image path
                       alt="Wall construction"
                       width={400}
                       height={300}
@@ -237,10 +270,96 @@ export default function CarouselReview() {
                   </div>
                 </div>
               </div>
-            </div>
+            </button>
           ))}
         </Carousel>
       </div>
+      <Modal show={showModal} onClose={closeModal} className="z-[9999]">
+        <Modal.Header className="bg-white border-b-1">
+          <div className="text-center font-bold">
+            <div className={`${cx(poppins, poppins.className)} text-[#3D3D3D]`}>
+              <h1>Detail Review</h1>
+            </div>
+          </div>
+        </Modal.Header>
+        <Modal.Body className="bg-white">
+          <div className="flex justify-center">
+            {Array.from({ length: selectedReview?.attributes?.rate }).map(
+              (_, i) => (
+                <Image
+                  key={i}
+                  src="/assets/icons/star.svg"
+                  width={18}
+                  height={18}
+                  alt="star"
+                  className="me-1"
+                />
+              )
+            )}
+          </div>
+          <div className={`${cx(poppins, poppins.className)}`}>
+            <h3 className="font-semibold">
+              {selectedReview?.attributes?.username}
+            </h3>
+            <p className="mb-4">{selectedReview?.attributes?.desc}</p>
+          </div>
+          <div>
+            <Carousel
+              additionalTransfrom={0}
+              arrows
+              centerMode={false}
+              className=""
+              containerClass="container-with-dots"
+              dotListClass=""
+              draggable
+              focusOnSelect={false}
+              infinite
+              itemClass=""
+              keyBoardControl
+              minimumTouchDrag={80}
+              pauseOnHover
+              customDot={<CustomDot />}
+              renderArrowsWhenDisabled={false}
+              renderButtonGroupOutside={false}
+              renderDotsOutside={false}
+              responsive={responsiveCstm}
+              rewind={false}
+              rewindWithAnimation={false}
+              rtl={false}
+              shouldResetAutoplay
+              showDots={true}
+              sliderClass=""
+              slidesToSlide={1}
+              swipeable
+            >
+              {selectedReview?.attributes?.images?.data?.length &&
+                selectedReview.attributes.images.data.map(
+                  (item: any, index: any) => (
+                    <div key={index}>
+                      <Image
+                        src={`${STRAPI_URL}${item.attributes.url}`}
+                        width={1000}
+                        height={600}
+                        className="bg-cover bg-center w-full h-[300px] pb-4"
+                        alt="banners"
+                      />
+                    </div>
+                  )
+                )}
+            </Carousel>
+          </div>
+        </Modal.Body>
+        <Modal.Footer
+          className={`bg-white p-2 border-t-1 flex justify-center ${cx(
+            poppins,
+            poppins.className
+          )}`}
+        >
+          <button onClick={() => closeModal()}>
+            <h1 className="text-[#44CBEB] font-bold">Tutup</h1>
+          </button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

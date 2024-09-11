@@ -9,6 +9,8 @@ import React, { Suspense } from "react";
 import Loading from "./loading";
 import { UserProvider } from "@/components/authContext";
 import { CategoryProps } from "@/types/categories";
+import { FooterProps } from "@/types/footer";
+import { CustomerServicesProps } from "@/types/customerServices";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,16 +51,34 @@ export default async function RootLayout({
     },
   });
 
+  const customerServices: CustomerServicesProps = await getData({
+    path: `customer-services`,
+  });
+
+  const header: FooterProps = await getData({
+    path: `header`,
+  });
+
+  const footer: FooterProps = await getData({
+    path: `footer`,
+  });
+
   return (
     <html lang="en">
       <link rel="shortcut icon" href="/favicon.ico" />
       <body suppressHydrationWarning={true}>
         <UserProvider>
-          <Navbar path={path} loginUrl={urlLogin} categories={categories} />
+          <Navbar
+            path={path}
+            loginUrl={urlLogin}
+            categories={categories}
+            customerServices={customerServices}
+            header={header}
+          />
           <Suspense fallback={<Loading />}>
             <div>{children}</div>
           </Suspense>
-          <Footer />
+          <Footer footer={footer} categories={categories} />
         </UserProvider>
       </body>
     </html>

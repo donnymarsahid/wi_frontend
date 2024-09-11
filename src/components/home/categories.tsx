@@ -7,6 +7,7 @@ import { poppins } from "@/app/fonts";
 import { CategoryProps } from "@/types/categories";
 import { STRAPI_URL } from "@/app/utils/constans";
 import { ServiceProps } from "@/types/services";
+import Link from "next/link";
 
 type CategoriesSectionProps = {
   categories: CategoryProps;
@@ -30,7 +31,7 @@ export default function Categories({
               <div>
                 <div className="grid gap-4 md:grid-cols-3 grid-cols-2">
                   {categories.data.map((item, index) => (
-                    <div>
+                    <Link href={`/category/${item.attributes.slug}`}>
                       <div
                         key={index}
                         className="relative mt-4 overflow-hidden rounded-lg cursor-pointer"
@@ -52,7 +53,7 @@ export default function Categories({
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

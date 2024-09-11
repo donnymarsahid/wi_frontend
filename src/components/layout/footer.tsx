@@ -5,46 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
+import { FooterProps } from "@/types/footer";
+import { CategoryProps } from "@/types/categories";
 
-export const Footer = () => {
-  const categories = [
-    {
-      link: "#",
-      title: "Wallpaper",
-    },
-    {
-      link: "#",
-      title: "Wallpanel",
-    },
-    {
-      link: "#",
-      title: "Lantai Vinyl & SPC",
-    },
-    {
-      link: "#",
-      title: "Kaca Sanblast",
-    },
-    {
-      link: "#",
-      title: "Karpet & Rumput Sintetis",
-    },
-    {
-      link: "#",
-      title: "Tirai Blind",
-    },
-    {
-      link: "#",
-      title: "Lem & Sealant",
-    },
-    {
-      link: "#",
-      title: "Aksesoris Lantai Vinyl",
-    },
-    {
-      link: "#",
-      title: "Decking Outdoor",
-    },
-  ];
+type SectionFooterProps = {
+  footer: FooterProps;
+  categories: CategoryProps;
+};
+
+export const Footer = ({ footer, categories }: SectionFooterProps) => {
   return (
     <>
       <footer
@@ -64,30 +33,35 @@ export const Footer = () => {
                   Kantor Pusat
                 </h1>
                 <p className="md:text-xs text-[10px]">
-                  Ruko The Metro Broadway Blok 6 JK, Jalan Mandara Permai VII,
-                  Kapuk Muara, Penjaringan, Kota Jkt Utara, DKI Jakarta 14460,
-                  Indonesia
+                  {footer.data.attributes.office_center}
                 </p>
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE]">
                   Kantor cabang
                 </h1>
                 <p className="text-[10px] md:text-xs">
-                  Jl. Otto Iskandar Dinata No.463, Nyengseret, Kec. Astanaanyar,
-                  Kota Bandung, Jawa Barat 40242
+                  {footer.data.attributes.office_branch}
                 </p>
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE]">
-                  021 3005 1603
+                  <Link
+                    href={`tel:${footer.data.attributes.office_telp.replace(
+                      /\s+/g,
+                      ""
+                    )}`}
+                    target="blank"
+                  >
+                    {footer.data.attributes.office_telp}
+                  </Link>
                 </h1>
                 <p className="text-[10px] md:text-xs">
-                  wallpaperindonesia.adm@gmail.com
+                  {footer.data.attributes.email}
                 </p>
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE] flex flex-col lg:hidden">
                   Jam Operasional
                 </h1>
                 <div className="text-xs flex flex-col lg:hidden">
-                  <p className="text-[10px] md:text-xs">Senin s/d Minggu</p>
-                  <p className="text-[10px] md:text-xs">09:00 - 17:00</p>
-                  <p className="text-[10px] md:text-xs">Tanggal Merah Libur</p>
+                  <p className="text-[10px] md:text-xs">
+                    {footer.data.attributes.operating_hours}
+                  </p>
                 </div>
                 <h1 className="uppercase font-bold text-xs md:text-sm lg:text-lg text-[#5BC0DE] md:hidden mt-4">
                   AKUN SAYA
@@ -142,20 +116,36 @@ export const Footer = () => {
               <div className="mt-4">
                 <ul>
                   <li className="mb-4">
-                    <p className="text-[10px] md:text-xs">Login</p>
+                    <Link
+                      href={"#"}
+                      className="text-[10px] hover:text-[#44CBEB] md:text-xs"
+                    >
+                      Login
+                    </Link>
                   </li>
                   <li className="mb-4">
-                    <p className="text-[10px] md:text-xs">Keranjang Belanja</p>
+                    <Link
+                      href={"#"}
+                      className="text-[10px] hover:text-[#44CBEB] md:text-xs"
+                    >
+                      Keranjang Belanja
+                    </Link>
                   </li>
                   <li className="mb-4">
-                    <p className="text-[10px] md:text-xs">
+                    <Link
+                      href={"#"}
+                      className="text-[10px] hover:text-[#44CBEB] md:text-xs"
+                    >
                       Konfirmasi Pembayaran
-                    </p>
+                    </Link>
                   </li>
                   <li className="mb-4">
-                    <p className="text-[10px] md:text-xs">
+                    <Link
+                      href={"#"}
+                      className="text-[10px] hover:text-[#44CBEB] md:text-xs"
+                    >
                       Konfirmasi Terima Barang
-                    </p>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -168,10 +158,12 @@ export const Footer = () => {
               </h1>
               <div className="mt-4">
                 <ul>
-                  {categories.map((item, index) => (
+                  {categories.data.map((item, index) => (
                     <li className="mb-4" key={index}>
-                      <Link href={item.link}>
-                        <p className="text-[10px] md:text-xs">{item.title}</p>
+                      <Link href={`/category/${item.attributes.slug}`}>
+                        <p className="text-[10px] md:text-xs hover:text-[#44CBEB]">
+                          {item.attributes.title}
+                        </p>
                       </Link>
                     </li>
                   ))}
@@ -183,7 +175,7 @@ export const Footer = () => {
       </footer>
       <div className={`${cx(poppins, poppins.className)} p-4 py-10`}>
         <div className="mx-auto container md:text-sm text-xs">
-          <p>Copyright © 2024 wallpaperindonesia.com All Rights Reserved.</p>
+          <p> {footer.data.attributes.copyright}</p>
         </div>
       </div>
     </>
