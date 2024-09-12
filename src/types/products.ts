@@ -1,26 +1,32 @@
-export interface WallpaperProps {
-  data: WallpaperPropsDaum;
+export interface ProductsProps {
+  data: ProductsPropsDaum[];
   meta: Meta;
 }
 
-export interface WallpaperPropsDaum {
+export interface ProductsPropsDaum {
   id: number;
   attributes: Attributes;
 }
 
 export interface Attributes {
+  title: string;
+  desc: any;
+  size_width: string;
+  size_height: string;
+  price: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  youtubeChannel: string;
-  banners: Banners;
+  slug: string;
+  images: Images;
+  discount?: Discount;
 }
 
-export interface Banners {
-  data: Daum[];
+export interface Images {
+  data: Daum2[];
 }
 
-export interface Daum {
+export interface Daum2 {
   id: number;
   attributes: Attributes2;
 }
@@ -47,8 +53,6 @@ export interface Attributes2 {
 export interface Formats {
   thumbnail: Thumbnail;
   small: Small;
-  medium: Medium;
-  large: Large;
 }
 
 export interface Thumbnail {
@@ -75,28 +79,25 @@ export interface Small {
   url: string;
 }
 
-export interface Medium {
-  name: string;
-  hash: string;
-  ext: string;
-  mime: string;
-  path: any;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
+export interface Discount {
+  id: number;
+  type: string;
+  value: string;
 }
 
-export interface Large {
-  name: string;
-  hash: string;
-  ext: string;
-  mime: string;
-  path: any;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
+export interface Meta {
+  pagination: Pagination;
 }
 
-export interface Meta {}
+export interface Pagination {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
+export interface DiscountCustom {
+  id: number;
+  type: string;
+  value: number;
+}

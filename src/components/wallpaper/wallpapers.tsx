@@ -6,9 +6,11 @@ import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import CarouselBannerPromoProduct from "../atoms/carouselbannerpromoproduct";
 import Link from "next/link";
+import { SubCategoryPropsDaum } from "@/types/subCategories";
+import { STRAPI_URL } from "@/app/utils/constans";
 
 type WallpaperPageProps = {
-  data: any;
+  data: SubCategoryPropsDaum;
 };
 
 export default function Wallpapers({ data }: WallpaperPageProps) {
@@ -19,19 +21,20 @@ export default function Wallpapers({ data }: WallpaperPageProps) {
           <div className="md:mx-10 mx-4">
             <div className="flex items-start flex-col">
               <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
-                {data.title}
+                {data.attributes.name}
               </h1>
               <div className="md:h-[3px] h-[1px] md:w-[300px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
-                <div className="grid gap-4 2xl:grid-cols-6 md:grid-cols-4 grid-cols-2">
-                  {data.wallpapers.map((item: any, index: any) => (
+                {/* <div className="grid gap-4 2xl:grid-cols-6 md:grid-cols-4 grid-cols-2"> */}
+                <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
+                  {data.attributes.wallpaper_items.data.map((item, index) => (
                     <Link href={""}>
                       <div
                         key={index}
                         className="relative mt-4 overflow-hidden cursor-pointer"
                       >
                         <Image
-                          src={item.url}
+                          src={`${STRAPI_URL}${item.attributes.thumbnail.data.attributes.url}`}
                           width={400}
                           height={400}
                           alt="wall"
@@ -47,7 +50,7 @@ export default function Wallpapers({ data }: WallpaperPageProps) {
                             )}`}
                           >
                             <h3 className="p-2 bg-white bg-opacity-75 border-[2px] rounded-lg border-[#44CBEB] lg:text-[16px] text-[10px] text-center">
-                              {item.title}
+                            {item.attributes.name}
                             </h3>
                           </div>
                         </div>

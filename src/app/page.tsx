@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     path: `promos`,
     params: {
       populate: "thumbnail",
-      "sort[0]": "date:desc",
+      "sort[0]": "createdAt:desc",
     },
   });
 

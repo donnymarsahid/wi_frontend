@@ -1,15 +1,33 @@
-export interface PromosProps {
-    data: PromosPropsDaum[]
+export interface SubCategoryProps {
+    data: SubCategoryPropsDaum[]
     meta: Meta
   }
   
-  export interface PromosPropsDaum {
+  export interface SubCategoryPropsDaum {
     id: number
     attributes: Attributes
   }
   
   export interface Attributes {
-    title: string
+    name: string
+    slug: string
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
+    wallpaper_items: WallpaperItems
+  }
+  
+  export interface WallpaperItems {
+    data: Daum2[]
+  }
+  
+  export interface Daum2 {
+    id: number
+    attributes: Attributes2
+  }
+  
+  export interface Attributes2 {
+    name: string
     slug: string
     createdAt: string
     updatedAt: string
@@ -23,10 +41,10 @@ export interface PromosProps {
   
   export interface Data {
     id: number
-    attributes: Attributes2
+    attributes: Attributes3
   }
   
-  export interface Attributes2 {
+  export interface Attributes3 {
     name: string
     alternativeText: any
     caption: any
@@ -48,8 +66,6 @@ export interface PromosProps {
   export interface Formats {
     thumbnail: Thumbnail2
     small: Small
-    medium: Medium
-    large: Large
   }
   
   export interface Thumbnail2 {
@@ -65,30 +81,6 @@ export interface PromosProps {
   }
   
   export interface Small {
-    name: string
-    hash: string
-    ext: string
-    mime: string
-    path: any
-    width: number
-    height: number
-    size: number
-    url: string
-  }
-  
-  export interface Medium {
-    name: string
-    hash: string
-    ext: string
-    mime: string
-    path: any
-    width: number
-    height: number
-    size: number
-    url: string
-  }
-  
-  export interface Large {
     name: string
     hash: string
     ext: string

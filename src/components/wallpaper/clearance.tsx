@@ -5,26 +5,21 @@ import Image from "next/image";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import Link from "next/link";
+import { ProductsProps, ProductsPropsDaum } from "@/types/products";
+import { STRAPI_URL } from "@/app/utils/constans";
+import {
+  calculateDiscount,
+  formatNumberToLetter,
+  formatRupiah,
+} from "@/app/lib/utils";
 
-export default function Clearance() {
-  const wallpapers = [
-    {
-      url: "/assets/dummy/pr-wallpaper-1.png",
-      title: "Wallpaper",
-    },
-    {
-      url: "/assets/dummy/pr-wallpaper-1.png",
-      title: "Lantai Vinyl & SPC",
-    },
-    {
-      url: "/assets/dummy/pr-wallpaper-1.png",
-      title: "Wallpanel",
-    },
-    {
-      url: "/assets/dummy/pr-wallpaper-1.png",
-      title: "Karpet & Rumput Sintetis",
-    },
-  ];
+type HeroWallpaperClearanceProps = {
+  productsClearance: ProductsPropsDaum[];
+};
+
+export default function Clearance({
+  productsClearance,
+}: HeroWallpaperClearanceProps) {
   return (
     <>
       <div className="mt-10">
@@ -40,25 +35,27 @@ export default function Clearance() {
               <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
                 <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                  {wallpapers.map((item, index) => (
-                    <Link href={""}>
+                  {productsClearance.map((item, index) => (
+                    <Link href={item.attributes?.slug || ""}>
                       <div
                         key={index}
                         className="relative mt-4 overflow-hidden cursor-pointer"
                       >
-                        <Image
-                          src={item.url}
-                          width={400}
-                          height={400}
-                          alt="wall"
-                          className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                        />
+                        {item.attributes?.images?.data[0]?.attributes?.url && (
+                          <Image
+                            src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                            width={400}
+                            height={400}
+                            alt="wall"
+                            className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+                          />
+                        )}
                       </div>
                       <div>
                         <div className="w-full">
                           <div className="bg-white">
                             <h3 className="font-bold lucida-bright p-2 border-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-center">
-                              {item.title}
+                              {item.attributes.title}
                             </h3>
                             <div
                               className={`${cx(
@@ -68,12 +65,23 @@ export default function Clearance() {
                             >
                               <div className="md:text-xs text-[9px] text-[#474747]">
                                 <p>Ukuran</p>
-                                <p>Lebar: 1.06 meter</p>
-                                <p>Panjang: 1.06 meter</p>
+                                <p>Lebar: {item.attributes.size_width}</p>
+                                <p>Panjang: {item.attributes.size_height}</p>
                               </div>
                               <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                                 <p className="uppercase">Disc</p>
-                                <p>50%</p>
+                                <p>
+                                  {item.attributes.discount?.type ==
+                                  "discount_percentage"
+                                    ? `${item.attributes.discount?.value}%`
+                                    : formatNumberToLetter(
+                                        item.attributes.discount?.value
+                                          ? parseFloat(
+                                              item.attributes.discount?.value
+                                            )
+                                          : 0
+                                      )}
+                                </p>
                               </div>
                             </div>
                             <div
@@ -83,16 +91,35 @@ export default function Clearance() {
                               )} flex justify-between items-center p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
                             >
                               <div className="text-sm">
-                                <div>
+                                {/* START */}
+                                <div
+                                  className={`${
+                                    item.attributes.discount ? "" : "hidden"
+                                  } flex`}
+                                >
                                   <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
-                                    Rp. 600.000
+                                    {formatRupiah(
+                                      parseFloat(item.attributes.price)
+                                    )}
                                   </p>
                                 </div>
+                                {/* END */}
                               </div>
                               <div className="text-sm">
                                 <div>
                                   <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                                    Rp. 300.000 / Roll
+                                    {calculateDiscount(
+                                      parseFloat(item.attributes.price),
+                                      item.attributes.discount?.type
+                                        ? item.attributes.discount?.type
+                                        : "",
+                                      item.attributes.discount?.value
+                                        ? parseFloat(
+                                            item.attributes.discount?.value
+                                          )
+                                        : 0
+                                    )}{" "}
+                                    / Roll
                                   </p>
                                 </div>
                               </div>

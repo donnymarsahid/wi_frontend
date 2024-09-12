@@ -5,8 +5,13 @@ import Image from "next/image";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import Link from "next/link";
+import { HomepageProps } from "@/types/homepage";
+import { WallpaperProps } from "@/types/wallpaper";
 
-export default function CallculatorWallpaper() {
+type CallculatorWallpaperSectionProps = {
+  wallpaper: WallpaperProps;
+};
+export default function CallculatorWallpaper({wallpaper}: CallculatorWallpaperSectionProps) {
   return (
     <>
       <div className="mt-10 mb-4">
@@ -30,7 +35,8 @@ export default function CallculatorWallpaper() {
               </div>
             </Link>
             <Link
-              href={""}
+              href={wallpaper.data.attributes.youtubeChannel}
+              target="blank"
               className="md:w-[49%] w-full md:mt-0 mt-2 bg-[#F5F5F5] h-[100px] px-6 flex items-center border-2 border-[#10D3A2] rounded-lg scale-100 hover:scale-105 transition duration-2"
             >
               <Image
