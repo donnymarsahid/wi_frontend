@@ -12,14 +12,18 @@ import {
   formatNumberToLetter,
   formatRupiah,
 } from "@/app/lib/utils";
+import { CategoryProps } from "@/types/categories";
 
-type HeroWallpaperClearanceProps = {
-  productsClearance: ProductsPropsDaum[];
+type HeroCategoryClearanceProps = {
+  categories: CategoryProps;
 };
 
-export default function Clearance({
-  productsClearance,
-}: HeroWallpaperClearanceProps) {
+export default function Clearance({ categories }: HeroCategoryClearanceProps) {
+  const productsClearanceResult: ProductsPropsDaum[] =
+    categories.data[0].attributes.products.data.filter(
+      (item) => item.attributes.discount
+    );
+
   return (
     <>
       <div className="mt-10">
@@ -35,7 +39,7 @@ export default function Clearance({
               <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
                 <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                  {productsClearance.map((item, index) => (
+                  {productsClearanceResult.map((item, index) => (
                     <Link href={item.attributes?.slug || ""}>
                       <div
                         key={index}

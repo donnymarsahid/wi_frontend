@@ -6,9 +6,10 @@ import "react-multi-carousel/lib/styles.css";
 import Link from "next/link";
 import { FlooringProps } from "@/types/flooring";
 import { STRAPI_URL } from "@/app/utils/constans";
+import { CategoryProps } from "@/types/categories";
 
-type HeroFlooringProps = {
-  flooring: FlooringProps;
+type HeroCategoryProps = {
+  categories: CategoryProps;
 };
 
 const responsive = {
@@ -81,8 +82,8 @@ const styles = `
 `;
 
 export default function CarouselBannerFlooring({
-  flooring,
-}: HeroFlooringProps) {
+  categories,
+}: HeroCategoryProps) {
   return (
     <>
       <style>{styles}</style>
@@ -119,17 +120,18 @@ export default function CarouselBannerFlooring({
           slidesToSlide={1}
           swipeable
         >
-          {flooring.data.attributes.banners.data.map((item, index) => (
-            <div key={index}>
-              <Image
-                src={`${STRAPI_URL}${item.attributes.url}`}
-                width={1000}
-                height={600}
-                className="bg-cover bg-center w-full h-full pb-4"
-                alt="banners"
-              />
-            </div>
-          ))}
+          {categories.data[0].attributes.banners.data?.length &&
+            categories.data[0].attributes.banners.data.map((item, index) => (
+              <div key={index}>
+                <Image
+                  src={`${STRAPI_URL}${item.attributes.url}`}
+                  width={1000}
+                  height={600}
+                  className="bg-cover bg-center w-full h-full pb-4"
+                  alt="banners"
+                />
+              </div>
+            ))}
         </Carousel>
       </div>
     </>

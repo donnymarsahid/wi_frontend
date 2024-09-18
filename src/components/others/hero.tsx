@@ -8,7 +8,7 @@ type HeroCategoryProps = {
   categories: CategoryProps;
 };
 
-export default function HeroCategory({ categories }: HeroCategoryProps) {
+export default function HeroOthers({ categories }: HeroCategoryProps) {
   return (
     <div>
       <div className="container mx-auto mt-[120px] md:mt-[150px] lg:mt-[0px]">

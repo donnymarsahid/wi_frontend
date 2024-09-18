@@ -6,9 +6,10 @@ import "react-multi-carousel/lib/styles.css";
 import Link from "next/link";
 import { WallpaperProps } from "@/types/wallpaper";
 import { STRAPI_URL } from "@/app/utils/constans";
+import { CategoryProps } from "@/types/categories";
 
-type HeroWallpaperProps = {
-  wallpaper: WallpaperProps;
+type HeroCategoryProps = {
+  categories: CategoryProps;
 };
 
 const responsive = {
@@ -81,8 +82,8 @@ const styles = `
 `;
 
 export default function CarouselBannerWallpaper({
-  wallpaper,
-}: HeroWallpaperProps) {
+  categories,
+}: HeroCategoryProps) {
   return (
     <>
       <style>{styles}</style>
@@ -119,17 +120,18 @@ export default function CarouselBannerWallpaper({
           slidesToSlide={1}
           swipeable
         >
-          {wallpaper.data.attributes.banners.data.map((item, index) => (
-            <div key={index}>
-              <Image
-                src={`${STRAPI_URL}${item.attributes.url}`}
-                width={1000}
-                height={600}
-                className="bg-cover bg-center w-full h-full pb-4"
-                alt="banners"
-              />
-            </div>
-          ))}
+          {categories.data[0].attributes.banners.data?.length &&
+            categories.data[0].attributes.banners.data.map((item, index) => (
+              <div key={index}>
+                <Image
+                  src={`${STRAPI_URL}${item.attributes.url}`}
+                  width={1000}
+                  height={600}
+                  className="bg-cover bg-center w-full h-full pb-4"
+                  alt="banners"
+                />
+              </div>
+            ))}
         </Carousel>
       </div>
     </>

@@ -273,7 +273,11 @@ export default function Navbar({
                           >
                             {categories.data.map((product, i) => (
                               <Link
-                                href={`/category/${product.attributes.slug}`}
+                                href={`/category/${
+                                  product.attributes.keyPageCondition
+                                    ? product.attributes.keyPageCondition
+                                    : product.attributes.slug
+                                }`}
                                 key={i}
                                 className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md"
                               >

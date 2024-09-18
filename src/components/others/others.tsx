@@ -18,7 +18,7 @@ type WallpaperPageProps = {
   data: Daum5;
 };
 
-export default function Floors({ data }: WallpaperPageProps) {
+export default function Others({ data }: WallpaperPageProps) {
   return (
     <>
       {data.attributes.name.toLowerCase().includes("accessories") ? (
@@ -26,7 +26,7 @@ export default function Floors({ data }: WallpaperPageProps) {
           <div className="mt-10">
             <div className="container mx-auto">
               <div className="md:mx-10 mx-4">
-                <div className=" ">
+                <div>
                   <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
                     {data.attributes.name}
                   </h1>

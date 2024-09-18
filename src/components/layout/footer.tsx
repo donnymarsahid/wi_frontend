@@ -160,7 +160,13 @@ export const Footer = ({ footer, categories }: SectionFooterProps) => {
                 <ul>
                   {categories.data.map((item, index) => (
                     <li className="mb-4" key={index}>
-                      <Link href={`/category/${item.attributes.slug}`}>
+                      <Link
+                        href={`/category/${
+                          item.attributes.keyPageCondition
+                            ? item.attributes.keyPageCondition
+                            : item.attributes.slug
+                        }`}
+                      >
                         <p className="text-[10px] md:text-xs hover:text-[#44CBEB]">
                           {item.attributes.title}
                         </p>

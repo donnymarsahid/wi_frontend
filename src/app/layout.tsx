@@ -47,7 +47,6 @@ export default async function RootLayout({
     params: {
       populate: "image",
       "sort[0]": "createdAt:desc",
-      "pagination[pageSize]": "6",
     },
   });
 
