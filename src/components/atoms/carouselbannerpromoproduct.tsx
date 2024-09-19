@@ -139,7 +139,7 @@ export default function CarouselBannerPromoProduct({
                     alt="banners"
                   />
                   <Link
-                    href={`/promos/${child.attributes.slug}`}
+                    href={`/promo/${child.attributes.slug}`}
                     className="absolute top-0 w-full h-full rounded-lg"
                   >
                     <span className="absolute inset-0 bg-black opacity-0 group-hover:opacity-25 rounded-lg transition"></span>

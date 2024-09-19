@@ -36,7 +36,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   searchParams: PageProps["searchParams"];
 }) {
-  const path = buildPathWithQueryParams("/categories", searchParams);
+  const path = buildPathWithQueryParams("/products", searchParams);
 
   const { url: urlLogin } = await getData({
     path: "/strapi-google-auth/init",

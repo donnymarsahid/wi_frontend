@@ -51,11 +51,11 @@ export default function Navbar({
   const link = [
     {
       title: "Beranda",
-      url: "#",
+      url: "/",
     },
     {
       title: "Produk",
-      url: "#",
+      url: "/products",
     },
     {
       title: "Berita/Inspirasi",
@@ -300,13 +300,15 @@ export default function Navbar({
                       className="outline-none py-2 ps-2 pe-8 rounded-md border border-2 border-[#2FCFCC] text-xs relative w-[300px]"
                       onChange={handleSearch}
                     />
-                    <Image
-                      src="/assets/icons/search.svg"
-                      width={18}
-                      height={18}
-                      alt="wa-logo"
-                      className="absolute top-2 right-2"
-                    />
+                    <button>
+                      <Image
+                        src="/assets/icons/search.svg"
+                        width={18}
+                        height={18}
+                        alt="wa-logo"
+                        className="absolute top-2 right-2"
+                      />
+                    </button>
                   </div>
                 </form>
               </div>
@@ -348,13 +350,15 @@ export default function Navbar({
                       className="outline-none py-2 ps-2 pe-8 rounded-md border border-2 border-[#2FCFCC] text-xs relative w-[300px] md:w-[500px]"
                       onChange={handleSearch}
                     />
-                    <Image
-                      src="/assets/icons/search.svg"
-                      width={18}
-                      height={18}
-                      alt="wa-logo"
-                      className="absolute top-2 right-2"
-                    />
+                    <button>
+                      <Image
+                        src="/assets/icons/search.svg"
+                        width={18}
+                        height={18}
+                        alt="wa-logo"
+                        className="absolute top-2 right-2"
+                      />
+                    </button>
                   </div>
                 </form>
               </div>
@@ -389,7 +393,9 @@ export default function Navbar({
           <ul>
             {link.map((item, index) => (
               <li className="p-4 border-b-[1px] border-white-100" key={index}>
-                <p className="text-white text-sm">{item.title}</p>
+                <Link href={item.url}>
+                  <p className="text-white text-sm">{item.title}</p>
+                </Link>
               </li>
             ))}
           </ul>

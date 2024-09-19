@@ -86,54 +86,62 @@ export default function CarouselBannerFlooring({
 }: HeroCategoryProps) {
   return (
     <>
-      <style>{styles}</style>
-      <div className="carousel-container">
-        <Carousel
-          additionalTransfrom={0}
-          arrows
-          autoPlay
-          autoPlaySpeed={4500}
-          customTransition="2s"
-          transitionDuration={5000}
-          centerMode={false}
-          className=""
-          containerClass="container-with-dots"
-          dotListClass=""
-          draggable
-          focusOnSelect={false}
-          infinite
-          itemClass=""
-          keyBoardControl
-          minimumTouchDrag={80}
-          pauseOnHover
-          customDot={<CustomDot />}
-          renderArrowsWhenDisabled={false}
-          renderButtonGroupOutside={false}
-          renderDotsOutside={false}
-          responsive={responsive}
-          rewind={false}
-          rewindWithAnimation={false}
-          rtl={false}
-          shouldResetAutoplay
-          showDots={true}
-          sliderClass=""
-          slidesToSlide={1}
-          swipeable
-        >
-          {categories.data[0].attributes.banners.data?.length &&
-            categories.data[0].attributes.banners.data.map((item, index) => (
-              <div key={index}>
-                <Image
-                  src={`${STRAPI_URL}${item.attributes.url}`}
-                  width={1000}
-                  height={600}
-                  className="bg-cover bg-center w-full h-full pb-4"
-                  alt="banners"
-                />
-              </div>
-            ))}
-        </Carousel>
-      </div>
+      {categories.data[0].attributes?.banners?.data?.length ? (
+        <>
+          <style>{styles}</style>
+          <div className="carousel-container">
+            <Carousel
+              additionalTransfrom={0}
+              arrows
+              autoPlay
+              autoPlaySpeed={4500}
+              customTransition="2s"
+              transitionDuration={5000}
+              centerMode={false}
+              className=""
+              containerClass="container-with-dots"
+              dotListClass=""
+              draggable
+              focusOnSelect={false}
+              infinite
+              itemClass=""
+              keyBoardControl
+              minimumTouchDrag={80}
+              pauseOnHover
+              customDot={<CustomDot />}
+              renderArrowsWhenDisabled={false}
+              renderButtonGroupOutside={false}
+              renderDotsOutside={false}
+              responsive={responsive}
+              rewind={false}
+              rewindWithAnimation={false}
+              rtl={false}
+              shouldResetAutoplay
+              showDots={true}
+              sliderClass=""
+              slidesToSlide={1}
+              swipeable
+            >
+              {categories.data[0].attributes?.banners?.data?.length &&
+                categories.data[0].attributes.banners.data.map(
+                  (item, index) => (
+                    <div key={index}>
+                      <Image
+                        src={`${STRAPI_URL}${item.attributes.url}`}
+                        width={1000}
+                        height={600}
+                        className="bg-cover bg-center w-full h-full pb-4"
+                        alt="banners"
+                      />
+                    </div>
+                  )
+                )}
+            </Carousel>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }

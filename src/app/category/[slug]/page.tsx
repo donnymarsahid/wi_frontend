@@ -1,3 +1,4 @@
+import { poppins } from "@/app/fonts";
 import { getData } from "@/app/utils/fetching";
 import Accessories from "@/components/flooring/accessories";
 import CategoriesFlooring from "@/components/flooring/categories";
@@ -15,6 +16,8 @@ import { CategoryProps } from "@/types/categories";
 import { HomepageProps } from "@/types/homepage";
 import { SubCategoryProps } from "@/types/subCategories";
 import { WallpaperProps } from "@/types/wallpaper";
+import Image from "next/image";
+import cx from "classnames";
 
 type Slug = { params: { slug: string } };
 
@@ -79,10 +82,32 @@ export default async function SlugProducts({ params }: Slug) {
         <>
           <main className="mt-[100px]">
             <HeroOthers categories={categories} />
-            {categories.data[0].attributes?.sub_categories?.data.map(
-              (item, index) => (
-                <Others data={item} key={index} />
-              )
+            {categories.data[0].attributes?.sub_categories?.data?.length &&
+              categories.data[0].attributes?.sub_categories?.data.map(
+                (item, index) => <Others data={item} key={index} />
+              )}
+
+            {!categories.data[0].attributes?.sub_categories?.data?.length && (
+              <>
+                <div
+                  className={`w-full flex justify-center my-24 ${cx(
+                    poppins,
+                    poppins.className
+                  )}`}
+                >
+                  <div>
+                    <Image
+                      src="/assets/icons/empty.jpg"
+                      width={200}
+                      height={200}
+                      alt="logo-horizontal"
+                    />
+                    <h1 className="text-center font-bold text-[#44CBEB]">
+                      Data Kosong!
+                    </h1>
+                  </div>
+                </div>
+              </>
             )}
             <SocmedFlooring homepage={homepage} />
           </main>

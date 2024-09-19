@@ -20,13 +20,13 @@ export default function CategoriesFlooring({ categories }: HeroCategoryProps) {
           <div className="md:mx-10 mx-4">
             <div>
               <div>
-                <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 grid-cols-2">
+                <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 grid-cols-3">
                   {categories.data[0].attributes.sub_categories.data.map(
                     (item, index) => (
                       <Link href={""} className="mt-2">
                         <div
                           key={index}
-                          className="relative mt-4 overflow-hidden cursor-pointer rounded-lg h-[98px]"
+                          className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px]"
                         >
                           <Image
                             src={`${STRAPI_URL}${item.attributes.thumbnail.data?.attributes.url}`}
@@ -39,7 +39,7 @@ export default function CategoriesFlooring({ categories }: HeroCategoryProps) {
                         <div>
                           <div className="w-full">
                             <div
-                              className={`relative mt-[-69px] flex justify-center ${cx(
+                              className={`relative md:mt-[-69px] mt-[-48px] flex justify-center ${cx(
                                 poppins,
                                 poppins.className
                               )}`}
