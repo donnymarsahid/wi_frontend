@@ -45,7 +45,7 @@ export default function Content({ data }: PromosPageProps) {
                                   width={400}
                                   height={400}
                                   alt="wall"
-                                  className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+                                  className="w-full h-[284px] object-cover transform transition-transform duration-500 hover:scale-110"
                                 />
                               )}
                             </div>

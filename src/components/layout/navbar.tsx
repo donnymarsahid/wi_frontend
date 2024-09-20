@@ -170,7 +170,9 @@ export default function Navbar({
                           href={"/profile"}
                           className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center bg-[#0EB289] hover:bg-[#2EED4F] text-white transition"
                         >
-                          <p className="lg:text-xs text-[10px] me-1">Profile</p>
+                          <p className="lg:text-xs text-[10px] me-1">
+                            Hi! {value.username}
+                          </p>
                           <Image
                             src="/assets/icons/profile.svg"
                             width={15}
@@ -367,7 +369,7 @@ export default function Navbar({
         </div>
       </div>
       <div
-        className={`fixed top-0 right-0 h-full bg-[#44CBEB] z-[99999] duration-300 ${cx(
+        className={`fixed top-0 right-0 h-full bg-[#44CBEB] z-[99999999] duration-300 ${cx(
           poppins,
           poppins.className
         )} ${open ? "w-[60%]" : "w-[0px]"}`}
@@ -441,7 +443,7 @@ export default function Navbar({
         className={`${cx(
           poppins,
           poppins.className
-        )} fixed right-0 top-0 z-[9999] h-screen w-full border-r-2 border-gray-200 bg-black bg-opacity-50 ${
+        )} fixed right-0 top-0 z-[9999999] h-screen w-full border-r-2 border-gray-200 bg-black bg-opacity-50 ${
           !open && "hidden"
         } `}
       ></div>

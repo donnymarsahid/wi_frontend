@@ -13,6 +13,7 @@ import {
   formatRupiah,
 } from "@/app/lib/utils";
 import { CategoryProps } from "@/types/categories";
+import CardProduct from "../atoms/cardProduct";
 
 type HeroCategoryClearanceProps = {
   categories: CategoryProps;
@@ -40,105 +41,7 @@ export default function Clearance({ categories }: HeroCategoryClearanceProps) {
               <div>
                 <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                   {productsClearanceResult.map((item, index) => (
-                    <Link href={item.attributes?.slug || ""}>
-                      <div
-                        key={index}
-                        className="relative mt-4 overflow-hidden cursor-pointer"
-                      >
-                        {item.attributes?.images?.data[0]?.attributes?.url && (
-                          <Image
-                            src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
-                            width={400}
-                            height={400}
-                            alt="wall"
-                            className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                          />
-                        )}
-                      </div>
-                      <div>
-                        <div className="w-full">
-                          <div className="bg-white">
-                            <h3 className="font-bold lucida-bright p-2 border-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-center">
-                              {item.attributes.title}
-                            </h3>
-                            <div
-                              className={`${cx(
-                                poppins,
-                                poppins.className
-                              )} flex justify-between items-center p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
-                            >
-                              <div className="md:text-xs text-[9px] text-[#474747]">
-                                <p>Ukuran</p>
-                                <p>Lebar: {item.attributes.size_width}</p>
-                                <p>Panjang: {item.attributes.size_height}</p>
-                              </div>
-                              {item.attributes.discount ? (
-                                <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
-                                  <p className="uppercase">Disc</p>
-                                  <p>
-                                    {item.attributes.discount?.type ==
-                                    "discount_percentage"
-                                      ? `${item.attributes.discount?.value}%`
-                                      : formatNumberToLetter(
-                                          item.attributes.discount?.value
-                                            ? parseFloat(
-                                                item.attributes.discount?.value
-                                              )
-                                            : 0
-                                        )}
-                                  </p>
-                                </div>
-                              ) : (
-                                <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
-                                  <p className="text-transparent">Disc</p>
-                                  <p>-</p>
-                                </div>
-                              )}
-                            </div>
-                            <div
-                              className={`${cx(
-                                poppins,
-                                poppins.className
-                              )} flex justify-between items-center p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
-                            >
-                              <div className="text-sm">
-                                {/* START */}
-                                <div
-                                  className={`${
-                                    item.attributes.discount ? "" : "hidden"
-                                  } flex`}
-                                >
-                                  <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
-                                    {formatRupiah(
-                                      parseFloat(item.attributes.price)
-                                    )}
-                                  </p>
-                                </div>
-                                {/* END */}
-                              </div>
-                              <div className="text-sm">
-                                <div>
-                                  <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                                    {calculateDiscount(
-                                      parseFloat(item.attributes.price),
-                                      item.attributes.discount?.type
-                                        ? item.attributes.discount?.type
-                                        : "",
-                                      item.attributes.discount?.value
-                                        ? parseFloat(
-                                            item.attributes.discount?.value
-                                          )
-                                        : 0
-                                    )}{" "}
-                                    / Roll
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
+                    <CardProduct {...item} key={index} />
                   ))}
                 </div>
               </div>

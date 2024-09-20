@@ -23,6 +23,7 @@ const ModalLogin = ({ openModal, setOpenModal, loginUrl }: ModalLoginProps) => {
         onClose={() => setOpenModal(false)}
         position={modalPlacement}
         className="md:pt-[0px] pt-[180px] z-[9999]"
+        dismissible={true}
       >
         <Modal.Header className="bg-white border-b-1">
           <div>

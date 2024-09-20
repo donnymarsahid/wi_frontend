@@ -44,8 +44,8 @@ export const getData = async ({
       ...headers,
     },
     next: {
-      // revalidate: revalidate ?? 60,
-      revalidate: 0,
+      revalidate: revalidate ?? 60,
+      // revalidate: 0,
     },
   });
 

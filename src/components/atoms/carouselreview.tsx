@@ -274,7 +274,12 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
           ))}
         </Carousel>
       </div>
-      <Modal show={showModal} onClose={closeModal} className="z-[9999]">
+      <Modal
+        show={showModal}
+        onClose={closeModal}
+        dismissible={true}
+        className="z-[9999]"
+      >
         <Modal.Header className="bg-white border-b-1">
           <div className="text-center font-bold">
             <div className={`${cx(poppins, poppins.className)} text-[#3D3D3D]`}>

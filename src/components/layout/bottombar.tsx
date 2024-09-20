@@ -22,7 +22,7 @@ export const BottomBar = () => {
   const { value, setUser } = useUser();
 
   return (
-    <div className="fixed bottom-0 left-0 z-[5] w-full bg-white p-4 shadow-inner md:hidden">
+    <div className="fixed bottom-0 left-0 z-[5] w-full bg-white p-4 shadow-inner md:hidden z-[999999]">
       <div className="flex items-center justify-between">
         <Link href={"/products"}>
           <Image

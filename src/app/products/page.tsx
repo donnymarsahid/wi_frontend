@@ -22,7 +22,7 @@ export default async function Products({ searchParams }: ProductsPageProps) {
   return (
     <>
       <main className="mt-[120px]">
-        <Content data={products} />
+        <Content data={products} query={searchParams.q} />
       </main>
     </>
   );
