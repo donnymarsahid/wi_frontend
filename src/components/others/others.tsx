@@ -115,7 +115,7 @@ export default function Others({ data }: WallpaperPageProps) {
                                         Panjang: {item.attributes.size_height}
                                       </p>
                                     </div>
-                                    {item.attributes.discount && (
+                                    {item.attributes.discount ? (
                                       <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                                         <p className="uppercase">Disc</p>
                                         <p>
@@ -131,6 +131,11 @@ export default function Others({ data }: WallpaperPageProps) {
                                                   : 0
                                               )}
                                         </p>
+                                      </div>
+                                    ) : (
+                                      <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
+                                        <p className="text-transparent">Disc</p>
+                                        <p>-</p>
                                       </div>
                                     )}
                                   </div>

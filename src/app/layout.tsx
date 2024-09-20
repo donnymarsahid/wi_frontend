@@ -11,6 +11,7 @@ import { UserProvider } from "@/components/authContext";
 import { CategoryProps } from "@/types/categories";
 import { FooterProps } from "@/types/footer";
 import { CustomerServicesProps } from "@/types/customerServices";
+import { BottomBar } from "@/components/layout/bottombar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,6 +78,7 @@ export default async function RootLayout({
           <Suspense fallback={<Loading />}>
             <div>{children}</div>
           </Suspense>
+          <BottomBar />
           <Footer footer={footer} categories={categories} />
         </UserProvider>
       </body>

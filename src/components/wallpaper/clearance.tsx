@@ -72,21 +72,28 @@ export default function Clearance({ categories }: HeroCategoryClearanceProps) {
                                 <p>Lebar: {item.attributes.size_width}</p>
                                 <p>Panjang: {item.attributes.size_height}</p>
                               </div>
-                              <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
-                                <p className="uppercase">Disc</p>
-                                <p>
-                                  {item.attributes.discount?.type ==
-                                  "discount_percentage"
-                                    ? `${item.attributes.discount?.value}%`
-                                    : formatNumberToLetter(
-                                        item.attributes.discount?.value
-                                          ? parseFloat(
-                                              item.attributes.discount?.value
-                                            )
-                                          : 0
-                                      )}
-                                </p>
-                              </div>
+                              {item.attributes.discount ? (
+                                <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
+                                  <p className="uppercase">Disc</p>
+                                  <p>
+                                    {item.attributes.discount?.type ==
+                                    "discount_percentage"
+                                      ? `${item.attributes.discount?.value}%`
+                                      : formatNumberToLetter(
+                                          item.attributes.discount?.value
+                                            ? parseFloat(
+                                                item.attributes.discount?.value
+                                              )
+                                            : 0
+                                        )}
+                                  </p>
+                                </div>
+                              ) : (
+                                <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
+                                  <p className="text-transparent">Disc</p>
+                                  <p>-</p>
+                                </div>
+                              )}
                             </div>
                             <div
                               className={`${cx(
