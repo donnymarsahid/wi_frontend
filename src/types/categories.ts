@@ -10,6 +10,7 @@ export interface CategoryPropsDaum {
 
 export interface Attributes {
   title: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -17,7 +18,7 @@ export interface Attributes {
   keyPageCondition?: string;
   image: Image;
   banners: Banners;
-  products: Products;
+  brands: Brands;
   sub_categories: SubCategories;
 }
 
@@ -174,7 +175,7 @@ export interface Large {
   url: string;
 }
 
-export interface Products {
+export interface Brands {
   data: Daum3[];
 }
 
@@ -272,17 +273,13 @@ export interface Daum5 {
 export interface Attributes6 {
   name: string;
   slug: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  accessories: Accessories;
   thumbnail: Thumbnail5;
-  products: Products2;
+  brands: Brands2;
   wallpaper_items: WallpaperItems;
-}
-
-export interface Accessories {
-  data: Daum6[];
 }
 
 export interface Daum6 {
@@ -425,7 +422,7 @@ export interface Medium3 {
   url: string;
 }
 
-export interface Products2 {
+export interface Brands2 {
   data: Daum7[];
 }
 

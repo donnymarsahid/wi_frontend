@@ -11,6 +11,7 @@ export interface PromosPropsDaum {
 export interface Attributes {
   title: string;
   slug: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

@@ -11,9 +11,15 @@ export default async function ContainerWallpaper({
 }: HeroContainerWallpaperProps) {
   return (
     <div>
-      {categories.data[0].attributes.sub_categories.data.map((item, index) => (
-        <Wallpapers data={item} key={index} />
-      ))}
+      {categories.data[0].attributes.sub_categories.data
+        .sort(
+          (a, b) =>
+            new Date(b.attributes.date).getTime() -
+            new Date(a.attributes.date).getTime()
+        )
+        .map((item, index) => (
+          <Wallpapers data={item} key={index} />
+        ))}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { CartProps } from "@/types/cart";
 import { UserProps } from "@/types/users";
 import { useUser } from "../authContext";
 import { getDecryptedLocalStorage } from "@/app/lib/utils";
+import { useOpen } from "@/app/lib/openContext";
 
 export const BottomBar = () => {
   let storedImageData: CartProps[] | null = null;
@@ -19,20 +20,28 @@ export const BottomBar = () => {
       );
   }
 
+  const { open, setOpen } = useOpen();
   const { value, setUser } = useUser();
 
   return (
     <div className="fixed bottom-0 left-0 z-[5] w-full bg-white p-4 shadow-inner md:hidden z-[999999]">
       <div className="flex items-center justify-between">
-        <Link href={"/products"}>
-          <Image
-            unoptimized
-            src="/assets/icons/wallpaper.png"
-            width={25}
-            height={25}
-            alt="wallpaper-icon"
-          />
-        </Link>
+        <button onClick={() => setOpen(!open)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
         <Link href="/">
           <svg
             width="24"

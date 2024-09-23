@@ -1,9 +1,9 @@
-export interface ProductsProps {
-  data: ProductsPropsDaum[];
+export interface BrandsProps {
+  data: BrandsPropsDaum[];
   meta: Meta;
 }
 
-export interface ProductsPropsDaum {
+export interface BrandsPropsDaum {
   id: number;
   attributes: Attributes;
 }
@@ -19,10 +19,34 @@ export interface Attributes {
   publishedAt: string;
   slug: string;
   unit: string;
-  product_weight: string;
   date: string;
+  products: Products;
+  product_weight: string;
   images: Images;
   discount?: Discount;
+}
+
+export interface Products {
+  data: Daum2[];
+}
+
+export interface Daum2 {
+  id: number;
+  attributes: Attributes2;
+}
+
+export interface Attributes2 {
+  title: string;
+  desc: any;
+  size_width: string;
+  size_height: string;
+  price: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  slug: string;
+  images: Images;
+  discount: Discount;
 }
 
 export interface Images {

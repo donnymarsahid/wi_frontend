@@ -16,6 +16,7 @@ import { useUser } from "../authContext";
 import { CategoryProps } from "@/types/categories";
 import { CustomerServicesProps } from "@/types/customerServices";
 import { HeaderProps } from "@/types/header";
+import { useOpen } from "@/app/lib/openContext";
 
 type SectionNavbarProps = {
   path: string;
@@ -34,7 +35,8 @@ export default function Navbar({
 }: SectionNavbarProps) {
   const router = useRouter();
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
+  const { open, setOpen } = useOpen();
+
   const { value, setUser } = useUser();
   const [isHovered, setIsHovered] = useState(false);
 

@@ -9,6 +9,7 @@ import CarouselReview from "../atoms/carouselreview";
 import { ClientProps } from "@/types/client";
 import { STRAPI_URL } from "@/app/utils/constans";
 import { ReviewsProps } from "@/types/reviews";
+import Link from "next/link";
 
 type ClientSectionProps = {
   clients: ClientProps;
@@ -68,9 +69,13 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
                 poppins.className
               )} absolute bottom-4 right-4`}
             >
-              <button className="bg-[#44CBEB] p-2 font-medium text-white rounded-lg text-[10px] md:text-sm">
+              <Link
+                href="https://www.google.com/search?q=wallpaper+indonesia&sca_esv=414fa47fd96e69ee&sca_upv=1&rlz=1C1GCEA_enID1086ID1086&sxsrf=ADLYWIK_UstJZl05duQip1NKLklh7NpELg%3A1727113104965&ei=kKfxZuXWOuuD4-EPupDL4Qo&oq=wall&gs_lp=Egxnd3Mtd2l6LXNlcnAiBHdhbGwqAggBMgQQIxgnMgoQIxiABBgnGIoFMg0QABiABBixAxhDGIoFMggQABiABBixAzIIEAAYgAQYsQMyDRAAGIAEGLEDGEMYigUyCBAAGIAEGLEDMgoQABiABBhDGIoFMgoQABiABBhDGIoFMgsQABiABBixAxiDAUjqHlDeC1ibFnACeACQAQCYAX2gAc4DqgEDNC4xuAEDyAEA-AEBmAIGoAKJBMICERAuGIAEGLEDGNEDGIMBGMcBwgIFEAAYgATCAhAQLhiABBjRAxhDGMcBGIoFwgIQEAAYgAQYsQMYQxiDARiKBcICDRAuGIAEGLEDGEMYigXCAggQLhiABBixA8ICHxAuGIAEGNEDGEMYxwEYigUYlwUY3AQY3gQY4ATYAQGYAwCIBgG6BgYIARABGBSSBwM0LjKgB404&sclient=gws-wiz-serp&lqi=ChN3YWxscGFwZXIgaW5kb25lc2lhSPqNleGZr4CACFohEAAYABgBIhN3YWxscGFwZXIgaW5kb25lc2lhKgQIAhAAkgESaW50ZXJpb3JfZGVjb3JhdG9yqgFFCggvbS8wM3J5bhABMh4QASIaXdmSO1WupQ2OS5vwJyHYGJ1AKP75raN6powyFxACIhN3YWxscGFwZXIgaW5kb25lc2lh#lkt=LocalPoiReviews&lrd=0x2e6a1d5c9b8ff343:0x2962cd502951c88c,3,,,,&rlimm=2982171647446993036"
+                target="blank"
+                className="bg-[#44CBEB] p-2 font-medium text-white rounded-lg text-[10px] md:text-sm"
+              >
                 Tulis Review
-              </button>
+              </Link>
             </div>
           </div>
         </div>

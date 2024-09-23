@@ -10,6 +10,7 @@ export interface ServicePropsDaum {
 
 export interface Attributes {
   desc: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

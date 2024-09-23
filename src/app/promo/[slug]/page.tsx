@@ -8,7 +8,7 @@ export default async function SlugProducts({ params }: Slug) {
     path: `promos`,
     params: {
       populate: "thumbnail,products,products.discount,products.images",
-      "sort[0]": "createdAt:desc",
+      "sort[0]": "date:desc",
       "filters[slug][$eq]": params.slug,
     },
   });

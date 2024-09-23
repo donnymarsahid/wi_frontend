@@ -33,7 +33,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     path: `categories`,
     params: {
       populate: "image",
-      "sort[0]": "createdAt:desc",
+      "sort[0]": "date:desc",
       "pagination[pageSize]": "6",
     },
   });
@@ -42,7 +42,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     path: `promos`,
     params: {
       populate: "thumbnail",
-      "sort[0]": "createdAt:desc",
+      "sort[0]": "date:desc",
     },
   });
 
@@ -50,7 +50,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     path: `services`,
     params: {
       populate: "icon",
-      "sort[0]": "createdAt:desc",
+      "sort[0]": "date:desc",
     },
   });
 

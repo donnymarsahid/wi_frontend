@@ -34,15 +34,15 @@ export default function Others({ data }: WallpaperPageProps) {
                   <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
                   <div>
                     <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                      {data.attributes.accessories?.data?.length &&
-                        data.attributes.accessories?.data.map((item, index) => (
+                      {data.attributes.brands?.data?.length &&
+                        data.attributes.brands?.data.map((item, index) => (
                           <Link href={""}>
                             <div
                               key={index}
                               className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer"
                             >
                               <Image
-                                src={`${STRAPI_URL}${item.attributes.image.data.attributes.url}`}
+                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                                 width={400}
                                 height={400}
                                 alt="wall"
@@ -53,7 +53,7 @@ export default function Others({ data }: WallpaperPageProps) {
                               <div className="w-full">
                                 <div className="bg-white">
                                   <h3 className="font-bold lucida-bright p-2 border-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-center">
-                                    {item.attributes.name}
+                                    {item.attributes.title}
                                   </h3>
                                 </div>
                               </div>
@@ -77,10 +77,10 @@ export default function Others({ data }: WallpaperPageProps) {
                 </h1>
                 <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
                 <div>
-                  {data.attributes?.products?.data?.length ? (
+                  {data.attributes?.brands?.data?.length ? (
                     <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                      {data.attributes.products?.data.length &&
-                        data.attributes.products?.data.map((item, index) => (
+                      {data.attributes.brands?.data.length &&
+                        data.attributes.brands?.data.map((item, index) => (
                           <CardProduct {...item} key={index} />
                         ))}
                     </div>

@@ -21,8 +21,13 @@ export default function CategoriesFlooring({ categories }: HeroCategoryProps) {
             <div>
               <div>
                 <div className="grid gap-4 lg:grid-cols-5 md:grid-cols-3 grid-cols-3">
-                  {categories.data[0].attributes.sub_categories.data.map(
-                    (item, index) => (
+                  {categories.data[0].attributes.sub_categories.data
+                    .sort(
+                      (a, b) =>
+                        new Date(b.attributes.date).getTime() -
+                        new Date(a.attributes.date).getTime()
+                    )
+                    .map((item, index) => (
                       <Link href={""} className="mt-2">
                         <div
                           key={index}
@@ -51,8 +56,7 @@ export default function CategoriesFlooring({ categories }: HeroCategoryProps) {
                           </div>
                         </div>
                       </Link>
-                    )
-                  )}
+                    ))}
                 </div>
               </div>
             </div>

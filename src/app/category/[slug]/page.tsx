@@ -1,6 +1,5 @@
 import { poppins } from "@/app/fonts";
 import { getData } from "@/app/utils/fetching";
-import Accessories from "@/components/flooring/accessories";
 import CategoriesFlooring from "@/components/flooring/categories";
 import Floors from "@/components/flooring/floors";
 import HeroFlooring from "@/components/flooring/hero";
@@ -24,8 +23,9 @@ type Slug = { params: { slug: string } };
 export default async function SlugProducts({ params }: Slug) {
   let queryCategory: any = {
     populate:
-      "image,banners,products,products.discount,products.images,sub_categories.wallpaper_items,sub_categories.wallpaper_items,sub_categories.wallpaper_items.thumbnail,sub_categories.products,sub_categories.products.images,sub_categories.products.discount,sub_categories.thumbnail,sub_categories.accessories,sub_categories.accessories.image",
-    "sort[0]": "createdAt:desc",
+      "image,banners,brands,brands.discount,brands.images,sub_categories.wallpaper_items,sub_categories.wallpaper_items,sub_categories.wallpaper_items.thumbnail,sub_categories.brands,sub_categories.brands.images,sub_categories.brands.discount,sub_categories.thumbnail,sub_categories",
+    "sort[0]": "date:desc",
+    "sort[1]": "sub_categories.date:desc",
   };
 
   if (params.slug === "wallpaper" || params.slug === "flooring") {
@@ -70,11 +70,15 @@ export default async function SlugProducts({ params }: Slug) {
           <main className="mt-[100px]">
             <HeroFlooring categories={categories} />
             <CategoriesFlooring categories={categories} />
-            {categories.data[0].attributes.sub_categories.data.map(
-              (item, index) => (
-                <Floors data={item} key={index} />
+            {categories.data[0].attributes.sub_categories.data
+              .sort(
+                (a, b) =>
+                  new Date(b.attributes.date).getTime() -
+                  new Date(a.attributes.date).getTime()
               )
-            )}
+              .map((item, index) => (
+                <Floors data={item} key={index} />
+              ))}
             <SocmedFlooring homepage={homepage} />
           </main>
         </>
@@ -82,10 +86,14 @@ export default async function SlugProducts({ params }: Slug) {
         <>
           <main className="mt-[100px]">
             <HeroOthers categories={categories} />
-            {categories.data[0].attributes?.sub_categories?.data?.length &&
-              categories.data[0].attributes?.sub_categories?.data.map(
-                (item, index) => <Others data={item} key={index} />
-              )}
+            {categories.data[0]?.attributes?.sub_categories?.data?.length > 0 &&
+              categories.data[0].attributes.sub_categories.data
+                .sort(
+                  (a, b) =>
+                    new Date(b.attributes.date).getTime() -
+                    new Date(a.attributes.date).getTime()
+                )
+                .map((item, index) => <Others data={item} key={index} />)}
 
             {!categories.data[0].attributes?.sub_categories?.data?.length && (
               <>

@@ -12,6 +12,7 @@ import { CategoryProps } from "@/types/categories";
 import { FooterProps } from "@/types/footer";
 import { CustomerServicesProps } from "@/types/customerServices";
 import { BottomBar } from "@/components/layout/bottombar";
+import { OpenProvider } from "./lib/openContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -47,7 +48,7 @@ export default async function RootLayout({
     path: `categories`,
     params: {
       populate: "image",
-      "sort[0]": "createdAt:desc",
+      "sort[0]": "date:desc",
     },
   });
 
@@ -68,18 +69,20 @@ export default async function RootLayout({
       <link rel="shortcut icon" href="/favicon.ico" />
       <body suppressHydrationWarning={true}>
         <UserProvider>
-          <Navbar
-            path={path}
-            loginUrl={urlLogin}
-            categories={categories}
-            customerServices={customerServices}
-            header={header}
-          />
-          <Suspense fallback={<Loading />}>
-            <div>{children}</div>
-          </Suspense>
-          <BottomBar />
-          <Footer footer={footer} categories={categories} />
+          <OpenProvider>
+            <Navbar
+              path={path}
+              loginUrl={urlLogin}
+              categories={categories}
+              customerServices={customerServices}
+              header={header}
+            />
+            <Suspense fallback={<Loading />}>
+              <div>{children}</div>
+            </Suspense>
+            <BottomBar />
+            <Footer footer={footer} categories={categories} />
+          </OpenProvider>
         </UserProvider>
       </body>
     </html>
