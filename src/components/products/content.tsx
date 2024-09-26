@@ -40,8 +40,8 @@ export default function Content({ data, query }: PromosPageProps) {
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                     {data?.data?.length &&
                       data?.data?.map((item, index) => (
-                        <div>
-                          <CardProduct {...item} key={index} />
+                        <div key={index}>
+                          <CardProduct {...item}  />
                         </div>
                       ))}
                   </div>

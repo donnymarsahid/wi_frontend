@@ -31,7 +31,7 @@ export default function Categories({
               <div>
                 <div className="grid gap-4 md:grid-cols-3 grid-cols-2">
                   {categories.data.map((item, index) => (
-                    <Link
+                    <Link key={index}
                       href={`/category/${
                         item.attributes.keyPageCondition
                           ? item.attributes.keyPageCondition

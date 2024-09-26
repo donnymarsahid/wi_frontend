@@ -28,7 +28,7 @@ export default function CategoriesFlooring({ categories }: HeroCategoryProps) {
                         new Date(a.attributes.date).getTime()
                     )
                     .map((item, index) => (
-                      <Link href={""} className="mt-2">
+                      <Link href={""} className="mt-2" key={index}>
                         <div
                           key={index}
                           className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px]"

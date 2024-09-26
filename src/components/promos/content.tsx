@@ -33,9 +33,9 @@ export default function Content({ data }: PromosPageProps) {
                     {data.data[0].attributes.products?.data.length &&
                       data.data[0].attributes.products?.data.map(
                         (item, index) => (
-                          <Link href={item.attributes?.slug || ""}>
+                          <Link href={item.attributes?.slug || ""} key={index}>
                             <div
-                              key={index}
+                              
                               className="relative mt-4 overflow-hidden cursor-pointer"
                             >
                               {item.attributes?.images?.data[0]?.attributes

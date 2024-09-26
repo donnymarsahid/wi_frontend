@@ -36,9 +36,8 @@ export default function Floors({ data }: WallpaperPageProps) {
                     <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                       {data.attributes.brands?.data.length &&
                         data.attributes.brands?.data.map((item, index) => (
-                          <Link href={""}>
+                          <Link href={""} key={index}>
                             <div
-                              key={index}
                               className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer"
                             >
                               <Image
@@ -80,7 +79,9 @@ export default function Floors({ data }: WallpaperPageProps) {
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                     {data.attributes.brands?.data.length &&
                       data.attributes.brands?.data.map((item, index) => (
-                        <CardProduct {...item} key={index} />
+                        <div key={index} >
+                          <CardProduct {...item} />
+                        </div>
                       ))}
                   </div>
                 </div>

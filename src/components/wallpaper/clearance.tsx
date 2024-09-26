@@ -20,7 +20,7 @@ type HeroCategoryClearanceProps = {
 };
 
 export default function Clearance({ categories }: HeroCategoryClearanceProps) {
-  const productsClearanceResult: ProductsPropsDaum[] =
+  const productsClearanceResult: any[] =
     categories.data[0].attributes.brands.data.filter(
       (item) => item.attributes.discount
     );
