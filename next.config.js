@@ -6,7 +6,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "https://qa-wi.gudangsystem.com",
+        hostname: "http://localhost:1338",
       },
     ],
     domains: ["i.ytimg.com", "localhost:1337"],
