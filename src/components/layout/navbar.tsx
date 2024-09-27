@@ -154,7 +154,10 @@ export default function Navbar({
                   </div>
                   <div className="flex items-center">
                     <div>
-                      <button className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center me-2 hover:bg-[#76E5FF] text-white transition">
+                      <Link
+                        href={"/howToShop"}
+                        className="border border-1 border-white lg:p-2 p-1 rounded-lg flex items-center me-2 hover:bg-[#76E5FF] text-white transition"
+                      >
                         <p className="lg:text-xs text-[10px] me-1">
                           Cara Belanja
                         </p>
@@ -164,7 +167,7 @@ export default function Navbar({
                           height={15}
                           alt="info"
                         />
-                      </button>
+                      </Link>
                     </div>
                     <div>
                       {value ? (
