@@ -34,10 +34,7 @@ export default function Content({ data }: PromosPageProps) {
                       data.data[0].attributes.products?.data.map(
                         (item, index) => (
                           <Link href={item.attributes?.slug || ""} key={index}>
-                            <div
-                              
-                              className="relative mt-4 overflow-hidden cursor-pointer"
-                            >
+                            <div className="relative mt-4 overflow-hidden cursor-pointer">
                               {item.attributes?.images?.data[0]?.attributes
                                 ?.url && (
                                 <Image
@@ -45,7 +42,7 @@ export default function Content({ data }: PromosPageProps) {
                                   width={400}
                                   height={400}
                                   alt="wall"
-                                  className="w-full h-[284px] object-cover transform transition-transform duration-500 hover:scale-110"
+                                  className="w-full md:h-[284px] h-[135px] object-cover transform transition-transform duration-500 hover:scale-110"
                                 />
                               )}
                             </div>

@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.customStyle {
+  overflow: hidden;
+}
+
+.customStyle h1 {
+  @apply mb-4 text-xl;
+}
+
+.customStyle h2 {
+  @apply mb-2 text-lg;
+}
+
+.customStyle h3 {
+  @apply mb-2 text-lg;
+}
+
+.customStyle h4 {
+  @apply mb-2 text-lg;
+}
+
+.customStyle h5 {
+  @apply mb-2 text-lg;
+}
+
+.customStyle h6 {
+  @apply mb-2 text-base;
+}
+
+.customStyle p {
+  @apply mb-4;
+  margin: 0;
+}
+
+.customStyle blockquote {
+  @apply my-8 border-l-4 border-gray-200 pl-8 italic;
+}
+
+.customStyle img {
+  @apply my-8 w-full object-cover;
+  width: 40%;
+  margin: 0;
+}
+
+.customStyle ul {
+  @apply list-disc pl-4;
+}
+
+.customStyle ol {
+  @apply list-decimal pl-4;
+}
+
+.customStyle li {
+  @apply mb-2;
+}
+
+.customStyle a {
+  @apply text-blue-500 hover:underline;
+}
+
+.customStyle strong {
+  @apply font-bold;
+}
+
+.customStyle em {
+  @apply italic;
+}
+
+.customStyle code {
+  @apply rounded px-2 py-1 text-white;
+  font-family: "Courier New", monospace;
+}
+
+.customStyle pre {
+  @apply my-4 rounded bg-black p-4 text-white;
+  font-family: "Courier New", monospace;
+  white-space: pre-wrap;
+  overflow: auto;
+}
+
+.customStyle.customClass {
+  @apply bg-yellow-200;
+}

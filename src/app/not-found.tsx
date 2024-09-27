@@ -1,5 +1,6 @@
 import cx from "classnames";
 import { poppins } from "./fonts";
+import Image from "next/image";
 
 const NotFound = () => {
   return (
@@ -10,10 +11,12 @@ const NotFound = () => {
       )}`}
     >
       <div className="text-center">
-        <h1 className="mb-4 text-4xl font-semibold">Halaman Tidak Tersedia</h1>
-        <p className="text-gray-600">
-          Maaf, halaman yang Anda cari tidak ditemukan.
-        </p>
+        <Image
+          src={"/assets/images/404_page-not-found-1024x576.jpg"}
+          width={500}
+          height={500}
+          alt="404"
+        />
       </div>
     </div>
   );

@@ -8,9 +8,10 @@ import CarouselBannerPromoProduct from "../atoms/carouselbannerpromoproduct";
 import Link from "next/link";
 import { SubCategoryPropsDaum } from "@/types/subCategories";
 import { STRAPI_URL } from "@/app/utils/constans";
+import { Daum5 } from "@/types/categories";
 
 type WallpaperPageProps = {
-  data: SubCategoryPropsDaum;
+  data: Daum5;
 };
 
 export default function Wallpapers({ data }: WallpaperPageProps) {
@@ -27,14 +28,11 @@ export default function Wallpapers({ data }: WallpaperPageProps) {
               <div>
                 {/* <div className="grid gap-4 2xl:grid-cols-6 md:grid-cols-4 grid-cols-2"> */}
                 <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
-                  {data.attributes.wallpaper_items.data.map((item, index) => (
+                  {data.attributes.brands.data.map((item, index) => (
                     <Link href={""} key={index}>
-                      <div
-                        
-                        className="relative mt-4 overflow-hidden cursor-pointer"
-                      >
+                      <div className="relative mt-4 overflow-hidden cursor-pointer">
                         <Image
-                          src={`${STRAPI_URL}${item.attributes.thumbnail.data.attributes.url}`}
+                          src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                           width={400}
                           height={400}
                           alt="wall"
@@ -50,7 +48,7 @@ export default function Wallpapers({ data }: WallpaperPageProps) {
                             )}`}
                           >
                             <h3 className="p-2 bg-white bg-opacity-75 border-[2px] rounded-lg border-[#44CBEB] lg:text-[16px] text-[10px] text-center">
-                            {item.attributes.name}
+                              {item.attributes.title}
                             </h3>
                           </div>
                         </div>

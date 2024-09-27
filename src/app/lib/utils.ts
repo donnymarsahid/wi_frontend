@@ -71,3 +71,13 @@ export const formatNumberToLetter = (number: number) => {
     return number.toString();
   }
 };
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+
+  // Options to format the date
+  const options: any = { year: "numeric", month: "long", day: "numeric" };
+
+  // Convert to desired format
+  return date.toLocaleDateString("en-GB", options);
+};

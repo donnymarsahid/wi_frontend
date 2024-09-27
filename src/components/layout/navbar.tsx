@@ -61,11 +61,11 @@ export default function Navbar({
     },
     {
       title: "Berita/Inspirasi",
-      url: "#",
+      url: "/news",
     },
     {
       title: "Tentang Kami",
-      url: "#",
+      url: "/about",
     },
   ];
 
