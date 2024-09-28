@@ -14,7 +14,7 @@ import cx from "classnames";
 export default function CardProduct(item: Daum7 | any) {
   return (
     <>
-      <Link href={item.attributes?.slug || ""}>
+      <Link href={`/category/product/${item.attributes?.slug || ""}`}>
         <div className="relative mt-4 overflow-hidden cursor-pointer">
           {item.attributes?.images?.data[0]?.attributes?.url && (
             <Image

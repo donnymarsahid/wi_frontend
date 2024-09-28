@@ -17,6 +17,7 @@ import { SubCategoryProps } from "@/types/subCategories";
 import { WallpaperProps } from "@/types/wallpaper";
 import Image from "next/image";
 import cx from "classnames";
+import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 
 type Slug = { params: { slug: string } };
 
@@ -52,6 +53,24 @@ export default async function SlugProducts({ params }: Slug) {
       populate: "banners",
     },
   });
+  const wallpaperByStyle: WallpaperByGeneralProps = await getData({
+    path: `wallpaper-by-styles`,
+    params: {
+      populate: "thumbnail",
+    },
+  });
+  const wallpaperByColor: WallpaperByGeneralProps = await getData({
+    path: `wallpaper-by-colors`,
+    params: {
+      populate: "thumbnail",
+    },
+  });
+  const wallpaperByDesigner: WallpaperByGeneralProps = await getData({
+    path: `wallpaper-by-designers`,
+    params: {
+      populate: "thumbnail",
+    },
+  });
 
   return (
     <>
@@ -60,7 +79,11 @@ export default async function SlugProducts({ params }: Slug) {
           <main className="mt-[100px]">
             <Hero categories={categories} />
             <Clearance categories={categories} />
-            <ContainerWallpaper categories={categories} />
+            <ContainerWallpaper
+              wallpaperByStyle={wallpaperByStyle}
+              wallpaperByColor={wallpaperByColor}
+              wallpaperByDesigner={wallpaperByDesigner}
+            />
             <CallculatorWallpaper wallpaper={wallpaper} />
             <Socmed homepage={homepage} />
           </main>

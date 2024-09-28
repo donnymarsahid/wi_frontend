@@ -9,12 +9,14 @@ import Link from "next/link";
 import { SubCategoryPropsDaum } from "@/types/subCategories";
 import { STRAPI_URL } from "@/app/utils/constans";
 import { Daum5 } from "@/types/categories";
+import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 
 type WallpaperPageProps = {
-  data: Daum5;
+  titleKey: string;
+  data: WallpaperByGeneralProps;
 };
 
-export default function Wallpapers({ data }: WallpaperPageProps) {
+export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
   return (
     <>
       <div className="mt-14">
@@ -22,17 +24,20 @@ export default function Wallpapers({ data }: WallpaperPageProps) {
           <div className="md:mx-10 mx-4">
             <div className="flex items-start flex-col">
               <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
-                {data.attributes.name}
+                {titleKey}
               </h1>
               <div className="md:h-[3px] h-[1px] md:w-[300px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
                 {/* <div className="grid gap-4 2xl:grid-cols-6 md:grid-cols-4 grid-cols-2"> */}
                 <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
-                  {data.attributes.brands.data.map((item, index) => (
-                    <Link href={""} key={index}>
+                  {data.data.map((item, index) => (
+                    <Link
+                      href={`/category/product/${item.attributes.slug}`}
+                      key={index}
+                    >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">
                         <Image
-                          src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                          src={`${STRAPI_URL}${item.attributes.thumbnail.data.attributes.url}`}
                           width={400}
                           height={400}
                           alt="wall"
