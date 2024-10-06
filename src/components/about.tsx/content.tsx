@@ -34,7 +34,7 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
           <div className={`flex justify-center my-16 items-center flex-col`}>
             <div className="flex items-center flex-col">
               <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
-                Tentang Kami
+                Experience Excellence
               </h1>
               <p className="text-justify">{data.data.attributes.about}</p>
             </div>
@@ -43,7 +43,7 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             <div className={`flex justify-center`}>
               <div className="flex items-center flex-col">
                 <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
-                  Portofolio
+                  Portfolio
                 </h1>
               </div>
             </div>
@@ -54,20 +54,21 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             {data.data.attributes.maps && (
               <div className="my-16 flex justify-center flex-col items-center">
                 <h1 className="lg:text-[35px] md:text-[28px] lucida-bright text-center">
                   Maps
                 </h1>
                 <div
+                className="maps-custom"
                   dangerouslySetInnerHTML={{
                     __html: data.data.attributes.maps,
                   }}
                 />
               </div>
             )}
-          </div>
+          </div> */}
           <div>
             <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
               Kantor Cabang

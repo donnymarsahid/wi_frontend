@@ -29,7 +29,14 @@ export default async function SlugProducts({ params }: Slug) {
     "sort[1]": "sub_categories.date:desc",
   };
 
-  if (params.slug === "wallpaper" || params.slug === "flooring") {
+  if (
+    params.slug === "Wallpaper" ||
+    params.slug === "Flooring" ||
+    params.slug === "Wallpanel" ||
+    params.slug === "Carpet" ||
+    params.slug === "Decking" ||
+    params.slug === "Rollerblind"
+  ) {
     queryCategory["filters[keyPageCondition][$eq]"] = params.slug;
   } else {
     queryCategory["filters[slug][$eq]"] = params.slug;
@@ -74,7 +81,7 @@ export default async function SlugProducts({ params }: Slug) {
 
   return (
     <>
-      {params.slug === "wallpaper" ? (
+      {params.slug === "Wallpaper" ? (
         <>
           <main className="mt-[100px]">
             <Hero categories={categories} />
@@ -88,7 +95,10 @@ export default async function SlugProducts({ params }: Slug) {
             <Socmed homepage={homepage} />
           </main>
         </>
-      ) : params.slug === "flooring" ? (
+      ) : params.slug === "Flooring" ||
+        params.slug === "Wallpanel" ||
+        params.slug === "Carpet" ||
+        params.slug === "Decking" ? (
         <>
           <main className="mt-[100px]">
             <HeroFlooring categories={categories} />

@@ -37,6 +37,7 @@ export interface Daum2 {
 
 export interface Attributes2 {
   title: string;
+  date: string;
   desc: any;
   size_width: string;
   size_height: string;

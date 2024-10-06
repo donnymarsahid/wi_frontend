@@ -12,7 +12,7 @@ import {
   formatRupiah,
 } from "@/app/lib/utils";
 import { ProductsProps } from "@/types/products";
-import CardProduct from "../atoms/cardProduct";
+import CardProductToDetail from "../atoms/cardProductToDetail";
 
 type PromosPageProps = {
   data: ProductsProps;
@@ -41,7 +41,7 @@ export default function Content({ data, query }: PromosPageProps) {
                     {data?.data?.length &&
                       data?.data?.map((item, index) => (
                         <div key={index}>
-                          <CardProduct {...item}  />
+                          <CardProductToDetail {...item} />
                         </div>
                       ))}
                   </div>

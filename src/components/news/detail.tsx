@@ -36,14 +36,14 @@ export default function Detail({ data }: NewsPageProps) {
             </Link>
             <p>/</p>
             <Link
-              className="ms-2 font-medium hover:text-[#2FD1C1]"
+              className="ms-2 me-2 font-medium hover:text-[#2FD1C1]"
               href={"/news"}
             >
               <p>News</p>
             </Link>
             <p>/</p>
             <Link
-              className="ms-2 font-medium hover:text-[#2FD1C1] title-custom-2"
+              className="ms-2 me-2 font-medium hover:text-[#2FD1C1] title-custom-2"
               href={`/news/${data.data[0].attributes.slug}`}
             >
               <p>{data.data[0].attributes.title}</p>

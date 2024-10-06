@@ -70,15 +70,17 @@ export default async function RootLayout({
       <body suppressHydrationWarning={true}>
         <UserProvider>
           <OpenProvider>
-            <Navbar
-              path={path}
-              loginUrl={urlLogin}
-              categories={categories}
-              customerServices={customerServices}
-              header={header}
-            />
+            <div className="fixed top-0 w-full z-[9999]">
+              <Navbar
+                path={path}
+                loginUrl={urlLogin}
+                categories={categories}
+                customerServices={customerServices}
+                header={header}
+              />
+            </div>
             <Suspense fallback={<Loading />}>
-              <div>{children}</div>
+              <div className="md:mt-[130px] mt-[175px]">{children}</div>
             </Suspense>
             <BottomBar />
             <Footer footer={footer} categories={categories} />

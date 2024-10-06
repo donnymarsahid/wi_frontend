@@ -208,7 +208,7 @@ export default function Navbar({
             </div>
           </div>
         </div>
-        <div className="absolute w-full bg-white top-[47px]">
+        <div className="absolute w-full bg-white top-[47px] shadow-sm">
           <div className="container mx-auto">
             <div className="mx-10 flex justify-between">
               <div className="flex items-center lg:hidden">
@@ -345,11 +345,11 @@ export default function Navbar({
             </div>
           </div>
         </div>
-        <div className="absolute w-full bg-white top-[125px] md:top-[150px] lg:hidden">
+        <div className="absolute w-full bg-white top-[115px] md:top-[140px] lg:hidden shadow-sm">
           <div className="container mx-auto">
             <div className="mx-10 flex justify-between">
               <div className="flex items-center justify-center w-full">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className="p-2">
                   <div className="relative">
                     <input
                       type="text"

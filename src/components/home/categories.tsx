@@ -29,9 +29,10 @@ export default function Categories({
               </h1>
               <div className="md:h-[3px] h-[1px] lg:w-[600px] md:w-[500px] w-[300px] bg-[#20D3B6] text-center"></div>
               <div>
-                <div className="grid gap-4 md:grid-cols-3 grid-cols-2">
+                <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 grid-cols-2">
                   {categories.data.map((item, index) => (
-                    <Link key={index}
+                    <Link
+                      key={index}
                       href={`/category/${
                         item.attributes.keyPageCondition
                           ? item.attributes.keyPageCondition
