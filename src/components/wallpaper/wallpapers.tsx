@@ -32,7 +32,7 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                 <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
                   {data.data.map((item, index) => (
                     <Link
-                      href={`/category/product/${item.attributes.slug}`}
+                      href={`/products?styleFilter=${item.attributes.slug}`}
                       key={index}
                     >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">

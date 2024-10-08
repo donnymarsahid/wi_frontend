@@ -187,8 +187,9 @@ export interface Daum3 {
 export interface Attributes4 {
   title: string;
   desc: any;
-  size_width: string;
-  size_height: string;
+  size_width: number;
+  size_height: number;
+  thickness: number;
   price: string;
   createdAt: string;
   updatedAt: string;
@@ -434,9 +435,11 @@ export interface Daum7 {
 export interface Attributes10 {
   title: string;
   desc: any;
-  size_width: string;
-  size_height: string;
+  size_width: number;
+  size_height: number;
+  thickness: number;
   price: string;
+  date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

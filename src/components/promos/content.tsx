@@ -31,8 +31,9 @@ export default function Content({ data }: PromosPageProps) {
                 <>
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                     {data.data[0].attributes.products?.data.length &&
-                      data.data[0].attributes.products?.data.map(
-                        (item, index) => (
+                      data.data[0].attributes.products?.data
+                        .filter((itemData) => itemData.attributes.available)
+                        .map((item, index) => (
                           <Link href={item.attributes?.slug || ""} key={index}>
                             <div className="relative mt-4 overflow-hidden cursor-pointer">
                               {item.attributes?.images?.data[0]?.attributes
@@ -60,9 +61,19 @@ export default function Content({ data }: PromosPageProps) {
                                   >
                                     <div className="md:text-xs text-[9px] text-[#474747]">
                                       <p>Ukuran</p>
-                                      <p>Lebar: {item.attributes.size_width}</p>
                                       <p>
-                                        Panjang: {item.attributes.size_height}
+                                        Lebar:{" "}
+                                        {
+                                          item.attributes.brands.data[0]
+                                            .attributes.size_height
+                                        }
+                                      </p>
+                                      <p>
+                                        Panjang:{" "}
+                                        {
+                                          item.attributes.brands.data[0]
+                                            .attributes.size_height
+                                        }
                                       </p>
                                     </div>
                                     {item.attributes.discount ? (
@@ -140,8 +151,7 @@ export default function Content({ data }: PromosPageProps) {
                               </div>
                             </div>
                           </Link>
-                        )
-                      )}
+                        ))}
                   </div>
                 </>
               ) : (

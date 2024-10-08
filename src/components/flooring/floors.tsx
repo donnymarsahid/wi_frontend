@@ -35,30 +35,34 @@ export default function Floors({ data }: WallpaperPageProps) {
                   <div>
                     <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                       {data.attributes.brands?.data.length &&
-                        data.attributes.brands?.data.map((item, index) => (
-                          <Link href={""} key={index}>
-                            <div
-                              className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer"
-                            >
-                              <Image
-                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
-                                width={400}
-                                height={400}
-                                alt="wall"
-                                className=" w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-                              />
-                            </div>
-                            <div>
-                              <div className="w-full">
-                                <div className="bg-white">
-                                  <h3 className="font-bold lucida-bright p-2 border-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-center">
-                                    {item.attributes.title}
-                                  </h3>
+                        data.attributes.brands?.data
+                          .sort(
+                            (a, b) =>
+                              new Date(b.attributes.date).getTime() -
+                              new Date(a.attributes.date).getTime()
+                          )
+                          .map((item, index) => (
+                            <Link href={""} key={index}>
+                              <div className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer">
+                                <Image
+                                  src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                                  width={400}
+                                  height={400}
+                                  alt="wall"
+                                  className=" w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+                                />
+                              </div>
+                              <div>
+                                <div className="w-full">
+                                  <div className="bg-white">
+                                    <h3 className="font-bold lucida-bright p-2 border-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-center">
+                                      {item.attributes.title}
+                                    </h3>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </Link>
-                        ))}
+                            </Link>
+                          ))}
                     </div>
                   </div>
                 </div>
@@ -78,11 +82,17 @@ export default function Floors({ data }: WallpaperPageProps) {
                 <div>
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                     {data.attributes.brands?.data.length &&
-                      data.attributes.brands?.data.map((item, index) => (
-                        <div key={index} >
-                          <CardProduct {...item} />
-                        </div>
-                      ))}
+                      data.attributes.brands?.data
+                        .sort(
+                          (a, b) =>
+                            new Date(b.attributes.date).getTime() -
+                            new Date(a.attributes.date).getTime()
+                        )
+                        .map((item, index) => (
+                          <div key={index}>
+                            <CardProduct {...item} />
+                          </div>
+                        ))}
                   </div>
                 </div>
               </div>

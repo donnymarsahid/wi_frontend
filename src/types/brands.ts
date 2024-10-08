@@ -10,20 +10,21 @@ export interface BrandsPropsDaum {
 
 export interface Attributes {
   title: string;
-  desc: any;
-  size_width: string;
-  size_height: string;
+  desc: string;
+  size_width: number;
+  size_height: number;
   price: string;
+  slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  slug: string;
   unit: string;
+  product_weight: number;
   date: string;
+  thickness: any;
   products: Products;
-  product_weight: string;
-  images: Images;
-  discount?: Discount;
+  sub_categories: SubCategories;
+  categories: Categories2;
 }
 
 export interface Products {
@@ -37,29 +38,32 @@ export interface Daum2 {
 
 export interface Attributes2 {
   title: string;
-  date: string;
   desc: any;
-  size_width: string;
-  size_height: string;
   price: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   slug: string;
+  unit: any;
+  product_weight: number;
+  date: string;
+  product_code: any;
+  stock: any;
+  available: boolean;
   images: Images;
   discount: Discount;
 }
 
 export interface Images {
-  data: Daum2[];
+  data: Daum3[];
 }
 
-export interface Daum2 {
+export interface Daum3 {
   id: number;
-  attributes: Attributes2;
+  attributes: Attributes3;
 }
 
-export interface Attributes2 {
+export interface Attributes3 {
   name: string;
   alternativeText: any;
   caption: any;
@@ -113,6 +117,63 @@ export interface Discount {
   value: string;
 }
 
+export interface SubCategories {
+  data: Daum4[];
+}
+
+export interface Daum4 {
+  id: number;
+  attributes: Attributes4;
+}
+
+export interface Attributes4 {
+  name: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  date?: string;
+  categories: Categories;
+}
+
+export interface Categories {
+  data: Daum5[];
+}
+
+export interface Daum5 {
+  id: number;
+  attributes: Attributes5;
+}
+
+export interface Attributes5 {
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  slug: string;
+  keyPageCondition: string;
+  date: string;
+}
+
+export interface Categories2 {
+  data: Daum6[];
+}
+
+export interface Daum6 {
+  id: number;
+  attributes: Attributes6;
+}
+
+export interface Attributes6 {
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  slug: string;
+  keyPageCondition: string;
+  date: string;
+}
+
 export interface Meta {
   pagination: Pagination;
 }
@@ -122,10 +183,4 @@ export interface Pagination {
   pageSize: number;
   pageCount: number;
   total: number;
-}
-
-export interface DiscountCustom {
-  id: number;
-  type: string;
-  value: number;
 }

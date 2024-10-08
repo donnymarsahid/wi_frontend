@@ -10,28 +10,17 @@ export interface ProductsPropsDaum {
 
 export interface Attributes {
   title: string;
-  desc: any;
-  size_width: string;
-  size_height: string;
-  price: string;
+  desc: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   slug: string;
-  unit: any;
-  product_weight: any;
   date: string;
-  product_code: any;
-  stock: any;
-  discount?: Discount;
+  product_code: string;
+  stock: number;
+  available: boolean;
   images: Images;
   brands: Brands;
-}
-
-export interface Discount {
-  id: number;
-  type: string;
-  value: string;
 }
 
 export interface Images {
@@ -65,7 +54,6 @@ export interface Attributes2 {
 export interface Formats {
   thumbnail: Thumbnail;
   small: Small;
-  medium?: Medium;
 }
 
 export interface Thumbnail {
@@ -92,18 +80,6 @@ export interface Small {
   url: string;
 }
 
-export interface Medium {
-  name: string;
-  hash: string;
-  ext: string;
-  mime: string;
-  path: any;
-  width: number;
-  height: number;
-  size: number;
-  url: string;
-}
-
 export interface Brands {
   data: Daum3[];
 }
@@ -116,20 +92,24 @@ export interface Daum3 {
 export interface Attributes3 {
   title: string;
   desc: string;
-  size_width: string;
-  size_height: string;
+  size_width: number;
+  size_height: number;
   price: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: string;
+  product_weight: number;
   date: string;
+  thickness: number;
+  sub_categories: SubCategories;
+  categories: Categories2;
+  discount: Discount;
   products: Products;
 }
 
-export interface Products {
+export interface SubCategories {
   data: Daum4[];
 }
 
@@ -139,25 +119,16 @@ export interface Daum4 {
 }
 
 export interface Attributes4 {
-  title: string;
-  desc: any;
-  size_width: string;
-  size_height: string;
-  price: string;
+  name: string;
+  slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  slug: string;
-  unit: any;
-  product_weight: any;
   date: string;
-  product_code: any;
-  stock: any;
-  images: Images2;
-  discount: Discount2;
+  categories: Categories;
 }
 
-export interface Images2 {
+export interface Categories {
   data: Daum5[];
 }
 
@@ -167,6 +138,73 @@ export interface Daum5 {
 }
 
 export interface Attributes5 {
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  slug: string;
+  keyPageCondition: string;
+  date: string;
+}
+
+export interface Categories2 {
+  data: Daum6[];
+}
+
+export interface Daum6 {
+  id: number;
+  attributes: Attributes6;
+}
+
+export interface Attributes6 {
+  title: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  slug: string;
+  keyPageCondition: string;
+  date: string;
+}
+
+export interface Discount {
+  id: number;
+  type: string;
+  value: string;
+}
+
+export interface Products {
+  data: Daum7[];
+}
+
+export interface Daum7 {
+  id: number;
+  attributes: Attributes7;
+}
+
+export interface Attributes7 {
+  title: string;
+  desc: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  slug: string;
+  date: string;
+  product_code: string;
+  stock: number;
+  available: boolean;
+  images: Images2;
+}
+
+export interface Images2 {
+  data: Daum8[];
+}
+
+export interface Daum8 {
+  id: number;
+  attributes: Attributes8;
+}
+
+export interface Attributes8 {
   name: string;
   alternativeText: any;
   caption: any;
@@ -212,12 +250,6 @@ export interface Small2 {
   height: number;
   size: number;
   url: string;
-}
-
-export interface Discount2 {
-  id: number;
-  type: string;
-  value: string;
 }
 
 export interface Meta {

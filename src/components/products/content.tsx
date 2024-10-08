@@ -16,7 +16,10 @@ import CardProductToDetail from "../atoms/cardProductToDetail";
 
 type PromosPageProps = {
   data: ProductsProps;
-  query: string;
+  query: {
+    q: string;
+    styleFilter: string;
+  };
 };
 
 export default function Content({ data, query }: PromosPageProps) {
@@ -29,9 +32,14 @@ export default function Content({ data, query }: PromosPageProps) {
               Products
             </h1>
             <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
-            {query && (
+            {query?.q && (
               <div className={cx(poppins, poppins.className)}>
-                <p>Pencarian Product : {query}</p>
+                <p>Pencarian Product : {query.q}</p>
+              </div>
+            )}
+            {query?.styleFilter && (
+              <div className={cx(poppins, poppins.className)}>
+                <p>Filter Berdasarkan : {query.styleFilter}</p>
               </div>
             )}
             <div>

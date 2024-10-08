@@ -7,7 +7,8 @@ export default async function SlugProducts({ params }: Slug) {
   const promos: PromosProps = await getData({
     path: `promos`,
     params: {
-      populate: "thumbnail,products,products.discount,products.images",
+      populate:
+        "thumbnail,products,products.discount,products.images,products.brands",
       "sort[0]": "date:desc",
       "filters[slug][$eq]": params.slug,
     },

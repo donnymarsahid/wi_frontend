@@ -30,12 +30,12 @@ export default async function SlugProducts({ params }: Slug) {
   };
 
   if (
-    params.slug === "Wallpaper" ||
-    params.slug === "Flooring" ||
-    params.slug === "Wallpanel" ||
-    params.slug === "Carpet" ||
-    params.slug === "Decking" ||
-    params.slug === "Rollerblind"
+    params.slug === "wallpaper" ||
+    params.slug === "flooring" ||
+    params.slug === "wallpanel" ||
+    params.slug === "carpet" ||
+    params.slug === "decking" ||
+    params.slug === "rollerblind"
   ) {
     queryCategory["filters[keyPageCondition][$eq]"] = params.slug;
   } else {
@@ -81,7 +81,7 @@ export default async function SlugProducts({ params }: Slug) {
 
   return (
     <>
-      {params.slug === "Wallpaper" ? (
+      {params.slug === "wallpaper" ? (
         <>
           <main className="mt-[100px]">
             <Hero categories={categories} />
@@ -95,10 +95,10 @@ export default async function SlugProducts({ params }: Slug) {
             <Socmed homepage={homepage} />
           </main>
         </>
-      ) : params.slug === "Flooring" ||
-        params.slug === "Wallpanel" ||
-        params.slug === "Carpet" ||
-        params.slug === "Decking" ? (
+      ) : params.slug === "flooring" ||
+        params.slug === "wallpanel" ||
+        params.slug === "carpet" ||
+        params.slug === "decking" ? (
         <>
           <main className="mt-[100px]">
             <HeroFlooring categories={categories} />
@@ -128,7 +128,7 @@ export default async function SlugProducts({ params }: Slug) {
                 )
                 .map((item, index) => <Others data={item} key={index} />)}
 
-            {!categories.data[0].attributes?.sub_categories?.data?.length && (
+            {!categories.data[0]?.attributes?.sub_categories?.data?.length && (
               <>
                 <div
                   className={`w-full flex justify-center my-24 ${cx(

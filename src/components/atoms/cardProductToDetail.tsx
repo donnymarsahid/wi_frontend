@@ -5,13 +5,13 @@ import {
   formatRupiah,
 } from "@/app/lib/utils";
 import { STRAPI_URL } from "@/app/utils/constans";
-import { Daum3, Daum7 } from "@/types/categories";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import cx from "classnames";
+import { ProductsPropsDaum } from "@/types/products";
 
-export default function CardProductToDetail(item: Daum7 | any) {
+export default function CardProductToDetail(item: ProductsPropsDaum | any) {
   return (
     <>
       <Link href={`/products/${item.attributes?.slug || ""}`}>
@@ -40,18 +40,29 @@ export default function CardProductToDetail(item: Daum7 | any) {
               >
                 <div className="md:text-xs text-[9px] text-[#474747]">
                   <p>Ukuran</p>
-                  <p>Lebar: {item.attributes.size_width}</p>
-                  <p>Panjang: {item.attributes.size_height}</p>
+                  <p>
+                    Lebar:{" "}
+                    {item.attributes.brands.data[0].attributes.size_width} cm
+                  </p>
+                  <p>
+                    Panjang:{" "}
+                    {item.attributes.brands.data[0].attributes.size_height} cm
+                  </p>
                 </div>
-                {item.attributes.discount ? (
+                {item.attributes.brands.data[0].attributes.discount ? (
                   <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                     <p className="uppercase">Disc</p>
                     <p>
-                      {item.attributes.discount?.type == "discount_percentage"
-                        ? `${item.attributes.discount?.value}%`
+                      {item.attributes.brands.data[0].attributes.discount
+                        ?.type == "discount_percentage"
+                        ? `${item.attributes.brands.data[0].attributes.discount?.value}%`
                         : formatNumberToLetter(
-                            item.attributes.discount?.value
-                              ? parseFloat(item.attributes.discount?.value)
+                            item.attributes.brands.data[0].attributes.discount
+                              ?.value
+                              ? parseFloat(
+                                  item.attributes.brands.data[0].attributes
+                                    .discount?.value
+                                )
                               : 0
                           )}
                     </p>
@@ -73,11 +84,17 @@ export default function CardProductToDetail(item: Daum7 | any) {
                   {/* START */}
                   <div
                     className={`${
-                      item.attributes.discount ? "" : "hidden"
+                      item.attributes.brands.data[0].attributes.discount
+                        ? ""
+                        : "hidden"
                     } flex`}
                   >
                     <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
-                      {formatRupiah(parseFloat(item.attributes.price))}
+                      {formatRupiah(
+                        parseFloat(
+                          item.attributes.brands.data[0].attributes.price
+                        )
+                      )}
                     </p>
                   </div>
                   {/* END */}
@@ -85,15 +102,26 @@ export default function CardProductToDetail(item: Daum7 | any) {
                 <div className="text-sm">
                   <div>
                     <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                      {!item.attributes.discount &&
-                        formatRupiah(parseFloat(item.attributes.price))}
+                      {!item.attributes.brands.data[0].attributes.discount &&
+                        formatRupiah(
+                          parseFloat(
+                            item.attributes.brands.data[0].attributes.price
+                          )
+                        )}
                       {calculateDiscount(
-                        parseFloat(item.attributes.price),
-                        item.attributes.discount?.type
-                          ? item.attributes.discount?.type
+                        parseFloat(
+                          item.attributes.brands.data[0].attributes.price
+                        ),
+                        item.attributes.brands.data[0].attributes.discount?.type
+                          ? item.attributes.brands.data[0].attributes.discount
+                              ?.type
                           : "",
-                        item.attributes.discount?.value
-                          ? parseFloat(item.attributes.discount?.value)
+                        item.attributes.brands.data[0].attributes.discount
+                          ?.value
+                          ? parseFloat(
+                              item.attributes.brands.data[0].attributes.discount
+                                ?.value
+                            )
                           : 0
                       )}{" "}
                       / Roll

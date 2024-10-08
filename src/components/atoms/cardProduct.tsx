@@ -40,8 +40,8 @@ export default function CardProduct(item: Daum7 | any) {
               >
                 <div className="md:text-xs text-[9px] text-[#474747]">
                   <p>Ukuran</p>
-                  <p>Lebar: {item.attributes.size_width}</p>
-                  <p>Panjang: {item.attributes.size_height}</p>
+                  <p>Lebar: {item.attributes.size_width} cm</p>
+                  <p>Panjang: {item.attributes.size_height} cm</p>
                 </div>
                 {item.attributes.discount ? (
                   <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">

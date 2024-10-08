@@ -45,23 +45,56 @@ export default function Detail({ data }: ProductPageProps) {
               poppins.className
             )} text-[#5BC7E1]`}
           >
-            <Link className="me-2 font-medium hover:text-[#2FD1C1]" href={"/"}>
-              <p>Beranda</p>
-            </Link>
-            <p>/</p>
-            <Link
-              className="ms-2 me-2 font-medium hover:text-[#2FD1C1]"
-              href={"/products"}
-            >
-              <p>Product</p>
-            </Link>
-            <p>/</p>
-            <Link
-              className="ms-2 me-2 font-medium hover:text-[#2FD1C1] title-custom-2"
-              href={`/news/${data.data[0].attributes.slug}`}
-            >
-              <p>{data.data[0].attributes.title}</p>
-            </Link>
+            <div className="flex items-center p-4">
+              <Link
+                className="font-medium hover:text-[#2FD1C1] me-2"
+                href={"/"}
+              >
+                <p>Beranda</p>
+              </Link>
+              /
+              {data.data[0].attributes.brands.data[0].attributes.categories
+                ?.data?.length ? (
+                <Link
+                  className="font-medium hover:text-[#2FD1C1] mx-2"
+                  href={`/category/${data.data[0].attributes.brands.data[0].attributes.categories.data[0].attributes.slug}`}
+                >
+                  <p>
+                    {
+                      data.data[0].attributes.brands.data[0].attributes
+                        .categories.data[0].attributes.title
+                    }
+                  </p>
+                </Link>
+              ) : (
+                <Link
+                  className="font-medium hover:text-[#2FD1C1] mx-2"
+                  href={`/category/${data.data[0].attributes.brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`}
+                >
+                  <p>
+                    {
+                      data.data[0].attributes.brands.data[0].attributes
+                        .sub_categories.data[0].attributes.categories.data[0]
+                        .attributes.title
+                    }
+                  </p>
+                </Link>
+              )}
+              /
+              <Link
+                className="font-medium hover:text-[#2FD1C1] mx-2"
+                href={`/category/product/${data.data[0].attributes.brands.data[0].attributes.slug}`}
+              >
+                <p>{data.data[0].attributes.brands.data[0].attributes.title}</p>
+              </Link>
+              /
+              <Link
+                className="font-medium hover:text-[#2FD1C1] mx-2"
+                href={`#`}
+              >
+                <p>{data.data[0].attributes.title}</p>
+              </Link>
+            </div>
           </div>
           <div className="mt-6">
             <div className="h-full w-full bg-white p-6 shadow-lg lg:flex">
@@ -108,24 +141,37 @@ export default function Detail({ data }: ProductPageProps) {
                       {data.data[0].attributes.title}
                     </h1>
                   </div>
-                  {data.data[0].attributes.discount ? (
+                  {data.data[0].attributes.brands.data[0].attributes
+                    .discount ? (
                     <div className="flex w-full justify-between">
                       <div className="text-xl text-blue-400 line-through">
                         {formatRupiah(
                           parseFloat(
-                            parseFloat(data.data[0].attributes.price).toString()
+                            parseFloat(
+                              data.data[0].attributes.brands.data[0].attributes
+                                .price
+                            ).toString()
                           )
                         )}
                       </div>
                       <div className="text-xl text-red-400">
                         {calculateDiscount(
-                          parseFloat(data.data[0].attributes.price),
-                          data.data[0].attributes.discount?.type
-                            ? data.data[0].attributes.discount?.type
+                          parseFloat(
+                            data.data[0].attributes.brands.data[0].attributes
+                              .price
+                          ),
+                          data.data[0].attributes.brands.data[0].attributes
+                            .discount?.type
+                            ? data.data[0].attributes.brands.data[0].attributes
+                                .discount?.type
                             : "",
-                          parseFloat(data.data[0].attributes.discount?.value)
+                          parseFloat(
+                            data.data[0].attributes.brands.data[0].attributes
+                              .discount?.value
+                          )
                             ? parseFloat(
-                                data.data[0].attributes.discount?.value
+                                data.data[0].attributes.brands.data[0]
+                                  .attributes.discount?.value
                               )
                             : 0
                         )}
@@ -135,11 +181,23 @@ export default function Detail({ data }: ProductPageProps) {
                     <div className="text-xl text-blue-400">
                       {formatRupiah(
                         parseFloat(
-                          parseFloat(data.data[0].attributes.price).toString()
+                          parseFloat(
+                            data.data[0].attributes.brands.data[0].attributes
+                              .price
+                          ).toString()
                         )
                       )}
                     </div>
                   )}
+                  <div className="my-2">
+                    <button className="bg-blue-400 cursor-default px-2 py-1 rounded-2xl">
+                      <p className="text-sm text-white">
+                        {data.data[0].attributes.available
+                          ? "Available"
+                          : "Not Available"}
+                      </p>
+                    </button>
+                  </div>
                   <div className="bg-[#F3F4F6] p-2 mt-2 rounded-md">
                     <table className="text-[10px] md:text-[16px] font-light">
                       <tbody>
@@ -149,29 +207,52 @@ export default function Detail({ data }: ProductPageProps) {
                         </tr>
                         <tr>
                           <td>Merk</td>
-                          <td>: DAEDONG - Vinyl - 2mm</td>
+                          <td>
+                            :{" "}
+                            {data.data[0].attributes?.brands?.data[0]
+                              ?.attributes?.title || "-"}
+                          </td>
                         </tr>
                         <tr>
                           <td>Kode</td>
-                          <td>: D1</td>
+                          <td>
+                            : {data.data[0].attributes?.product_code || "-"}
+                          </td>
                         </tr>
                         <tr>
                           <td>Warna</td>
-                          <td>: Abu-Abu Muda</td>
+                          <td>: #</td>
                         </tr>
                         <tr>
                           <td>Motif</td>
-                          <td>: kayu</td>
+                          <td>: #</td>
                         </tr>
                         <tr>
                           <td className="w-[120px] md:w-[200px]">
                             Ukuran Per Lembar
                           </td>
-                          <td>: L=18.6cm x P=94cm</td>
+                          <td>
+                            : L=
+                            {
+                              data.data[0].attributes.brands.data[0].attributes
+                                .size_width
+                            }
+                            cm x P=
+                            {
+                              data.data[0].attributes.brands.data[0].attributes
+                                .size_height
+                            }
+                          </td>
                         </tr>
                         <tr>
                           <td>Ketebalan</td>
-                          <td>: 2mm</td>
+                          <td>
+                            :{" "}
+                            {
+                              data.data[0].attributes.brands.data[0].attributes
+                                .thickness
+                            }
+                          </td>
                         </tr>
                         <tr>
                           <td>Isi Per Box</td>
@@ -179,7 +260,12 @@ export default function Detail({ data }: ProductPageProps) {
                         </tr>
                         <tr>
                           <td>Berat</td>
-                          <td>: 25 Kg</td>
+                          <td>
+                            :{" "}
+                            {data.data[0].attributes.brands.data[0].attributes
+                              .product_weight || "-"}{" "}
+                            kg
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -194,9 +280,15 @@ export default function Detail({ data }: ProductPageProps) {
                 <div className="mt-6">
                   <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
                     {data.data[0].attributes.brands.data.length &&
-                      data.data[0].attributes.brands.data[0].attributes.products?.data.map(
-                        (item, index) => (
-                          <div
+                      data.data[0].attributes.brands.data[0].attributes.products?.data
+                        .filter(
+                          (itemData) =>
+                            itemData.attributes.slug !==
+                            data.data[0].attributes.slug
+                        )
+                        .map((item, index) => (
+                          <Link
+                            href={`/products/${item.attributes.slug}`}
                             key={index}
                             className="rounded-lg border-[1px] border-[#A5A5A5] cursor-pointer transition scale-[0.98] hover:scale-[1]"
                           >
@@ -215,28 +307,46 @@ export default function Detail({ data }: ProductPageProps) {
                                 <div className="p-2 flex justify-between">
                                   <div
                                     className={`${
-                                      item.attributes.discount ? "" : "hidden"
+                                      data.data[0].attributes.brands.data[0]
+                                        .attributes.discount
+                                        ? ""
+                                        : "hidden"
                                     } flex`}
                                   >
                                     <p className="text-[#FF0000] line-through  text-[9px]">
                                       {formatRupiah(
-                                        parseFloat(item.attributes.price)
+                                        parseFloat(
+                                          data.data[0].attributes.brands.data[0]
+                                            .attributes.price
+                                        )
                                       )}
                                     </p>
                                   </div>
                                   <p className="text-[12px] font-medium text-[#474747]">
-                                    {!item.attributes.discount &&
+                                    {!data.data[0].attributes.brands.data[0]
+                                      .attributes.discount &&
                                       formatRupiah(
-                                        parseFloat(item.attributes.price)
+                                        parseFloat(
+                                          data.data[0].attributes.brands.data[0]
+                                            .attributes.price
+                                        )
                                       )}
                                     {calculateDiscount(
-                                      parseFloat(item.attributes.price),
-                                      item.attributes.discount?.type
-                                        ? item.attributes.discount?.type
+                                      parseFloat(
+                                        data.data[0].attributes.brands.data[0]
+                                          .attributes.price
+                                      ),
+                                      data.data[0].attributes.brands.data[0]
+                                        .attributes.discount?.type
+                                        ? data.data[0].attributes.brands.data[0]
+                                            .attributes.discount?.type
                                         : "",
-                                      item.attributes.discount?.value
+                                      data.data[0].attributes.brands.data[0]
+                                        .attributes.discount?.value
                                         ? parseFloat(
-                                            item.attributes.discount?.value
+                                            data.data[0].attributes.brands
+                                              .data[0].attributes.discount
+                                              ?.value
                                           )
                                         : 0
                                     )}
@@ -244,9 +354,8 @@ export default function Detail({ data }: ProductPageProps) {
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        )
-                      )}
+                          </Link>
+                        ))}
                   </div>
                 </div>
               </div>

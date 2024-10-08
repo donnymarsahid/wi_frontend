@@ -13,7 +13,9 @@ export default async function SlugProducts({ params }: Slug) {
   const brands: BrandsProps = await getData({
     path: `brands`,
     params: {
-      populate: "products,products.discount,products.images",
+      populate:
+        "products,products.discount,products.images,sub_categories,sub_categories.categories,categories,products.brands,products.brands.discount",
+      "filters[slug][$eq]": params.slug,
     },
   });
 

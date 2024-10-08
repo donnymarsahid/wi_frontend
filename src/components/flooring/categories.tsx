@@ -34,7 +34,7 @@ export default function CategoriesFlooring({ categories }: HeroCategoryProps) {
                           className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px]"
                         >
                           <Image
-                            src={`${STRAPI_URL}${item.attributes.thumbnail.data?.attributes.url}`}
+                            src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes.url}`}
                             width={400}
                             height={400}
                             alt="wall"

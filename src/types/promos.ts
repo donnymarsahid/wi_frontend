@@ -11,10 +11,10 @@ export interface PromosPropsDaum {
 export interface Attributes {
   title: string;
   slug: string;
-  date: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  date: string;
   thumbnail: Thumbnail;
   products: Products;
 }
@@ -114,18 +114,23 @@ export interface Daum2 {
 export interface Attributes3 {
   title: string;
   desc: any;
-  size_width: string;
-  size_height: string;
   price: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   slug: string;
+  unit: any;
+  product_weight: number;
+  date: string;
+  product_code: any;
+  stock: any;
+  available: boolean;
+  brands: Brands;
   images: Images;
-  discount: Discount;
+  discount?: Discount;
 }
 
-export interface Images {
+export interface Brands {
   data: Daum3[];
 }
 
@@ -135,6 +140,31 @@ export interface Daum3 {
 }
 
 export interface Attributes4 {
+  title: string;
+  desc: string;
+  size_width: number;
+  size_height: number;
+  price: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  unit: string;
+  product_weight: number;
+  date: string;
+  thickness: any;
+}
+
+export interface Images {
+  data: Daum4[];
+}
+
+export interface Daum4 {
+  id: number;
+  attributes: Attributes5;
+}
+
+export interface Attributes5 {
   name: string;
   alternativeText: any;
   caption: any;
@@ -156,6 +186,7 @@ export interface Attributes4 {
 export interface Formats2 {
   thumbnail: Thumbnail3;
   small: Small2;
+  medium?: Medium2;
 }
 
 export interface Thumbnail3 {
@@ -171,6 +202,18 @@ export interface Thumbnail3 {
 }
 
 export interface Small2 {
+  name: string;
+  hash: string;
+  ext: string;
+  mime: string;
+  path: any;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
+}
+
+export interface Medium2 {
   name: string;
   hash: string;
   ext: string;
