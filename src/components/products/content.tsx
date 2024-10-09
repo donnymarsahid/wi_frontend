@@ -11,11 +11,11 @@ import {
   formatNumberToLetter,
   formatRupiah,
 } from "@/app/lib/utils";
-import { ProductsProps } from "@/types/products";
+import { ProductsProps, ProductsPropsDaum } from "@/types/products";
 import CardProductToDetail from "../atoms/cardProductToDetail";
 
 type PromosPageProps = {
-  data: ProductsProps;
+  data: ProductsPropsDaum[];
   query: {
     q: string;
     styleFilter: string;
@@ -38,16 +38,21 @@ export default function Content({ data, query }: PromosPageProps) {
               </div>
             )}
             {query?.styleFilter && (
-              <div className={cx(poppins, poppins.className)}>
-                <p>Filter Berdasarkan : {query.styleFilter}</p>
+              <div
+                className={`${cx(
+                  poppins,
+                  poppins.className
+                )} md:text-md text-sm`}
+              >
+                <p>Filter Kategori Wallpaper : {query.styleFilter}</p>
               </div>
             )}
             <div>
-              {data.data.length ? (
+              {data?.length ? (
                 <>
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                    {data?.data?.length &&
-                      data?.data?.map((item, index) => (
+                    {data?.length &&
+                      data?.map((item, index) => (
                         <div key={index}>
                           <CardProductToDetail {...item} />
                         </div>

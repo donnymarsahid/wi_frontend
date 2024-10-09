@@ -72,9 +72,9 @@ export const Footer = ({ footer, categories }: SectionFooterProps) => {
                       <p className="text-[10px] md:text-xs"></p>
                     </li>
                     <li className="mb-4">
-                      <p className="text-[10px] md:text-xs">
+                      <Link href={"/cart"} className="text-[10px] md:text-xs">
                         Keranjang Belanja
-                      </p>
+                      </Link>
                     </li>
                     <li className="mb-4">
                       <p className="text-[10px] md:text-xs">
@@ -125,7 +125,7 @@ export const Footer = ({ footer, categories }: SectionFooterProps) => {
                   </li>
                   <li className="mb-4">
                     <Link
-                      href={"#"}
+                      href={"/cart"}
                       className="text-[10px] hover:text-[#44CBEB] md:text-xs"
                     >
                       Keranjang Belanja

@@ -8,6 +8,7 @@ import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import {
   calculateDiscount,
+  calculateDiscountNumber,
   formatDate,
   formatNumberToLetter,
   formatRupiah,
@@ -19,6 +20,12 @@ import { ProductsProps } from "@/types/products";
 import ModalImage from "../atoms/modalimage";
 import { useState } from "react";
 import MarkdownComponent from "../atoms/markdown";
+import {
+  getDecryptedLocalStorage,
+  setEncryptedLocalStorage,
+} from "@/lib/utils";
+import Swal from "sweetalert2";
+import { CartProps } from "@/types/cart";
 
 type ProductPageProps = {
   data: ProductsProps;
@@ -26,13 +33,124 @@ type ProductPageProps = {
 
 export default function Detail({ data }: ProductPageProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  let storedImageData: CartProps[] | null = null;
+
   const openModal = () => {
     setIsModalOpen(true);
   };
   const [mainImageIndex, setMainImageIndex] = useState(0);
+  const [priceFinishedProduct, setPriceFinishedProduct] = useState(
+    data.data[0].attributes.brands.data[0].attributes.discount?.type &&
+      data.data[0].attributes.brands.data[0].attributes.discount.value
+      ? calculateDiscountNumber(
+          parseFloat(data.data[0].attributes.brands.data[0].attributes.price),
+          data.data[0].attributes.brands.data[0].attributes.discount.type,
+          data.data[0].attributes.brands.data[0].attributes.discount.value
+        ) * 1
+      : parseFloat(data.data[0].attributes.brands.data[0].attributes.price) * 1
+  );
+  const [quantity, setQuantity] = useState(1); // Tambahkan state untuk quantity
+
+  const increment = () => {
+    setQuantity(quantity + 1);
+    const qtyResult = quantity + 1;
+
+    // Accumulate Qty Start
+    const value_accumulate =
+      data.data[0].attributes.brands.data[0].attributes.discount?.type &&
+      data.data[0].attributes.brands.data[0].attributes.discount.value
+        ? calculateDiscountNumber(
+            parseFloat(data.data[0].attributes.brands.data[0].attributes.price),
+            data.data[0].attributes.brands.data[0].attributes.discount.type,
+            data.data[0].attributes.brands.data[0].attributes.discount.value
+          ) * qtyResult
+        : parseFloat(data.data[0].attributes.brands.data[0].attributes.price) *
+          qtyResult;
+    // Accumulate Qty End
+
+    const result = value_accumulate;
+    setPriceFinishedProduct(result);
+  };
+
+  const decrement = () => {
+    let minQty = 1;
+    if (quantity > minQty) {
+      setQuantity(quantity - 1);
+      const qtyResult = quantity - 1;
+
+      // Accumulate Qty Start
+      const value_accumulate =
+        data.data[0].attributes.brands.data[0].attributes.discount?.type &&
+        data.data[0].attributes.brands.data[0].attributes.discount.value
+          ? calculateDiscountNumber(
+              parseFloat(
+                data.data[0].attributes.brands.data[0].attributes.price
+              ),
+              data.data[0].attributes.brands.data[0].attributes.discount.type,
+              data.data[0].attributes.brands.data[0].attributes.discount.value
+            ) * qtyResult
+          : parseFloat(
+              data.data[0].attributes.brands.data[0].attributes.price
+            ) * qtyResult;
+      // Accumulate Qty End
+
+      const result = value_accumulate;
+
+      setPriceFinishedProduct(result);
+    }
+  };
+
+  if (typeof window !== "undefined") {
+    storedImageData = JSON.parse(
+      getDecryptedLocalStorage(localStorage.getItem("dataCart")) || "null"
+    );
+  }
 
   const changeMainImage = (index: number) => {
     setMainImageIndex(index);
+  };
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    setQuantity(value > 0 ? value : 1);
+  };
+
+  const addToCart = () => {
+    const result = {
+      quantity,
+      original_price:
+        data.data[0].attributes.brands.data[0].attributes.discount?.type &&
+        data.data[0].attributes.brands.data[0].attributes.discount.value
+          ? calculateDiscountNumber(
+              parseFloat(
+                data.data[0].attributes.brands.data[0].attributes.price
+              ),
+              data.data[0].attributes.brands.data[0].attributes.discount.type,
+              data.data[0].attributes.brands.data[0].attributes.discount.value
+            ) * 1
+          : parseFloat(data.data[0].attributes.brands.data[0].attributes.price),
+      total_price: parseFloat(priceFinishedProduct.toString()),
+      detail_product: data,
+    };
+
+    let resultSendData;
+    if (storedImageData) resultSendData = [result, ...storedImageData];
+    else resultSendData = [result];
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "dataCart",
+        setEncryptedLocalStorage(JSON.stringify(resultSendData)) ?? ""
+      );
+    }
+
+    Swal.fire({
+      icon: "success",
+      title: "Berhasil!",
+      text: "Product ditambahkan ke-cart.",
+    });
+
+    window.location.href = "/cart";
   };
 
   return (
@@ -40,17 +158,17 @@ export default function Detail({ data }: ProductPageProps) {
       <div className="container mx-auto">
         <div className="md:mx-10 mx-4">
           <div
-            className={`bg-[#F3F4F6] p-4 flex justify-start ${cx(
+            className={`bg-[#F3F4F6] md:p-4 flex justify-start ${cx(
               poppins,
               poppins.className
             )} text-[#5BC7E1]`}
           >
-            <div className="flex items-center p-4">
+            <div className="flex items-center p-4 text-sm">
               <Link
                 className="font-medium hover:text-[#2FD1C1] me-2"
                 href={"/"}
               >
-                <p>Beranda</p>
+                <p className="title-custom-2">Beranda</p>
               </Link>
               /
               {data.data[0].attributes.brands.data[0].attributes.categories
@@ -59,7 +177,7 @@ export default function Detail({ data }: ProductPageProps) {
                   className="font-medium hover:text-[#2FD1C1] mx-2"
                   href={`/category/${data.data[0].attributes.brands.data[0].attributes.categories.data[0].attributes.slug}`}
                 >
-                  <p>
+                  <p className="title-custom-2">
                     {
                       data.data[0].attributes.brands.data[0].attributes
                         .categories.data[0].attributes.title
@@ -71,7 +189,7 @@ export default function Detail({ data }: ProductPageProps) {
                   className="font-medium hover:text-[#2FD1C1] mx-2"
                   href={`/category/${data.data[0].attributes.brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`}
                 >
-                  <p>
+                  <p className="title-custom-2">
                     {
                       data.data[0].attributes.brands.data[0].attributes
                         .sub_categories.data[0].attributes.categories.data[0]
@@ -85,14 +203,18 @@ export default function Detail({ data }: ProductPageProps) {
                 className="font-medium hover:text-[#2FD1C1] mx-2"
                 href={`/category/product/${data.data[0].attributes.brands.data[0].attributes.slug}`}
               >
-                <p>{data.data[0].attributes.brands.data[0].attributes.title}</p>
+                <p className="title-custom-2">
+                  {data.data[0].attributes.brands.data[0].attributes.title}
+                </p>
               </Link>
               /
               <Link
                 className="font-medium hover:text-[#2FD1C1] mx-2"
                 href={`#`}
               >
-                <p>{data.data[0].attributes.title}</p>
+                <p className="title-custom-2">
+                  {data.data[0].attributes.title}
+                </p>
               </Link>
             </div>
           </div>
@@ -221,11 +343,27 @@ export default function Detail({ data }: ProductPageProps) {
                         </tr>
                         <tr>
                           <td>Warna</td>
-                          <td>: #</td>
+                          <td>
+                            :{" "}
+                            {data.data[0].attributes?.wallpaper_by_colors
+                              ?.data[0]?.attributes?.title || "-"}
+                          </td>
                         </tr>
                         <tr>
                           <td>Motif</td>
-                          <td>: #</td>
+                          <td>
+                            :{" "}
+                            {data.data[0].attributes?.wallpaper_by_styles
+                              ?.data[0]?.attributes?.title || "-"}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Designer</td>
+                          <td>
+                            :{" "}
+                            {data.data[0].attributes?.wallpaper_by_designers
+                              ?.data[0]?.attributes?.title || "-"}
+                          </td>
                         </tr>
                         <tr>
                           <td className="w-[120px] md:w-[200px]">
@@ -242,6 +380,7 @@ export default function Detail({ data }: ProductPageProps) {
                               data.data[0].attributes.brands.data[0].attributes
                                 .size_height
                             }
+                            cm
                           </td>
                         </tr>
                         <tr>
@@ -252,11 +391,24 @@ export default function Detail({ data }: ProductPageProps) {
                               data.data[0].attributes.brands.data[0].attributes
                                 .thickness
                             }
+                            mm
                           </td>
                         </tr>
                         <tr>
                           <td>Isi Per Box</td>
-                          <td>: 3.32m2 / 19 lembar</td>
+                          <td>
+                            :{" "}
+                            {
+                              data.data[0].attributes?.brands?.data[0]
+                                ?.attributes?.itemsPerBox
+                            }
+                            m2 /{" "}
+                            {
+                              data.data[0].attributes?.brands?.data[0]
+                                ?.attributes?.sheetsPerUnit
+                            }{" "}
+                            lembar
+                          </td>
                         </tr>
                         <tr>
                           <td>Berat</td>
@@ -271,6 +423,38 @@ export default function Detail({ data }: ProductPageProps) {
                     </table>
                   </div>
                 </div>
+                <div className="flex justify-between my-6">
+                  <div className="flex items-center">
+                    <p className="text-xl text-blue-400">Total Harga Dipesan</p>
+                  </div>
+                  <div className="text-xl text-blue-400">
+                    {formatRupiah(priceFinishedProduct)}
+                  </div>
+                </div>
+                {/* Tambahkan Quantity dan Tombol Tambah ke Keranjang */}
+                <div className="my-4 flex items-center space-x-4">
+                  <div className="flex items-center border rounded-lg">
+                    <button className="px-3 py-1 border-r" onClick={decrement}>
+                      -
+                    </button>
+                    <input
+                      type="number"
+                      className="w-12 text-center focus:outline-none"
+                      value={quantity}
+                      onChange={handleQuantityChange}
+                      disabled
+                    />
+                    <button className="px-3 py-1 border-l" onClick={increment}>
+                      +
+                    </button>
+                  </div>
+                  <button
+                    onClick={addToCart}
+                    className="bg-blue-400 text-white px-6 py-2 rounded-md hover:bg-blue-500 transition md:text-md text-sm"
+                  >
+                    Tambahkan ke Keranjang
+                  </button>
+                </div>
                 <div className="mt-10 flex-col bg-gray-100 p-4 text-sm">
                   <h1 className="mb-4 font-medium">Deskripsi</h1>
                   <hr />
@@ -278,6 +462,11 @@ export default function Detail({ data }: ProductPageProps) {
                   <MarkdownComponent markdown={data.data[0].attributes.desc} />
                 </div>
                 <div className="mt-6">
+                  <div className="text-center mb-2">
+                    <h1 className="font-medium text-lg text-[#3d3d3d]">
+                      Produk Yang Mungkin Anda Suka
+                    </h1>
+                  </div>
                   <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
                     {data.data[0].attributes.brands.data.length &&
                       data.data[0].attributes.brands.data[0].attributes.products?.data
@@ -286,6 +475,7 @@ export default function Detail({ data }: ProductPageProps) {
                             itemData.attributes.slug !==
                             data.data[0].attributes.slug
                         )
+                        .slice(0, 6)
                         .map((item, index) => (
                           <Link
                             href={`/products/${item.attributes.slug}`}

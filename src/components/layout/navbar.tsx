@@ -17,6 +17,7 @@ import { CategoryProps } from "@/types/categories";
 import { CustomerServicesProps } from "@/types/customerServices";
 import { HeaderProps } from "@/types/header";
 import { useOpen } from "@/app/lib/openContext";
+import { CartProps } from "@/types/cart";
 
 type SectionNavbarProps = {
   path: string;
@@ -43,6 +44,14 @@ export default function Navbar({
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = () => setOpen(!open);
+
+  let storedImageData: CartProps[] | null = null;
+
+  storedImageData = JSON.parse(
+    (typeof window !== "undefined" &&
+      getDecryptedLocalStorage(localStorage.getItem("dataCart"))) ||
+      "null"
+  );
 
   const {
     register,
@@ -320,7 +329,10 @@ export default function Navbar({
                 </form>
               </div>
               <div className="flex items-center">
-                <button className="bg-[#44CBEB] p-3 rounded-full me-2 relative hover:bg-[#76E5FF] transition">
+                <Link
+                  href={"/cart"}
+                  className="bg-[#44CBEB] p-3 rounded-full me-2 relative hover:bg-[#76E5FF] transition"
+                >
                   <Image
                     src="/assets/icons/cart.svg"
                     width={18}
@@ -329,9 +341,13 @@ export default function Navbar({
                     className="md:w-[18px] md:h-[18px] w-[40px] h-w-[40px]"
                   />
                   <div className="bg-[#FF0000] w-[18px] h-[18px] flex items-center justify-center rounded-full absolute top-[-5px] right-0">
-                    <p className="text-[11px] text-white">0</p>
+                    <p className="text-[11px] text-white">
+                      {storedImageData?.length
+                        ? storedImageData?.length.toString()
+                        : "0"}
+                    </p>
                   </div>
-                </button>
+                </Link>
                 <div className="md:flex items-center hidden">
                   <Image
                     src="/assets/icons/flag-idn.svg"

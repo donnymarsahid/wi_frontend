@@ -13,6 +13,8 @@ export interface Attributes {
   desc: string;
   size_width: number;
   size_height: number;
+  itemsPerBox: number;
+  sheetsPerUnit: number;
   price: string;
   slug: string;
   createdAt: string;

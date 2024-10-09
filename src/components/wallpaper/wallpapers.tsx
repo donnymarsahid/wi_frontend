@@ -17,6 +17,14 @@ type WallpaperPageProps = {
 };
 
 export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
+  const filteredData = data.data.filter((itemData) => {
+    const product = itemData?.attributes?.products?.data[0];
+    const brand = product?.attributes?.brands?.data[0];
+    const subCategory = brand?.attributes?.sub_categories?.data[0];
+    const category = subCategory?.attributes?.categories?.data[0];
+    return category?.attributes?.keyPageCondition === "wallpaper";
+  });
+
   return (
     <>
       <div className="mt-14">
@@ -28,16 +36,15 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
               </h1>
               <div className="md:h-[3px] h-[1px] md:w-[300px] w-[120px] bg-[#20D3B6] text-center"></div>
               <div>
-                {/* <div className="grid gap-4 2xl:grid-cols-6 md:grid-cols-4 grid-cols-2"> */}
                 <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
-                  {data.data.map((item, index) => (
+                  {filteredData.map((item, index) => (
                     <Link
                       href={`/products?styleFilter=${item.attributes.slug}`}
                       key={index}
                     >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">
                         <Image
-                          src={`${STRAPI_URL}${item.attributes.thumbnail.data.attributes.url}`}
+                          src={`${STRAPI_URL}${item.attributes.thumbnail?.data?.attributes?.url}`}
                           width={400}
                           height={400}
                           alt="wall"

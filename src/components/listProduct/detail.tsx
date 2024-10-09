@@ -48,12 +48,12 @@ export default function List({ brands }: ListProductPageProps) {
               poppins.className
             )} text-[#5BC7E1]`}
           >
-            <div className="flex items-center p-4">
+            <div className="flex items-center p-4 text-sm">
               <Link
-                className="font-medium hover:text-[#2FD1C1] me-2"
+                className="font-medium hover:text-[#2FD1C1] me-2 "
                 href={"/"}
               >
-                <p>Beranda</p>
+                <p className="title-custom-2">Beranda</p>
               </Link>
               /
               {brands.data[0].attributes.categories?.data?.length ? (
@@ -61,7 +61,7 @@ export default function List({ brands }: ListProductPageProps) {
                   className="font-medium hover:text-[#2FD1C1] mx-2"
                   href={`/category/${brands.data[0].attributes.categories.data[0].attributes.slug}`}
                 >
-                  <p>
+                  <p className="title-custom-2">
                     {
                       brands.data[0].attributes.categories.data[0].attributes
                         .title
@@ -73,7 +73,7 @@ export default function List({ brands }: ListProductPageProps) {
                   className="font-medium hover:text-[#2FD1C1] mx-2"
                   href={`/category/${brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`}
                 >
-                  <p>
+                  <p className="title-custom-2">
                     {
                       brands.data[0].attributes.sub_categories.data[0]
                         .attributes.categories.data[0].attributes.title
@@ -86,7 +86,9 @@ export default function List({ brands }: ListProductPageProps) {
                 className="font-medium hover:text-[#2FD1C1] mx-2"
                 href={`#`}
               >
-                <p>{brands.data[0].attributes.title}</p>
+                <p className="title-custom-2">
+                  {brands.data[0].attributes.title}
+                </p>
               </Link>
             </div>
           </div>

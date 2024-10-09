@@ -13,6 +13,7 @@ import { FooterProps } from "@/types/footer";
 import { CustomerServicesProps } from "@/types/customerServices";
 import { BottomBar } from "@/components/layout/bottombar";
 import { OpenProvider } from "./lib/openContext";
+import { CartDataProvider } from "@/utils/cartProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -80,7 +81,9 @@ export default async function RootLayout({
               />
             </div>
             <Suspense fallback={<Loading />}>
-              <div className="md:mt-[130px] mt-[175px]">{children}</div>
+              <CartDataProvider>
+                <div className="md:mt-[130px] mt-[175px]">{children}</div>
+              </CartDataProvider>
             </Suspense>
             <BottomBar />
             <Footer footer={footer} categories={categories} />

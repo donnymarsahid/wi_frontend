@@ -63,19 +63,19 @@ export default async function SlugProducts({ params }: Slug) {
   const wallpaperByStyle: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-styles`,
     params: {
-      populate: "thumbnail",
+      populate: "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
     },
   });
   const wallpaperByColor: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-colors`,
     params: {
-      populate: "thumbnail",
+      populate: "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
     },
   });
   const wallpaperByDesigner: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-designers`,
     params: {
-      populate: "thumbnail",
+      populate: "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
     },
   });
 
