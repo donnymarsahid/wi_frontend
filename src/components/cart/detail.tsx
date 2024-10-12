@@ -7,6 +7,7 @@ import {
   calculateDiscountNumber,
   formatRupiah,
   generateNumber,
+  generateWhatsAppLink,
   getDecryptedLocalStorage,
 } from "@/lib/utils";
 import { CartProps } from "@/types/cart";
@@ -20,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { useUser } from "../authContext";
 import { getData, postData } from "@/app/utils/fetching";
 import { IP_URL } from "@/app/utils/constans";
+import ModalLogin from "../atoms/modallogin";
 
 type DataCart = {
   data: Array<CartProps>;
@@ -49,6 +51,7 @@ export default function Detail({ loginUrl }: SectionCartProps) {
   const { totalCart, setTotalCart } = useCartProvider();
   const { totalProductCart, setTotalProductCart } = useCartProvider();
   const [value, setUser] = useState<any>();
+  const [openModal, setOpenModal] = useState(false);
 
   if (typeof window !== "undefined") {
     storedImageData = JSON.parse(
@@ -122,8 +125,8 @@ export default function Detail({ loginUrl }: SectionCartProps) {
     if (typeof window !== "undefined") {
       if (value) {
         Swal.fire({
-          title: "Lanjut pembayaran?",
-          html: "Jika Anda lanjut pembayaran, keranjang akan dihapus semua. periksa kembali keranjang anda!",
+          title: "Lanjut pesan?",
+          html: "Jika Anda lanjut pesan, keranjang akan dihapus semua. periksa kembali keranjang anda!",
           showDenyButton: false,
           showCancelButton: true,
           confirmButtonText: "Iya",
@@ -187,6 +190,101 @@ export default function Detail({ loginUrl }: SectionCartProps) {
           }
         });
       } else {
+        Swal.fire({
+          title: "Anda Belum Login?",
+          showDenyButton: true,
+          showCancelButton: false,
+          confirmButtonText: "Pesan Tanpa Login",
+          denyButtonText: `Login Sekarang`,
+        }).then(async (result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            try {
+              Swal.fire({
+                title: "Lanjut pesan?",
+                html: "Jika Anda lanjut pesan, keranjang akan dihapus semua. periksa kembali keranjang anda!",
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: "Iya",
+                cancelButtonText: "Tidak",
+                customClass: {
+                  actions: "my-actions",
+                  cancelButton: "order-1 right-gap",
+                  confirmButton: "order-2",
+                  denyButton: "order-3",
+                },
+              }).then(async (result) => {
+                if (result.isConfirmed) {
+                  try {
+                    const dataGetCart = JSON.parse(
+                      getDecryptedLocalStorage(
+                        localStorage.getItem("dataCart")
+                      ) || "null"
+                    );
+                    const resultOrderItems: any = dataGetCart;
+
+                    const formData: any = {
+                      orderNumber: generateNumber(),
+                      orderDate: new Date(),
+                      orderStatus: "Dalam Proses",
+                      paymentStatus: "Belum Lunas",
+                      totalAmount: totalCart.toString(),
+                      grandTotal: totalCart.toString(),
+                      orderItems: resultOrderItems,
+                    };
+
+                    const headers = {
+                      "Content-Type": "application/json",
+                    };
+
+                    const res = await postData({
+                      path: "orders",
+                      params: {
+                        populate: "*",
+                      },
+                      body: formData,
+                      headers: headers,
+                      method: "POST",
+                    });
+                    if (res?.data !== null) {
+                      Swal.fire("Berhasil membuatkan orderan", "", "success");
+                      localStorage.removeItem("dataCart");
+                      const messageText = `*Halo Wallpaper Indonesia, saya ${
+                        value?.fullname ?? ""
+                      } ingin pesan produk berikut*\n\n`;
+                      const encodedMessage = encodeURIComponent(messageText);
+                      let result = `https://api.whatsapp.com/send?phone=${"+6283872239021"}&text=${encodedMessage}`;
+
+                      if (dataGetCart && dataGetCart.length) {
+                        for (let i = 0; i < dataGetCart.length; i++) {
+                          result += generateWhatsAppLink(
+                            dataGetCart[i],
+                            i,
+                            dataGetCart.length - 1,
+                            totalCart.toString() || "0",
+                            formData.orderNumber
+                          );
+                        }
+                      }
+
+                      window.open(result, "_blank");
+                    } else Swal.fire("Internal server error!");
+                  } catch (error) {
+                    console.error(error);
+                    Swal.fire("Internal server error!");
+                  }
+                } else if (result.isDenied) {
+                  Swal.fire("Tetap dihalaman keranjang", "", "info");
+                }
+              });
+            } catch (error) {
+              console.error(error);
+              Swal.fire("Internal server error!");
+            }
+          } else if (result.isDenied) {
+            setOpenModal(!openModal);
+          }
+        });
         setIsModalOpen(true);
       }
     } else {
@@ -195,84 +293,91 @@ export default function Detail({ loginUrl }: SectionCartProps) {
   };
 
   return (
-    <main>
-      <>
-        <div className="mt-6 border-2 border-blue-300 bg-blue-300 p-4 md:mt-12 lg:flex lg:items-center lg:justify-between">
-          <h3 className="text-2xl text-white">Keranjang</h3>
-          <Breadcrumbs
-            breadcrumbs={[
-              { label: "Beranda", href: "/" },
-              { label: "Keranjang" },
-            ]}
-            colorCustom={true}
-          />
-        </div>
-        {storedImageData && storedImageData?.length > 0 ? (
-          <section className="w-full justify-between border-2 border-gray-200 p-2 lg:flex lg:p-6">
-            <div className="lg:w-3/5">
-              <div>
-                <h3 className="mt-4 font-bold">Barang yang dibeli</h3>
-                <div className="mt-4"></div>
-                {cartDatas?.data?.map((item, index) => (
-                  <Table dataCart={item} index={index} key={index} />
-                ))}
-              </div>
-            </div>
-            <div className="mx-4"></div>
-            <div className="lg:w-2/5">
-              {/* NOTE DONY - Duplicate classname */}
-              {/* bg-slate-500 bg-white*/}
-              <div className="rounded-lg border-2 border-gray-200 bg-white">
-                <div className="px-8 py-4">
-                  <h1 className="text-lg font-bold">Keranjang Belanja</h1>
-                  <p className="mt-2 font-medium">Total Belanja</p>
-                  <div className="mt-2">
-                    <div className="mb-2 flex justify-between">
-                      <p className="text-sm text-gray-400">Total Harga</p>
-                      <p className="text-sm text-gray-400">
-                        {formatRupiah(totalCart)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                <div className="px-8 py-4">
-                  <div className="mt-2">
-                    <div className="mb-2 flex justify-between">
-                      <h1 className="text-lg font-bold">Total Tagihan</h1>
-                      <p className="text-lg font-bold">
-                        {formatRupiah(totalCart)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="px-8 py-4">
-                  <button
-                    onClick={() => onPayment()}
-                    className={`bg-blue-400 text-white px-6 py-2 rounded-md hover:bg-blue-500 transition`}
-                  >
-                    Checkout Sekarang
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
-        ) : (
-          <div className="h-screen border-2 border-gray-200 ">
-            <div className="flex h-full flex-col items-center justify-center">
-              <Image
-                unoptimized
-                src="/assets/icons/empty.jpg"
-                width={150}
-                height={150}
-                alt="nodata"
-              />
-              <h1 className="my-4">Keranjang masih kosong...</h1>
-              <ButtonPrimary text="Belanja Sekarang" onClick="/products" />
-            </div>
+    <>
+      <main>
+        <>
+          <div className="mt-6 border-2 border-blue-300 bg-blue-300 p-4 md:mt-12 lg:flex lg:items-center lg:justify-between">
+            <h3 className="text-2xl text-white">Keranjang</h3>
+            <Breadcrumbs
+              breadcrumbs={[
+                { label: "Beranda", href: "/" },
+                { label: "Keranjang" },
+              ]}
+              colorCustom={true}
+            />
           </div>
-        )}
-      </>
-    </main>
+          {storedImageData && storedImageData?.length > 0 ? (
+            <section className="w-full justify-between border-2 border-gray-200 p-2 lg:flex lg:p-6">
+              <div className="lg:w-3/5">
+                <div>
+                  <h3 className="mt-4 font-bold">Barang yang dibeli</h3>
+                  <div className="mt-4"></div>
+                  {cartDatas?.data?.map((item, index) => (
+                    <Table dataCart={item} index={index} key={index} />
+                  ))}
+                </div>
+              </div>
+              <div className="mx-4"></div>
+              <div className="lg:w-2/5">
+                {/* NOTE DONY - Duplicate classname */}
+                {/* bg-slate-500 bg-white*/}
+                <div className="rounded-lg border-2 border-gray-200 bg-white">
+                  <div className="px-8 py-4">
+                    <h1 className="text-lg font-bold">Keranjang Belanja</h1>
+                    <p className="mt-2 font-medium">Total Belanja</p>
+                    <div className="mt-2">
+                      <div className="mb-2 flex justify-between">
+                        <p className="text-sm text-gray-400">Total Harga</p>
+                        <p className="text-sm text-gray-400">
+                          {formatRupiah(totalCart)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="px-8 py-4">
+                    <div className="mt-2">
+                      <div className="mb-2 flex justify-between">
+                        <h1 className="text-lg font-bold">Total Tagihan</h1>
+                        <p className="text-lg font-bold">
+                          {formatRupiah(totalCart)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="px-8 py-4">
+                    <button
+                      onClick={() => onPayment()}
+                      className={`bg-blue-400 text-white px-6 py-2 rounded-md hover:bg-blue-500 transition`}
+                    >
+                      Checkout Sekarang
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : (
+            <div className="h-screen border-2 border-gray-200 ">
+              <div className="flex h-full flex-col items-center justify-center">
+                <Image
+                  unoptimized
+                  src="/assets/icons/empty.jpg"
+                  width={150}
+                  height={150}
+                  alt="nodata"
+                />
+                <h1 className="my-4">Keranjang masih kosong...</h1>
+                <ButtonPrimary text="Belanja Sekarang" onClick="/products" />
+              </div>
+            </div>
+          )}
+        </>
+      </main>
+      <ModalLogin
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        loginUrl={loginUrl as string}
+      />
+    </>
   );
 }

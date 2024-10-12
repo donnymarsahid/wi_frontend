@@ -11,11 +11,11 @@ export default function InternalServerError() {
     <main className="container mx-auto p-4 md:px-28">
       <>
         <div className="border-2 border-blue-400 bg-blue-400 p-4 lg:flex lg:items-center lg:justify-between">
-          <h3 className="text-2xl text-white">Pembayaran</h3>
+          <h3 className="text-2xl text-white">Checkout</h3>
           <Breadcrumbs
             breadcrumbs={[
               { label: "Beranda", href: "/" },
-              { label: "Pembayaran" },
+              { label: "Checkout" },
             ]}
             colorCustom={true}
           />
