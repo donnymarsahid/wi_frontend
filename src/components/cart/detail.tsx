@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useUser } from "../authContext";
-import { getData } from "@/app/utils/fetching";
+import { getData, postData } from "@/app/utils/fetching";
 import { IP_URL } from "@/app/utils/constans";
 
 type DataCart = {
@@ -138,21 +138,11 @@ export default function Detail({ loginUrl }: SectionCartProps) {
           if (result.isConfirmed) {
             try {
               Swal.fire("Berhasil membuatkan orderan", "", "success");
-              const resultOrderItems = [];
               const dataGetCart = JSON.parse(
                 getDecryptedLocalStorage(localStorage.getItem("dataCart")) ||
                   "null"
               );
-              for (const iterator of dataGetCart) {
-                resultOrderItems.push(
-                  JSON.stringify({
-                    product: iterator.id_product,
-                    qty: iterator.quantity,
-                    amount: iterator.quantity * iterator.originalPrice,
-                    detailsItems: iterator,
-                  })
-                );
-              }
+              const resultOrderItems: any = dataGetCart;
 
               const formData: FormDataCart = {
                 orderNumber: generateNumber(),
@@ -175,19 +165,19 @@ export default function Detail({ loginUrl }: SectionCartProps) {
                 Authorization: "Bearer " + getToken,
               };
 
-              // const res = await postData({
-              //   path: "orders",
-              //   params: {
-              //     populate: "*",
-              //   },
-              //   body: formData,
-              //   headers: headers,
-              //   method: "POST",
-              // });
-              // if (res?.data !== null) {
-              //   localStorage.removeItem("dataCart");
-              //   router.push(`/checkout/${res?.data.id}`);
-              // } else Swal.fire("Internal server error!");
+              const res = await postData({
+                path: "orders",
+                params: {
+                  populate: "*",
+                },
+                body: formData,
+                headers: headers,
+                method: "POST",
+              });
+              if (res?.data !== null) {
+                localStorage.removeItem("dataCart");
+                router.push(`/checkout/${res?.data.id}`);
+              } else Swal.fire("Internal server error!");
             } catch (error) {
               console.error(error);
               Swal.fire("Internal server error!");

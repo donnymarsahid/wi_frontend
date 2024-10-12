@@ -79,7 +79,7 @@ export const ButtonSearch = ({ text, rounded, onClick, size }: ButtonIcon) => (
   <Link href={onClick}>
     <Image
       unoptimized
-      src="/icons/search.svg"
+      src="/assets/icons/search.svg"
       width={size}
       height={size}
       alt="search-icon"
@@ -91,7 +91,7 @@ export const ButtonFilter = ({ text, rounded, onClick, size }: ButtonIcon) => (
   <Link href={onClick}>
     <Image
       unoptimized
-      src="/icons/filter.svg"
+      src="/assets/icons/filter.svg"
       width={size}
       height={size}
       alt="filter-icon"
@@ -103,7 +103,7 @@ export const ButtonProfile = ({ text, rounded, onClick }: Button) => (
   <Link href={onClick}>
     <Image
       unoptimized
-      src="/icons/profile.svg"
+      src="/assets/icons/profile.svg"
       width={30}
       height={30}
       alt="profile-icon"
@@ -116,7 +116,7 @@ export const ButtonCart = ({ text, rounded, onClick }: Button) => (
     <div className="relative flex">
       <Image
         unoptimized
-        src="/icons/cart.svg"
+        src="/assets/icons/cart.svg"
         width={25}
         height={25}
         alt="cart-icon"

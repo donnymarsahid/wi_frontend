@@ -1,5 +1,5 @@
 import ms from "ms";
-import { Discount } from "@/types/cart";
+import { CartProps, Discount } from "@/types/cart";
 import { AES, enc } from "crypto-js";
 import Utf8 from "crypto-js/enc-utf8";
 import { CRYPTO_SECRET_KEY } from "@/app/utils/constans";
@@ -105,15 +105,34 @@ export const formatNumber = (angka: number) => {
 };
 
 export const generateWhatsAppLink = (
-  quoteData: OfferTypeProps,
-  index: number
+  quoteData: CartProps,
+  index: number,
+  lastIndex: number,
+  grandTotal: string,
+  orderNumber: string
 ) => {
   const firstQuote = quoteData;
 
   const number = index + 1;
-  const messageText = `*Penawaran ${number}*\nJudul Kutipan : ${firstQuote.quoteTitle}\nTipe Produk : ${firstQuote.productType}\nNama Produk : ${firstQuote.productName}\nJumlah : ${firstQuote.quantity}\nNama bahan/kertas : ${firstQuote.materialName}\nSisi/muka : ${firstQuote.sideFace}\nLaminating : ${firstQuote.laminating}\nSpot UV : ${firstQuote.spotUV}\nDeskripsi : ${firstQuote.description}\nLink Artwork : ${firstQuote.link}\n\n`;
 
-  const encodedMessage = encodeURIComponent(messageText);
+  const messageText = `*Pesanan ${number}*\nNama Produk : ${
+    quoteData.detail_product.data[0].attributes.title
+  }\nKode Produk : ${
+    firstQuote.detail_product.data[0].attributes.product_code
+  }\nJumlah : ${firstQuote.quantity}\n${
+    firstQuote.detail_product.data[0].attributes.brands.data[0].attributes
+      .discount
+      ? "Harga Diskon!\n"
+      : ""
+  }Harga : ${formatRupiah(firstQuote.total_price)}\n\n`;
+
+  const lastMessage = `Nomor Pesanan : ${orderNumber}\n*Grand Total : ${formatRupiah(
+    parseFloat(grandTotal)
+  )}*`;
+
+  const encodedMessage = encodeURIComponent(
+    index === lastIndex ? `${messageText}${lastMessage}` : messageText
+  );
 
   const finalWhatsAppLink = `${encodedMessage}`;
 
@@ -131,7 +150,7 @@ export const generateNumber = () => {
   // 02 = Offline
   const typeNumber = "01";
 
-  const formattedNumber = `PCI${typeNumber}${year}${month}${randomDigits}${lastFourDigits}`;
+  const formattedNumber = `WI${typeNumber}${year}${month}${randomDigits}${lastFourDigits}`;
   return formattedNumber;
 };
 
