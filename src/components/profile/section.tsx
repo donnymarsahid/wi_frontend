@@ -252,12 +252,12 @@ const Section = () => {
                     />
 
                     <div className="flex ">
-                      <button
-                        onClick={openModal}
+                      <Link
+                        href={"/profile/address"}
                         className="mb-4 mt-6 flex cursor-pointer justify-center rounded-lg border-2 border-solid border-blue-400 bg-blue-400 p-2 font-medium text-white transition duration-200 hover:bg-blue-300 hover:text-blue-400 lg:mb-0"
                       >
                         Ubah Alamat
-                      </button>
+                      </Link>
                       <button
                         onClick={() => onLogout()}
                         className="mb-4 ms-4 mt-6 flex cursor-pointer justify-center rounded-lg border-2 border-solid border-red-400 bg-red-400 p-2 font-medium text-white transition duration-200 hover:bg-red-300 hover:text-red-400 lg:mb-0"

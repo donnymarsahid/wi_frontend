@@ -1,11 +1,11 @@
 "use client";
 
+import { IP_URL } from "@/app/utils/constans";
+import { getData, patchData } from "@/app/utils/fetching";
 import { ButtonSecondary } from "@/components/atoms/button";
 import { useUser } from "@/components/authContext";
 import { getDecryptedLocalStorage } from "@/lib/utils";
 import { ResultProvincies } from "@/types/provincies";
-import { IP_URL } from "@/utils/constants";
-import { getData, patchData } from "@/utils/fetching";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -504,6 +504,7 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
                 name="fullname"
                 onChange={handleInputAnyChange}
                 readOnly={readOnly}
+                className="outline-none p-2 border border-1"
                 placeholder="Masukkan nama lengkap"
               />
               <label className="mt-4">Nomor Telepon</label>
@@ -513,11 +514,12 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
                 name="phone"
                 onChange={handleInputAnyChange}
                 readOnly={readOnly}
+                className="outline-none p-2 border border-1"
                 placeholder="Masukkan nomor telepon"
               />
               <textarea
                 defaultValue={formData?.address}
-                className="mt-4 rounded-lg text-sm"
+                className="mt-4 rounded-lg text-sm outline-none p-2 border border-1"
                 style={{ resize: "none" }}
                 name="address"
                 onChange={handleInputAnyChange}
@@ -560,7 +562,7 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
               router.push(getRouting);
             } else router.push("/profile");
           }}
-          className={`${sameClass} mt-4 w-full rounded-full border-primary-400 bg-primary-400 px-10 py-3 text-white hover:bg-primary-300 hover:text-primary-400`}
+          className={`${sameClass} mt-4 w-full rounded-full border-blue-400 bg-blue-400 px-10 py-3 text-white hover:bg-blue-300 hover:text-blue-400`}
         >
           {" "}
           Kembali
