@@ -63,19 +63,22 @@ export default async function SlugProducts({ params }: Slug) {
   const wallpaperByStyle: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-styles`,
     params: {
-      populate: "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
+      populate:
+        "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
     },
   });
   const wallpaperByColor: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-colors`,
     params: {
-      populate: "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
+      populate:
+        "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
     },
   });
   const wallpaperByDesigner: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-designers`,
     params: {
-      populate: "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
+      populate:
+        "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
     },
   });
 
@@ -83,7 +86,7 @@ export default async function SlugProducts({ params }: Slug) {
     <>
       {params.slug === "wallpaper" ? (
         <>
-          <main className="mt-[100px]">
+          <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <Hero categories={categories} />
             <Clearance categories={categories} />
             <ContainerWallpaper
@@ -100,7 +103,7 @@ export default async function SlugProducts({ params }: Slug) {
         params.slug === "carpet" ||
         params.slug === "decking" ? (
         <>
-          <main className="mt-[100px]">
+          <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroFlooring categories={categories} />
             <CategoriesFlooring categories={categories} />
             {categories.data[0].attributes.sub_categories.data
@@ -117,7 +120,7 @@ export default async function SlugProducts({ params }: Slug) {
         </>
       ) : (
         <>
-          <main className="mt-[100px]">
+          <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroOthers categories={categories} />
             {categories.data[0]?.attributes?.sub_categories?.data?.length > 0 &&
               categories.data[0].attributes.sub_categories.data

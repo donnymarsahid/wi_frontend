@@ -71,7 +71,7 @@ export default async function Home({ searchParams }: HomePageProps) {
   });
 
   return (
-    <main className="mt-[100px]">
+    <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
       <Hero homepage={homepage} />
       <Categories categories={categories} services={services} />
       <PromoAndProduct promos={promos} />

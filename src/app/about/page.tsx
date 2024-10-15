@@ -28,7 +28,7 @@ export default async function SlugProducts({ params }: Slug) {
 
   return (
     <>
-      <main className="mt-[120px]">
+      <main className="mt-[120px] md:mt-[200px] lg:mt-[120px]">
         <Content data={about} clients={clients} footer={footer} />
       </main>
     </>
