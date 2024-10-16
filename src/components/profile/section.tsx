@@ -15,10 +15,13 @@ import Loading from "@/app/loading";
 import { getDecryptedLocalStorage } from "@/lib/utils";
 import { getData } from "@/app/utils/fetching";
 import { IP_URL } from "@/app/utils/constans";
+import ModalAddress from "../atoms/modaladdress";
 
-type SectionUserProfile = {};
+type SectionUserProfile = {
+  listProvincies: ResultProvincies[];
+};
 
-const Section = () => {
+const Section = ({ listProvincies }: SectionUserProfile) => {
   const { value } = useUser();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -30,10 +33,7 @@ const Section = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    // setIsModalOpen(true);
-
-    router.push("profile/address", { scroll: true });
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -252,12 +252,12 @@ const Section = () => {
                     />
 
                     <div className="flex ">
-                      <Link
-                        href={"/profile/address"}
+                      <button
+                        onClick={openModal}
                         className="mb-4 mt-6 flex cursor-pointer justify-center rounded-lg border-2 border-solid border-blue-400 bg-blue-400 p-2 font-medium text-white transition duration-200 hover:bg-blue-300 hover:text-blue-400 lg:mb-0"
                       >
                         Ubah Alamat
-                      </Link>
+                      </button>
                       <button
                         onClick={() => onLogout()}
                         className="mb-4 ms-4 mt-6 flex cursor-pointer justify-center rounded-lg border-2 border-solid border-red-400 bg-red-400 p-2 font-medium text-white transition duration-200 hover:bg-red-300 hover:text-red-400 lg:mb-0"
@@ -271,6 +271,11 @@ const Section = () => {
             </div>
           </section>
         )}
+        <ModalAddress
+          openModal={isModalOpen}
+          setOpenModal={setIsModalOpen}
+          listProvincies={listProvincies}
+        />
       </>
     );
   }

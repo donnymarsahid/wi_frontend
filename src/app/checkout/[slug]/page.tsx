@@ -4,12 +4,19 @@ import { Breadcrumbs } from "@/components/atoms/breadcrumbs";
 import InternalServerError from "@/components/atoms/internalservererror";
 import Detail from "@/components/checkout/detail";
 import { AboutProps } from "@/types/about";
+import { CourierProps } from "@/types/courier";
 import { OrdersProps } from "@/types/orders";
+import { ProvinciesProps } from "@/types/provincies";
 import cx from "classnames";
 
 type Slug = { params: { slug: string } };
 
 export default async function Checkout({ params }: Slug) {
+  const couriers: CourierProps = await getData({
+    path: "rajaongkir/courier",
+    revalidate: 0,
+  });
+
   const orderData: OrdersProps = await getData({
     path: `orders`,
     params: {
@@ -50,16 +57,22 @@ export default async function Checkout({ params }: Slug) {
       total += nominal;
     }
 
-    // if (total > 10000000) flexTransactionTenMillion = true;
     flexTransactionTenMillion = true;
   }
+
+  const listProvincies: ProvinciesProps = await getData({
+    path: `rajaongkir/provincies`,
+    revalidate: 0,
+  });
 
   return (
     <main className={`${cx(poppins, poppins.className)}`}>
       <Detail
+        couriers={couriers}
         orderData={orderData}
         flexTransactionTenMillion={flexTransactionTenMillion}
         about={about}
+        listProvincies={listProvincies.rajaongkir.results}
       />
     </main>
   );

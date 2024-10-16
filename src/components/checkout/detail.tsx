@@ -20,6 +20,9 @@ import { AboutProps } from "@/types/about";
 import { patchData, postData, postDataManual } from "@/app/utils/fetching";
 import { STRAPI_URL } from "@/app/utils/constans";
 import { CartProps } from "@/types/cart";
+import { CourierProps } from "@/types/courier";
+import ModalAddress from "../atoms/modaladdress";
+import { ResultProvincies } from "@/types/provincies";
 
 type CheckoutTypeProps = {
   quoteTitle: string;
@@ -40,15 +43,19 @@ type DataOffer = {
 };
 
 type SectionCheckoutDetail = {
+  couriers: CourierProps;
   orderData: OrdersProps;
   flexTransactionTenMillion: boolean;
   about: AboutProps;
+  listProvincies: ResultProvincies[];
 };
 
 export default function Detail({
+  couriers,
   orderData,
   flexTransactionTenMillion,
   about,
+  listProvincies,
 }: SectionCheckoutDetail) {
   const router = useRouter();
   const { value } = useUser();
@@ -58,6 +65,11 @@ export default function Detail({
   const [trackPackage, setTrackPackage] = useState([]);
   const [loadTrackPackage, setLoadTrackPackage] = useState(true);
   const [messageTrackPackage, setMessageTrackPackage] = useState("");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModalCstm = (event: MouseEvent<HTMLButtonElement>) => {
+    setIsModalOpen(true);
+  };
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -98,7 +110,15 @@ export default function Detail({
           i,
           orderData?.data[0].attributes.orderItems.length - 1,
           orderData?.data[0].attributes.grandTotal || "0",
-          orderData.data[0].attributes.orderNumber
+          orderData.data[0].attributes.orderNumber,
+          {
+            courier: `${courier ? courier.toUpperCase() : "-"} | ${
+              serviceCourier?.service
+                ? serviceCourier?.service?.toString()
+                : "-"
+            }`,
+            nominalOngkir: nominalOngkir ? nominalOngkir : 0,
+          }
         );
       }
     }
@@ -128,6 +148,39 @@ export default function Detail({
   useEffect(() => {
     if (mtdPayment == "others") onSubmit();
   }, [mtdPayment]);
+
+  useEffect(() => {
+    if (orderData.data[0]?.attributes.ongkir?.noresi) {
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      postData({
+        path: `rajaongkir/cekresi`,
+        body: {
+          noresi: orderData?.data[0]?.attributes.ongkir?.noresi,
+          courier: orderData?.data[0]?.attributes.ongkir?.courier,
+        },
+        headers,
+      }).then((res) => {
+        if (res?.rajaongkir) {
+          if (res.rajaongkir?.status?.code == 200) {
+            setTrackPackage(res.rajaongkir.result.manifest);
+            setLoadTrackPackage(false);
+          } else {
+            setMessageTrackPackage(
+              "Lacak paket tidak tersedia hubungi admin kami"
+            );
+            setLoadTrackPackage(false);
+          }
+        } else {
+          setMessageTrackPackage(
+            "Lacak paket tidak tersedia hubungi admin kami"
+          );
+          setLoadTrackPackage(false);
+        }
+      });
+    }
+  }, []);
 
   const chooseServiceCourier = (
     event: ChangeEvent<HTMLSelectElement>
@@ -174,33 +227,14 @@ export default function Detail({
 
   useEffect(() => {
     if (courier) {
-      if (courier == "courier-pusat-cetak-indonesia") {
-        setLoadSender(false);
-        setLoadSenderDone(false);
-        if (
-          value?.city.city_name === "Tangerang Selatan" ||
-          value?.city.province === "DKI Jakarta" ||
-          (value?.city.city_name === "Bekasi" && value?.city.type === "Kota") ||
-          (value?.city.city_name === "Tangerang" &&
-            value?.city.type === "Kota") ||
-          (value?.city.city_name === "Depok" && value?.city.type === "Kota")
-        ) {
-          // Free Ongkir
-          setFreeOngkir(true);
-          setNominalOngkir(0);
-        } else {
-          Swal.fire(
-            "Alamat tidak valid",
-            "Kurir pusat cetak tidak tersedia dialamat anda, silahkan pilih layanan kurir yang lain",
-            "info"
-          );
-
-          setCourier("");
-        }
-
-        return;
+      let result = 0;
+      for (const iterator of orderData.data[0].attributes.orderItems) {
+        result += iterator?.detail_product?.data[0]?.attributes?.brands?.data[0]
+          ?.attributes?.product_weight
+          ? iterator?.detail_product?.data[0]?.attributes?.brands?.data[0]
+              ?.attributes?.product_weight
+          : 0;
       }
-      let result = 0; // default
 
       setNominalOngkir(0);
       setLoadSender(true);
@@ -210,7 +244,7 @@ export default function Detail({
         originType: "city",
         destination: value?.subdistrict?.subdistrict_id,
         destinationType: "subdistrict",
-        weight: result ? result.toString() : "1000",
+        weight: result.toString(),
         courier: courier,
       };
 
@@ -220,16 +254,20 @@ export default function Detail({
           "Content-Type": "application/json",
         },
         body: dataService,
-      }).then((res) => {
-        if (res?.rajaongkir?.results[0]?.costs?.length) {
-          setServiceTypeCourer(res.rajaongkir.results[0]?.costs);
-          setLoadSenderDone(true);
-        } else {
-          setLoadSenderDone(true);
-          alert("kurir tidak tersedia");
-          setServiceTypeCourer([]);
-        }
-      });
+      })
+        .then((res) => {
+          if (res?.rajaongkir?.results[0]?.costs?.length) {
+            setServiceTypeCourer(res.rajaongkir.results[0]?.costs);
+            setLoadSenderDone(true);
+          } else {
+            setLoadSenderDone(true);
+            alert("kurir tidak tersedia");
+            setServiceTypeCourer([]);
+          }
+        })
+        .catch((err) => {
+          console.log(err, "err raja ongkir");
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courier]);
@@ -264,6 +302,161 @@ export default function Detail({
                 )}
               </div>
               <hr />
+              <div>
+                {/* <h3 className="mt-4 font-bold">Pengiriman dan Pembayaran</h3> */}
+                <h3 className="mt-4 font-bold">Pengiriman</h3>
+                <div className="mt-4"></div>
+                <button
+                  onClick={openModalCstm}
+                  className="mb-4 flex w-full cursor-pointer items-center justify-between rounded-lg bg-gray-200 bg-opacity-20 p-2 text-sm"
+                >
+                  <div className="text-start">
+                    <p className="font-medium">
+                      {!value?.address
+                        ? "Klik Disini Untuk Masukkan Alamat"
+                        : "Alamat"}
+                    </p>
+                    <div className="md:text-md text-xs text-gray-500">
+                      {value?.address && (
+                        <div>
+                          <p>{value?.province?.province}</p>
+                          <p>
+                            {value?.city?.city_name} - ({value?.city?.type})
+                          </p>
+                          <p>{value?.subdistrict?.subdistrict_name}</p>
+                          <p>{value?.address}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    {!orderData.data[0].attributes.isPayment && (
+                      <Image
+                        unoptimized
+                        src="/assets/icons/arrow-right.svg"
+                        width={25}
+                        height={25}
+                        alt="arrow-right"
+                      />
+                    )}
+                  </div>
+                </button>
+                {!orderData.data[0].attributes.isPayment && (
+                  <>
+                    {value?.address &&
+                      value?.city &&
+                      value?.subdistrict &&
+                      value?.province && (
+                        <div className="mb-4 text-sm">
+                          <p className="font-medium">Pengiriman</p>
+
+                          <div className="flex justify-between">
+                            <div className="flex w-1/2 flex-col">
+                              <label>Pilih Kurir</label>
+                              <select
+                                {...register("courier", { required: true })}
+                                className="rounded-lg border border-1 outline-none"
+                                onChange={(e) => chooseCourier(e)}
+                              >
+                                <option value="no-option" selected disabled>
+                                  -- Pilih --
+                                </option>
+                                {flexTransactionTenMillion && (
+                                  <option value="courier-pusat-cetak-indonesia">
+                                    Wallpaper Indonesia
+                                  </option>
+                                )}
+                                {couriers.data.map((item, index) => (
+                                  <option value={item} key={index}>
+                                    {item.toUpperCase()}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div className="mx-4"></div>
+                            {loadSender &&
+                              (loadSenderDone ? (
+                                <div className="flex w-1/2 flex-col">
+                                  <label>Pilih Pengiriman</label>
+                                  <select
+                                    {...register("serviceCourierForm", {
+                                      required: true,
+                                    })}
+                                    onChange={(e) => chooseServiceCourier(e)}
+                                    className="rounded-lg border border-1 outline-none"
+                                  >
+                                    <option value="no-option" selected disabled>
+                                      -- Pilih --
+                                    </option>
+                                    {serviceTypeCourer?.length &&
+                                      serviceTypeCourer.map(
+                                        (item: any, index: any) => (
+                                          <option
+                                            value={JSON.stringify(item)}
+                                            key={index}
+                                          >
+                                            {item.service.toUpperCase()}
+                                          </option>
+                                        )
+                                      )}
+                                  </select>
+                                </div>
+                              ) : (
+                                <div className="flex w-[200px] items-center justify-center">
+                                  <div>
+                                    <Image
+                                      unoptimized
+                                      src="/assets/icons/loader.gif"
+                                      width={50}
+                                      height={30}
+                                      alt="loading..."
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                  </>
+                )}
+              </div>
+              {orderData.data[0]?.attributes.ongkir?.noresi && (
+                <>
+                  {/* Lacak Paket Start */}
+                  <div>
+                    <h3 className="mt-4 font-bold">Lacak Paket</h3>
+                    {loadTrackPackage && (
+                      <>
+                        <p>Sedang Memuat lacak paket...</p>
+                      </>
+                    )}
+                    {messageTrackPackage}
+                    <div className="mt-6 border-l-2 border-gray-600 text-sm font-medium text-gray-600">
+                      {trackPackage.map((item: any, index) => (
+                        <div key={index} className="mb-4 flex ps-2">
+                          <Image
+                            src={
+                              index === 0
+                                ? "/icons/checklist-record.svg"
+                                : "/icons/cargo-truck.svg"
+                            }
+                            width={20}
+                            height={20}
+                            alt="icon"
+                          />
+                          <div className="ps-2">
+                            <p>{item.manifest_description}</p>
+                            <p>
+                              {item.manifest_date} {item.manifest_time}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Lacak Paket End */}
+                </>
+              )}
             </div>
             <div className="mx-4"></div>
             <div className="lg:w-2/5">
@@ -299,6 +492,9 @@ export default function Detail({
                       <div className="mb-2 flex justify-between">
                         <p className="text-sm text-gray-400">
                           Total Ongkos Kirim
+                        </p>
+                        <p className="text-sm text-gray-400">
+                          {nominalOngkir ? formatRupiah(nominalOngkir) : "-"}
                         </p>
                       </div>
                     </div>
@@ -377,6 +573,24 @@ export default function Detail({
                         <p className="text-sm text-gray-400">
                           Total Ongkos Kirim
                         </p>
+                        {orderData.data[0]?.attributes.ongkir?.cost ? (
+                          <p className="text-sm text-gray-400">
+                            {formatRupiah(
+                              parseFloat(
+                                orderData.data[0]?.attributes.ongkir?.cost
+                              )
+                            )}
+                          </p>
+                        ) : (
+                          <p className="text-sm text-gray-400">
+                            {/* {freeOngkir === true
+                            ? "Gratis Ongkir"
+                            : loadSender && loadSenderDone && nominalOngkir
+                            ? formatRupiah(nominalOngkir)
+                            : 0} */}
+                            {nominalOngkir ? formatRupiah(nominalOngkir) : "-"}
+                          </p>
+                        )}
                       </div>
                       <div className="mb-2 flex justify-between">
                         <p className="text-sm text-gray-400">
@@ -452,6 +666,11 @@ export default function Detail({
               </div>
             </div>
           </section>
+          <ModalAddress
+            openModal={isModalOpen}
+            setOpenModal={setIsModalOpen}
+            listProvincies={listProvincies}
+          />
         </main>
       )}
     </>
