@@ -18,7 +18,7 @@ import CardNews from "../atoms/cardNews";
 import "../../app/blockStyle.css";
 import { ProductsProps } from "@/types/products";
 import ModalImage from "../atoms/modalimage";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MarkdownComponent from "../atoms/markdown";
 import {
   getDecryptedLocalStorage,
@@ -26,13 +26,18 @@ import {
 } from "@/lib/utils";
 import Swal from "sweetalert2";
 import { CartProps } from "@/types/cart";
+import { FlashSaleProps } from "@/types/flashsale";
+import { FlashSaleDetailProduct } from "../atoms/flashsaledetailproduct";
 
 type ProductPageProps = {
   data: ProductsProps;
+  flashsale: FlashSaleProps;
 };
 
-export default function Detail({ data }: ProductPageProps) {
+export default function Detail({ data, flashsale }: ProductPageProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFlashSale, setIsFlashSale] = useState(false);
+
   let storedImageData: CartProps[] | null = null;
 
   const openModal = () => {
@@ -114,6 +119,17 @@ export default function Detail({ data }: ProductPageProps) {
     const value = parseInt(e.target.value);
     setQuantity(value > 0 ? value : 1);
   };
+
+  const checkFlashSaleProduct = () => {
+    const find = flashsale?.data?.attributes?.products?.data?.find(
+      (item) => item.attributes.slug === data.data[0].attributes.slug
+    );
+    setIsFlashSale(!!find); // Use !! to convert value to boolean
+  };
+
+  useEffect(() => {
+    checkFlashSaleProduct();
+  }, []); // Empty dependency array to run it once when the component mounts
 
   const addToCart = () => {
     const result = {
@@ -258,6 +274,7 @@ export default function Detail({ data }: ProductPageProps) {
               </div>
               <div className="h-full md:px-6  lg:w-1/2">
                 <div className="w-full font-medium">
+                  {isFlashSale && <FlashSaleDetailProduct {...flashsale} />}
                   <div>
                     <h1 className="font-bold md:text-[24px] text-[20px] text-blue-400">
                       {data.data[0].attributes.title}

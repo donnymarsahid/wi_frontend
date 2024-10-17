@@ -12,6 +12,8 @@ import { ServiceProps } from "@/types/services";
 import { ClientProps } from "@/types/client";
 import { PromosProps } from "@/types/promos";
 import { ReviewsProps } from "@/types/reviews";
+import { FlashSale } from "@/components/atoms/flashsale";
+import { FlashSaleProps } from "@/types/flashsale";
 
 type HomePageProps = {
   searchParams: {
@@ -70,9 +72,18 @@ export default async function Home({ searchParams }: HomePageProps) {
     },
   });
 
+  const flashsale: FlashSaleProps = await getData({
+    path: `flashsale`,
+    params: {
+      populate: "products",
+      "filters[active][$eq]": "true",
+    },
+  });
+
   return (
     <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
       <Hero homepage={homepage} />
+      {flashsale?.data && <FlashSale {...flashsale} />}
       <Categories categories={categories} services={services} />
       <PromoAndProduct promos={promos} />
       <VideoAndImplementation />
