@@ -206,7 +206,7 @@ export default function Detail({
         "Content-Type": "application/json",
       },
       body: {
-        orderStatus: "Selesai",
+        data: { orderStatus: "Selesai" },
       },
     })
       .then((res) => {
@@ -361,11 +361,11 @@ export default function Detail({
                                 <option value="no-option" selected disabled>
                                   -- Pilih --
                                 </option>
-                                {flexTransactionTenMillion && (
+                                {/* {flexTransactionTenMillion && (
                                   <option value="courier-pusat-cetak-indonesia">
                                     Wallpaper Indonesia
                                   </option>
-                                )}
+                                )} */}
                                 {couriers.data.map((item, index) => (
                                   <option value={item} key={index}>
                                     {item.toUpperCase()}
@@ -437,8 +437,8 @@ export default function Detail({
                           <Image
                             src={
                               index === 0
-                                ? "/icons/checklist-record.svg"
-                                : "/icons/cargo-truck.svg"
+                                ? "/assets/icons/checklist-record.svg"
+                                : "/assets/icons/cargo-truck.svg"
                             }
                             width={20}
                             height={20}
@@ -655,12 +655,12 @@ export default function Detail({
                   )}
                   {orderData.data[0]?.attributes.paymentStatus === "Lunas" &&
                     orderData.data[0]?.attributes.orderStatus === "Dikirim" && (
-                      <div
+                      <button
                         onClick={submitOrderDone}
-                        className="duration-20 mt-2 w-full cursor-pointer rounded-lg bg-primary-400 py-4 text-center font-bold text-white transition hover:bg-primary-600"
+                        className={`bg-blue-400 text-white px-6 py-2 rounded-md hover:bg-blue-500 transition`}
                       >
                         Pesanan Diterima
-                      </div>
+                      </button>
                     )}
                 </div>
               </div>
