@@ -291,7 +291,7 @@ export default function Navbar({
                               <Link
                                 href={`/category/${
                                   product.attributes.keyPageCondition
-                                    ? product.attributes.keyPageCondition
+                                    ? `${product.attributes.keyPageCondition}--${product.attributes.slug}`
                                     : product.attributes.slug
                                 }`}
                                 key={i}

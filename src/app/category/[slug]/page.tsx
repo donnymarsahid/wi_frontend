@@ -18,6 +18,8 @@ import { WallpaperProps } from "@/types/wallpaper";
 import Image from "next/image";
 import cx from "classnames";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
+import RollerBlind from "@/components/rollerblind/rollerblind";
+import HeroCategory from "@/components/rollerblind/hero";
 
 type Slug = { params: { slug: string } };
 
@@ -30,16 +32,17 @@ export default async function SlugProducts({ params }: Slug) {
   };
 
   if (
-    params.slug === "wallpaper" ||
-    params.slug === "flooring" ||
-    params.slug === "wallpanel" ||
-    params.slug === "carpet" ||
-    params.slug === "decking" ||
-    params.slug === "rollerblind"
+    params.slug.split("--")[0] === "wallpaper" ||
+    params.slug.split("--")[0] === "flooring" ||
+    params.slug.split("--")[0] === "wallpanel" ||
+    params.slug.split("--")[0] === "carpet" ||
+    params.slug.split("--")[0] === "decking" ||
+    params.slug.split("--")[0] === "rollerblind"
   ) {
-    queryCategory["filters[keyPageCondition][$eq]"] = params.slug;
+    queryCategory["filters[keyPageCondition][$eq]"] =
+      params.slug.split("--")[0];
   } else {
-    queryCategory["filters[slug][$eq]"] = params.slug;
+    queryCategory["filters[slug][$eq]"] = params.slug.split("--")[0];
   }
 
   const categories: CategoryProps = await getData({
@@ -84,7 +87,7 @@ export default async function SlugProducts({ params }: Slug) {
 
   return (
     <>
-      {params.slug === "wallpaper" ? (
+      {params.slug.split("--")[0] === "wallpaper" ? (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <Hero categories={categories} />
@@ -98,10 +101,25 @@ export default async function SlugProducts({ params }: Slug) {
             <Socmed homepage={homepage} />
           </main>
         </>
-      ) : params.slug === "flooring" ||
-        params.slug === "wallpanel" ||
-        params.slug === "carpet" ||
-        params.slug === "decking" ? (
+      ) : params.slug.split("--")[0] === "rollerblind" ? (
+        <>
+          <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
+            <HeroCategory categories={categories} />
+            {categories.data[0].attributes.sub_categories.data
+              .sort(
+                (a, b) =>
+                  new Date(b.attributes.date).getTime() -
+                  new Date(a.attributes.date).getTime()
+              )
+              .map((item, index) => (
+                <RollerBlind data={item} key={index} />
+              ))}
+          </main>
+        </>
+      ) : params.slug.split("--")[0] === "flooring" ||
+        params.slug.split("--")[0] === "wallpanel" ||
+        params.slug.split("--")[0] === "carpet" ||
+        params.slug.split("--")[0] === "decking" ? (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroFlooring categories={categories} />

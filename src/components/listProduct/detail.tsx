@@ -124,19 +124,33 @@ export default function List({
               {brands.data[0].attributes.categories?.data?.length ? (
                 <Link
                   className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${brands.data[0].attributes.categories.data[0].attributes.slug}`}
+                  href={`/category/${
+                    brands.data[0].attributes.categories.data[0].attributes
+                      .keyPageCondition
+                      ? `${brands.data[0].attributes.categories.data[0].attributes.keyPageCondition}--${brands.data[0].attributes.categories.data[0].attributes.slug}`
+                      : brands.data[0].attributes.categories.data[0].attributes
+                          .slug
+                  }`}
                 >
                   <p className="title-custom-2">
                     {
                       brands.data[0].attributes.categories.data[0].attributes
                         .title
                     }
+                    aa
                   </p>
                 </Link>
               ) : (
                 <Link
                   className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`}
+                  href={`/category/${
+                    brands.data[0].attributes.sub_categories?.data[0]
+                      ?.attributes?.categories?.data[0]?.attributes
+                      ?.keyPageCondition
+                      ? `${brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.keyPageCondition}--${brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`
+                      : brands.data[0].attributes.sub_categories.data[0]
+                          .attributes.categories.data[0].attributes.slug
+                  }`}
                 >
                   <p className="title-custom-2">
                     {

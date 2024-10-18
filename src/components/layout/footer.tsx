@@ -163,7 +163,7 @@ export const Footer = ({ footer, categories }: SectionFooterProps) => {
                       <Link
                         href={`/category/${
                           item.attributes.keyPageCondition
-                            ? item.attributes.keyPageCondition
+                            ? `${item.attributes.keyPageCondition}--${item.attributes.slug}`
                             : item.attributes.slug
                         }`}
                       >

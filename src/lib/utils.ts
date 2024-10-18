@@ -110,7 +110,7 @@ export const generateWhatsAppLink = (
   lastIndex: number,
   grandTotal: string,
   orderNumber: string,
-  ongkir: any
+  ongkir?: any
 ) => {
   const firstQuote = quoteData;
 
@@ -127,13 +127,13 @@ export const generateWhatsAppLink = (
       : ""
   }Harga : ${formatRupiah(firstQuote.total_price)}\n\n`;
 
-  let resultNumber = ongkir.nominalOngkir ? ongkir.nominalOngkir : 0;
+  let resultNumber = ongkir?.nominalOngkir ? ongkir?.nominalOngkir : 0;
 
   let ongkirText = "";
 
-  if (ongkir.courier) {
-    ongkirText = `(Jasa Kirim : ${ongkir.courier})\n(Ongkir : ${formatRupiah(
-      ongkir.nominalOngkir
+  if (ongkir?.courier) {
+    ongkirText = `(Jasa Kirim : ${ongkir?.courier})\n(Ongkir : ${formatRupiah(
+      ongkir?.nominalOngkir
     )})\n`;
   }
 

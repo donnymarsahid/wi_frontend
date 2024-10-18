@@ -15,7 +15,7 @@ export default async function SlugProducts({ params }: Slug) {
     path: `brands`,
     params: {
       populate:
-        "products,products.discount,products.images,sub_categories,sub_categories.categories,categories,products.brands,products.brands.discount,products.wallpaper_by_colors,products.wallpaper_by_styles,products.wallpaper_by_designers",
+        "products,products.discount,products.images,sub_categories,sub_categories.categories,products.brands,products.brands.discount,products.wallpaper_by_colors,products.wallpaper_by_styles,products.wallpaper_by_designers",
       "filters[slug][$eq]": params.slug,
     },
   });

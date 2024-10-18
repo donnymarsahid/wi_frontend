@@ -243,7 +243,7 @@ const Section = ({
               alt="nodata"
             />
             <h1 className="my-4">Transaksi masih kosong...</h1>
-            <ButtonPrimary text="Belanja Sekarang" onClick="/categories" />
+            <ButtonPrimary text="Belanja Sekarang" onClick="/products" />
           </div>
         </div>
       )}

@@ -268,6 +268,7 @@ export default function Detail({ loginUrl }: SectionCartProps) {
                       }
 
                       window.open(result, "_blank");
+                      window.location.reload();
                     } else Swal.fire("Internal server error!");
                   } catch (error) {
                     console.error(error);
