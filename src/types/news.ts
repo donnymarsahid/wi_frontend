@@ -19,6 +19,7 @@ export interface Attributes {
   publishedAt: string;
   banner: Banner;
   thumbnail: Thumbnail2;
+  seo: Seo
 }
 
 export interface Banner {
@@ -185,6 +186,15 @@ export interface Small2 {
   height: number;
   size: number;
   url: string;
+}
+
+export interface Seo {
+  id: number
+  title: string
+  description: string
+  viewport: string
+  keywords: string
+  robots: string
 }
 
 export interface Meta {

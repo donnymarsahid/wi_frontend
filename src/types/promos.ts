@@ -17,6 +17,7 @@ export interface Attributes {
   date: string;
   thumbnail: Thumbnail;
   products: Products;
+  seo: Seo
 }
 
 export interface Thumbnail {
@@ -229,6 +230,15 @@ export interface Discount {
   id: number;
   type: string;
   value: string;
+}
+
+export interface Seo {
+  id: number
+  title: string
+  description: string
+  viewport: string
+  keywords: string
+  robots: string
 }
 
 export interface Meta {
