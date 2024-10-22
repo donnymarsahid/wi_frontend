@@ -27,6 +27,7 @@ export interface Attributes {
   products: Products;
   sub_categories: SubCategories;
   categories: Categories2;
+  seo: Seo
 }
 
 export interface Products {
@@ -174,6 +175,15 @@ export interface Attributes6 {
   slug: string;
   keyPageCondition: string;
   date: string;
+}
+
+export interface Seo {
+  id: number
+  title: string
+  description: string
+  viewport: string
+  keywords: string
+  robots: string
 }
 
 export interface Meta {

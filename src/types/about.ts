@@ -16,6 +16,7 @@ export interface Attributes {
   publishedAt: string;
   portfolios: Portfolios;
   banners: Banners;
+  seo: Seo
 }
 
 export interface Portfolios {
@@ -156,6 +157,15 @@ export interface Small2 {
   height: number;
   size: number;
   url: string;
+}
+
+export interface Seo {
+  id: number
+  title: string
+  description: string
+  viewport: string
+  keywords: string
+  robots: string
 }
 
 export interface Meta {}

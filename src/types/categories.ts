@@ -20,6 +20,7 @@ export interface Attributes {
   banners: Banners;
   brands: Brands;
   sub_categories: SubCategories;
+  seo: Seo
 }
 
 export interface Image {
@@ -584,6 +585,15 @@ export interface Small7 {
   height: number;
   size: number;
   url: string;
+}
+
+export interface Seo {
+  id: number
+  title: string
+  description: string
+  viewport: string
+  keywords: string
+  robots: string
 }
 
 export interface Meta {

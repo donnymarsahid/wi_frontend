@@ -24,6 +24,7 @@ export interface Attributes {
   wallpaper_by_colors: WallpaperByColors
   wallpaper_by_styles: WallpaperByStyles
   wallpaper_by_designers: WallpaperByDesigners
+  seo: Seo
 }
 
 export interface Images {
@@ -358,6 +359,15 @@ export interface Attributes11 {
   createdAt: string
   updatedAt: string
   publishedAt: string
+}
+
+export interface Seo {
+  id: number
+  title: string
+  description: string
+  viewport: string
+  keywords: string
+  robots: string
 }
 
 export interface Meta {
