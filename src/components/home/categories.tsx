@@ -44,7 +44,7 @@ export default function Categories({
                         className="relative mt-4 overflow-hidden rounded-lg cursor-pointer"
                       >
                         <Image
-                          src={`${STRAPI_URL}${item.attributes.image.data.attributes.url}`}
+                          src={`${STRAPI_URL}${item.attributes.image.data.attributes.formats.medium.url}`}
                           width={400}
                           height={400}
                           alt="wall"
@@ -70,7 +70,7 @@ export default function Categories({
                 {services.data.map((item, index) => (
                   <div key={index} className="flex items-center">
                     <Image
-                      src={`${STRAPI_URL}${item.attributes.icon.data.attributes.url}`}
+                      src={`${STRAPI_URL}${item.attributes.icon.data.attributes.formats.medium.url}`}
                       width={50}
                       height={50}
                       alt="wall"
