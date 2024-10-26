@@ -14,6 +14,7 @@ import { FooterProps } from "@/types/footer";
 import { HowToShopProps } from "@/types/howToShop";
 import "../../app/blockStyle.css";
 import Link from "next/link";
+import MarkdownComponent from "../atoms/markdown";
 
 type HowToShopDetailProps = {
   data: HowToShopProps;
@@ -46,12 +47,7 @@ export default function Content({ data }: HowToShopDetailProps) {
               <p>Cara Belanja</p>
             </Link>
           </div>
-          <div
-            className="customStyle mt-6"
-            dangerouslySetInnerHTML={{
-              __html: data.data.attributes.content,
-            }}
-          />
+          <MarkdownComponent markdown={data.data.attributes.content} />
         </div>
       </div>
     </div>
