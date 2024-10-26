@@ -12,6 +12,7 @@ const YouTubeEmbed = ({ videoId }: { videoId: string }) => {
           className="relative flex justify-center items-center w-full h-full cursor-pointer"
         >
           <Image
+            loading="lazy"
             src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
             placeholder="blur"
             blurDataURL={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg?w=30&q=10`} // Placeholder low-res

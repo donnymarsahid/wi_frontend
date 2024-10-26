@@ -37,11 +37,9 @@ export default function Others({ data }: WallpaperPageProps) {
                       {data.attributes.brands?.data?.length &&
                         data.attributes.brands?.data.map((item, index) => (
                           <Link href={""} key={index}>
-                            <div
-                              
-                              className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer"
-                            >
+                            <div className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer">
                               <Image
+                                loading="lazy"
                                 src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                                 width={400}
                                 height={400}
@@ -95,6 +93,7 @@ export default function Others({ data }: WallpaperPageProps) {
                     >
                       <div>
                         <Image
+                          loading="lazy"
                           src="/assets/icons/empty.jpg"
                           width={200}
                           height={200}

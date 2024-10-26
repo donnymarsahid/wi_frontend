@@ -236,6 +236,7 @@ const Section = ({
           </div>
           <div className="flex h-full flex-col items-center justify-center">
             <Image
+              loading="lazy"
               unoptimized
               src="/assets/icons/empty.jpg"
               width={150}

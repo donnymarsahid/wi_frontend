@@ -145,6 +145,7 @@ export default function Navbar({
                         key={index}
                       >
                         <Image
+                          loading="lazy"
                           src="/assets/icons/logos_whatsapp-icon.svg"
                           width={25}
                           height={25}
@@ -171,6 +172,7 @@ export default function Navbar({
                           Cara Belanja
                         </p>
                         <Image
+                          loading="lazy"
                           src="/assets/icons/info.svg"
                           width={15}
                           height={15}
@@ -188,6 +190,7 @@ export default function Navbar({
                             Hi! {value.username}
                           </p>
                           <Image
+                            loading="lazy"
                             src="/assets/icons/profile.svg"
                             width={15}
                             height={15}
@@ -203,6 +206,7 @@ export default function Navbar({
                             Login / Daftar
                           </p>
                           <Image
+                            loading="lazy"
                             src="/assets/icons/profile.svg"
                             width={15}
                             height={15}
@@ -243,6 +247,7 @@ export default function Navbar({
                 className="flex justify-center lg:justify-start lg:w-[200px] w-full"
               >
                 <Image
+                  loading="lazy"
                   src="/assets/images/logo.png"
                   width={140}
                   height={140}
@@ -318,6 +323,7 @@ export default function Navbar({
                     />
                     <button>
                       <Image
+                        loading="lazy"
                         src="/assets/icons/search.svg"
                         width={18}
                         height={18}
@@ -334,6 +340,7 @@ export default function Navbar({
                   className="bg-[#44CBEB] p-3 rounded-full me-2 relative hover:bg-[#76E5FF] transition"
                 >
                   <Image
+                    loading="lazy"
                     src="/assets/icons/cart.svg"
                     width={18}
                     height={18}
@@ -350,6 +357,7 @@ export default function Navbar({
                 </Link>
                 <div className="md:flex items-center hidden">
                   <Image
+                    loading="lazy"
                     src="/assets/icons/flag-idn.svg"
                     width={30}
                     height={30}
@@ -375,6 +383,7 @@ export default function Navbar({
                     />
                     <button>
                       <Image
+                        loading="lazy"
                         src="/assets/icons/search.svg"
                         width={18}
                         height={18}
@@ -397,6 +406,7 @@ export default function Navbar({
       >
         <div className="bg-white flex items-center justify-center p-2">
           <Image
+            loading="lazy"
             src="/assets/images/logo-horizontal.png"
             width={200}
             height={200}
@@ -406,6 +416,7 @@ export default function Navbar({
         <div className="mt-10">
           <div className="flex items-center px-4">
             <Image
+              loading="lazy"
               src="/assets/icons/flag-idn.svg"
               width={30}
               height={30}
@@ -443,6 +454,7 @@ export default function Navbar({
                 key={index}
               >
                 <Image
+                  loading="lazy"
                   src="/assets/icons/logos_whatsapp-icon.svg"
                   width={25}
                   height={25}

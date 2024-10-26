@@ -413,6 +413,7 @@ const ModalAddress = ({
                         <div className="ms-[-25px] mt-4 flex items-center border bg-white px-6 py-2">
                           <div className="ms-[-9px] flex h-[15px] items-center justify-center">
                             <Image
+                              loading="lazy"
                               src={"/assets/icons/active-dots-list.svg"}
                               alt="icon"
                               width={16}
@@ -441,6 +442,7 @@ const ModalAddress = ({
                         <div className="ms-[-25px] mt-4 flex items-center border bg-white px-6 py-2">
                           <div className="ms-[-9px] flex h-[15px] items-center justify-center">
                             <Image
+                              loading="lazy"
                               src={"/assets/icons/active-dots-list.svg"}
                               alt="icon"
                               width={16}
@@ -536,6 +538,7 @@ const ModalAddress = ({
                     <div className="ms-[-25px] flex items-center border bg-white px-6 py-2">
                       <div className="ms-[-9px] flex h-[15px] items-center justify-center">
                         <Image
+                          loading="lazy"
                           src={"/assets/icons/active-dots-list.svg"}
                           alt="icon"
                           width={16}

@@ -32,8 +32,8 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
                   <Marquee>
                     <MarqueeGroup>
                       {clients.data.map((el, index) => (
-                        <ImageGroup key={index}>
-                          <Image
+                        <Image loading="lazy"Group key={index}>
+                          <Image loading="lazy"
                             src={`${STRAPI_URL}${el.attributes.logo.data.attributes.formats.small.url}`}
                             width={500}
                             height={500}
@@ -45,8 +45,8 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
                     </MarqueeGroup>
                     <MarqueeGroup>
                       {clients.data.map((el, index) => (
-                        <ImageGroup key={index}>
-                          <Image
+                        <Image loading="lazy"Group key={index}>
+                          <Image loading="lazy"
                             src={`${STRAPI_URL}${el.attributes.logo.data.attributes.formats.small.url}`}
                             width={500}
                             height={500}

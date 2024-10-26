@@ -34,6 +34,7 @@ export default function VideoAndImplementation() {
           <div className="flex items-start flex-col">
             <div className="flex items-center">
               <Image
+                loading="lazy"
                 src={"/assets/icons/youtube.svg"}
                 width={55}
                 height={55}

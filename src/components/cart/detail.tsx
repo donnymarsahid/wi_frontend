@@ -363,6 +363,7 @@ export default function Detail({ loginUrl, about }: SectionCartProps) {
             <div className="h-screen border-2 border-gray-200 ">
               <div className="flex h-full flex-col items-center justify-center">
                 <Image
+                  loading="lazy"
                   unoptimized
                   src="/assets/icons/empty.jpg"
                   width={150}

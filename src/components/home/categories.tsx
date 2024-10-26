@@ -44,6 +44,7 @@ export default function Categories({
                         className="relative mt-4 overflow-hidden rounded-lg cursor-pointer"
                       >
                         <Image
+                          loading="lazy"
                           src={`${STRAPI_URL}${item.attributes.image.data.attributes.url}`}
                           placeholder="blur"
                           blurDataURL={`${STRAPI_URL}${item.attributes.image.data.attributes.url}?w=30&q=10`} // Placeholder low-res
@@ -72,6 +73,7 @@ export default function Categories({
                 {services.data.map((item, index) => (
                   <div key={index} className="flex items-center">
                     <Image
+                      loading="lazy"
                       src={`${STRAPI_URL}${item.attributes.icon.data.attributes.url}`}
                       placeholder="blur"
                       blurDataURL={`${STRAPI_URL}${item.attributes.icon.data.attributes.url}?w=30&q=10`} // Placeholder low-res

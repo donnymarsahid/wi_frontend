@@ -52,6 +52,7 @@ export default function Detail({ data }: NewsPageProps) {
           <div className="mt-6">
             <div className="bg-[#F3F4F6] p-1">
               <Image
+                loading="lazy"
                 src={`${STRAPI_URL}${data.data[0].attributes.thumbnail.data.attributes.url}`}
                 width={400}
                 height={400}
@@ -65,6 +66,7 @@ export default function Detail({ data }: NewsPageProps) {
               </h3>
               <div className="flex items-center py-2">
                 <Image
+                  loading="lazy"
                   src={"/assets/icons/calender.png"}
                   alt="calender"
                   width={18}

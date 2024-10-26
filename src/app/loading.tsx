@@ -5,6 +5,7 @@ export default function Loading() {
   return (
     <main className="flex h-screen w-full items-center justify-center">
       <Image
+        loading="lazy"
         unoptimized
         src="/assets/icons/loader.gif"
         width={220}

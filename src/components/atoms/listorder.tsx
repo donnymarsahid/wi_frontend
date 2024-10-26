@@ -22,6 +22,7 @@ export const ListOrder = ({
           className="relative me-2 flex cursor-pointer flex-col items-center  p-2 text-xs"
         >
           <Image
+            loading="lazy"
             src={"/assets/icons/wallet.svg"}
             width={20}
             height={20}
@@ -39,6 +40,7 @@ export const ListOrder = ({
           className="relative me-2 flex cursor-pointer flex-col items-center  p-2 text-xs"
         >
           <Image
+            loading="lazy"
             src={"/assets/icons/box-order.svg"}
             width={20}
             height={20}
@@ -56,6 +58,7 @@ export const ListOrder = ({
           className="relative me-2 flex cursor-pointer flex-col items-center  p-2 text-xs"
         >
           <Image
+            loading="lazy"
             src={"/assets/icons/truck.svg"}
             width={20}
             height={20}
@@ -73,6 +76,7 @@ export const ListOrder = ({
           className="relative me-2 flex cursor-pointer flex-col items-center  p-2 text-xs"
         >
           <Image
+            loading="lazy"
             src={"/assets/icons/complete.svg"}
             width={20}
             height={20}

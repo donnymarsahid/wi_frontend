@@ -35,6 +35,7 @@ export const Table = ({ dataHistory, index }: SectionHistoryOrder) => {
           <div className="mb-8 flex md:mb-6" key={index}>
             <button onClick={() => redirect(dataHistory.id)}>
               <Image
+                loading="lazy"
                 src={
                   STRAPI_URL +
                   item.detail_product.data[0].attributes.images.data[0]
@@ -97,6 +98,7 @@ export const Table = ({ dataHistory, index }: SectionHistoryOrder) => {
                     : "Paket Telah Batal"}
                 </p>
                 <Image
+                  loading="lazy"
                   unoptimized
                   src="/assets/icons/arrow-right.svg"
                   width={20}

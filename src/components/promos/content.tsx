@@ -39,6 +39,7 @@ export default function Content({ data }: PromosPageProps) {
                               {item.attributes?.images?.data[0]?.attributes
                                 ?.url && (
                                 <Image
+                                  loading="lazy"
                                   src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                                   width={400}
                                   height={400}
@@ -163,6 +164,7 @@ export default function Content({ data }: PromosPageProps) {
                 >
                   <div>
                     <Image
+                      loading="lazy"
                       src="/assets/icons/empty.jpg"
                       width={200}
                       height={200}

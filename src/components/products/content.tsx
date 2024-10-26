@@ -68,6 +68,7 @@ export default function Content({ data, query }: PromosPageProps) {
                 >
                   <div>
                     <Image
+                      loading="lazy"
                       src="/assets/icons/empty.jpg"
                       width={200}
                       height={200}

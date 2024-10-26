@@ -20,6 +20,7 @@ export default function CardNews(item: NewsPropsDaum) {
         <div className="relative mt-4 overflow-hidden cursor-pointer border-t-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5] p-2">
           {item.attributes?.thumbnail?.data.attributes?.url && (
             <Image
+              loading="lazy"
               src={`${STRAPI_URL}${item.attributes.thumbnail.data.attributes.url}`}
               width={400}
               height={400}
@@ -37,6 +38,7 @@ export default function CardNews(item: NewsPropsDaum) {
                 </h3>
                 <div className="flex items-center py-2">
                   <Image
+                    loading="lazy"
                     src={"/assets/icons/calender.png"}
                     alt="calender"
                     width={18}

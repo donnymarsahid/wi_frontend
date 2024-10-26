@@ -71,6 +71,7 @@ export const Table: React.FC<CartProps> = (dataOrder) => {
       <div className="flex">
         <div>
           <Image
+            loading="lazy"
             unoptimized
             src={
               STRAPI_URL +
@@ -89,6 +90,7 @@ export const Table: React.FC<CartProps> = (dataOrder) => {
           <div className="mb-2 text-xs font-medium text-primary-400">
             <div className="flex cursor-pointer" onClick={openModal}>
               <Image
+                loading="lazy"
                 unoptimized
                 src="/assets/icons/info-icon.svg"
                 width={15}

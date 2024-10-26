@@ -121,6 +121,7 @@ export default function CarouselBanner({ about }: HeroHomeProps) {
           {about.data.attributes.banners.data.map((item, index) => (
             <div key={index}>
               <Image
+                loading="lazy"
                 src={`${STRAPI_URL}${item.attributes.url}`}
                 width={1000}
                 height={600}

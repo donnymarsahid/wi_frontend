@@ -64,6 +64,7 @@ export const BottomBar = () => {
         <Link href="/cart">
           <div className="relative flex">
             <Image
+              loading="lazy"
               unoptimized
               src="/assets/icons/cart - 2.svg"
               width={25}

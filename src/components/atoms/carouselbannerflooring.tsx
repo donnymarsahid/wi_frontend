@@ -127,6 +127,7 @@ export default function CarouselBannerFlooring({
                   (item, index) => (
                     <div key={index}>
                       <Image
+                        loading="lazy"
                         src={`${STRAPI_URL}${item.attributes.url}`}
                         width={1000}
                         height={600}

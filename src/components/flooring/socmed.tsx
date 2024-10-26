@@ -20,6 +20,7 @@ export default function SocmedFlooring({ homepage }: SocmedSectionProps) {
           <div className="md:mx-10 mx-4 flex justify-between items-center">
             <div>
               <Image
+                loading="lazy"
                 src="/assets/images/logo-horizontal.png"
                 width={300}
                 height={300}
@@ -32,6 +33,7 @@ export default function SocmedFlooring({ homepage }: SocmedSectionProps) {
                   <li key={index} className="me-2">
                     <Link href={item.link} target="blank">
                       <Image
+                        loading="lazy"
                         src={`${STRAPI_URL}${item.logo.data.attributes.url}`}
                         width={50}
                         height={50}

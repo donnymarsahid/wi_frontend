@@ -241,6 +241,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                   <div className="ms-2 w-full">
                     <div className="cursor-pointer" onClick={openModal}>
                       <Image
+                        loading="lazy"
                         src={`${STRAPI_URL}${data.data[0].attributes.images.data[mainImageIndex].attributes.url}`}
                         width={400}
                         height={400}
@@ -258,6 +259,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                       >
                         <div className="flex h-full w-full items-center justify-center">
                           <Image
+                            loading="lazy"
                             unoptimized
                             src={STRAPI_URL + item.attributes.url}
                             width={400}
@@ -501,6 +503,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                           >
                             <div>
                               <Image
+                                loading="lazy"
                                 src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                                 width={100}
                                 height={100}

@@ -332,6 +332,7 @@ export default function Detail({
                   <div>
                     {!orderData.data[0].attributes.isPayment && (
                       <Image
+                        loading="lazy"
                         unoptimized
                         src="/assets/icons/arrow-right.svg"
                         width={25}
@@ -405,6 +406,7 @@ export default function Detail({
                                 <div className="flex w-[200px] items-center justify-center">
                                   <div>
                                     <Image
+                                      loading="lazy"
                                       unoptimized
                                       src="/assets/icons/loader.gif"
                                       width={50}
@@ -435,6 +437,7 @@ export default function Detail({
                       {trackPackage.map((item: any, index) => (
                         <div key={index} className="mb-4 flex ps-2">
                           <Image
+                            loading="lazy"
                             src={
                               index === 0
                                 ? "/assets/icons/checklist-record.svg"
