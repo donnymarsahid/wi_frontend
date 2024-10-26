@@ -5,11 +5,11 @@ const nextConfig = {
     unoptimized: true,
     remotePatterns: [
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "https://dev.wallpaperindonesia.com",
       },
     ],
-    domains: ["i.ytimg.com", "localhost:1337"],
+    domains: ["i.ytimg.com", "dev.wallpaperindonesia.com"],
   },
 };
 
