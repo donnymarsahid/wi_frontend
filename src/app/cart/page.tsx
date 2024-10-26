@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { getData } from "../utils/fetching";
 import cx from "classnames";
 import { poppins } from "../fonts";
+import { AboutProps } from "@/types/about";
 
 const Detail = dynamic(() => import("@/components/cart/detail"), {
   ssr: false,
@@ -12,6 +13,13 @@ export default async function Cart() {
     path: "/strapi-google-auth/init",
   });
 
+  const about: AboutProps = await getData({
+    path: `about`,
+    params: {
+      "fields[0]": "no_telp_admin_order",
+    },
+  });
+
   return (
     <main
       className={`container mx-auto p-4 md:px-28 ${cx(
@@ -19,7 +27,7 @@ export default async function Cart() {
         poppins.className
       )}`}
     >
-      <Detail loginUrl={urlLogin} />
+      <Detail loginUrl={urlLogin} about={about} />
     </main>
   );
 }

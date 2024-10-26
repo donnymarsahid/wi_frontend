@@ -22,6 +22,7 @@ import { useUser } from "../authContext";
 import { getData, postData } from "@/app/utils/fetching";
 import { IP_URL } from "@/app/utils/constans";
 import ModalLogin from "../atoms/modallogin";
+import { AboutProps } from "@/types/about";
 
 type DataCart = {
   data: Array<CartProps>;
@@ -42,9 +43,10 @@ type FormDataCart = {
 
 type SectionCartProps = {
   loginUrl?: string;
+  about: AboutProps;
 };
 
-export default function Detail({ loginUrl }: SectionCartProps) {
+export default function Detail({ loginUrl, about }: SectionCartProps) {
   const router = useRouter();
   let storedImageData: CartProps[] | null = null;
 
@@ -253,7 +255,7 @@ export default function Detail({ loginUrl }: SectionCartProps) {
                         value?.fullname ?? ""
                       } ingin pesan produk berikut*\n\n`;
                       const encodedMessage = encodeURIComponent(messageText);
-                      let result = `https://api.whatsapp.com/send?phone=${"+6283872239021"}&text=${encodedMessage}`;
+                      let result = `https://api.whatsapp.com/send?phone=${about.data.attributes.no_telp_admin_order}&text=${encodedMessage}`;
 
                       if (dataGetCart && dataGetCart.length) {
                         for (let i = 0; i < dataGetCart.length; i++) {

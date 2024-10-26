@@ -94,7 +94,7 @@ export default function Detail({
       value?.fullname ?? ""
     } ingin pesan produk berikut*\n\n`;
     const encodedMessage = encodeURIComponent(messageText);
-    let result = `https://api.whatsapp.com/send?phone=${"+6283872239021"}&text=${encodedMessage}`;
+    let result = `https://api.whatsapp.com/send?phone=${about.data.attributes.no_telp_admin_order}&text=${encodedMessage}`;
 
     if (
       orderData?.data[0].attributes.orderItems &&

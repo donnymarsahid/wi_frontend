@@ -13,10 +13,11 @@ export interface Attributes {
   maps: string;
   createdAt: string;
   updatedAt: string;
+  no_telp_admin_order: string;
   publishedAt: string;
   portfolios: Portfolios;
   banners: Banners;
-  seo: Seo
+  seo: Seo;
 }
 
 export interface Portfolios {
@@ -160,12 +161,12 @@ export interface Small2 {
 }
 
 export interface Seo {
-  id: number
-  title: string
-  description: string
-  viewport: string
-  keywords: string
-  robots: string
+  id: number;
+  title: string;
+  description: string;
+  viewport: string;
+  keywords: string;
+  robots: string;
 }
 
 export interface Meta {}
