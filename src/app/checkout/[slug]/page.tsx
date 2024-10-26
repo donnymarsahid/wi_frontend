@@ -14,7 +14,7 @@ type Slug = { params: { slug: string } };
 export default async function Checkout({ params }: Slug) {
   const couriers: CourierProps = await getData({
     path: "rajaongkir/courier",
-    revalidate: 0,
+    revalidate: 60,
   });
 
   const orderData: OrdersProps = await getData({
@@ -24,7 +24,7 @@ export default async function Checkout({ params }: Slug) {
         "bukti_transfer,ongkir,shippingAddress,orderItems,orderItems.products,users_permissions_users",
       "filters[id][$eq]": params.slug,
     },
-    revalidate: 0,
+    revalidate: 60,
   });
 
   const about: AboutProps = await getData({
@@ -32,7 +32,7 @@ export default async function Checkout({ params }: Slug) {
     params: {
       populate: "logo,backgroundTemplate,others,linked",
     },
-    revalidate: 0,
+    revalidate: 60,
   });
 
   let flexTransactionTenMillion = false;
@@ -46,7 +46,7 @@ export default async function Checkout({ params }: Slug) {
           orderData?.data[0].attributes.users_permissions_users?.data[0].id,
         "filters[orderStatus][$eq]": "Selesai",
       },
-      revalidate: 0,
+      revalidate: 60,
     });
 
     let total = 0;
@@ -62,7 +62,7 @@ export default async function Checkout({ params }: Slug) {
 
   const listProvincies: ProvinciesProps = await getData({
     path: `rajaongkir/provincies`,
-    revalidate: 0,
+    revalidate: 60,
   });
 
   return (

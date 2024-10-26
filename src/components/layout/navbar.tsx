@@ -102,7 +102,7 @@ export default function Navbar({
           headers: {
             Authorization: token ?? "",
           },
-          revalidate: 0,
+          revalidate: 60,
         }).then((res) => setUser(res.data));
       }
     }

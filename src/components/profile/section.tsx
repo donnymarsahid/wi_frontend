@@ -78,7 +78,7 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
           headers: {
             Authorization: token ?? "",
           },
-          revalidate: 0,
+          revalidate: 60,
         })
           .then((res) => {
             setIsLoading(false);
@@ -90,7 +90,7 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
                   populate: "users_permissions_users",
                   "filters[userId][$eq]": dataUser.id.toString() ?? "",
                 },
-                revalidate: 0,
+                revalidate: 60,
               }).then((res) => {
                 if (res?.data) {
                   const notYetPaid = res.data.filter(

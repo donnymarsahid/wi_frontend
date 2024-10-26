@@ -9,7 +9,7 @@ export async function GET(request: Request) {
       Authorization: `Bearer ${token}`,
     },
     next: {
-      revalidate: 0,
+      revalidate: 60,
     },
   });
 

@@ -78,7 +78,7 @@ const ModalAddress = ({
         headers: {
           Authorization: token ?? "",
         },
-        revalidate: 0,
+        revalidate: 60,
       })
         .then((res) => {
           if (!res.data) {
@@ -126,7 +126,7 @@ const ModalAddress = ({
       if (token) {
         getData({
           path: `rajaongkir/city/${resultProvince?.province_id}`,
-          revalidate: 0,
+          revalidate: 60,
         })
           .then((res) => {
             if (res?.rajaongkir) {
@@ -162,7 +162,7 @@ const ModalAddress = ({
       if (token) {
         getData({
           path: `rajaongkir/subdistrict/${resultCity?.city_id}`,
-          revalidate: 0,
+          revalidate: 60,
         })
           .then((res) => {
             if (res?.rajaongkir) {
@@ -259,7 +259,7 @@ const ModalAddress = ({
         headers: {
           Authorization: token ?? "",
         },
-        revalidate: 0,
+        revalidate: 60,
       })
         .then((res) => {
           if (!res.data) {
