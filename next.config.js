@@ -6,7 +6,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "https://dev-wi.gudangsystem.com",
+        hostname: "https://dev.wallpaperindonesia.com",
       },
     ],
     domains: ["i.ytimg.com", "localhost:1337"],

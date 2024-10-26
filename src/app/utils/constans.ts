@@ -1,5 +1,5 @@
 export const STRAPI_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://dev-wi.gudangsystem.com";
+  process.env.NEXT_PUBLIC_API_URL || "https://dev.wallpaperindonesia.com";
 export const CRYPTO_SECRET_KEY =
   process.env.CRYPTO_SECRET_KEY || "aSCvrtFZ^sjGashgAneqwf!2@sCVULsui";
 export const IP_URL =
