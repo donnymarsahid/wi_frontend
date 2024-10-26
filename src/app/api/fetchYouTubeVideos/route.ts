@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     });
   }
 
-  const apiUrl = `https://www.googleapis.com/youtube/v3/search?channelId=${YOUTUBE_CHANNEL}&part=snippet&order=date&maxResults=50&key=${YOUTUBE_API_KEY}`;
+  const apiUrl = `https://www.googleapis.com/youtube/v3/search?channelId=${YOUTUBE_CHANNEL}&part=snippet&order=date&maxResults=15&key=${YOUTUBE_API_KEY}`;
 
   try {
     const response = await fetch(apiUrl);

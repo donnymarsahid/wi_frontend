@@ -86,7 +86,7 @@ export default async function Home({ searchParams }: HomePageProps) {
       {flashsale?.data && <FlashSale {...flashsale} />}
       <Categories categories={categories} services={services} />
       <PromoAndProduct promos={promos} />
-      {/* <VideoAndImplementation /> */}
+      <VideoAndImplementation />
       <Clients clients={clients} reviews={reviews} />
       <Socmed homepage={homepage} />
     </main>
