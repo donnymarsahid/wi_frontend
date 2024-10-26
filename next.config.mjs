@@ -2,7 +2,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["img.youtube.com"], // Tambahkan domain di sini
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "https://dev.wallpaperindonesia.com",
+      },
+    ],
+    domains: ["i.ytimg.com", "dev.wallpaperindonesia.com"],
   },
 };
 
