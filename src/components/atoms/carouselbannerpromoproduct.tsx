@@ -136,6 +136,8 @@ export default function CarouselBannerPromoProduct({
                     width={1000}
                     height={600}
                     className="w-full h-full pb-4 rounded-lg"
+                    placeholder="blur"
+                    blurDataURL={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}?w=30&q=10`} // Placeholder low-res
                     alt="banners"
                   />
                   <Link

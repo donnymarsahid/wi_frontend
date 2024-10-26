@@ -13,6 +13,8 @@ const YouTubeEmbed = ({ videoId }: { videoId: string }) => {
         >
           <Image
             src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+            placeholder="blur"
+            blurDataURL={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg?w=30&q=10`} // Placeholder low-res
             layout="fill"
             objectFit="cover"
             alt="YouTube thumbnail"

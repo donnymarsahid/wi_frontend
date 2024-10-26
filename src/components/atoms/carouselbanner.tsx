@@ -117,23 +117,19 @@ export default function CarouselBanner({ homepage }: HeroHomeProps) {
           slidesToSlide={1}
           swipeable
         >
-          {homepage.data.attributes.banners.data.map((item, index) =>
-            item.attributes.formats.medium.url ? (
-              <div key={index}>
-                <Image
-                  src={`${STRAPI_URL}${item.attributes.formats.medium.url}`}
-                  width={1000}
-                  height={600}
-                  placeholder="blur"
-                  blurDataURL={`${STRAPI_URL}${item.attributes.formats.medium.url}?w=30&q=10`} // Placeholder low-res
-                  className="bg-cover bg-center w-full h-full pb-4"
-                  alt="banners"
-                />
-              </div>
-            ) : (
-              <div key={index}>Gambar tidak tersedia</div>
-            )
-          )}
+          {homepage.data.attributes.banners.data.map((item, index) => (
+            <div key={index}>
+              <Image
+                src={`${STRAPI_URL}${item.attributes.url}`}
+                width={1000}
+                height={600}
+                placeholder="blur"
+                blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
+                className="bg-cover bg-center w-full h-full pb-4"
+                alt="banners"
+              />
+            </div>
+          ))}
         </Carousel>
       </div>
     </>
