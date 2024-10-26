@@ -19,6 +19,8 @@ export default function CardProduct(item: Daum7 | any) {
           {item.attributes?.images?.data[0]?.attributes?.url && (
             <Image
               src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+              placeholder="blur"
+              blurDataURL={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}?w=30&q=10`} // Placeholder low-res
               width={400}
               height={400}
               alt="wall"
