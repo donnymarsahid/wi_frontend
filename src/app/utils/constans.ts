@@ -1,7 +1,8 @@
 export const STRAPI_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:1338";
+  process.env.NEXT_PUBLIC_API_URL || "https://dev-wi.gudangsystem.com";
 export const CRYPTO_SECRET_KEY =
   process.env.CRYPTO_SECRET_KEY || "aSCvrtFZ^sjGashgAneqwf!2@sCVULsui";
-export const IP_URL = process.env.IP_URL_CLIENT || "http://localhost:3000";
+export const IP_URL =
+  process.env.IP_URL_CLIENT || "https://wallpaperindonesia.com";
 export const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 export const YOUTUBE_CHANNEL = process.env.YOUTUBE_CHANNEL;
