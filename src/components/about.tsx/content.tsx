@@ -88,8 +88,9 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
                 <Marquee>
                   <MarqueeGroup>
                     {clients.data.map((el, index) => (
-                      <Image loading="lazy"Group key={index}>
-                        <Image loading="lazy"
+                      <ImageGroup key={index}>
+                        <Image
+                          loading="lazy"
                           src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
                           width={500}
                           height={500}
@@ -101,8 +102,9 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
                   </MarqueeGroup>
                   <MarqueeGroup>
                     {clients.data.map((el, index) => (
-                      <Image loading="lazy"Group key={index}>
-                        <Image loading="lazy"
+                      <ImageGroup key={index}>
+                        <Image
+                          loading="lazy"
                           src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
                           width={500}
                           height={500}
