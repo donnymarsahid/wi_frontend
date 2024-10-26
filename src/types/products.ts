@@ -377,7 +377,7 @@ export interface Meta {
 export interface DiscountCustom {
   id: number;
   type: string;
-  value: number;
+  value: any;
 }
 
 export interface Pagination {
