@@ -1,15 +1,7 @@
-// next.config.js
-/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    unoptimized: true,
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "https://dev.wallpaperindonesia.com",
-      },
-    ],
-    domains: ["i.ytimg.com", "dev.wallpaperindonesia.com"],
+    domains: ["dev.wallpaperindonesia.com"], // Anda tidak perlu menduplikasi protokol
+    formats: ["image/avif", "image/webp"], // Mengatur format gambar yang optimal
   },
 };
 
