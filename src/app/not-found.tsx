@@ -12,7 +12,6 @@ const NotFound = () => {
     >
       <div className="text-center">
         <Image
-          loading="lazy"
           src={"/assets/images/404_page-not-found-1024x576.jpg"}
           width={500}
           height={500}

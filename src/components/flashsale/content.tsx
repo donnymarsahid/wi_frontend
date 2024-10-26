@@ -54,7 +54,6 @@ export default function Content(flashsale: FlashSaleProps) {
                 >
                   <div>
                     <Image
-                      loading="lazy"
                       src="/assets/icons/empty.jpg"
                       width={200}
                       height={200}

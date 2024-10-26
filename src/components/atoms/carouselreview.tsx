@@ -161,7 +161,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               <div className="flex justify-center">
                 {Array.from({ length: item.attributes.rate }).map((_, i) => (
                   <Image
-                    loading="lazy"
                     key={i}
                     src="/assets/icons/star.svg"
                     width={18}
@@ -186,7 +185,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               >
                 <div>
                   <Image
-                    loading="lazy"
                     src={
                       item.attributes.images.data[0]?.attributes?.url
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
@@ -196,6 +194,12 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                     width={400}
                     height={300}
                     className="h-[201px] object-cover"
+                    placeholder="blur"
+                    blurDataURL={`${
+                      item.attributes.images.data[0]?.attributes?.url
+                        ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
+                        : "/assets/images/review.png"
+                    }?w=30&q=10`} // Placeholder low-res
                   />
                 </div>
               </div>
@@ -206,7 +210,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               >
                 <div>
                   <Image
-                    loading="lazy"
                     src={
                       item.attributes.images.data[0]?.attributes?.url
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
@@ -218,7 +221,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                     className="h-[100px] object-cover"
                   />
                   <Image
-                    loading="lazy"
                     src={
                       item.attributes.images.data[1]?.attributes?.url
                         ? `${STRAPI_URL}${item.attributes.images.data[1]?.attributes?.url}`
@@ -238,7 +240,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               >
                 <div>
                   <Image
-                    loading="lazy"
                     src={
                       item.attributes.images.data[0]?.attributes?.url
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
@@ -251,7 +252,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                   />
                   <div className="flex justify-between">
                     <Image
-                      loading="lazy"
                       src={
                         item.attributes.images.data[1]?.attributes?.url
                           ? `${STRAPI_URL}${item.attributes.images.data[1]?.attributes?.url}`
@@ -263,7 +263,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                       className="h-[100px] w-[49%] object-cover mt-1 me-[2.5px]"
                     />
                     <Image
-                      loading="lazy"
                       src={
                         item.attributes.images.data[2]?.attributes?.url
                           ? `${STRAPI_URL}${item.attributes.images.data[2]?.attributes?.url}`
@@ -299,7 +298,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
             {Array.from({ length: selectedReview?.attributes?.rate }).map(
               (_, i) => (
                 <Image
-                  loading="lazy"
                   key={i}
                   src="/assets/icons/star.svg"
                   width={18}
@@ -350,7 +348,6 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                   (item: any, index: any) => (
                     <div key={index}>
                       <Image
-                        loading="lazy"
                         src={`${STRAPI_URL}${item.attributes.url}`}
                         width={1000}
                         height={600}

@@ -132,7 +132,6 @@ export default function CarouselBannerPromoProduct({
               {item.arr.map((child, indexChild) => (
                 <div key={indexChild} className="relative group">
                   <Image
-                    loading="lazy"
                     src={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}`}
                     width={1000}
                     height={600}

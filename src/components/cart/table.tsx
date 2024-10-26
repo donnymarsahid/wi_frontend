@@ -77,7 +77,6 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
       <div className="flex">
         <div>
           <Image
-            loading="lazy"
             unoptimized
             src={
               STRAPI_URL +
@@ -96,7 +95,6 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
           <div className="mb-2 text-xs font-medium text-primary-400">
             <button className="flex cursor-pointer" onClick={openModal}>
               <Image
-                loading="lazy"
                 unoptimized
                 src="/assets/icons/info-icon.svg"
                 width={15}
@@ -127,7 +125,6 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
           <div className="mt-2">
             <button onClick={() => onDelete(index)}>
               <Image
-                loading="lazy"
                 unoptimized
                 src="/assets/icons/red-trash.svg"
                 width={20}

@@ -189,7 +189,6 @@ export default async function SlugProducts({ params }: Slug) {
                 >
                   <div>
                     <Image
-                      loading="lazy"
                       src="/assets/icons/empty.jpg"
                       width={200}
                       height={200}

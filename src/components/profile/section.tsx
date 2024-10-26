@@ -150,7 +150,6 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
                     className="flex items-center text-sm font-medium hover:bg-primary-400 hover:bg-opacity-20"
                   >
                     <Image
-                      loading="lazy"
                       unoptimized
                       src="/assets/icons/cart-cstm.svg"
                       width={25}
@@ -167,7 +166,6 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
                     className="flex items-center text-sm font-medium hover:bg-primary-400 hover:bg-opacity-20"
                   >
                     <Image
-                      loading="lazy"
                       unoptimized
                       src="/assets/icons/history.svg"
                       width={25}
@@ -222,7 +220,6 @@ const Section = ({ listProvincies }: SectionUserProfile) => {
               <div className="h-full lg:p-10">
                 <div className="mt-8 lg:mt-0">
                   <Image
-                    loading="lazy"
                     unoptimized
                     src="/assets/icons/profile-cstm.svg"
                     width={100}

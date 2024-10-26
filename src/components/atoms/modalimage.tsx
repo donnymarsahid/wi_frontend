@@ -29,7 +29,6 @@ const ModalImage = ({ openModal, setOpenModal, urlImage }: ModalLoginProps) => {
         <Modal.Header className="bg-white border-b-1">
           <div>
             <Image
-              loading="lazy"
               src="/assets/images/logo-horizontal.png"
               width={200}
               height={200}
@@ -40,7 +39,6 @@ const ModalImage = ({ openModal, setOpenModal, urlImage }: ModalLoginProps) => {
         <Modal.Body className="bg-white">
           <div className={`  ${cx(poppins, poppins.className)}`}>
             <Image
-              loading="lazy"
               src={`${STRAPI_URL}${urlImage}`}
               width={400}
               height={400}

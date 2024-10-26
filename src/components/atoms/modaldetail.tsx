@@ -33,7 +33,6 @@ const ModalDetail = ({
       <Modal.Header className="bg-white border-b-1">
         <div>
           <Image
-            loading="lazy"
             src="/assets/images/logo-horizontal.png"
             width={200}
             height={200}

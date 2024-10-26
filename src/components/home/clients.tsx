@@ -34,7 +34,6 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
                       {clients.data.map((el, index) => (
                         <ImageGroup key={index}>
                           <Image
-                            loading="lazy"
                             src={`${STRAPI_URL}${el.attributes.logo.data.attributes.formats.small.url}`}
                             width={500}
                             height={500}
@@ -48,7 +47,6 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
                       {clients.data.map((el, index) => (
                         <ImageGroup key={index}>
                           <Image
-                            loading="lazy"
                             src={`${STRAPI_URL}${el.attributes.logo.data.attributes.formats.small.url}`}
                             width={500}
                             height={500}

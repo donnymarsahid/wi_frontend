@@ -46,7 +46,6 @@ export default function RollerBlind({ data }: WallpaperPageProps) {
                         >
                           <div className="relative mt-4 overflow-hidden cursor-pointer">
                             <Image
-                              loading="lazy"
                               src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                               width={400}
                               height={400}

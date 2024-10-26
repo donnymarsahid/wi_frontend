@@ -60,7 +60,6 @@ export const ButtonView = ({ text, rounded, onClick }: Button) => (
     className={`${sameClass} rounded-full border-white bg-transparent p-3 text-blue-600 hover:bg-blue-600 hover:text-white md:p-3 lg:p-5`}
   >
     <Image
-      loading="lazy"
       unoptimized
       src="/assets/icons/eye.svg"
       width={30}
@@ -72,14 +71,13 @@ export const ButtonView = ({ text, rounded, onClick }: Button) => (
 
 // export const ButtonCart = ({ text, rounded, onClick }: Button) => (
 //   <Link href={onClick} className={`${sameClass} border-white text-blue-600 lg:p-5 bg-transparent rounded-full hover:bg-blue-600 hover:text-white md:p-3 p-3`}>
-//     <Image loading="lazy"  unoptimized  src="/assets/icons/cart.svg" width={30} height={30} alt="template-check-icon" />
+//     <Image    unoptimized  src="/assets/icons/cart.svg" width={30} height={30} alt="template-check-icon" />
 //   </Link>
 // );
 
 export const ButtonSearch = ({ text, rounded, onClick, size }: ButtonIcon) => (
   <Link href={onClick}>
     <Image
-      loading="lazy"
       unoptimized
       src="/assets/icons/search.svg"
       width={size}
@@ -92,7 +90,6 @@ export const ButtonSearch = ({ text, rounded, onClick, size }: ButtonIcon) => (
 export const ButtonFilter = ({ text, rounded, onClick, size }: ButtonIcon) => (
   <Link href={onClick}>
     <Image
-      loading="lazy"
       unoptimized
       src="/assets/icons/filter.svg"
       width={size}
@@ -105,7 +102,6 @@ export const ButtonFilter = ({ text, rounded, onClick, size }: ButtonIcon) => (
 export const ButtonProfile = ({ text, rounded, onClick }: Button) => (
   <Link href={onClick}>
     <Image
-      loading="lazy"
       unoptimized
       src="/assets/icons/profile.svg"
       width={30}
@@ -119,7 +115,6 @@ export const ButtonCart = ({ text, rounded, onClick }: Button) => (
   <Link href={onClick} className="hidden md:block">
     <div className="relative flex">
       <Image
-        loading="lazy"
         unoptimized
         src="/assets/icons/cart.svg"
         width={25}

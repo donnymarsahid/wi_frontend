@@ -17,7 +17,6 @@ export default function CallculatorWallpaper() {
               className="md:w-[49%] w-full bg-[#F5F5F5] h-[100px] px-6 flex items-center border-2 border-[#10D3A2] rounded-lg scale-100 hover:scale-105 transition duration-2"
             >
               <Image
-                loading="lazy"
                 src="/assets/icons/calc.svg"
                 width={50}
                 height={50}
@@ -35,7 +34,6 @@ export default function CallculatorWallpaper() {
               className="md:w-[49%] w-full md:mt-0 mt-2 bg-[#F5F5F5] h-[100px] px-6 flex items-center border-2 border-[#10D3A2] rounded-lg scale-100 hover:scale-105 transition duration-2"
             >
               <Image
-                loading="lazy"
                 src="/assets/icons/yt.png"
                 width={70}
                 height={70}

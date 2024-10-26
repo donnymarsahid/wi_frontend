@@ -44,7 +44,6 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                     >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">
                         <Image
-                          loading="lazy"
                           src={`${STRAPI_URL}${item.attributes.thumbnail?.data?.attributes?.url}`}
                           width={400}
                           height={400}

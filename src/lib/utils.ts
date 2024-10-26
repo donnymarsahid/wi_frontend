@@ -354,7 +354,6 @@ export const getDecryptedLocalStorage = (value: any) => {
       return null;
     }
   } else {
-    console.warn("No value found in localStorage");
     return null;
   }
 };

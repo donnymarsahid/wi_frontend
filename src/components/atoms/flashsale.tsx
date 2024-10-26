@@ -67,7 +67,6 @@ export const FlashSale = (flashsale: FlashSaleProps) => {
                 Flash Sale
               </h1>
               <Image
-                loading="lazy"
                 src={`/assets/icons/flash.svg`}
                 width={50}
                 height={50}

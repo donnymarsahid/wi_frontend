@@ -28,7 +28,6 @@ const ModalLogin = ({ openModal, setOpenModal, loginUrl }: ModalLoginProps) => {
         <Modal.Header className="bg-white border-b-1">
           <div>
             <Image
-              loading="lazy"
               src="/assets/images/logo-horizontal.png"
               width={200}
               height={200}
@@ -51,7 +50,6 @@ const ModalLogin = ({ openModal, setOpenModal, loginUrl }: ModalLoginProps) => {
             >
               <div className="flex items-center justify-center bg-white p-2">
                 <Image
-                  loading="lazy"
                   unoptimized
                   src="/assets/images/logo-google.png"
                   width={25}
