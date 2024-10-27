@@ -33,7 +33,7 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
         <div className="mt-2 bg-white border border-gray-300 rounded-lg shadow-md p-4">
           <ul>
             {customerServices.data.map((item, index) => (
-              <li>
+              <li key={index}>
                 <Link
                   href={`https://api.whatsapp.com/send?phone=${item.attributes.whatsapp}&text=Halo%20Ka%20${item.attributes.name}%20Wallpaper%20Indonesia`}
                   className="text-[#46BDDC] hover:underline"
