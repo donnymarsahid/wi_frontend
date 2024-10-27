@@ -16,7 +16,6 @@ export const setEncryptedLocalStorage = (value: any) => {
 export const getDecryptedLocalStorage = (value: any) => {
   if (value) {
     try {
-      console.log("Data before decryption:", value); // Log data untuk memastikan formatnya benar
       const bytes = AES.decrypt(value, CRYPTO_SECRET_KEY);
       const decryptedValue = bytes.toString(Utf8);
 
@@ -25,7 +24,6 @@ export const getDecryptedLocalStorage = (value: any) => {
         return null;
       }
 
-      console.log("Decrypted Value:", decryptedValue); // Log hasil dekripsi
       return JSON.parse(decryptedValue);
     } catch (error) {
       console.log("Error while decrypting:", error);
