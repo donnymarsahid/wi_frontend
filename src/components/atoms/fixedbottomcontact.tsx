@@ -17,7 +17,7 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-[9999]">
+    <div className="fixed md:bottom-4 bottom-[65px] right-4 z-[9999]">
       <button
         onClick={toggleContacts}
         className="bg-[#46BDDC] text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition"
