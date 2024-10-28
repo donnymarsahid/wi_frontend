@@ -6,7 +6,6 @@ import cx from "classnames";
 import { poppins } from "@/app/fonts";
 import Clients from "../home/clients";
 import { ClientProps } from "@/types/client";
-import styled, { keyframes, css } from "styled-components";
 import Image from "next/image";
 import { STRAPI_URL } from "@/app/utils/constans";
 import CarouselBannerPortfolio from "../atoms/carouselbannerportfolio";
@@ -79,41 +78,42 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             </h1>
             <p>{footer.data.attributes.office_center}</p>
           </div>
-          <div>
-            <div className="w-full my-16">
-              <h1 className="lg:text-[35px] md:text-[28px] lucida-bright text-center">
-                Klien Kami
-              </h1>
-              <Wrapper>
-                <Marquee>
-                  <MarqueeGroup>
-                    {clients.data.map((el, index) => (
-                      <ImageGroup key={index}>
-                        <Image
-                          src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
-                          width={500}
-                          height={500}
-                          alt="logo"
-                          className="flex object-contain rounded-md"
-                        />
-                      </ImageGroup>
-                    ))}
-                  </MarqueeGroup>
-                  <MarqueeGroup>
-                    {clients.data.map((el, index) => (
-                      <ImageGroup key={index}>
-                        <Image
-                          src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
-                          width={500}
-                          height={500}
-                          alt="logo"
-                          className="flex object-contain rounded-md"
-                        />
-                      </ImageGroup>
-                    ))}
-                  </MarqueeGroup>
-                </Marquee>
-              </Wrapper>
+          <div className="flex items-center flex-col my-8">
+            <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
+              Klien Kami
+            </h1>
+            <div className="md:h-[3px] h-[1px] lg:w-[300px] md:w-[500px] w-[300px] bg-[#20D3B6] text-center"></div>
+            <div className="w-full mt-4 overflow-hidden">
+              {/* Wrapper div with duplicate content for seamless scrolling */}
+              <div className="flex w-[200%] animate-marquee md:space-x-2 space-x-[1px]">
+                {/* First set of logos */}
+                {clients.data.map((el, index) => (
+                  <div key={index} className="flex-shrink-0 px-2">
+                    <Image
+                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
+                      width={500}
+                      height={500}
+                      alt="logo"
+                      className="object-contain rounded-md lg:w-[250px] md:w-[150px] w-[100px] h-auto"
+                    />
+                  </div>
+                ))}
+                {/* Duplicate set of logos for continuous effect */}
+                {clients.data.map((el, index) => (
+                  <div
+                    key={`duplicate-${index}`}
+                    className="flex-shrink-0 px-2"
+                  >
+                    <Image
+                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
+                      width={500}
+                      height={500}
+                      alt="logo"
+                      className="object-contain rounded-md lg:w-[250px] md:w-[150px] w-[100px] h-auto"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -121,89 +121,3 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
     </div>
   );
 }
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const Text = styled.div`
-  font-size: 35px;
-  font-weight: 500;
-  margin-bottom: 10px;
-  color: #02203c;
-`;
-
-const Note = styled.div`
-  font-size: 18px;
-  font-weight: 200;
-  margin-bottom: 40px;
-  color: #7c8e9a;
-`;
-
-const Marquee = styled.div`
-  display: flex;
-  width: 100%;
-  overflow: hidden;
-  user-select: none;
-
-  mask-image: linear-gradient(
-    to right,
-    hsl(0 0% 0% / 0),
-    hsl(0 0% 0% / 1) 10%,
-    hsl(0 0% 0% / 1) 90%,
-    hsl(0 0% 0% / 0)
-  );
-`;
-
-const scrollX = keyframes`
-  from {
-    left: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
-`;
-
-const common = css`
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  white-space: nowrap;
-  width: 100%;
-  animation: ${scrollX} 30s linear infinite;
-`;
-
-const MarqueeGroup = styled.div`
-  ${common}
-`;
-const MarqueeGroup2 = styled.div`
-  ${common}
-  animation-direction: reverse;
-  animation-delay: -3s;
-`;
-
-const ImageGroup = styled.div`
-  display: grid;
-  place-items: center;
-  width: clamp(10rem, 1rem + 40vmin, 30rem);
-  padding: 0;
-  margin-right: 5px;
-  margin-left: 5px;
-`;
-
-// const Image = styled.img`
-//   object-fit: contain;
-//   width: 100%;
-//   height: 100%;
-//   /* border: 1px solid black; */
-//   border-radius: 0.5rem;
-//   aspect-ratio: 16/9;
-//   padding: 5px 20px;
-// `;
