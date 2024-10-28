@@ -39,7 +39,7 @@ export default function Detail({ data }: NewsPageProps) {
               className="ms-2 me-2 font-medium hover:text-[#2FD1C1]"
               href={"/news"}
             >
-              <p>Berita/Inspirasi</p>
+              <p>Berita</p>
             </Link>
             <p>/</p>
             <Link
