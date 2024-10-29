@@ -38,7 +38,7 @@ export default async function Home({ searchParams }: HomePageProps) {
     params: {
       populate: "image",
       "sort[0]": "date:desc",
-      "pagination[pageSize]": "6",
+      // "pagination[pageSize]": "6",
     },
   });
 
