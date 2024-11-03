@@ -191,7 +191,7 @@ export default function List({
             )}`}
           >
             {/* Filters */}
-            <div className="col-span-1">
+            <div className="md:col-span-1 col-span-3">
               <div>
                 <button
                   onClick={toggleDropdownColor}
@@ -240,7 +240,7 @@ export default function List({
                   )}
                 </button>
                 <hr className="my-2" />
-                <div className="space-y-2">
+                <div className="space-y-2 mb-4">
                   {isOpenColor &&
                     wallpaper_by_colors.data.map((color, index) => (
                       <label
@@ -317,7 +317,7 @@ export default function List({
                   )}
                 </button>
                 <hr className="my-2" />
-                <div className="space-y-2">
+                <div className="space-y-2 mb-4">
                   {isOpenMotif &&
                     wallpaper_by_styles.data.map((motif, index) => (
                       <label
@@ -396,7 +396,7 @@ export default function List({
                   )}
                 </button>
                 <hr className="my-2" />
-                <div className="space-y-2">
+                <div className="space-y-2 mb-4">
                   {isOpenDesigner &&
                     wallpaper_by_designers.data.map((designer, index) => (
                       <label
