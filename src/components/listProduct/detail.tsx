@@ -29,6 +29,20 @@ export default function List({
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
   const productsPerPage = 16;
 
+  const [isOpenColor, setIsOpenColor] = useState(false);
+  const [isOpenMotif, setIsOpenMotif] = useState(false);
+  const [isOpenDesigner, setIsOpenDesigner] = useState(false);
+
+  const toggleDropdownColor = () => {
+    setIsOpenColor(!isOpenColor);
+  };
+  const toggleDropdownMotif = () => {
+    setIsOpenMotif(!isOpenMotif);
+  };
+  const toggleDropdownDesigner = () => {
+    setIsOpenDesigner(!isOpenDesigner);
+  };
+
   const products = brands.data[0].attributes.products.data
     .sort(
       (a, b) =>
@@ -179,82 +193,238 @@ export default function List({
             {/* Filters */}
             <div className="col-span-1">
               <div>
-                <h3 className="text-lg font-semibold lucida-bright">COLOR</h3>
-                <div className="space-y-2">
-                  {wallpaper_by_colors.data.map((color, index) => (
-                    <label
-                      key={index}
-                      className="flex items-center text-sm cursor-pointer"
+                <button
+                  onClick={toggleDropdownColor}
+                  className="flex justify-between w-full"
+                >
+                  <h3 className="text-lg font-semibold lucida-bright">COLOR</h3>
+                  {!isOpenColor && (
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <input
-                        type="checkbox"
-                        className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                        checked={selectedColors.includes(
-                          color.attributes.title
-                        )}
-                        onChange={() =>
-                          handleFilterChange(color.attributes.title)
-                        }
+                      <rect width="24" height="24" fill="white" />
+                      <path
+                        d="M12 6V18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
-                      <span className="ml-2 text-gray-700">
-                        {color.attributes.title}
-                      </span>
-                    </label>
-                  ))}
+                      <path
+                        d="M6 12H18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                  {isOpenColor && (
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect width="24" height="24" fill="white" />
+                      <path
+                        d="M6 12H18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+                <hr className="my-2" />
+                <div className="space-y-2">
+                  {isOpenColor &&
+                    wallpaper_by_colors.data.map((color, index) => (
+                      <label
+                        key={index}
+                        className="flex items-center text-sm cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                          checked={selectedColors.includes(
+                            color.attributes.title
+                          )}
+                          onChange={() =>
+                            handleFilterChange(color.attributes.title)
+                          }
+                        />
+                        <span className="ml-2 text-gray-700">
+                          {color.attributes.title}
+                        </span>
+                      </label>
+                    ))}
+                  {isOpenColor && !wallpaper_by_colors.data.length && (
+                    <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                      Color Kosong!
+                    </p>
+                  )}
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mt-4 lucida-bright">
-                  MOTIF
-                </h3>
-                <div className="space-y-2">
-                  {wallpaper_by_styles.data.map((motif, index) => (
-                    <label
-                      key={index}
-                      className="flex items-center text-sm cursor-pointer"
+                <button
+                  onClick={toggleDropdownMotif}
+                  className="flex justify-between w-full"
+                >
+                  <h3 className="text-lg font-semibold lucida-bright">MOTIF</h3>
+                  {!isOpenMotif && (
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <input
-                        type="checkbox"
-                        className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                        checked={selectedMotifs.includes(
-                          motif.attributes.title
-                        )}
-                        onChange={() =>
-                          handleFilterMotifChange(motif.attributes.title)
-                        }
+                      <rect width="24" height="24" fill="white" />
+                      <path
+                        d="M12 6V18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
-                      <span className="ml-2 text-gray-700">
-                        {motif.attributes.title}
-                      </span>
-                    </label>
-                  ))}
+                      <path
+                        d="M6 12H18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                  {isOpenMotif && (
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect width="24" height="24" fill="white" />
+                      <path
+                        d="M6 12H18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+                <hr className="my-2" />
+                <div className="space-y-2">
+                  {isOpenMotif &&
+                    wallpaper_by_styles.data.map((motif, index) => (
+                      <label
+                        key={index}
+                        className="flex items-center text-sm cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                          checked={selectedMotifs.includes(
+                            motif.attributes.title
+                          )}
+                          onChange={() =>
+                            handleFilterMotifChange(motif.attributes.title)
+                          }
+                        />
+                        <span className="ml-2 text-gray-700">
+                          {motif.attributes.title}
+                        </span>
+                      </label>
+                    ))}
+                  {isOpenMotif && !wallpaper_by_styles.data.length && (
+                    <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                      Motif Kosong!
+                    </p>
+                  )}
                 </div>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mt-4 lucida-bright">
-                  DESIGNER
-                </h3>
-                <div className="space-y-2">
-                  {wallpaper_by_designers.data.map((designer, index) => (
-                    <label
-                      key={index}
-                      className="flex items-center text-sm cursor-pointer"
+                <button
+                  onClick={toggleDropdownDesigner}
+                  className="flex justify-between w-full"
+                >
+                  <h3 className="text-lg font-semibold lucida-bright">
+                    DESIGNER
+                  </h3>
+                  {!isOpenDesigner && (
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <input
-                        type="checkbox"
-                        className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                        checked={selectedDesigners.includes(
-                          designer.attributes.title
-                        )}
-                        onChange={() =>
-                          handleFilterDesignerChange(designer.attributes.title)
-                        }
+                      <rect width="24" height="24" fill="white" />
+                      <path
+                        d="M12 6V18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
-                      <span className="ml-2 text-gray-700">
-                        {designer.attributes.title}
-                      </span>
-                    </label>
-                  ))}
+                      <path
+                        d="M6 12H18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                  {isOpenDesigner && (
+                    <svg
+                      width="25px"
+                      height="25px"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect width="24" height="24" fill="white" />
+                      <path
+                        d="M6 12H18"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  )}
+                </button>
+                <hr className="my-2" />
+                <div className="space-y-2">
+                  {isOpenDesigner &&
+                    wallpaper_by_designers.data.map((designer, index) => (
+                      <label
+                        key={index}
+                        className="flex items-center text-sm cursor-pointer"
+                      >
+                        <input
+                          type="checkbox"
+                          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                          checked={selectedDesigners.includes(
+                            designer.attributes.title
+                          )}
+                          onChange={() =>
+                            handleFilterDesignerChange(
+                              designer.attributes.title
+                            )
+                          }
+                        />
+                        <span className="ml-2 text-gray-700">
+                          {designer.attributes.title}
+                        </span>
+                      </label>
+                    ))}
+                  {isOpenDesigner && !wallpaper_by_designers.data.length && (
+                    <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                      Designer Kosong!
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
