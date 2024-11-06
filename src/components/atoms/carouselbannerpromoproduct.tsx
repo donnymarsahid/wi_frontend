@@ -131,15 +131,19 @@ export default function CarouselBannerPromoProduct({
             <div key={index} className="grid gap-4 md:grid-cols-2 grid-cols-2">
               {item.arr.map((child, indexChild) => (
                 <div key={indexChild} className="relative group">
-                  <Image
-                    src={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}`}
-                    width={1000}
-                    height={600}
-                    className="w-full h-full pb-4 rounded-lg"
-                    placeholder="blur"
-                    blurDataURL={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}?w=30&q=10`} // Placeholder low-res
-                    alt="banners"
-                  />
+                  {
+                    child?.attributes?.thumbnail?.data?.attributes?.url && (
+                      <Image
+                        src={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}`}
+                        width={1000}
+                        height={600}
+                        className="w-full h-full pb-4 rounded-lg"
+                        placeholder="blur"
+                        blurDataURL={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}?w=30&q=10`} // Placeholder low-res
+                        alt="banners"
+                      />
+                    )
+                  }
                   <Link
                     href={`/promo/${child.attributes.slug}`}
                     className="absolute top-0 w-full h-full rounded-lg"
