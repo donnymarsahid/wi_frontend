@@ -16,7 +16,7 @@ export default function CardProduct(item: Daum7 | any) {
     <>
       <Link href={`/category/product/${item.attributes?.slug || ""}`}>
         <div className="relative mt-4 overflow-hidden cursor-pointer">
-          {item.attributes?.images?.data[0]?.attributes?.url && (
+          {item.attributes?.images?.data?.length && item.attributes?.images?.data[0]?.attributes?.url && (
             <Image
               src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
               placeholder="blur"
