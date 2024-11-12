@@ -123,7 +123,7 @@ export default function CarouselBanner({ about }: HeroHomeProps) {
               <Image
                 src={`${STRAPI_URL}${item.attributes.url}`}
                 width={1000}
-                height={600}
+                height={150}
                 placeholder="blur"
                 blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
                 className="bg-cover bg-center w-full h-full pb-4"
