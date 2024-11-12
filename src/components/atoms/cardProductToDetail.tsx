@@ -42,22 +42,22 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                   <p>Ukuran</p>
                   <p>
                     Lebar:{" "}
-                    {item.attributes.brands.data[0].attributes.size_width} cm
+                    {item?.attributes?.brands?.data[0]?.attributes?.size_width} cm
                   </p>
                   <p>
                     Panjang:{" "}
-                    {item.attributes.brands.data[0].attributes.size_height} cm
+                    {item?.attributes?.brands?.data[0]?.attributes?.size_height} cm
                   </p>
                 </div>
-                {item.attributes.brands.data[0].attributes.discount ? (
+                {item?.attributes?.brands?.data[0]?.attributes?.discount ? (
                   <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                     <p className="uppercase">Disc</p>
                     <p>
-                      {item.attributes.brands.data[0].attributes.discount
+                      {item?.attributes?.brands?.data[0]?.attributes?.discount
                         ?.type == "discount_percentage"
-                        ? `${item.attributes.brands.data[0].attributes.discount?.value}%`
+                        ? `${item?.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
                         : formatNumberToLetter(
-                            item.attributes.brands.data[0].attributes.discount
+                            item?.attributes?.brands?.data[0]?.attributes?.discount
                               ?.value
                               ? parseFloat(
                                   item.attributes.brands.data[0].attributes
@@ -84,7 +84,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                   {/* START */}
                   <div
                     className={`${
-                      item.attributes.brands.data[0].attributes.discount
+                      item?.attributes?.brands?.data[0]?.attributes?.discount
                         ? ""
                         : "hidden"
                     } flex`}
@@ -92,7 +92,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                     <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
                       {formatRupiah(
                         parseFloat(
-                          item.attributes.brands.data[0].attributes.price
+                          item?.attributes?.brands?.data[0]?.attributes?.price
                         )
                       )}
                     </p>
@@ -102,24 +102,24 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                 <div className="text-sm">
                   <div>
                     <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                      {!item.attributes.brands.data[0].attributes.discount &&
+                      {!item?.attributes?.brands?.data[0]?.attributes?.discount &&
                         formatRupiah(
                           parseFloat(
-                            item.attributes.brands.data[0].attributes.price
+                            item?.attributes?.brands?.data[0]?.attributes?.price
                           )
                         )}
                       {calculateDiscount(
                         parseFloat(
-                          item.attributes.brands.data[0].attributes.price
+                          item?.attributes?.brands?.data[0]?.attributes?.price
                         ),
-                        item.attributes.brands.data[0].attributes.discount?.type
-                          ? item.attributes.brands.data[0].attributes.discount
+                        item?.attributes?.brands?.data[0]?.attributes?.discount?.type
+                          ? item?.attributes?.brands?.data[0]?.attributes?.discount
                               ?.type
                           : "",
-                        item.attributes.brands.data[0].attributes.discount
+                        item?.attributes?.brands?.data[0]?.attributes?.discount
                           ?.value
                           ? parseFloat(
-                              item.attributes.brands.data[0].attributes.discount
+                              item?.attributes?.brands?.data[0]?.attributes?.discount
                                 ?.value
                             )
                           : 0
