@@ -42,11 +42,13 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                   <p>Ukuran</p>
                   <p>
                     Lebar:{" "}
-                    {item?.attributes?.brands?.data[0]?.attributes?.size_width} cm
+                    {item?.attributes?.brands?.data[0]?.attributes?.size_width}{" "}
+                    cm
                   </p>
                   <p>
                     Panjang:{" "}
-                    {item?.attributes?.brands?.data[0]?.attributes?.size_height} cm
+                    {item?.attributes?.brands?.data[0]?.attributes?.size_height}{" "}
+                    cm
                   </p>
                 </div>
                 {item?.attributes?.brands?.data[0]?.attributes?.discount ? (
@@ -57,8 +59,8 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                         ?.type == "discount_percentage"
                         ? `${item?.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
                         : formatNumberToLetter(
-                            item?.attributes?.brands?.data[0]?.attributes?.discount
-                              ?.value
+                            item?.attributes?.brands?.data[0]?.attributes
+                              ?.discount?.value
                               ? parseFloat(
                                   item.attributes.brands.data[0].attributes
                                     .discount?.value
@@ -102,7 +104,8 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                 <div className="text-sm">
                   <div>
                     <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                      {!item?.attributes?.brands?.data[0]?.attributes?.discount &&
+                      {!item?.attributes?.brands?.data[0]?.attributes
+                        ?.discount &&
                         formatRupiah(
                           parseFloat(
                             item?.attributes?.brands?.data[0]?.attributes?.price
@@ -112,19 +115,28 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                         parseFloat(
                           item?.attributes?.brands?.data[0]?.attributes?.price
                         ),
-                        item?.attributes?.brands?.data[0]?.attributes?.discount?.type
-                          ? item?.attributes?.brands?.data[0]?.attributes?.discount
-                              ?.type
+                        item?.attributes?.brands?.data[0]?.attributes?.discount
+                          ?.type
+                          ? item?.attributes?.brands?.data[0]?.attributes
+                              ?.discount?.type
                           : "",
                         item?.attributes?.brands?.data[0]?.attributes?.discount
                           ?.value
                           ? parseFloat(
-                              item?.attributes?.brands?.data[0]?.attributes?.discount
-                                ?.value
+                              item?.attributes?.brands?.data[0]?.attributes
+                                ?.discount?.value
                             )
                           : 0
                       )}{" "}
-                      / Roll
+                      /{" "}
+                      <span className="capitalize">
+                        {item?.attributes?.brands?.data[0]?.attributes?.unit
+                          ? String(
+                              item?.attributes?.brands?.data[0]?.attributes
+                                ?.unit
+                            ).toLowerCase()
+                          : ""}
+                      </span>
                     </p>
                   </div>
                 </div>

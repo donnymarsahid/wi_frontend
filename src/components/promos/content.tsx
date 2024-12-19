@@ -142,7 +142,14 @@ export default function Content({ data }: PromosPageProps) {
                                                 )
                                               : 0
                                           )}{" "}
-                                          / Roll
+                                          /{" "}
+                                          <span className="capitalize">
+                                            {item.attributes.unit
+                                              ? String(
+                                                  item.attributes.unit
+                                                ).toLowerCase()
+                                              : ""}
+                                          </span>
                                         </p>
                                       </div>
                                     </div>

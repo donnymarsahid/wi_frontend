@@ -16,17 +16,18 @@ export default function CardProduct(item: Daum7 | any) {
     <>
       <Link href={`/category/product/${item.attributes?.slug || ""}`}>
         <div className="relative mt-4 overflow-hidden cursor-pointer">
-          {item.attributes?.images?.data?.length && item.attributes?.images?.data[0]?.attributes?.url && (
-            <Image
-              src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
-              placeholder="blur"
-              blurDataURL={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}?w=30&q=10`} // Placeholder low-res
-              width={400}
-              height={400}
-              alt="wall"
-              className="w-full md:h-[284px] h-[135px] object-cover transform transition-transform duration-500 hover:scale-110"
-            />
-          )}
+          {item.attributes?.images?.data?.length &&
+            item.attributes?.images?.data[0]?.attributes?.url && (
+              <Image
+                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                placeholder="blur"
+                blurDataURL={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}?w=30&q=10`} // Placeholder low-res
+                width={400}
+                height={400}
+                alt="wall"
+                className="w-full md:h-[284px] h-[135px] object-cover transform transition-transform duration-500 hover:scale-110"
+              />
+            )}
         </div>
         <div>
           <div className="w-full">
@@ -98,7 +99,12 @@ export default function CardProduct(item: Daum7 | any) {
                           ? parseFloat(item.attributes.discount?.value)
                           : 0
                       )}{" "}
-                      / Roll
+                      /{" "}
+                      <span className="capitalize">
+                        {item.attributes.unit
+                          ? String(item.attributes.unit).toLowerCase()
+                          : ""}
+                      </span>
                     </p>
                   </div>
                 </div>

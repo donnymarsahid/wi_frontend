@@ -17,15 +17,15 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
   };
 
   return (
-    <div className="fixed md:bottom-4 bottom-[65px] right-4 z-[9999]">
+    <div className="fixed md:bottom-[35px] bottom-[70px] md:right-[35px] right-[10px] z-[9999]">
       <button
         onClick={toggleContacts}
-        className="bg-[#46BDDC] text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition"
+        className="bg-[#46BDDC] text-white md:p-4 p-[10px] rounded-full shadow-lg hover:bg-blue-600 transition"
       >
         <Image
           src="/assets/icons/logos_whatsapp-icon.svg"
-          width={25}
-          height={25}
+          width={35}
+          height={35}
           alt="wa-logo"
         />
       </button>

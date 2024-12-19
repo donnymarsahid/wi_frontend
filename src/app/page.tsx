@@ -82,13 +82,8 @@ export default async function Home({ searchParams }: HomePageProps) {
     },
   });
 
-  const customerServices: CustomerServicesProps = await getData({
-    path: `customer-services`,
-  });
-
   return (
     <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-      <FixedContact customerServices={customerServices} />
       <Hero homepage={homepage} />
       {flashsale?.data && <FlashSale {...flashsale} />}
       <Categories categories={categories} services={services} />
