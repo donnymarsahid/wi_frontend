@@ -96,12 +96,11 @@ const ModalDetail = ({
                     dataCart.detail_product.data[0].attributes.brands.data[0]
                       .attributes.size_width
                   }
-                  cm x P=
+                  x P=
                   {
                     dataCart.detail_product.data[0].attributes.brands.data[0]
                       .attributes.size_height
                   }
-                  cm
                 </td>
               </tr>
               <tr>
@@ -112,7 +111,6 @@ const ModalDetail = ({
                     dataCart.detail_product.data[0].attributes.brands.data[0]
                       .attributes.thickness
                   }
-                  mm
                 </td>
               </tr>
               <tr>
@@ -123,12 +121,11 @@ const ModalDetail = ({
                     dataCart.detail_product.data[0].attributes?.brands?.data[0]
                       ?.attributes?.itemsPerBox
                   }
-                  m2 /{" "}
+                  /{" "}
                   {
                     dataCart.detail_product.data[0].attributes?.brands?.data[0]
                       ?.attributes?.sheetsPerUnit
                   }{" "}
-                  lembar
                 </td>
               </tr>
               <tr>
@@ -137,7 +134,6 @@ const ModalDetail = ({
                   :{" "}
                   {dataCart.detail_product.data[0].attributes.brands.data[0]
                     .attributes.product_weight || "-"}{" "}
-                  kg
                 </td>
               </tr>
             </tbody>
