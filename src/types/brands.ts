@@ -11,8 +11,8 @@ export interface BrandsPropsDaum {
 export interface Attributes {
   title: string;
   desc: string;
-  size_width: string;
-  size_height: string;
+  size_width: number;
+  size_height: number;
   itemsPerBox: string;
   sheetsPerUnit: string;
   price: string;
@@ -21,7 +21,7 @@ export interface Attributes {
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: string;
+  product_weight: number;
   date: string;
   thickness: any;
   products: Products;
@@ -48,7 +48,7 @@ export interface Attributes2 {
   publishedAt: string;
   slug: string;
   unit: any;
-  product_weight: string;
+  product_weight: number;
   date: string;
   product_code: any;
   stock: any;

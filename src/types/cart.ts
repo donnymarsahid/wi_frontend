@@ -128,8 +128,8 @@ export interface Daum3 {
 export interface Attributes3 {
   title: string;
   desc: string;
-  size_width: string;
-  size_height: string;
+  size_width: number;
+  size_height: number;
   itemsPerBox: string;
   sheetsPerUnit: string;
   price: string;
@@ -138,9 +138,9 @@ export interface Attributes3 {
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: string;
+  product_weight: number;
   date: string;
-  thickness: string;
+  thickness: number;
   sub_categories: SubCategories;
   categories: Categories2;
   discount?: Discount;

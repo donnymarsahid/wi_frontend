@@ -54,17 +54,17 @@ export interface Daum2 {
 export interface Attributes3 {
   title: string;
   desc: string;
-  size_width: string;
-  size_height: string;
+  size_width: number;
+  size_height: number;
   price: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: string;
+  product_weight: number;
   date: string;
-  thickness: string;
+  thickness: number;
   itemsPerBox?: number;
   sheetsPerUnit?: number;
   discount?: Discount;

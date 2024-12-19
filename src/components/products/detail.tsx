@@ -392,11 +392,12 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               data.data[0].attributes.brands.data[0].attributes
                                 .size_width
                             }
-                            x P=
+                            cm x P=
                             {
                               data.data[0].attributes.brands.data[0].attributes
                                 .size_height
                             }
+                            cm
                           </td>
                         </tr>
                         <tr>
@@ -407,6 +408,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               data.data[0].attributes.brands.data[0].attributes
                                 .thickness
                             }
+                            mm
                           </td>
                         </tr>
                         <tr>
@@ -430,6 +432,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             :{" "}
                             {data.data[0].attributes.brands.data[0].attributes
                               .product_weight || "-"}{" "}
+                            kg
                           </td>
                         </tr>
                       </tbody>
