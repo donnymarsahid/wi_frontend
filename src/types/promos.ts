@@ -17,7 +17,7 @@ export interface Attributes {
   date: string;
   thumbnail: Thumbnail;
   products: Products;
-  seo: Seo
+  seo: Seo;
 }
 
 export interface Thumbnail {
@@ -121,7 +121,7 @@ export interface Attributes3 {
   publishedAt: string;
   slug: string;
   unit: any;
-  product_weight: number;
+  product_weight: string;
   date: string;
   product_code: any;
   stock: any;
@@ -143,15 +143,15 @@ export interface Daum3 {
 export interface Attributes4 {
   title: string;
   desc: string;
-  size_width: number;
-  size_height: number;
+  size_width: string;
+  size_height: string;
   price: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: number;
+  product_weight: string;
   date: string;
   thickness: any;
 }
@@ -233,12 +233,12 @@ export interface Discount {
 }
 
 export interface Seo {
-  id: number
-  title: string
-  description: string
-  viewport: string
-  keywords: string
-  robots: string
+  id: number;
+  title: string;
+  description: string;
+  viewport: string;
+  keywords: string;
+  robots: string;
 }
 
 export interface Meta {

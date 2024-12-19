@@ -20,7 +20,7 @@ export interface Attributes {
   banners: Banners;
   brands: Brands;
   sub_categories: SubCategories;
-  seo: Seo
+  seo: Seo;
 }
 
 export interface Image {
@@ -188,9 +188,9 @@ export interface Daum3 {
 export interface Attributes4 {
   title: string;
   desc: any;
-  size_width: number;
-  size_height: number;
-  thickness: number;
+  size_width: string;
+  size_height: string;
+  thickness: string;
   price: string;
   createdAt: string;
   updatedAt: string;
@@ -436,9 +436,9 @@ export interface Daum7 {
 export interface Attributes10 {
   title: string;
   desc: any;
-  size_width: number;
-  size_height: number;
-  thickness: number;
+  size_width: string;
+  size_height: string;
+  thickness: string;
   price: string;
   date: string;
   createdAt: string;
@@ -588,12 +588,12 @@ export interface Small7 {
 }
 
 export interface Seo {
-  id: number
-  title: string
-  description: string
-  viewport: string
-  keywords: string
-  robots: string
+  id: number;
+  title: string;
+  description: string;
+  viewport: string;
+  keywords: string;
+  robots: string;
 }
 
 export interface Meta {

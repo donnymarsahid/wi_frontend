@@ -123,17 +123,17 @@ export interface Daum3 {
 export interface Attributes4 {
   title: string;
   desc: string;
-  size_width: number;
-  size_height: number;
+  size_width: string;
+  size_height: string;
   price: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: number;
+  product_weight: string;
   date: string;
-  thickness: number;
+  thickness: string;
   sub_categories: SubCategories;
 }
 

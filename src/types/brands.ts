@@ -11,23 +11,23 @@ export interface BrandsPropsDaum {
 export interface Attributes {
   title: string;
   desc: string;
-  size_width: number;
-  size_height: number;
-  itemsPerBox: number;
-  sheetsPerUnit: number;
+  size_width: string;
+  size_height: string;
+  itemsPerBox: string;
+  sheetsPerUnit: string;
   price: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: number;
+  product_weight: string;
   date: string;
   thickness: any;
   products: Products;
   sub_categories: SubCategories;
   categories: Categories2;
-  seo: Seo
+  seo: Seo;
 }
 
 export interface Products {
@@ -48,7 +48,7 @@ export interface Attributes2 {
   publishedAt: string;
   slug: string;
   unit: any;
-  product_weight: number;
+  product_weight: string;
   date: string;
   product_code: any;
   stock: any;
@@ -178,12 +178,12 @@ export interface Attributes6 {
 }
 
 export interface Seo {
-  id: number
-  title: string
-  description: string
-  viewport: string
-  keywords: string
-  robots: string
+  id: number;
+  title: string;
+  description: string;
+  viewport: string;
+  keywords: string;
+  robots: string;
 }
 
 export interface Meta {

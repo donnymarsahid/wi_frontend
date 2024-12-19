@@ -15,7 +15,7 @@ export interface Attributes {
   updatedAt: string;
   publishedAt: string;
   products: Products;
-  seo: Seo
+  seo: Seo;
 }
 
 export interface Products {
@@ -54,17 +54,17 @@ export interface Daum2 {
 export interface Attributes3 {
   title: string;
   desc: string;
-  size_width: number;
-  size_height: number;
+  size_width: string;
+  size_height: string;
   price: string;
   slug: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
   unit: string;
-  product_weight: number;
+  product_weight: string;
   date: string;
-  thickness: number;
+  thickness: string;
   itemsPerBox?: number;
   sheetsPerUnit?: number;
   discount?: Discount;
@@ -160,12 +160,12 @@ export interface Large {
 }
 
 export interface Seo {
-  id: number
-  title: string
-  description: string
-  viewport: string
-  keywords: string
-  robots: string
+  id: number;
+  title: string;
+  description: string;
+  viewport: string;
+  keywords: string;
+  robots: string;
 }
 
 export interface Meta {}
