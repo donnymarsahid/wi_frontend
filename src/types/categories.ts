@@ -198,6 +198,7 @@ export interface Attributes4 {
   slug: string;
   images: Images;
   discount: Discount;
+  sub_categories: SubCategories;
 }
 
 export interface Images {

@@ -22,7 +22,9 @@ type HeroCategoryClearanceProps = {
 export default function Clearance({ categories }: HeroCategoryClearanceProps) {
   const productsClearanceResult: any[] =
     categories.data[0].attributes.brands.data.filter(
-      (item) => item.attributes.discount
+      (item) =>
+        item.attributes.sub_categories.data[0].attributes.slug ===
+        "wallpaper-others"
     );
 
   return (

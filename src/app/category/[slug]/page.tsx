@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: Slug): Promise<Metadata> {
 export default async function SlugProducts({ params }: Slug) {
   let queryCategory: any = {
     populate:
-      "image,banners,brands,brands.discount,brands.images,sub_categories.wallpaper_items,sub_categories.wallpaper_items,sub_categories.wallpaper_items.thumbnail,sub_categories.brands,sub_categories.brands.images,sub_categories.brands.discount,sub_categories.thumbnail,sub_categories",
+      "image,banners,brands,brands.discount,brands.sub_categories,brands.images,sub_categories.wallpaper_items,sub_categories.wallpaper_items,sub_categories.wallpaper_items.thumbnail,sub_categories.brands,sub_categories.brands.images,sub_categories.brands.discount,sub_categories.thumbnail,sub_categories",
     "sort[0]": "date:desc",
     "sort[1]": "sub_categories.date:desc",
   };
