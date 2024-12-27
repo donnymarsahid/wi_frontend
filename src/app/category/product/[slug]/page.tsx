@@ -78,6 +78,7 @@ export default async function SlugProducts({ params }: Slug) {
           wallpaper_by_colors={wallpaper_by_colors}
           wallpaper_by_styles={wallpaper_by_styles}
           wallpaper_by_designers={wallpaper_by_designers}
+          slug={params.slug}
         />
       </main>
     </>

@@ -15,6 +15,7 @@ type ListProductPageProps = {
   wallpaper_by_colors: WallpaperByGeneralProps;
   wallpaper_by_styles: WallpaperByGeneralProps;
   wallpaper_by_designers: WallpaperByGeneralProps;
+  slug: string;
 };
 
 export default function List({
@@ -22,6 +23,7 @@ export default function List({
   wallpaper_by_colors,
   wallpaper_by_styles,
   wallpaper_by_designers,
+  slug,
 }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
@@ -302,7 +304,7 @@ export default function List({
                         color?.attributes?.products?.data?.filter(
                           (item) =>
                             item?.attributes?.brands?.data[0]?.attributes
-                              ?.slug === "korean-wallpaper-promo-1"
+                              ?.slug === slug
                         ) || [];
 
                       return (
@@ -389,7 +391,7 @@ export default function List({
                         motif?.attributes?.products?.data?.filter(
                           (item) =>
                             item?.attributes?.brands?.data[0]?.attributes
-                              ?.slug === "korean-wallpaper-promo-1"
+                              ?.slug === slug
                         ) || [];
 
                       return (
@@ -478,7 +480,7 @@ export default function List({
                         designer?.attributes?.products?.data?.filter(
                           (item) =>
                             item?.attributes?.brands?.data[0]?.attributes
-                              ?.slug === "korean-wallpaper-promo-1"
+                              ?.slug === slug
                         ) || [];
 
                       return (
