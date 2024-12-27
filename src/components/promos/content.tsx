@@ -64,35 +64,46 @@ export default function Content({ data }: PromosPageProps) {
                                       <p>
                                         Lebar:{" "}
                                         {
-                                          item.attributes.brands.data[0]
-                                            .attributes.size_height
-                                        }
+                                          item?.attributes?.brands?.data[0]
+                                            ?.attributes?.size_width
+                                        }{" "}
+                                        cm
                                       </p>
                                       <p>
                                         Panjang:{" "}
                                         {
-                                          item.attributes.brands.data[0]
-                                            .attributes.size_height
-                                        }
+                                          item?.attributes?.brands?.data[0]
+                                            ?.attributes?.size_height
+                                        }{" "}
+                                        cm
                                       </p>
                                     </div>
-                                    {item.attributes.discount ? (
-                                      <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
-                                        <p className="uppercase">Disc</p>
-                                        <p>
-                                          {item.attributes.discount?.type ==
-                                          "discount_percentage"
-                                            ? `${item.attributes.discount?.value}%`
-                                            : formatNumberToLetter(
-                                                item.attributes.discount?.value
-                                                  ? parseFloat(
-                                                      item.attributes.discount
-                                                        ?.value
-                                                    )
-                                                  : 0
-                                              )}
-                                        </p>
-                                      </div>
+                                    {item?.attributes?.brands?.data[0]
+                                      ?.attributes?.discount ? (
+                                      <>
+                                        <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md px-4 py-2 text-white border-[1px] border-white">
+                                          <p className="font-bold">
+                                            {item?.attributes?.brands?.data[0]
+                                              ?.attributes?.discount?.type ==
+                                            "discount_percentage"
+                                              ? `${item?.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
+                                              : formatNumberToLetter(
+                                                  item?.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    ?.discount?.value
+                                                    ? parseFloat(
+                                                        item.attributes.brands
+                                                          .data[0].attributes
+                                                          .discount?.value
+                                                      )
+                                                    : 0
+                                                )}
+                                          </p>
+                                          <p className="text-xs uppercase font-medium">
+                                            Off
+                                          </p>
+                                        </div>
+                                      </>
                                     ) : (
                                       <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                                         <p className="text-transparent">Disc</p>
@@ -110,14 +121,18 @@ export default function Content({ data }: PromosPageProps) {
                                       {/* START */}
                                       <div
                                         className={`${
-                                          item.attributes.discount
+                                          item?.attributes?.brands?.data[0]
+                                            ?.attributes?.discount
                                             ? ""
                                             : "hidden"
                                         } flex`}
                                       >
                                         <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
                                           {formatRupiah(
-                                            parseFloat(item.attributes.price)
+                                            parseFloat(
+                                              item?.attributes?.brands?.data[0]
+                                                ?.attributes?.price
+                                            )
                                           )}
                                         </p>
                                       </div>
@@ -126,27 +141,41 @@ export default function Content({ data }: PromosPageProps) {
                                     <div className="text-sm">
                                       <div>
                                         <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                                          {!item.attributes.discount &&
+                                          {!item?.attributes?.brands?.data[0]
+                                            ?.attributes?.discount &&
                                             formatRupiah(
-                                              parseFloat(item.attributes.price)
+                                              parseFloat(
+                                                item?.attributes?.brands
+                                                  ?.data[0]?.attributes?.price
+                                              )
                                             )}
                                           {calculateDiscount(
-                                            parseFloat(item.attributes.price),
-                                            item.attributes.discount?.type
-                                              ? item.attributes.discount?.type
+                                            parseFloat(
+                                              item?.attributes?.brands?.data[0]
+                                                ?.attributes?.price
+                                            ),
+                                            item?.attributes?.brands?.data[0]
+                                              ?.attributes?.discount?.type
+                                              ? item?.attributes?.brands
+                                                  ?.data[0]?.attributes
+                                                  ?.discount?.type
                                               : "",
-                                            item.attributes.discount?.value
+                                            item?.attributes?.brands?.data[0]
+                                              ?.attributes?.discount?.value
                                               ? parseFloat(
-                                                  item.attributes.discount
-                                                    ?.value
+                                                  item?.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    ?.discount?.value
                                                 )
                                               : 0
                                           )}{" "}
                                           /{" "}
                                           <span className="capitalize">
-                                            {item.attributes.unit
+                                            {item?.attributes?.brands?.data[0]
+                                              ?.attributes?.unit
                                               ? String(
-                                                  item.attributes.unit
+                                                  item?.attributes?.brands
+                                                    ?.data[0]?.attributes?.unit
                                                 ).toLowerCase()
                                               : ""}
                                           </span>

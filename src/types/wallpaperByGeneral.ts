@@ -109,6 +109,9 @@ export interface Attributes3 {
   stock: number;
   available: boolean;
   brands: Brands;
+  wallpaper_by_colors: WallpaperByColors;
+  wallpaper_by_styles: WallpaperByStyles;
+  wallpaper_by_designers: WallpaperByDesigners;
 }
 
 export interface Brands {
@@ -184,4 +187,55 @@ export interface Pagination {
   pageSize: number;
   pageCount: number;
   total: number;
+}
+
+export interface WallpaperByColors {
+  data: Daum9[];
+}
+
+export interface Daum9 {
+  id: number;
+  attributes: Attributes9;
+}
+
+export interface Attributes9 {
+  title: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface WallpaperByStyles {
+  data: Daum10[];
+}
+
+export interface Daum10 {
+  id: number;
+  attributes: Attributes10;
+}
+
+export interface Attributes10 {
+  title: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface WallpaperByDesigners {
+  data: Daum11[];
+}
+
+export interface Daum11 {
+  id: number;
+  attributes: Attributes11;
+}
+
+export interface Attributes11 {
+  title: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 }

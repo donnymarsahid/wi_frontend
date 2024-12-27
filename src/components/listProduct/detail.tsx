@@ -116,6 +116,12 @@ export default function List({
         ))
   );
 
+  useEffect(() => {
+    console.log(selectedColors, "selectedColors");
+    console.log(selectedMotifs, "selectedMotifs");
+    console.log(selectedDesigners, "selectedDesigners");
+  }, [selectedColors, selectedMotifs, selectedDesigners]);
+
   return (
     <div className="mt-10 mb-10">
       <div className="container mx-auto">
@@ -151,7 +157,6 @@ export default function List({
                       brands.data[0].attributes.categories.data[0].attributes
                         .title
                     }
-                    aa
                   </p>
                 </Link>
               ) : (
@@ -192,6 +197,56 @@ export default function List({
           >
             {/* Filters */}
             <div className="md:col-span-1 col-span-3">
+              <div className="mb-6">
+                {selectedColors?.length
+                  ? selectedColors.map((item, index) => (
+                      <div
+                        className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
+                        key={index}
+                      >
+                        <p className="text-white">{item}</p>
+                        <button
+                          onClick={() => handleFilterChange(item)}
+                          className="text-white"
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))
+                  : ""}
+                {selectedMotifs?.length
+                  ? selectedMotifs.map((item, index) => (
+                      <div
+                        className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
+                        key={index}
+                      >
+                        <p className="text-white">{item}</p>
+                        <button
+                          onClick={() => handleFilterMotifChange(item)}
+                          className="text-white"
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))
+                  : ""}
+                {selectedDesigners?.length
+                  ? selectedDesigners.map((item, index) => (
+                      <div
+                        className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
+                        key={index}
+                      >
+                        <p className="text-white">{item}</p>
+                        <button
+                          onClick={() => handleFilterDesignerChange(item)}
+                          className="text-white"
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))
+                  : ""}
+              </div>
               <div>
                 <button
                   onClick={toggleDropdownColor}
@@ -242,26 +297,36 @@ export default function List({
                 <hr className="my-2" />
                 <div className="space-y-2 mb-4">
                   {isOpenColor &&
-                    wallpaper_by_colors.data.map((color, index) => (
-                      <label
-                        key={index}
-                        className="flex items-center text-sm cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                          checked={selectedColors.includes(
-                            color.attributes.title
-                          )}
-                          onChange={() =>
-                            handleFilterChange(color.attributes.title)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">
-                          {color.attributes.title}
-                        </span>
-                      </label>
-                    ))}
+                    wallpaper_by_colors.data.map((color, index) => {
+                      const filteredProducts =
+                        color?.attributes?.products?.data?.filter(
+                          (item) =>
+                            item?.attributes?.brands?.data[0]?.attributes
+                              ?.slug === "korean-wallpaper-promo-1"
+                        ) || [];
+
+                      return (
+                        <label
+                          key={index}
+                          className="flex items-center text-sm cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                            checked={selectedColors.includes(
+                              color.attributes.title
+                            )}
+                            onChange={() =>
+                              handleFilterChange(color.attributes.title)
+                            }
+                          />
+                          <span className="ml-2 text-gray-700">
+                            {color.attributes.title} ({filteredProducts?.length}
+                            )
+                          </span>
+                        </label>
+                      );
+                    })}
                   {isOpenColor && !wallpaper_by_colors.data.length && (
                     <p className="text-center text-[12px] bg-gray-200 text-gray-600">
                       Color Kosong!
@@ -319,26 +384,36 @@ export default function List({
                 <hr className="my-2" />
                 <div className="space-y-2 mb-4">
                   {isOpenMotif &&
-                    wallpaper_by_styles.data.map((motif, index) => (
-                      <label
-                        key={index}
-                        className="flex items-center text-sm cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                          checked={selectedMotifs.includes(
-                            motif.attributes.title
-                          )}
-                          onChange={() =>
-                            handleFilterMotifChange(motif.attributes.title)
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">
-                          {motif.attributes.title}
-                        </span>
-                      </label>
-                    ))}
+                    wallpaper_by_styles.data.map((motif, index) => {
+                      const filteredProducts =
+                        motif?.attributes?.products?.data?.filter(
+                          (item) =>
+                            item?.attributes?.brands?.data[0]?.attributes
+                              ?.slug === "korean-wallpaper-promo-1"
+                        ) || [];
+
+                      return (
+                        <label
+                          key={index}
+                          className="flex items-center text-sm cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                            checked={selectedMotifs.includes(
+                              motif.attributes.title
+                            )}
+                            onChange={() =>
+                              handleFilterMotifChange(motif.attributes.title)
+                            }
+                          />
+                          <span className="ml-2 text-gray-700">
+                            {motif.attributes.title} ({filteredProducts?.length}
+                            )
+                          </span>
+                        </label>
+                      );
+                    })}
                   {isOpenMotif && !wallpaper_by_styles.data.length && (
                     <p className="text-center text-[12px] bg-gray-200 text-gray-600">
                       Motif Kosong!
@@ -398,28 +473,38 @@ export default function List({
                 <hr className="my-2" />
                 <div className="space-y-2 mb-4">
                   {isOpenDesigner &&
-                    wallpaper_by_designers.data.map((designer, index) => (
-                      <label
-                        key={index}
-                        className="flex items-center text-sm cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                          checked={selectedDesigners.includes(
-                            designer.attributes.title
-                          )}
-                          onChange={() =>
-                            handleFilterDesignerChange(
+                    wallpaper_by_designers.data.map((designer, index) => {
+                      const filteredProducts =
+                        designer?.attributes?.products?.data?.filter(
+                          (item) =>
+                            item?.attributes?.brands?.data[0]?.attributes
+                              ?.slug === "korean-wallpaper-promo-1"
+                        ) || [];
+
+                      return (
+                        <label
+                          key={index}
+                          className="flex items-center text-sm cursor-pointer"
+                        >
+                          <input
+                            type="checkbox"
+                            className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                            checked={selectedDesigners.includes(
                               designer.attributes.title
-                            )
-                          }
-                        />
-                        <span className="ml-2 text-gray-700">
-                          {designer.attributes.title}
-                        </span>
-                      </label>
-                    ))}
+                            )}
+                            onChange={() =>
+                              handleFilterDesignerChange(
+                                designer.attributes.title
+                              )
+                            }
+                          />
+                          <span className="ml-2 text-gray-700">
+                            {designer.attributes.title} (
+                            {filteredProducts?.length})
+                          </span>
+                        </label>
+                      );
+                    })}
                   {isOpenDesigner && !wallpaper_by_designers.data.length && (
                     <p className="text-center text-[12px] bg-gray-200 text-gray-600">
                       Designer Kosong!

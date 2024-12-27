@@ -47,18 +47,20 @@ export default function CardProduct(item: Daum7 | any) {
                   <p>Panjang: {item.attributes.size_height} cm</p>
                 </div>
                 {item.attributes.discount ? (
-                  <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-[#FF0000] lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
-                    <p className="uppercase">Disc</p>
-                    <p>
-                      {item.attributes.discount?.type == "discount_percentage"
-                        ? `${item.attributes.discount?.value}%`
-                        : formatNumberToLetter(
-                            item.attributes.discount?.value
-                              ? parseFloat(item.attributes.discount?.value)
-                              : 0
-                          )}
-                    </p>
-                  </div>
+                  <>
+                    <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md px-4 py-2 text-white border-[1px] border-white">
+                      <p className="font-bold">
+                        {item.attributes.discount?.type == "discount_percentage"
+                          ? `${item.attributes.discount?.value}%`
+                          : formatNumberToLetter(
+                              item.attributes.discount?.value
+                                ? parseFloat(item.attributes.discount?.value)
+                                : 0
+                            )}
+                      </p>
+                      <p className="text-xs uppercase font-medium">Off</p>
+                    </div>
+                  </>
                 ) : (
                   <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
                     <p className="text-transparent">Disc</p>

@@ -145,6 +145,8 @@ export interface Attributes4 {
   desc: string;
   size_width: number;
   size_height: number;
+  itemsPerBox: string;
+  sheetsPerUnit: string;
   price: string;
   slug: string;
   createdAt: string;
@@ -153,7 +155,11 @@ export interface Attributes4 {
   unit: string;
   product_weight: number;
   date: string;
-  thickness: any;
+  thickness: number;
+  // sub_categories: SubCategories;
+  // categories: Categories2;
+  discount?: Discount;
+  products: Products;
 }
 
 export interface Images {
