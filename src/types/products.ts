@@ -225,6 +225,7 @@ export interface Attributes7 {
   stock: number;
   available: boolean;
   images: Images2;
+  brands: Brands;
 }
 
 export interface Images2 {
