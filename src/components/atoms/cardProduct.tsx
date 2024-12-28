@@ -43,8 +43,24 @@ export default function CardProduct(item: Daum7 | any) {
               >
                 <div className="md:text-xs text-[9px] text-[#474747]">
                   <p>Ukuran</p>
-                  <p>Lebar: {item.attributes.size_width} cm</p>
-                  <p>Panjang: {item.attributes.size_height} cm</p>
+                  <table>
+                    <tbody>
+                      <tr
+                        className={item.attributes?.thickness ? "" : "hidden"}
+                      >
+                        <td>Ketebalan</td>
+                        <td>: {item.attributes.thickness} mm</td>
+                      </tr>
+                      <tr>
+                        <td>Lebar</td>
+                        <td>: {item.attributes.size_width} cm</td>
+                      </tr>
+                      <tr>
+                        <td>Panjang</td>
+                        <td>: {item.attributes.size_height} cm</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 {item.attributes.discount ? (
                   <>

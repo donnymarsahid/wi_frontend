@@ -40,16 +40,50 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
               >
                 <div className="md:text-xs text-[9px] text-[#474747]">
                   <p>Ukuran</p>
-                  <p>
-                    Lebar:{" "}
-                    {item?.attributes?.brands?.data[0]?.attributes?.size_width}{" "}
-                    cm
-                  </p>
-                  <p>
-                    Panjang:{" "}
-                    {item?.attributes?.brands?.data[0]?.attributes?.size_height}{" "}
-                    cm
-                  </p>
+                  <table>
+                    <tbody>
+                      <tr
+                        className={
+                          item?.attributes?.brands?.data[0]?.attributes
+                            ?.thickness
+                            ? ""
+                            : "hidden"
+                        }
+                      >
+                        <td>Ketebalan</td>
+                        <td>
+                          :{" "}
+                          {
+                            item?.attributes?.brands?.data[0]?.attributes
+                              .thickness
+                          }{" "}
+                          mm
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Lebar</td>
+                        <td>
+                          :{" "}
+                          {
+                            item?.attributes?.brands?.data[0]?.attributes
+                              .size_width
+                          }{" "}
+                          cm
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Panjang</td>
+                        <td>
+                          :{" "}
+                          {
+                            item?.attributes?.brands?.data[0]?.attributes
+                              .size_height
+                          }{" "}
+                          cm
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
                 {item?.attributes?.brands?.data[0]?.attributes?.discount ? (
                   <>

@@ -27,14 +27,13 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
 
   return (
     <>
-      <div className="mt-14">
+      <div className="mt-24">
         <div className="container mx-auto">
           <div className="md:mx-10 mx-4">
             <div className="flex items-start flex-col">
-              <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
+              <button className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default">
                 {titleKey}
-              </h1>
-              <div className="md:h-[3px] h-[1px] md:w-[300px] w-[120px] bg-[#20D3B6] text-center"></div>
+              </button>
               <div>
                 <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
                   {filteredData.map((item, index) => (

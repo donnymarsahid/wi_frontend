@@ -24,14 +24,13 @@ export default function Floors({ data }: WallpaperPageProps) {
     <>
       {data.attributes.name.toLowerCase().includes("accessories") ? (
         <>
-          <div className="mt-10">
+          <div className="mt-24">
             <div className="container mx-auto">
               <div className="md:mx-10 mx-4">
                 <div className=" ">
-                  <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
+                  <h1 className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default">
                     {data.attributes.name}
                   </h1>
-                  <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
                   <div>
                     <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                       {data.attributes.brands?.data.length &&
@@ -71,14 +70,13 @@ export default function Floors({ data }: WallpaperPageProps) {
           </div>
         </>
       ) : (
-        <div className="mt-10">
-          <div className="container mx-auto">
+        <div className="mt-24">
+          <div className="container mx-auto mt-6">
             <div className="md:mx-10 mx-4">
-              <div className=" ">
-                <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
+              <div>
+                <button className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default">
                   {data.attributes.name}
-                </h1>
-                <div className="md:h-[3px] h-[1px] w-[120px] bg-[#20D3B6] text-center"></div>
+                </button>
                 <div>
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                     {data.attributes.brands?.data.length &&
