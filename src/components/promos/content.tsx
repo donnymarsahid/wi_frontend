@@ -43,7 +43,7 @@ export default function Content({ data }: PromosPageProps) {
                                   width={400}
                                   height={400}
                                   alt="wall"
-                                  className="w-full md:h-[284px] h-[135px] object-cover transform transition-transform duration-500 hover:scale-110"
+                                  className="w-full object-cover transform transition-transform duration-500 hover:scale-110"
                                 />
                               )}
                             </div>
@@ -112,7 +112,7 @@ export default function Content({ data }: PromosPageProps) {
                                     {item?.attributes?.brands?.data[0]
                                       ?.attributes?.discount ? (
                                       <>
-                                        <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md px-4 py-2 text-white border-[1px] border-white">
+                                        <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
                                           <p className="font-bold">
                                             {item?.attributes?.brands?.data[0]
                                               ?.attributes?.discount?.type ==
@@ -158,7 +158,7 @@ export default function Content({ data }: PromosPageProps) {
                                             : "hidden"
                                         } flex`}
                                       >
-                                        <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
+                                        <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
                                           {formatRupiah(
                                             parseFloat(
                                               item?.attributes?.brands?.data[0]

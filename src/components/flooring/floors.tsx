@@ -70,7 +70,7 @@ export default function Floors({ data }: WallpaperPageProps) {
           </div>
         </>
       ) : (
-        <div className="mt-24">
+        <div className="md:mt-20 mt-8">
           <div className="container mx-auto mt-6">
             <div className="md:mx-10 mx-4">
               <div>
