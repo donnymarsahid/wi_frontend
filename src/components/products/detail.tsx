@@ -444,7 +444,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                   </div>
                   <div className="flex justify-between mt-2">
                     <div></div>
-                    <button className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md px-4 py-2 text-white border-[1px] border-white">
+                    <button className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
                       <p className="font-bold">
                         {data.data[0].attributes.brands.data[0].attributes
                           .discount?.type == "discount_percentage"
@@ -604,7 +604,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                   {item?.attributes?.brands?.data[0]?.attributes
                                     ?.discount ? (
                                     <>
-                                      <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md px-4 py-2 text-white border-[1px] border-white">
+                                      <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
                                         <p className="font-bold">
                                           {item?.attributes?.brands?.data[0]
                                             ?.attributes?.discount?.type ==
