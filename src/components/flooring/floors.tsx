@@ -28,7 +28,10 @@ export default function Floors({ data }: WallpaperPageProps) {
             <div className="container mx-auto">
               <div className="md:mx-10 mx-4">
                 <div className=" ">
-                  <h1 className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default">
+                  <h1
+                    id={data.attributes.name}
+                    className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default"
+                  >
                     {data.attributes.name}
                   </h1>
                   <div>
@@ -74,7 +77,10 @@ export default function Floors({ data }: WallpaperPageProps) {
           <div className="container mx-auto mt-6">
             <div className="md:mx-10 mx-4">
               <div>
-                <button className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default">
+                <button
+                  id={data.attributes.name}
+                  className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default"
+                >
                   {data.attributes.name}
                 </button>
                 <div>
