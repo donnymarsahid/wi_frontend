@@ -140,6 +140,7 @@ export interface Attributes3 {
   discount?: Discount;
   products: Products;
   pricePerMeter: string;
+  unitOfMeasure: string;
 }
 
 export interface SubCategories {

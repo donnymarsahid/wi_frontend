@@ -133,6 +133,8 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
 
   const addToCart = () => {
     const result = {
+      unitOfMeasure:
+        data.data[0].attributes.brands.data[0].attributes.unitOfMeasure ?? "",
       quantity,
       original_price:
         data.data[0].attributes.brands.data[0].attributes.discount?.type &&
@@ -395,12 +397,19 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                 data.data[0].attributes.brands.data[0]
                                   .attributes.size_width
                               }
-                              cm x P=
+                              {
+                                data.data[0].attributes.brands.data[0]
+                                  .attributes.unitOfMeasure
+                              }{" "}
+                              x P=
                               {
                                 data.data[0].attributes.brands.data[0]
                                   .attributes.size_height
                               }
-                              cm
+                              {
+                                data.data[0].attributes.brands.data[0]
+                                  .attributes.unitOfMeasure
+                              }
                             </td>
                           </tr>
                           <tr>
@@ -584,7 +593,10 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                               item?.attributes?.brands?.data[0]
                                                 ?.attributes.size_width
                                             }{" "}
-                                            cm
+                                            {
+                                              item?.attributes?.brands?.data[0]
+                                                ?.attributes.unitOfMeasure
+                                            }
                                           </td>
                                         </tr>
                                         <tr>
@@ -595,7 +607,10 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                               item?.attributes?.brands?.data[0]
                                                 ?.attributes.size_height
                                             }{" "}
-                                            cm
+                                            {
+                                              item?.attributes?.brands?.data[0]
+                                                ?.attributes.unitOfMeasure
+                                            }
                                           </td>
                                         </tr>
                                       </tbody>

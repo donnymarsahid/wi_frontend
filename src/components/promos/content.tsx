@@ -91,7 +91,11 @@ export default function Content({ data }: PromosPageProps) {
                                                   ?.data[0]?.attributes
                                                   .size_width
                                               }{" "}
-                                              cm
+                                              {
+                                                item?.attributes?.brands
+                                                  ?.data[0]?.attributes
+                                                  .unitOfMeasure
+                                              }
                                             </td>
                                           </tr>
                                           <tr>
@@ -103,7 +107,11 @@ export default function Content({ data }: PromosPageProps) {
                                                   ?.data[0]?.attributes
                                                   .size_height
                                               }{" "}
-                                              cm
+                                              {
+                                                item?.attributes?.brands
+                                                  ?.data[0]?.attributes
+                                                  .unitOfMeasure
+                                              }
                                             </td>
                                           </tr>
                                         </tbody>

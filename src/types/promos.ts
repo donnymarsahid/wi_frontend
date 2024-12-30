@@ -161,6 +161,7 @@ export interface Attributes4 {
   discount?: Discount;
   products: Products;
   pricePerMeter: string;
+  unitOfMeasure: string;
 }
 
 export interface Images {

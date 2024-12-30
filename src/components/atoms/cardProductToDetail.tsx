@@ -68,7 +68,10 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                             item?.attributes?.brands?.data[0]?.attributes
                               .size_width
                           }{" "}
-                          cm
+                          {
+                            item?.attributes?.brands?.data[0]?.attributes
+                              .unitOfMeasure
+                          }
                         </td>
                       </tr>
                       <tr>
@@ -79,7 +82,10 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                             item?.attributes?.brands?.data[0]?.attributes
                               .size_height
                           }{" "}
-                          cm
+                          {
+                            item?.attributes?.brands?.data[0]?.attributes
+                              .unitOfMeasure
+                          }
                         </td>
                       </tr>
                     </tbody>

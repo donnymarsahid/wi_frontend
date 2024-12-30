@@ -53,11 +53,17 @@ export default function CardProduct(item: Daum7 | any) {
                       </tr>
                       <tr>
                         <td>Lebar</td>
-                        <td>: {item.attributes.size_width} cm</td>
+                        <td>
+                          : {item.attributes.size_width}{" "}
+                          {item.attributes.unitOfMeasure}
+                        </td>
                       </tr>
                       <tr>
                         <td>Panjang</td>
-                        <td>: {item.attributes.size_height} cm</td>
+                        <td>
+                          : {item.attributes.size_height}{" "}
+                          {item.attributes.unitOfMeasure}
+                        </td>
                       </tr>
                     </tbody>
                   </table>

@@ -96,12 +96,19 @@ const ModalDetail = ({
                     dataCart.detail_product.data[0].attributes.brands.data[0]
                       .attributes.size_width
                   }
-                  cm x P=
+                  {
+                    dataCart.detail_product.data[0].attributes.brands.data[0]
+                      .attributes?.unitOfMeasure
+                  }{" "}
+                  x P=
                   {
                     dataCart.detail_product.data[0].attributes.brands.data[0]
                       .attributes.size_height
                   }
-                  cm
+                  {
+                    dataCart.detail_product.data[0].attributes.brands.data[0]
+                      .attributes?.unitOfMeasure
+                  }
                 </td>
               </tr>
               <tr>

@@ -145,6 +145,7 @@ export interface Attributes3 {
   categories: Categories2;
   discount?: Discount;
   products: Products;
+  unitOfMeasure: string;
 }
 
 export interface SubCategories {
