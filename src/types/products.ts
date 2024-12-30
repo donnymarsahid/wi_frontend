@@ -139,6 +139,7 @@ export interface Attributes3 {
   categories: Categories2;
   discount?: Discount;
   products: Products;
+  pricePerMeter: string;
 }
 
 export interface SubCategories {

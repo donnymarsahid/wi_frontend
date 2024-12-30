@@ -116,64 +116,81 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                 className={`${cx(
                   poppins,
                   poppins.className
-                )} flex justify-between items-center p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
+                )} p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
               >
-                <div className="text-sm">
-                  {/* START */}
-                  <div
-                    className={`${
-                      item?.attributes?.brands?.data[0]?.attributes?.discount
-                        ? ""
-                        : "hidden"
-                    } flex`}
-                  >
-                    <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
-                      {formatRupiah(
-                        parseFloat(
-                          item?.attributes?.brands?.data[0]?.attributes?.price
-                        )
-                      )}
+                {item?.attributes?.brands?.data[0]?.attributes
+                  ?.pricePerMeter ? (
+                  <div className="flex justify-between items-center">
+                    <div></div>
+                    <p className="md:text-sm text-[9.5px] font-medium">
+                      {
+                        item?.attributes?.brands?.data[0]?.attributes
+                          ?.pricePerMeter
+                      }
                     </p>
                   </div>
-                  {/* END */}
-                </div>
-                <div className="text-sm">
-                  <div>
-                    <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                      {!item?.attributes?.brands?.data[0]?.attributes
-                        ?.discount &&
-                        formatRupiah(
+                ) : (
+                  ""
+                )}
+                <div className="flex justify-between items-center">
+                  <div className="text-sm">
+                    {/* START */}
+                    <div
+                      className={`${
+                        item?.attributes?.brands?.data[0]?.attributes?.discount
+                          ? ""
+                          : "hidden"
+                      } flex`}
+                    >
+                      <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
+                        {formatRupiah(
                           parseFloat(
                             item?.attributes?.brands?.data[0]?.attributes?.price
                           )
                         )}
-                      {calculateDiscount(
-                        parseFloat(
-                          item?.attributes?.brands?.data[0]?.attributes?.price
-                        ),
-                        item?.attributes?.brands?.data[0]?.attributes?.discount
-                          ?.type
-                          ? item?.attributes?.brands?.data[0]?.attributes
-                              ?.discount?.type
-                          : "",
-                        item?.attributes?.brands?.data[0]?.attributes?.discount
-                          ?.value
-                          ? parseFloat(
+                      </p>
+                    </div>
+                    {/* END */}
+                  </div>
+                  <div className="text-sm">
+                    <div>
+                      <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
+                        {!item?.attributes?.brands?.data[0]?.attributes
+                          ?.discount &&
+                          formatRupiah(
+                            parseFloat(
                               item?.attributes?.brands?.data[0]?.attributes
-                                ?.discount?.value
+                                ?.price
                             )
-                          : 0
-                      )}{" "}
-                      /{" "}
-                      <span className="capitalize">
-                        {item?.attributes?.brands?.data[0]?.attributes?.unit
-                          ? String(
-                              item?.attributes?.brands?.data[0]?.attributes
-                                ?.unit
-                            ).toLowerCase()
-                          : ""}
-                      </span>
-                    </p>
+                          )}
+                        {calculateDiscount(
+                          parseFloat(
+                            item?.attributes?.brands?.data[0]?.attributes?.price
+                          ),
+                          item?.attributes?.brands?.data[0]?.attributes
+                            ?.discount?.type
+                            ? item?.attributes?.brands?.data[0]?.attributes
+                                ?.discount?.type
+                            : "",
+                          item?.attributes?.brands?.data[0]?.attributes
+                            ?.discount?.value
+                            ? parseFloat(
+                                item?.attributes?.brands?.data[0]?.attributes
+                                  ?.discount?.value
+                              )
+                            : 0
+                        )}{" "}
+                        /{" "}
+                        <span className="capitalize">
+                          {item?.attributes?.brands?.data[0]?.attributes?.unit
+                            ? String(
+                                item?.attributes?.brands?.data[0]?.attributes
+                                  ?.unit
+                              ).toLowerCase()
+                            : ""}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

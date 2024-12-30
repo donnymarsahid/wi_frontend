@@ -160,6 +160,7 @@ export interface Attributes4 {
   // categories: Categories2;
   discount?: Discount;
   products: Products;
+  pricePerMeter: string;
 }
 
 export interface Images {
