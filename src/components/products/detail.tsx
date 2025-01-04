@@ -347,7 +347,15 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         <tbody>
                           <tr>
                             <td>Jenis</td>
-                            <td>: Lantai Vinyl & SPC</td>
+                            <td>
+                              :{" "}
+                              {
+                                data.data[0].attributes?.brands?.data[0]
+                                  ?.attributes?.sub_categories?.data[0]
+                                  ?.attributes?.categories?.data[0]?.attributes
+                                  ?.title
+                              }
+                            </td>
                           </tr>
                           <tr>
                             <td>Merk</td>
