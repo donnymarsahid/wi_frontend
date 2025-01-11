@@ -58,7 +58,7 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                               poppins.className
                             )}`}
                           >
-                            <h3 className="p-2 bg-white bg-opacity-75 border-[2px] rounded-lg border-[#44CBEB] lg:text-[16px] text-[10px] text-center">
+                            <h3 className="p-2 bg-white bg-opacity-75   rounded-lg   lg:text-[16px] text-[10px] text-center shadow-lg">
                               {item.attributes.title}
                             </h3>
                           </div>

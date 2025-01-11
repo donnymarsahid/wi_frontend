@@ -92,7 +92,7 @@ export default function CarouselCategoriesSlider({
       <div className="carousel-container">
         <Carousel
           additionalTransfrom={0}
-          arrows={false}
+          arrows={true}
           centerMode={false}
           className=""
           containerClass="container-with-dots"

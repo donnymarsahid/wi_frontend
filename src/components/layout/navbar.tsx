@@ -41,6 +41,10 @@ export default function Navbar({
   const { value, setUser } = useUser();
   const [isHovered, setIsHovered] = useState(false);
 
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
+
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -66,7 +70,7 @@ export default function Navbar({
     },
     {
       title: "Produk",
-      url: "/products",
+      url: "#",
     },
     {
       title: "Berita/Inspirasi",
@@ -413,12 +417,50 @@ export default function Navbar({
             />
             <p className="font-semibold text-white">ID</p>
           </div>
-          <ul>
+          <ul className="w-full">
             {link.map((item, index) => (
-              <li className="p-4 border-b-[1px] border-white-100" key={index}>
-                <Link href={item.url}>
-                  <p className="text-white text-sm">{item.title}</p>
-                </Link>
+              <li key={index} className="p-4 border-b-[1px] border-white-100">
+                {item.title === "Produk" ? (
+                  <>
+                    {/* Button to toggle dropdown */}
+                    <button
+                      onClick={toggleDropdown}
+                      className="flex justify-between items-center w-full text-left cursor-pointer"
+                    >
+                      <p className="text-white text-sm">{item.title}</p>
+                      <span className="text-white transform transition-transform duration-300 ease-in-out">
+                        {isDropdownOpen ? "▲" : "▼"}
+                      </span>
+                    </button>
+
+                    {/* Dropdown content with smooth transition */}
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        isDropdownOpen ? "max-h-screen" : "max-h-0"
+                      }`}
+                    >
+                      <div className="bg-[#34b1e3] px-4">
+                        {categories.data.map((product, i) => (
+                          <Link
+                            href={`/category/${
+                              product.attributes.keyPageCondition
+                                ? `${product.attributes.keyPageCondition}--${product.attributes.slug}`
+                                : product.attributes.slug
+                            }`}
+                            key={i}
+                            className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md text-white"
+                          >
+                            {product.attributes.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <Link href={item.url}>
+                    <p className="text-white text-sm">{item.title}</p>
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

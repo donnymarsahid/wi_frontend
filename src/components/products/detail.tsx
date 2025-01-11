@@ -280,14 +280,35 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                 <div className="h-full md:px-6  lg:w-1/2">
                   <div className="w-full font-medium">
                     {isFlashSale && <FlashSaleDetailProduct {...flashsale} />}
-                    <div>
+                    <div className="flex justify-between">
                       <h1 className="font-bold md:text-[24px] text-[20px] text-blue-400">
                         {data.data[0].attributes.title}
                       </h1>
+                      <div>
+                        <button className="shadow-lg flex flex-row items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
+                          <p className="font-bold text-[18px]">
+                            {data.data[0].attributes.brands.data[0].attributes
+                              .discount?.type == "discount_percentage"
+                              ? `${data.data[0].attributes.brands.data[0].attributes.discount?.value}%`
+                              : formatNumberToLetter(
+                                  data.data[0].attributes.brands.data[0]
+                                    .attributes.discount?.value
+                                    ? parseFloat(
+                                        data.data[0].attributes.brands.data[0]
+                                          .attributes.discount?.value
+                                      )
+                                    : 0
+                                )}
+                          </p>
+                          <p className="ps-1 text-xs uppercase font-medium">
+                            Off
+                          </p>
+                        </button>
+                      </div>
                     </div>
                     {data.data[0].attributes.brands.data[0].attributes
                       .discount ? (
-                      <div className="flex w-full justify-between">
+                      <div className="flex w-full flex-col justify-between">
                         <div className="text-xl text-blue-400 line-through">
                           {formatRupiah(
                             parseFloat(
@@ -333,15 +354,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         )}
                       </div>
                     )}
-                    <div className="my-2">
-                      <button className="bg-blue-400 cursor-default px-2 py-1 rounded-2xl">
-                        <p className="text-sm text-white">
-                          {data.data[0].attributes.available
-                            ? "Available"
-                            : "Not Available"}
-                        </p>
-                      </button>
-                    </div>
+
                     <div className="bg-[#F3F4F6] p-2 mt-2 rounded-md">
                       <table className="text-[10px] md:text-[16px] font-light">
                         <tbody>
@@ -357,14 +370,19 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               }
                             </td>
                           </tr>
-                          <tr>
-                            <td>Merk</td>
-                            <td>
-                              :{" "}
-                              {data.data[0].attributes?.brands?.data[0]
-                                ?.attributes?.title || "-"}
-                            </td>
-                          </tr>
+                          {data.data[0].attributes?.brands?.data[0]?.attributes
+                            ?.sub_categories.data[0]?.attributes?.categories
+                            ?.data[0]?.attributes?.keyPageCondition !==
+                            "wallpaper" && (
+                            <tr>
+                              <td>Merk</td>
+                              <td>
+                                :{" "}
+                                {data.data[0].attributes?.brands?.data[0]
+                                  ?.attributes?.title || "-"}
+                              </td>
+                            </tr>
+                          )}
                           <tr>
                             <td>Kode</td>
                             <td>
@@ -379,22 +397,31 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                 ?.data[0]?.attributes?.title || "-"}
                             </td>
                           </tr>
-                          <tr>
-                            <td>Motif</td>
-                            <td>
-                              :{" "}
-                              {data.data[0].attributes?.wallpaper_by_styles
-                                ?.data[0]?.attributes?.title || "-"}
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Designer</td>
-                            <td>
-                              :{" "}
-                              {data.data[0].attributes?.wallpaper_by_designers
-                                ?.data[0]?.attributes?.title || "-"}
-                            </td>
-                          </tr>
+                          {data.data[0].attributes?.brands?.data[0]?.attributes
+                            ?.sub_categories.data[0]?.attributes?.categories
+                            ?.data[0]?.attributes?.keyPageCondition ===
+                            "wallpaper" && (
+                            <>
+                              <tr>
+                                <td>Motif</td>
+                                <td>
+                                  :{" "}
+                                  {data.data[0].attributes?.wallpaper_by_styles
+                                    ?.data[0]?.attributes?.title || "-"}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Designer</td>
+                                <td>
+                                  :{" "}
+                                  {data.data[0].attributes
+                                    ?.wallpaper_by_designers?.data[0]
+                                    ?.attributes?.title || "-"}
+                                </td>
+                              </tr>
+                            </>
+                          )}
+
                           <tr>
                             <td className="w-[120px] md:w-[200px]">
                               Ukuran Per Lembar
@@ -420,32 +447,40 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               }
                             </td>
                           </tr>
-                          <tr>
-                            <td>Ketebalan</td>
-                            <td>
-                              :{" "}
-                              {
-                                data.data[0].attributes.brands.data[0]
-                                  .attributes.thickness
-                              }
-                              mm
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Isi Per Box</td>
-                            <td>
-                              :{" "}
-                              {
-                                data.data[0].attributes?.brands?.data[0]
-                                  ?.attributes?.itemsPerBox
-                              }
-                              /{" "}
-                              {
-                                data.data[0].attributes?.brands?.data[0]
-                                  ?.attributes?.sheetsPerUnit
-                              }{" "}
-                            </td>
-                          </tr>
+                          {data.data[0].attributes?.brands?.data[0]?.attributes
+                            ?.sub_categories.data[0]?.attributes?.categories
+                            ?.data[0]?.attributes?.keyPageCondition !==
+                            "wallpaper" && (
+                            <>
+                              <tr>
+                                <td>Ketebalan</td>
+                                <td>
+                                  :{" "}
+                                  {
+                                    data.data[0].attributes.brands.data[0]
+                                      .attributes.thickness
+                                  }
+                                  mm
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Isi Per Box</td>
+                                <td>
+                                  :{" "}
+                                  {
+                                    data.data[0].attributes?.brands?.data[0]
+                                      ?.attributes?.itemsPerBox
+                                  }
+                                  /{" "}
+                                  {
+                                    data.data[0].attributes?.brands?.data[0]
+                                      ?.attributes?.sheetsPerUnit
+                                  }{" "}
+                                </td>
+                              </tr>
+                            </>
+                          )}
+
                           <tr>
                             <td>Berat</td>
                             <td>
@@ -459,26 +494,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                       </table>
                     </div>
                   </div>
-                  <div className="flex justify-between mt-2">
-                    <div></div>
-                    <button className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
-                      <p className="font-bold">
-                        {data.data[0].attributes.brands.data[0].attributes
-                          .discount?.type == "discount_percentage"
-                          ? `${data.data[0].attributes.brands.data[0].attributes.discount?.value}%`
-                          : formatNumberToLetter(
-                              data.data[0].attributes.brands.data[0].attributes
-                                .discount?.value
-                                ? parseFloat(
-                                    data.data[0].attributes.brands.data[0]
-                                      .attributes.discount?.value
-                                  )
-                                : 0
-                            )}
-                      </p>
-                      <p className="text-xs uppercase font-medium">Off</p>
-                    </button>
-                  </div>
+
                   <div className="flex justify-between my-6">
                     <div className="flex items-center">
                       <p className="text-xl text-blue-400">
@@ -562,17 +578,24 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                           <div>
                             <div className="w-full">
                               <div className="bg-white">
-                                <h3 className="font-bold lucida-bright p-2 border-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-center">
-                                  {item.attributes.title}
+                                <h3
+                                  className={`${cx(
+                                    poppins,
+                                    poppins.className
+                                  )} font-bold p-2 border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-start`}
+                                >
+                                  {
+                                    item?.attributes?.brands?.data[0]
+                                      ?.attributes?.title
+                                  }
                                 </h3>
                                 <div
                                   className={`${cx(
                                     poppins,
                                     poppins.className
-                                  )} flex justify-between items-center p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
+                                  )} flex justify-between items-center p-2  border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
                                 >
                                   <div className="md:text-xs text-[9px] text-[#474747]">
-                                    <p>Ukuran</p>
                                     <table>
                                       <tbody>
                                         <tr
@@ -588,161 +611,175 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                             :{" "}
                                             {
                                               item?.attributes?.brands?.data[0]
-                                                ?.attributes.thickness
+                                                ?.attributes?.thickness
                                             }{" "}
                                             mm
                                           </td>
                                         </tr>
-                                        <tr>
-                                          <td>Lebar</td>
-                                          <td>
-                                            :{" "}
-                                            {
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes.size_width
-                                            }{" "}
-                                            {
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes.unitOfMeasure
-                                            }
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td>Panjang</td>
-                                          <td>
-                                            :{" "}
-                                            {
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes.size_height
-                                            }{" "}
-                                            {
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes.unitOfMeasure
-                                            }
-                                          </td>
-                                        </tr>
                                       </tbody>
                                     </table>
+                                    <div>
+                                      <p className="font-medium">
+                                        Ukuran:{" "}
+                                        <span className="inline-block whitespace-normal break-words">
+                                          Panjang{" "}
+                                          {
+                                            item?.attributes?.brands?.data[0]
+                                              ?.attributes?.size_height
+                                          }{" "}
+                                          {
+                                            item?.attributes?.brands?.data[0]
+                                              ?.attributes?.unitOfMeasure
+                                          }{" "}
+                                          x Lebar{" "}
+                                          {
+                                            item?.attributes?.brands?.data[0]
+                                              ?.attributes?.size_width
+                                          }{" "}
+                                          {
+                                            item?.attributes?.brands?.data[0]
+                                              ?.attributes?.unitOfMeasure
+                                          }
+                                        </span>
+                                      </p>
+                                    </div>
                                   </div>
-                                  {item?.attributes?.brands?.data[0]?.attributes
-                                    ?.discount ? (
-                                    <>
-                                      <div className="shadow-lg flex flex-col items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
-                                        <p className="font-bold">
-                                          {item?.attributes?.brands?.data[0]
-                                            ?.attributes?.discount?.type ==
-                                          "discount_percentage"
-                                            ? `${item?.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
-                                            : formatNumberToLetter(
+                                </div>
+                                <div className="flex justify-between border-l-[1px] border-r-[1px] border-b-[1px] border-[#A5A5A5] relative">
+                                  <div>
+                                    <div
+                                      className={`${cx(
+                                        poppins,
+                                        poppins.className
+                                      )} ps-2`}
+                                    >
+                                      <div className="flex flex-col mt-2 pb-2">
+                                        <div className="text-sm">
+                                          {/* START */}
+                                          <div
+                                            className={`${
+                                              item?.attributes?.brands?.data[0]
+                                                ?.attributes?.discount
+                                                ? ""
+                                                : "hidden"
+                                            } flex`}
+                                          >
+                                            <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
+                                              {formatRupiah(
+                                                parseFloat(
+                                                  item?.attributes?.brands
+                                                    ?.data[0]?.attributes?.price
+                                                )
+                                              )}
+                                            </p>
+                                          </div>
+                                          {/* END */}
+                                        </div>
+                                        <div className="text-[14.5px]">
+                                          <div>
+                                            <p className="md:text-[14.5px] text-[9.5px] font-medium text-[#474747]">
+                                              {!item?.attributes?.brands
+                                                ?.data[0]?.attributes
+                                                ?.discount &&
+                                                formatRupiah(
+                                                  parseFloat(
+                                                    item?.attributes?.brands
+                                                      ?.data[0]?.attributes
+                                                      ?.price
+                                                  )
+                                                )}
+                                              {calculateDiscount(
+                                                parseFloat(
+                                                  item?.attributes?.brands
+                                                    ?.data[0]?.attributes?.price
+                                                ),
+                                                item?.attributes?.brands
+                                                  ?.data[0]?.attributes
+                                                  ?.discount?.type
+                                                  ? item?.attributes?.brands
+                                                      ?.data[0]?.attributes
+                                                      ?.discount?.type
+                                                  : "",
                                                 item?.attributes?.brands
                                                   ?.data[0]?.attributes
                                                   ?.discount?.value
                                                   ? parseFloat(
-                                                      item.attributes.brands
-                                                        .data[0].attributes
-                                                        .discount?.value
+                                                      item?.attributes?.brands
+                                                        ?.data[0]?.attributes
+                                                        ?.discount?.value
                                                     )
                                                   : 0
-                                              )}
-                                        </p>
-                                        <p className="text-xs uppercase font-medium">
-                                          Off
-                                        </p>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
-                                      <p className="text-transparent">Disc</p>
-                                      <p>-</p>
-                                    </div>
-                                  )}
-                                </div>
-                                <div
-                                  className={`${cx(
-                                    poppins,
-                                    poppins.className
-                                  )}  p-2 border-b-[1px] border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
-                                >
-                                  {item?.attributes?.brands?.data[0]?.attributes
-                                    ?.pricePerMeter ? (
-                                    <div className="flex justify-between items-center">
-                                      <div></div>
-                                      <p className="md:text-sm text-[9.5px] font-medium">
-                                        {
-                                          item?.attributes?.brands?.data[0]
-                                            ?.attributes.pricePerMeter
-                                        }
-                                      </p>
-                                    </div>
-                                  ) : (
-                                    ""
-                                  )}
-                                  <div className="flex justify-between items-center">
-                                    <div className="text-sm">
-                                      {/* START */}
-                                      <div
-                                        className={`${
-                                          item?.attributes?.brands?.data[0]
-                                            ?.attributes?.discount
-                                            ? ""
-                                            : "hidden"
-                                        } flex`}
-                                      >
-                                        <p className="text-[#FF0000] line-through md:text-lg text-[9.5px]">
-                                          {formatRupiah(
-                                            parseFloat(
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes?.price
-                                            )
-                                          )}
-                                        </p>
-                                      </div>
-                                      {/* END */}
-                                    </div>
-                                    <div className="text-sm">
-                                      <div>
-                                        <p className="md:text-lg text-[9.5px] font-medium text-[#474747]">
-                                          {!item?.attributes?.brands?.data[0]
-                                            ?.attributes?.discount &&
-                                            formatRupiah(
-                                              parseFloat(
+                                              )}{" "}
+                                              /{" "}
+                                              <span className="capitalize md:text-[14.5px] text-[9.5px]">
+                                                {item?.attributes?.brands
+                                                  ?.data[0]?.attributes?.unit
+                                                  ? String(
+                                                      item?.attributes?.brands
+                                                        ?.data[0]?.attributes
+                                                        ?.unit
+                                                    ).toLowerCase()
+                                                  : ""}
+                                              </span>
+                                            </p>
+                                          </div>
+                                        </div>
+                                        {item?.attributes?.brands?.data[0]
+                                          ?.attributes?.pricePerMeter ? (
+                                          <div className="flex justify-between items-center">
+                                            <div></div>
+                                            <p className="md:text-sm text-[9.5px] font-medium">
+                                              {
                                                 item?.attributes?.brands
-                                                  ?.data[0]?.attributes?.price
-                                              )
-                                            )}
-                                          {calculateDiscount(
-                                            parseFloat(
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes?.price
-                                            ),
-                                            item?.attributes?.brands?.data[0]
-                                              ?.attributes?.discount?.type
-                                              ? item?.attributes?.brands
                                                   ?.data[0]?.attributes
-                                                  ?.discount?.type
-                                              : "",
-                                            item?.attributes?.brands?.data[0]
-                                              ?.attributes?.discount?.value
-                                              ? parseFloat(
+                                                  ?.pricePerMeter
+                                              }
+                                            </p>
+                                          </div>
+                                        ) : (
+                                          ""
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    className={`pe-2 absolute top-0 right-0 ${cx(
+                                      poppins,
+                                      poppins.className
+                                    )}`}
+                                  >
+                                    {item?.attributes?.brands?.data[0]
+                                      ?.attributes?.discount ? (
+                                      <>
+                                        <div className="shadow-lg flex flex-row items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 text-white border-[1px] border-white p-1">
+                                          <p className="font-bold md:text-[18px] text-[12px]">
+                                            {item?.attributes?.brands?.data[0]
+                                              ?.attributes?.discount?.type ==
+                                            "discount_percentage"
+                                              ? `${item?.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
+                                              : formatNumberToLetter(
                                                   item?.attributes?.brands
                                                     ?.data[0]?.attributes
                                                     ?.discount?.value
-                                                )
-                                              : 0
-                                          )}{" "}
-                                          /{" "}
-                                          <span className="capitalize">
-                                            {item?.attributes?.brands?.data[0]
-                                              ?.attributes?.unit
-                                              ? String(
-                                                  item?.attributes?.brands
-                                                    ?.data[0]?.attributes?.unit
-                                                ).toLowerCase()
-                                              : ""}
-                                          </span>
-                                        </p>
+                                                    ? parseFloat(
+                                                        item?.attributes?.brands
+                                                          ?.data[0]?.attributes
+                                                          ?.discount?.value
+                                                      )
+                                                    : 0
+                                                )}
+                                          </p>
+                                          <p className="ps-1 md:text-[16px] text-[10px] uppercase font-medium">
+                                            Off
+                                          </p>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <div className="md:text-sm text-[10px] font-semibold flex items-center flex-col text-white bg-transparent lg:px-4 lg:py-3 px-2 py-1 rounded-full lucida-bright">
+                                        <p className="text-transparent">Disc</p>
+                                        <p>-</p>
                                       </div>
-                                    </div>
+                                    )}
                                   </div>
                                 </div>
                               </div>

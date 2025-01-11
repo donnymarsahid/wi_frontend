@@ -92,7 +92,7 @@ export default function CarouselBannerFlooring({
           <div className="carousel-container">
             <Carousel
               additionalTransfrom={0}
-              arrows
+              arrows={false}
               autoPlay
               autoPlaySpeed={4500}
               customTransition="2s"
