@@ -146,6 +146,8 @@ export interface Attributes3 {
   discount?: Discount;
   products: Products;
   unitOfMeasure: string;
+  unitOfMeasureWidth: string;
+  unitOfMeasureHeight: string;
 }
 
 export interface SubCategories {

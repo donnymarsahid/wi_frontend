@@ -86,7 +86,6 @@ export default function Content({ data }: PromosPageProps) {
                                                   ?.data[0]?.attributes
                                                   ?.thickness
                                               }{" "}
-                                              mm
                                             </td>
                                           </tr>
                                         </tbody>
@@ -102,7 +101,8 @@ export default function Content({ data }: PromosPageProps) {
                                             }{" "}
                                             {
                                               item?.attributes?.brands?.data[0]
-                                                ?.attributes?.unitOfMeasure
+                                                ?.attributes
+                                                ?.unitOfMeasureHeight
                                             }{" "}
                                             x Lebar{" "}
                                             {
@@ -111,7 +111,7 @@ export default function Content({ data }: PromosPageProps) {
                                             }{" "}
                                             {
                                               item?.attributes?.brands?.data[0]
-                                                ?.attributes?.unitOfMeasure
+                                                ?.attributes?.unitOfMeasureWidth
                                             }
                                           </span>
                                         </p>

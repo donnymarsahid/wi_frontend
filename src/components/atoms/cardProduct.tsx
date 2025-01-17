@@ -53,7 +53,7 @@ export default function CardProduct(item: Daum7 | any) {
                         className={item.attributes?.thickness ? "" : "hidden"}
                       >
                         <td>Ketebalan</td>
-                        <td>: {item.attributes.thickness} mm</td>
+                        <td>: {item.attributes.thickness}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -62,9 +62,9 @@ export default function CardProduct(item: Daum7 | any) {
                       Ukuran:{" "}
                       <span className="inline-block whitespace-normal break-words">
                         Panjang {item.attributes.size_height}{" "}
-                        {item.attributes.unitOfMeasure} x Lebar{" "}
+                        {item.attributes?.unitOfMeasureHeight} x Lebar{" "}
                         {item.attributes.size_width}{" "}
-                        {item.attributes.unitOfMeasure}
+                        {item.attributes?.unitOfMeasureWidth}
                       </span>
                     </p>
                   </div>

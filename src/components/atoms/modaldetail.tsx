@@ -98,7 +98,7 @@ const ModalDetail = ({
                   }
                   {
                     dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes?.unitOfMeasure
+                      .attributes?.unitOfMeasureWidth
                   }{" "}
                   x P=
                   {
@@ -107,7 +107,7 @@ const ModalDetail = ({
                   }
                   {
                     dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes?.unitOfMeasure
+                      .attributes?.unitOfMeasureHeight
                   }
                 </td>
               </tr>
@@ -119,7 +119,6 @@ const ModalDetail = ({
                     dataCart.detail_product.data[0].attributes.brands.data[0]
                       .attributes.thickness
                   }
-                  mm
                 </td>
               </tr>
               <tr>

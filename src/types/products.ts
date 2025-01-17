@@ -141,6 +141,8 @@ export interface Attributes3 {
   products: Products;
   pricePerMeter: string;
   unitOfMeasure: string;
+  unitOfMeasureWidth: string;
+  unitOfMeasureHeight: string;
 }
 
 export interface SubCategories {

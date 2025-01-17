@@ -133,8 +133,12 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
 
   const addToCart = () => {
     const result = {
-      unitOfMeasure:
-        data.data[0].attributes.brands.data[0].attributes.unitOfMeasure ?? "",
+      unitOfMeasureWidth:
+        data.data[0].attributes.brands.data[0].attributes?.unitOfMeasureWidth ??
+        "",
+      unitOfMeasureHeight:
+        data.data[0].attributes.brands.data[0].attributes
+          ?.unitOfMeasureHeight ?? "",
       quantity,
       original_price:
         data.data[0].attributes.brands.data[0].attributes.discount?.type &&
@@ -434,7 +438,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               }
                               {
                                 data.data[0].attributes.brands.data[0]
-                                  .attributes.unitOfMeasure
+                                  .attributes?.unitOfMeasureWidth
                               }{" "}
                               x P=
                               {
@@ -443,7 +447,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               }
                               {
                                 data.data[0].attributes.brands.data[0]
-                                  .attributes.unitOfMeasure
+                                  .attributes?.unitOfMeasureHeight
                               }
                             </td>
                           </tr>
@@ -460,7 +464,6 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                     data.data[0].attributes.brands.data[0]
                                       .attributes.thickness
                                   }
-                                  mm
                                 </td>
                               </tr>
                               <tr>
@@ -613,7 +616,6 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                               item?.attributes?.brands?.data[0]
                                                 ?.attributes?.thickness
                                             }{" "}
-                                            mm
                                           </td>
                                         </tr>
                                       </tbody>
@@ -629,7 +631,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                           }{" "}
                                           {
                                             item?.attributes?.brands?.data[0]
-                                              ?.attributes?.unitOfMeasure
+                                              ?.attributes?.unitOfMeasureHeight
                                           }{" "}
                                           x Lebar{" "}
                                           {
@@ -638,7 +640,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                           }{" "}
                                           {
                                             item?.attributes?.brands?.data[0]
-                                              ?.attributes?.unitOfMeasure
+                                              ?.attributes?.unitOfMeasureWidth
                                           }
                                         </span>
                                       </p>

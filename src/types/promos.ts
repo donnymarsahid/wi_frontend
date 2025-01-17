@@ -155,13 +155,15 @@ export interface Attributes4 {
   unit: string;
   product_weight: number;
   date: string;
-  thickness: number;
+  thickness: any;
   // sub_categories: SubCategories;
   // categories: Categories2;
   discount?: Discount;
   products: Products;
   pricePerMeter: string;
   unitOfMeasure: string;
+  unitOfMeasureWidth: string;
+  unitOfMeasureHeight: string;
 }
 
 export interface Images {

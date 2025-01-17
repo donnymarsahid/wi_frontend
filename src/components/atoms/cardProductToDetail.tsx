@@ -61,7 +61,6 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                             item?.attributes?.brands?.data[0]?.attributes
                               ?.thickness
                           }{" "}
-                          mm
                         </td>
                       </tr>
                     </tbody>
@@ -77,7 +76,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                         }{" "}
                         {
                           item?.attributes?.brands?.data[0]?.attributes
-                            ?.unitOfMeasure
+                            ?.unitOfMeasureHeight
                         }{" "}
                         x Lebar{" "}
                         {
@@ -86,7 +85,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                         }{" "}
                         {
                           item?.attributes?.brands?.data[0]?.attributes
-                            ?.unitOfMeasure
+                            ?.unitOfMeasureWidth
                         }
                       </span>
                     </p>
