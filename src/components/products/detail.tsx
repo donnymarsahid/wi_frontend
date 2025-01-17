@@ -587,10 +587,6 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                     poppins.className
                                   )} font-bold p-2 border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-start`}
                                 >
-                                  {
-                                    item?.attributes?.brands?.data[0]
-                                      ?.attributes?.title
-                                  }{" "}
                                   {item?.attributes?.title}
                                 </h3>
                                 <div
