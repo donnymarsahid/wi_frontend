@@ -39,7 +39,6 @@ export const getData = async ({
   }
 
   const res = await fetch(url, {
-    cache: "no-store",
     headers: {
       "Content-Type": "application/json",
       ...headers,

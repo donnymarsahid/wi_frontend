@@ -119,9 +119,9 @@ export default function List({
   );
 
   useEffect(() => {
-    console.log(selectedColors, "selectedColors");
-    console.log(selectedMotifs, "selectedMotifs");
-    console.log(selectedDesigners, "selectedDesigners");
+    // console.log(selectedColors, "selectedColors");
+    // console.log(selectedMotifs, "selectedMotifs");
+    // console.log(selectedDesigners, "selectedDesigners");
   }, [selectedColors, selectedMotifs, selectedDesigners]);
 
   return (

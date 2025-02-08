@@ -1,6 +1,8 @@
 import { getData } from "@/app/utils/fetching";
 import Content from "@/components/products/content";
+import { BrandsProps } from "@/types/brands";
 import { ProductsProps } from "@/types/products";
+import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 
 type ProductsPageProps = {
   searchParams: {
@@ -44,10 +46,47 @@ export default async function Products({ searchParams }: ProductsPageProps) {
     });
   }
 
+  const brands: BrandsProps = await getData({
+    path: `brands`,
+    params: {
+      populate:
+        "products,products.discount,products.images,sub_categories,sub_categories.categories,products.brands,products.brands.discount,products.wallpaper_by_colors,products.wallpaper_by_styles,products.wallpaper_by_designers",
+      "filters[slug][$eq]": "wjefhiwhfiuehwaiufhawuiefh",
+      "sort[0]": "date:desc",
+    },
+  });
+
+  const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
+    path: `wallpaper-by-colors`,
+    params: {
+      populate: "products,products.brands",
+    },
+  });
+  const wallpaper_by_styles: WallpaperByGeneralProps = await getData({
+    path: `wallpaper-by-styles`,
+    params: {
+      populate: "products,products.brands",
+    },
+  });
+  const wallpaper_by_designers: WallpaperByGeneralProps = await getData({
+    path: `wallpaper-by-designers`,
+    params: {
+      populate: "products,products.brands",
+    },
+  });
+
   return (
     <>
       <main className="mt-[120px] md:mt-[200px] lg:mt-[120px]">
-        <Content data={filteredData} query={searchParams} />
+        <Content
+          brands={brands}
+          wallpaper_by_colors={wallpaper_by_colors}
+          wallpaper_by_styles={wallpaper_by_styles}
+          wallpaper_by_designers={wallpaper_by_designers}
+          slug={"whqwdhqwhdjqwhkdqwhkjdhlk"}
+          data={filteredData}
+          query={searchParams}
+        />
       </main>
     </>
   );
