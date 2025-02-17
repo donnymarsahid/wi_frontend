@@ -21,11 +21,11 @@ export default async function Products({ searchParams }: ProductsPageProps) {
       populate:
         "images,brands,brands.discount,wallpaper_by_colors,wallpaper_by_designers,wallpaper_by_styles,brands.sub_categories,brands.sub_categories.categories",
       "filters[$or][0][wallpaper_by_colors][slug][$eq]":
-        searchParams.styleFilter,
+        searchParams.styleFilter.split("--")[0],
       "filters[$or][1][wallpaper_by_designers][slug][$eq]":
-        searchParams.styleFilter,
+        searchParams.styleFilter.split("--")[0],
       "filters[$or][2][wallpaper_by_styles][slug][$eq]":
-        searchParams.styleFilter,
+        searchParams.styleFilter.split("--")[0],
       "filters[available][$eq]": "true",
       "filters[title][$containsi]": searchParams.q,
     },
@@ -35,7 +35,7 @@ export default async function Products({ searchParams }: ProductsPageProps) {
   let filteredData = products.data;
 
   // Jika ada styleFilter, lakukan filter tambahan
-  if (searchParams.styleFilter) {
+  if (searchParams.styleFilter.split("--")[0]) {
     filteredData = products.data.filter((itemData) => {
       const brand = itemData?.attributes?.brands?.data[0];
       const subCategory = brand?.attributes?.sub_categories?.data[0];
@@ -59,19 +59,22 @@ export default async function Products({ searchParams }: ProductsPageProps) {
   const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-colors`,
     params: {
-      populate: "products,products.brands",
+      populate:
+        "products,products.brands,products.wallpaper_by_designers,products.wallpaper_by_styles,products.wallpaper_by_colors",
     },
   });
   const wallpaper_by_styles: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-styles`,
     params: {
-      populate: "products,products.brands",
+      populate:
+        "products,products.brands,products.wallpaper_by_designers,products.wallpaper_by_colors,products.wallpaper_by_styles",
     },
   });
   const wallpaper_by_designers: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-designers`,
     params: {
-      populate: "products,products.brands",
+      populate:
+        "products,products.brands,products.wallpaper_by_styles,products.wallpaper_by_colors,products.wallpaper_by_designers",
     },
   });
 

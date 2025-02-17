@@ -16,6 +16,7 @@ import CardProductToDetail from "../atoms/cardProductToDetail";
 import { useEffect, useState } from "react";
 import { BrandsProps } from "@/types/brands";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
+import { convertToSlug } from "@/lib/utils";
 
 type PromosPageProps = {
   data: ProductsPropsDaum[];
@@ -128,7 +129,7 @@ export default function Content({
 
   return (
     <>
-      {!query?.styleFilter ? (
+      {!query?.styleFilter.split("--")[0] ? (
         <div className="mt-10 mb-10">
           <div className="container mx-auto">
             <div className="md:mx-10 mx-4">
@@ -142,14 +143,17 @@ export default function Content({
                     <p>Pencarian Product : {query.q}</p>
                   </div>
                 )}
-                {query?.styleFilter && (
+                {query?.styleFilter.split("--")[0] && (
                   <div
                     className={`${cx(
                       poppins,
                       poppins.className
                     )} md:text-md text-sm`}
                   >
-                    <p>Filter Kategori Wallpaper : {query.styleFilter}</p>
+                    <p>
+                      Filter Kategori Wallpaper :{" "}
+                      {query.styleFilter.split("--")[0]}
+                    </p>
                   </div>
                 )}
                 <div>
@@ -219,8 +223,8 @@ export default function Content({
                     className="font-medium hover:text-[#2FD1C1] mx-2"
                     href="#"
                   >
-                    <p className="title-custom-2">
-                      {brands?.data[0]?.attributes?.title}
+                    <p className="title-custom-2 capitalize">
+                      {query?.styleFilter.split("--")[0]}
                     </p>
                   </Link>
                 </div>
@@ -340,9 +344,36 @@ export default function Content({
                         wallpaper_by_colors.data.map((color, index) => {
                           const filteredProducts =
                             color?.attributes?.products?.data?.filter(
-                              (item) =>
-                                item?.attributes?.brands?.data[0]?.attributes
-                                  ?.slug === slug
+                              (item) => {
+                                if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Color")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_colors
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                } else if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Style")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_styles
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                } else if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Designer")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_designers
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                }
+                              }
                             ) || [];
 
                           return (
@@ -429,9 +460,36 @@ export default function Content({
                         wallpaper_by_styles.data.map((motif, index) => {
                           const filteredProducts =
                             motif?.attributes?.products?.data?.filter(
-                              (item) =>
-                                item?.attributes?.brands?.data[0]?.attributes
-                                  ?.slug === slug
+                              (item) => {
+                                if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Color")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_colors
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                } else if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Style")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_styles
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                } else if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Designer")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_designers
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                }
+                              }
                             ) || [];
 
                           return (
@@ -520,9 +578,36 @@ export default function Content({
                         wallpaper_by_designers.data.map((designer, index) => {
                           const filteredProducts =
                             designer?.attributes?.products?.data?.filter(
-                              (item) =>
-                                item?.attributes?.brands?.data[0]?.attributes
-                                  ?.slug === slug
+                              (item) => {
+                                if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Color")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_colors
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                } else if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Style")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_styles
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                } else if (
+                                  query?.styleFilter.split("--")[1] ===
+                                  convertToSlug("Wallpaper By Designer")
+                                ) {
+                                  return (
+                                    item?.attributes?.wallpaper_by_designers
+                                      ?.data[0]?.attributes.slug ===
+                                    query?.styleFilter.split("--")[0]
+                                  );
+                                }
+                              }
                             ) || [];
 
                           return (

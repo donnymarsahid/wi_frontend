@@ -64,7 +64,7 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
             </div>
             <div className={`${poppins.className} absolute bottom-4 right-4`}>
               <Link
-                href="https://www.google.com/search?q=wallpaper+indonesia"
+                href="https://g.page/r/CYzIUSlQzWIpEAE/review"
                 target="blank"
                 className="bg-[#44CBEB] p-2 font-medium text-white rounded-lg text-[10px] md:text-sm"
               >
