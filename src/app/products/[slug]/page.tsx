@@ -47,6 +47,10 @@ export default async function SlugProducts(props: { params: tParams }) {
         "images,brands,brands.products,brands.products.images,brands.products.discount,brands.products.brands,brands.products.brands.discount,brands.discount,brands.sub_categories,brands.categories,brands.sub_categories.categories,wallpaper_by_colors,wallpaper_by_styles,wallpaper_by_designers",
       "sort[0]": "date:desc",
       "filters[slug][$eq]": slug,
+      "fields[0]": "title",
+      "fields[1]": "brands",
+      "fields[2]": "images",
+      "fields[3]": "desc",
     },
   });
 
@@ -55,13 +59,15 @@ export default async function SlugProducts(props: { params: tParams }) {
     params: {
       populate: "products",
       "filters[active][$eq]": "true",
+      "fields[0]": "expiry_date",
+      "fields[1]": "products",
     },
   });
 
   return (
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-        <Detail data={products} flashsale={flashsale} />
+        <Detail data={products.data[0]} flashsale={flashsale} />
       </main>
     </>
   );

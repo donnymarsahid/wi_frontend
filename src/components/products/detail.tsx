@@ -30,7 +30,7 @@ import { FlashSaleProps } from "@/types/flashsale";
 import { FlashSaleDetailProduct } from "../atoms/flashsaledetailproduct";
 
 type ProductPageProps = {
-  data: ProductsProps;
+  data: any;
   flashsale: FlashSaleProps;
 };
 
@@ -45,14 +45,14 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
   };
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [priceFinishedProduct, setPriceFinishedProduct] = useState(
-    data.data[0].attributes.brands.data[0].attributes.discount?.type &&
-      data.data[0].attributes.brands.data[0].attributes.discount.value
+    data.attributes.brands.data[0].attributes.discount?.type &&
+      data.attributes.brands.data[0].attributes.discount.value
       ? calculateDiscountNumber(
-          parseFloat(data.data[0].attributes.brands.data[0].attributes.price),
-          data.data[0].attributes.brands.data[0].attributes.discount.type,
-          data.data[0].attributes.brands.data[0].attributes.discount.value
+          parseFloat(data.attributes.brands.data[0].attributes.price),
+          data.attributes.brands.data[0].attributes.discount.type,
+          data.attributes.brands.data[0].attributes.discount.value
         ) * 1
-      : parseFloat(data.data[0].attributes.brands.data[0].attributes.price) * 1
+      : parseFloat(data.attributes.brands.data[0].attributes.price) * 1
   );
   const [quantity, setQuantity] = useState(1); // Tambahkan state untuk quantity
 
@@ -62,14 +62,14 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
 
     // Accumulate Qty Start
     const value_accumulate =
-      data.data[0].attributes.brands.data[0].attributes.discount?.type &&
-      data.data[0].attributes.brands.data[0].attributes.discount.value
+      data.attributes.brands.data[0].attributes.discount?.type &&
+      data.attributes.brands.data[0].attributes.discount.value
         ? calculateDiscountNumber(
-            parseFloat(data.data[0].attributes.brands.data[0].attributes.price),
-            data.data[0].attributes.brands.data[0].attributes.discount.type,
-            data.data[0].attributes.brands.data[0].attributes.discount.value
+            parseFloat(data.attributes.brands.data[0].attributes.price),
+            data.attributes.brands.data[0].attributes.discount.type,
+            data.attributes.brands.data[0].attributes.discount.value
           ) * qtyResult
-        : parseFloat(data.data[0].attributes.brands.data[0].attributes.price) *
+        : parseFloat(data.attributes.brands.data[0].attributes.price) *
           qtyResult;
     // Accumulate Qty End
 
@@ -85,18 +85,15 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
 
       // Accumulate Qty Start
       const value_accumulate =
-        data.data[0].attributes.brands.data[0].attributes.discount?.type &&
-        data.data[0].attributes.brands.data[0].attributes.discount.value
+        data.attributes.brands.data[0].attributes.discount?.type &&
+        data.attributes.brands.data[0].attributes.discount.value
           ? calculateDiscountNumber(
-              parseFloat(
-                data.data[0].attributes.brands.data[0].attributes.price
-              ),
-              data.data[0].attributes.brands.data[0].attributes.discount.type,
-              data.data[0].attributes.brands.data[0].attributes.discount.value
+              parseFloat(data.attributes.brands.data[0].attributes.price),
+              data.attributes.brands.data[0].attributes.discount.type,
+              data.attributes.brands.data[0].attributes.discount.value
             ) * qtyResult
-          : parseFloat(
-              data.data[0].attributes.brands.data[0].attributes.price
-            ) * qtyResult;
+          : parseFloat(data.attributes.brands.data[0].attributes.price) *
+            qtyResult;
       // Accumulate Qty End
 
       const result = value_accumulate;
@@ -122,7 +119,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
 
   const checkFlashSaleProduct = () => {
     const find = flashsale?.data?.attributes?.products?.data?.find(
-      (item) => item.attributes.slug === data.data[0].attributes.slug
+      (item) => item.attributes.slug === data.attributes.slug
     );
     setIsFlashSale(!!find); // Use !! to convert value to boolean
   };
@@ -134,23 +131,19 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
   const addToCart = () => {
     const result = {
       unitOfMeasureWidth:
-        data.data[0].attributes.brands.data[0].attributes?.unitOfMeasureWidth ??
-        "",
+        data.attributes.brands.data[0].attributes?.unitOfMeasureWidth ?? "",
       unitOfMeasureHeight:
-        data.data[0].attributes.brands.data[0].attributes
-          ?.unitOfMeasureHeight ?? "",
+        data.attributes.brands.data[0].attributes?.unitOfMeasureHeight ?? "",
       quantity,
       original_price:
-        data.data[0].attributes.brands.data[0].attributes.discount?.type &&
-        data.data[0].attributes.brands.data[0].attributes.discount.value
+        data.attributes.brands.data[0].attributes.discount?.type &&
+        data.attributes.brands.data[0].attributes.discount.value
           ? calculateDiscountNumber(
-              parseFloat(
-                data.data[0].attributes.brands.data[0].attributes.price
-              ),
-              data.data[0].attributes.brands.data[0].attributes.discount.type,
-              data.data[0].attributes.brands.data[0].attributes.discount.value
+              parseFloat(data.attributes.brands.data[0].attributes.price),
+              data.attributes.brands.data[0].attributes.discount.type,
+              data.attributes.brands.data[0].attributes.discount.value
             ) * 1
-          : parseFloat(data.data[0].attributes.brands.data[0].attributes.price),
+          : parseFloat(data.attributes.brands.data[0].attributes.price),
       total_price: parseFloat(priceFinishedProduct.toString()),
       detail_product: data,
     };
@@ -193,29 +186,28 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                 <p className="title-custom-2">Beranda</p>
               </Link>
               /
-              {data.data[0].attributes.brands.data[0].attributes.categories
-                ?.data?.length ? (
+              {data.attributes.brands.data[0].attributes.categories?.data
+                ?.length ? (
                 <Link
                   className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${data.data[0].attributes.brands.data[0].attributes.categories.data[0].attributes.slug}`}
+                  href={`/category/${data.attributes.brands.data[0].attributes.categories.data[0].attributes.slug}`}
                 >
                   <p className="title-custom-2">
                     {
-                      data.data[0].attributes.brands.data[0].attributes
-                        .categories.data[0].attributes.title
+                      data.attributes.brands.data[0].attributes.categories
+                        .data[0].attributes.title
                     }
                   </p>
                 </Link>
               ) : (
                 <Link
                   className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${data.data[0].attributes.brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`}
+                  href={`/category/${data.attributes.brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`}
                 >
                   <p className="title-custom-2">
                     {
-                      data.data[0].attributes.brands.data[0].attributes
-                        .sub_categories.data[0].attributes.categories.data[0]
-                        .attributes.title
+                      data.attributes.brands.data[0].attributes.sub_categories
+                        .data[0].attributes.categories.data[0].attributes.title
                     }
                   </p>
                 </Link>
@@ -223,10 +215,10 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
               /
               <Link
                 className="font-medium hover:text-[#2FD1C1] mx-2"
-                href={`/category/product/${data.data[0].attributes.brands.data[0].attributes.slug}`}
+                href={`/category/product/${data.attributes.brands.data[0].attributes.slug}`}
               >
                 <p className="title-custom-2">
-                  {data.data[0].attributes.brands.data[0].attributes.title}
+                  {data.attributes.brands.data[0].attributes.title}
                 </p>
               </Link>
               /
@@ -234,9 +226,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                 className="font-medium hover:text-[#2FD1C1] mx-2"
                 href={`#`}
               >
-                <p className="title-custom-2">
-                  {data.data[0].attributes.title}
-                </p>
+                <p className="title-custom-2">{data.attributes.title}</p>
               </Link>
             </div>
           </div>
@@ -248,7 +238,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     <div className="ms-2 w-full">
                       <div className="cursor-pointer" onClick={openModal}>
                         <Image
-                          src={`${STRAPI_URL}${data.data[0].attributes.images.data[mainImageIndex].attributes.formats.small.url}`}
+                          src={`${STRAPI_URL}${data.attributes.images.data[mainImageIndex].attributes.url}`}
                           width={400}
                           height={400}
                           alt="wall"
@@ -257,29 +247,25 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                       </div>
                     </div>
                     <div className="mb-6">
-                      {data.data[0].attributes.images.data?.map(
-                        (item, index) => (
-                          <div
-                            className="group relative cursor-pointer rounded-lg bg-blue-300 mb-2"
-                            key={index}
-                            onClick={() => changeMainImage(index)}
-                          >
-                            <div className="flex h-full w-full items-center justify-center">
-                              <Image
-                                unoptimized
-                                src={
-                                  STRAPI_URL + item.attributes.formats.small.url
-                                }
-                                width={400}
-                                height={400}
-                                className="w-full md:h-[100px] h-[50px] object-cover"
-                                alt={"image"}
-                              />
-                            </div>
-                            <div className="absolute left-0 top-0 h-full w-full rounded-lg bg-black bg-opacity-0 transition duration-300 ease-in-out group-hover:bg-opacity-30"></div>
+                      {data.attributes.images.data?.map((item, index) => (
+                        <div
+                          className="group relative cursor-pointer rounded-lg bg-blue-300 mb-2"
+                          key={index}
+                          onClick={() => changeMainImage(index)}
+                        >
+                          <div className="flex h-full w-full items-center justify-center">
+                            <Image
+                              unoptimized
+                              src={STRAPI_URL + item.attributes.url}
+                              width={400}
+                              height={400}
+                              className="w-full md:h-[100px] h-[50px] object-cover"
+                              alt={"image"}
+                            />
                           </div>
-                        )
-                      )}
+                          <div className="absolute left-0 top-0 h-full w-full rounded-lg bg-black bg-opacity-0 transition duration-300 ease-in-out group-hover:bg-opacity-30"></div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -288,19 +274,19 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     {isFlashSale && <FlashSaleDetailProduct {...flashsale} />}
                     <div className="flex justify-between">
                       <h1 className="font-bold md:text-[24px] text-[20px] text-blue-400">
-                        {data.data[0].attributes.title}
+                        {data.attributes.title}
                       </h1>
                       <div>
                         <button className="shadow-lg flex flex-row items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
                           <p className="font-bold text-[18px]">
-                            {data.data[0].attributes.brands.data[0].attributes
-                              .discount?.type == "discount_percentage"
-                              ? `${data.data[0].attributes.brands.data[0].attributes.discount?.value}%`
+                            {data.attributes.brands.data[0].attributes.discount
+                              ?.type == "discount_percentage"
+                              ? `${data.attributes.brands.data[0].attributes.discount?.value}%`
                               : formatNumberToLetter(
-                                  data.data[0].attributes.brands.data[0]
-                                    .attributes.discount?.value
+                                  data.attributes.brands.data[0].attributes
+                                    .discount?.value
                                     ? parseFloat(
-                                        data.data[0].attributes.brands.data[0]
+                                        data.attributes.brands.data[0]
                                           .attributes.discount?.value
                                       )
                                     : 0
@@ -312,15 +298,13 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         </button>
                       </div>
                     </div>
-                    {data.data[0].attributes.brands.data[0].attributes
-                      .discount ? (
+                    {data.attributes.brands.data[0].attributes.discount ? (
                       <div className="flex w-full flex-col justify-between">
                         <div className="text-xl text-blue-400 line-through">
                           {formatRupiah(
                             parseFloat(
                               parseFloat(
-                                data.data[0].attributes.brands.data[0]
-                                  .attributes.price
+                                data.attributes.brands.data[0].attributes.price
                               ).toString()
                             )
                           )}
@@ -328,21 +312,20 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         <div className="text-xl text-red-400">
                           {calculateDiscount(
                             parseFloat(
-                              data.data[0].attributes.brands.data[0].attributes
-                                .price
+                              data.attributes.brands.data[0].attributes.price
                             ),
-                            data.data[0].attributes.brands.data[0].attributes
-                              .discount?.type
-                              ? data.data[0].attributes.brands.data[0]
-                                  .attributes.discount?.type
+                            data.attributes.brands.data[0].attributes.discount
+                              ?.type
+                              ? data.attributes.brands.data[0].attributes
+                                  .discount?.type
                               : "",
                             parseFloat(
-                              data.data[0].attributes.brands.data[0].attributes
-                                .discount?.value
+                              data.attributes.brands.data[0].attributes.discount
+                                ?.value
                             )
                               ? parseFloat(
-                                  data.data[0].attributes.brands.data[0]
-                                    .attributes.discount?.value
+                                  data.attributes.brands.data[0].attributes
+                                    .discount?.value
                                 )
                               : 0
                           )}
@@ -353,8 +336,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         {formatRupiah(
                           parseFloat(
                             parseFloat(
-                              data.data[0].attributes.brands.data[0].attributes
-                                .price
+                              data.attributes.brands.data[0].attributes.price
                             ).toString()
                           )
                         )}
@@ -369,14 +351,13 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             <td>
                               :{" "}
                               {
-                                data.data[0].attributes?.brands?.data[0]
-                                  ?.attributes?.sub_categories?.data[0]
-                                  ?.attributes?.categories?.data[0]?.attributes
-                                  ?.title
+                                data.attributes?.brands?.data[0]?.attributes
+                                  ?.sub_categories?.data[0]?.attributes
+                                  ?.categories?.data[0]?.attributes?.title
                               }
                             </td>
                           </tr>
-                          {data.data[0].attributes?.brands?.data[0]?.attributes
+                          {data.attributes?.brands?.data[0]?.attributes
                             ?.sub_categories.data[0]?.attributes?.categories
                             ?.data[0]?.attributes?.keyPageCondition !==
                             "wallpaper" && (
@@ -384,26 +365,24 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               <td>Merk</td>
                               <td>
                                 :{" "}
-                                {data.data[0].attributes?.brands?.data[0]
-                                  ?.attributes?.title || "-"}
+                                {data.attributes?.brands?.data[0]?.attributes
+                                  ?.title || "-"}
                               </td>
                             </tr>
                           )}
                           <tr>
                             <td>Kode</td>
-                            <td>
-                              : {data.data[0].attributes?.product_code || "-"}
-                            </td>
+                            <td>: {data.attributes?.product_code || "-"}</td>
                           </tr>
                           <tr>
                             <td>Warna</td>
                             <td>
                               :{" "}
-                              {data.data[0].attributes?.wallpaper_by_colors
-                                ?.data[0]?.attributes?.title || "-"}
+                              {data.attributes?.wallpaper_by_colors?.data[0]
+                                ?.attributes?.title || "-"}
                             </td>
                           </tr>
-                          {data.data[0].attributes?.brands?.data[0]?.attributes
+                          {data.attributes?.brands?.data[0]?.attributes
                             ?.sub_categories.data[0]?.attributes?.categories
                             ?.data[0]?.attributes?.keyPageCondition ===
                             "wallpaper" && (
@@ -412,17 +391,16 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                 <td>Motif</td>
                                 <td>
                                   :{" "}
-                                  {data.data[0].attributes?.wallpaper_by_styles
-                                    ?.data[0]?.attributes?.title || "-"}
+                                  {data.attributes?.wallpaper_by_styles?.data[0]
+                                    ?.attributes?.title || "-"}
                                 </td>
                               </tr>
                               <tr>
                                 <td>Designer</td>
                                 <td>
                                   :{" "}
-                                  {data.data[0].attributes
-                                    ?.wallpaper_by_designers?.data[0]
-                                    ?.attributes?.title || "-"}
+                                  {data.attributes?.wallpaper_by_designers
+                                    ?.data[0]?.attributes?.title || "-"}
                                 </td>
                               </tr>
                             </>
@@ -435,25 +413,25 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             <td>
                               : L=
                               {
-                                data.data[0].attributes.brands.data[0]
-                                  .attributes.size_width
+                                data.attributes.brands.data[0].attributes
+                                  .size_width
                               }
                               {
-                                data.data[0].attributes.brands.data[0]
-                                  .attributes?.unitOfMeasureWidth
+                                data.attributes.brands.data[0].attributes
+                                  ?.unitOfMeasureWidth
                               }{" "}
                               x P=
                               {
-                                data.data[0].attributes.brands.data[0]
-                                  .attributes.size_height
+                                data.attributes.brands.data[0].attributes
+                                  .size_height
                               }
                               {
-                                data.data[0].attributes.brands.data[0]
-                                  .attributes?.unitOfMeasureHeight
+                                data.attributes.brands.data[0].attributes
+                                  ?.unitOfMeasureHeight
                               }
                             </td>
                           </tr>
-                          {data.data[0].attributes?.brands?.data[0]?.attributes
+                          {data.attributes?.brands?.data[0]?.attributes
                             ?.sub_categories.data[0]?.attributes?.categories
                             ?.data[0]?.attributes?.keyPageCondition !==
                             "wallpaper" && (
@@ -463,8 +441,8 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                 <td>
                                   :{" "}
                                   {
-                                    data.data[0].attributes.brands.data[0]
-                                      .attributes.thickness
+                                    data.attributes.brands.data[0].attributes
+                                      .thickness
                                   }
                                 </td>
                               </tr>
@@ -473,13 +451,13 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                 <td>
                                   :{" "}
                                   {
-                                    data.data[0].attributes?.brands?.data[0]
-                                      ?.attributes?.itemsPerBox
+                                    data.attributes?.brands?.data[0]?.attributes
+                                      ?.itemsPerBox
                                   }
                                   /{" "}
                                   {
-                                    data.data[0].attributes?.brands?.data[0]
-                                      ?.attributes?.sheetsPerUnit
+                                    data.attributes?.brands?.data[0]?.attributes
+                                      ?.sheetsPerUnit
                                   }{" "}
                                 </td>
                               </tr>
@@ -490,7 +468,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             <td>Berat</td>
                             <td>
                               :{" "}
-                              {data.data[0].attributes.brands.data[0].attributes
+                              {data.attributes.brands.data[0].attributes
                                 .product_weight || "-"}{" "}
                               kg
                             </td>
@@ -544,9 +522,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     <h1 className="mb-4 font-medium">Deskripsi</h1>
                     <hr />
                     <div className="mt-2"></div>
-                    <MarkdownComponent
-                      markdown={data.data[0].attributes.desc}
-                    />
+                    <MarkdownComponent markdown={data.attributes.desc} />
                   </div>
                 </div>
               </div>
@@ -558,12 +534,11 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                   </h1>
                 </div>
                 <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                  {data.data[0].attributes.brands.data.length &&
-                    data.data[0].attributes.brands.data[0].attributes.products?.data
+                  {data.attributes.brands.data.length &&
+                    data.attributes.brands.data[0].attributes.products?.data
                       .filter(
                         (itemData) =>
-                          itemData.attributes.slug !==
-                          data.data[0].attributes.slug
+                          itemData.attributes.slug !== data.attributes.slug
                       )
                       .slice(0, 6)
                       .map((item, index) => (
@@ -572,7 +547,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             {item.attributes?.images?.data[0]?.attributes
                               ?.url && (
                               <Image
-                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}`}
+                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
                                 width={400}
                                 height={400}
                                 alt="wall"
@@ -799,7 +774,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
             <ModalImage
               openModal={isModalOpen}
               setOpenModal={setIsModalOpen}
-              urlImage={`${data.data[0].attributes.images.data[mainImageIndex].attributes.formats.small.url}`}
+              urlImage={`${data.attributes.images.data[mainImageIndex].attributes.url}`}
             />
           </div>
         </div>

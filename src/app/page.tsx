@@ -80,6 +80,8 @@ export default async function Home() {
     params: {
       populate: "products",
       "filters[active][$eq]": "true",
+      "fields[0]": "expiry_date",
+      "fields[1]": "products",
     },
   });
 
