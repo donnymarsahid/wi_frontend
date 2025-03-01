@@ -13,15 +13,15 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   });
   try {
-    const { seo } = flashsale.data.attributes;
+    const { seo } = flashsale?.data?.attributes;
 
     // const previousImages = (await parent).openGraph?.images || [];
     return {
-      title: seo.title,
-      description: seo.description,
-      viewport: seo.viewport,
-      keywords: seo.keywords,
-      robots: seo.robots,
+      title: seo?.title,
+      description: seo?.description,
+      viewport: seo?.viewport,
+      keywords: seo?.keywords,
+      robots: seo?.robots,
     };
   } catch (error) {
     return {
