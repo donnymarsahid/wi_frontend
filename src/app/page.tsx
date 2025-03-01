@@ -17,15 +17,7 @@ import { FlashSaleProps } from "@/types/flashsale";
 import FixedContact from "@/components/atoms/fixedbottomcontact";
 import { CustomerServicesProps } from "@/types/customerServices";
 
-type HomePageProps = {
-  searchParams: {
-    page: string;
-    category: string;
-    q: string;
-  };
-};
-
-export default async function Home({ searchParams }: HomePageProps) {
+export default async function Home() {
   const homepage: HomepageProps = await getData({
     path: `homepage`,
     params: {

@@ -4,32 +4,29 @@ import cx from "classnames";
 import { poppins } from "../fonts";
 import Section from "@/components/historytransaction/section";
 
-type HistoryPageProps = {
-  searchParams: {
-    q: string;
-  };
-};
+type tParams = Promise<{ q: string }>;
 
-export default async function Page({ searchParams }: HistoryPageProps) {
+export default async function Page(props: { searchParams: tParams }) {
   const dataPaymentStatus =
-    searchParams.q == "belum-bayar"
+    (await props.searchParams).q == "belum-bayar"
       ? "Belum Lunas"
-      : searchParams.q == "gagal"
+      : (await props.searchParams).q == "gagal"
       ? "Ditolak"
       : "Lunas";
 
   const dataOrderStatus =
-    searchParams.q == "belum-bayar" || searchParams.q == "dikemas"
+    (await props.searchParams).q == "belum-bayar" ||
+    (await props.searchParams).q == "dikemas"
       ? "Dalam Proses"
-      : searchParams.q == "dikirim"
+      : (await props.searchParams).q == "dikirim"
       ? "Dikirim"
-      : searchParams.q == "selesai"
+      : (await props.searchParams).q == "selesai"
       ? "Selesai"
-      : searchParams.q == "gagal"
+      : (await props.searchParams).q == "gagal"
       ? "Selesai"
       : "Semua";
 
-  const isAll = searchParams.q == "semua";
+  const isAll = (await props.searchParams).q == "semua";
 
   return (
     <main

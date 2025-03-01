@@ -9,10 +9,10 @@ import { OrdersProps } from "@/types/orders";
 import { ProvinciesProps } from "@/types/provincies";
 import cx from "classnames";
 
-type Slug = { params: { slug: string } };
+type tParams = Promise<{ slug: string }>;
 
-export default async function Checkout({ params }: Slug) {
-  const slug = (await params).slug;
+export default async function Checkout(props: { params: tParams }) {
+  const slug = (await props.params).slug;
 
   const couriers: CourierProps = await getData({
     path: "rajaongkir/courier",

@@ -4,10 +4,12 @@ import { FlashSaleProps } from "@/types/flashsale";
 import { ProductsProps } from "@/types/products";
 import { Metadata } from "next";
 
-type Slug = { params: { slug: string } };
+type tParams = Promise<{ slug: string }>;
 
-export async function generateMetadata({ params }: Slug): Promise<Metadata> {
-  const slug = (await params).slug;
+export async function generateMetadata(props: {
+  params: tParams;
+}): Promise<Metadata> {
+  const slug = (await props.params).slug;
   const products: ProductsProps = await getData({
     path: `products`,
     params: {
@@ -36,8 +38,8 @@ export async function generateMetadata({ params }: Slug): Promise<Metadata> {
   }
 }
 
-export default async function SlugProducts({ params }: Slug) {
-  const slug = (await params).slug;
+export default async function SlugProducts(props: { params: tParams }) {
+  const slug = (await props.params).slug;
   const products: ProductsProps = await getData({
     path: `products`,
     params: {

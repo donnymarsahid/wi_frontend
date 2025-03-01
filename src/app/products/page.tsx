@@ -4,17 +4,15 @@ import { BrandsProps } from "@/types/brands";
 import { ProductsProps } from "@/types/products";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 
-type ProductsPageProps = {
-  searchParams: {
-    page: string;
-    category: string;
-    subcategory: string;
-    q: string;
-    styleFilter: string;
-  };
-};
+type tParams = Promise<{
+  page: string;
+  category: string;
+  subcategory: string;
+  q: string;
+  styleFilter: string;
+}>;
 
-export default async function Products({ searchParams }: ProductsPageProps) {
+export default async function Products(props: { searchParams: tParams }) {
   const products: ProductsProps = await getData({
     path: `products`,
     params: {
@@ -22,7 +20,7 @@ export default async function Products({ searchParams }: ProductsPageProps) {
         "images,brands,brands.discount,brands.sub_categories,brands.sub_categories.categories",
 
       "filters[available][$eq]": "true",
-      "filters[title][$containsi]": searchParams.q,
+      "filters[title][$containsi]": (await props.searchParams).q,
     },
   });
 
@@ -32,7 +30,7 @@ export default async function Products({ searchParams }: ProductsPageProps) {
   return (
     <>
       <main className="mt-[120px] md:mt-[200px] lg:mt-[120px]">
-        <Content data={filteredData} query={searchParams} />
+        <Content data={filteredData} query={await props.searchParams} />
       </main>
     </>
   );
