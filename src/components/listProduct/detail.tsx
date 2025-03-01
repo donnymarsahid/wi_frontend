@@ -267,14 +267,14 @@ export default function List({
                       <path
                         d="M12 6V18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M6 12H18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}
@@ -290,8 +290,8 @@ export default function List({
                       <path
                         d="M6 12H18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}
@@ -354,14 +354,14 @@ export default function List({
                       <path
                         d="M12 6V18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M6 12H18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}
@@ -377,8 +377,8 @@ export default function List({
                       <path
                         d="M6 12H18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}
@@ -443,14 +443,14 @@ export default function List({
                       <path
                         d="M12 6V18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                       <path
                         d="M6 12H18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}
@@ -466,8 +466,8 @@ export default function List({
                       <path
                         d="M6 12H18"
                         stroke="#000000"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                   )}

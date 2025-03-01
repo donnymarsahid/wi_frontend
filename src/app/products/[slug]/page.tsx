@@ -7,11 +7,12 @@ import { Metadata } from "next";
 type Slug = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Slug): Promise<Metadata> {
+  const slug = (await params).slug;
   const products: ProductsProps = await getData({
     path: `products`,
     params: {
       populate: "seo",
-      "filters[slug][$eq]": params.slug,
+      "filters[slug][$eq]": slug,
     },
   });
   try {
@@ -36,13 +37,14 @@ export async function generateMetadata({ params }: Slug): Promise<Metadata> {
 }
 
 export default async function SlugProducts({ params }: Slug) {
+  const slug = (await params).slug;
   const products: ProductsProps = await getData({
     path: `products`,
     params: {
       populate:
         "images,brands,brands.products,brands.products.images,brands.products.discount,brands.products.brands,brands.products.brands.discount,brands.discount,brands.sub_categories,brands.categories,brands.sub_categories.categories,wallpaper_by_colors,wallpaper_by_styles,wallpaper_by_designers",
       "sort[0]": "date:desc",
-      "filters[slug][$eq]": params.slug,
+      "filters[slug][$eq]": slug,
     },
   });
 

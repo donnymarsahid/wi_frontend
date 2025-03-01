@@ -14,7 +14,6 @@ const Section = dynamic(() => import("@/components/profile/section"), {
 export default async function Profile() {
   const listProvincies: ProvinciesProps = await getData({
     path: `rajaongkir/provincies`,
-    revalidate: 60,
   });
 
   return (

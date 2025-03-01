@@ -9,7 +9,7 @@ import { STRAPI_URL } from "@/app/utils/constans";
 import { CategoryProps } from "@/types/categories";
 
 type HeroCategoryProps = {
-  categories: CategoryProps;
+  categories: any;
 };
 
 const responsive = {
@@ -88,45 +88,45 @@ export default function CarouselBannerWallpaper({
     <>
       <style>{styles}</style>
       <div className="carousel-container">
-        <Carousel
-          additionalTransfrom={0}
-          arrows={false}
-          autoPlay
-          autoPlaySpeed={4500}
-          customTransition="2s"
-          transitionDuration={5000}
-          centerMode={false}
-          className=""
-          containerClass="container-with-dots"
-          dotListClass=""
-          draggable
-          focusOnSelect={false}
-          infinite
-          itemClass=""
-          keyBoardControl
-          minimumTouchDrag={80}
-          pauseOnHover
-          customDot={<CustomDot />}
-          renderArrowsWhenDisabled={false}
-          renderButtonGroupOutside={false}
-          renderDotsOutside={false}
-          responsive={responsive}
-          rewind={false}
-          rewindWithAnimation={false}
-          rtl={false}
-          shouldResetAutoplay
-          showDots={true}
-          sliderClass=""
-          slidesToSlide={1}
-          swipeable
-        >
-          {categories.data[0].attributes.banners.data?.length &&
-            categories.data[0].attributes.banners.data.map((item, index) => (
+        {categories[0]?.attributes?.banners.data?.length && (
+          <Carousel
+            additionalTransfrom={0}
+            arrows={false}
+            autoPlay
+            autoPlaySpeed={4500}
+            customTransition="2s"
+            transitionDuration={5000}
+            centerMode={false}
+            className=""
+            containerClass="container-with-dots"
+            dotListClass=""
+            draggable
+            focusOnSelect={false}
+            infinite
+            itemClass=""
+            keyBoardControl
+            minimumTouchDrag={80}
+            pauseOnHover
+            customDot={<CustomDot />}
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
+            responsive={responsive}
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
+            showDots={true}
+            sliderClass=""
+            slidesToSlide={1}
+            swipeable
+          >
+            {categories[0]?.attributes?.banners.data.map((item, index) => (
               <div key={index}>
                 <Image
-                  src={`${STRAPI_URL}${item.attributes.url}`}
+                  src={`${STRAPI_URL}${item.attributes.formats.medium.url}`}
                   placeholder="blur"
-                  blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
+                  blurDataURL={`${STRAPI_URL}${item.attributes.formats.medium.url}?w=30&q=10`} // Placeholder low-res
                   width={1000}
                   height={150}
                   className="bg-cover bg-center w-full h-full pb-4"
@@ -134,7 +134,8 @@ export default function CarouselBannerWallpaper({
                 />
               </div>
             ))}
-        </Carousel>
+          </Carousel>
+        )}
       </div>
     </>
   );

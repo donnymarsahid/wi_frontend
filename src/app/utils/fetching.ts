@@ -45,14 +45,12 @@ export const getData = async ({
     },
     next: {
       revalidate: revalidate ?? 60,
-      // revalidate: 0,
-      // revalidate: 60,
     },
   });
 
   // Recommendation: handle errors
   if (!res.ok) {
-    console.log(res.body);
+    // console.log(res.body);
     // This will activate the closest `error.js` Error Boundary
     // throw new Error("Failed to fetch data");
   }
@@ -94,7 +92,7 @@ export const postData = async ({
 
   // Recommendation: handle errors
   if (!res.ok) {
-    console.log(res.body);
+    // console.log(res.body);
     // This will activate the closest `error.js` Error Boundary
     // throw new Error("Failed to fetch data");
   }
@@ -136,7 +134,7 @@ export const postDataManual = async ({
 
   // Recommendation: handle errors
   if (!res.ok) {
-    console.log(res.body);
+    // console.log(res.body);
     // This will activate the closest `error.js` Error Boundary
     // throw new Error("Failed to fetch data");
   }
@@ -178,7 +176,7 @@ export const patchData = async ({
 
   // Recommendation: handle errors
   if (!res.ok) {
-    console.log(res.body);
+    // console.log(res.body);
     // This will activate the closest `error.js` Error Boundary
     // throw new Error("Failed to fetch data");
   }

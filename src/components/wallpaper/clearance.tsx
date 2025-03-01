@@ -1,31 +1,12 @@
-"use client";
-import React, { ChangeEvent, useState } from "react";
-import CarouselBanner from "../atoms/carouselbanner";
-import Image from "next/image";
-import cx from "classnames";
-import { poppins } from "@/app/fonts";
-import Link from "next/link";
-import { ProductsProps, ProductsPropsDaum } from "@/types/products";
-import { STRAPI_URL } from "@/app/utils/constans";
-import {
-  calculateDiscount,
-  formatNumberToLetter,
-  formatRupiah,
-} from "@/app/lib/utils";
-import { CategoryProps } from "@/types/categories";
 import CardProduct from "../atoms/cardProduct";
 
 type HeroCategoryClearanceProps = {
-  categories: CategoryProps;
+  productsClearanceResult: any;
 };
 
-export default function Clearance({ categories }: HeroCategoryClearanceProps) {
-  const productsClearanceResult: any[] =
-    categories.data[0].attributes.brands.data.filter(
-      (item) =>
-        item.attributes.sub_categories.data[0].attributes.slug === "clearance"
-    );
-
+export default function Clearance({
+  productsClearanceResult,
+}: HeroCategoryClearanceProps) {
   return (
     <>
       <div className="mt-10">

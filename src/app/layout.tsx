@@ -23,7 +23,6 @@ export async function generateMetadata(): Promise<Metadata> {
     params: {
       populate: "authors",
     },
-    revalidate: 120,
   });
 
   try {

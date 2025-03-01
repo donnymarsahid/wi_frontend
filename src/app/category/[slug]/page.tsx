@@ -25,11 +25,12 @@ import { Metadata } from "next";
 type Slug = { params: { slug: string } };
 
 export async function generateMetadata({ params }: Slug): Promise<Metadata> {
+  const slug = (await params).slug;
   const categories: CategoryProps = await getData({
     path: `categories`,
     params: {
       populate: "seo",
-      "filters[slug][$eq]": params.slug.split("--")[0],
+      "filters[slug][$eq]": slug.split("--")[0],
     },
   });
   try {
@@ -54,30 +55,14 @@ export async function generateMetadata({ params }: Slug): Promise<Metadata> {
 }
 
 export default async function SlugProducts({ params }: Slug) {
-  let queryCategory: any = {
-    populate:
-      "image,banners,brands,brands.discount,brands.sub_categories,brands.images,sub_categories.wallpaper_items,sub_categories.wallpaper_items,sub_categories.wallpaper_items.thumbnail,sub_categories.brands,sub_categories.brands.images,sub_categories.brands.discount,sub_categories.thumbnail,sub_categories",
-    "sort[0]": "date:desc",
-    "sort[1]": "sub_categories.date:desc",
-  };
-
-  if (
-    params.slug.split("--")[0] === "wallpaper" ||
-    params.slug.split("--")[0] === "flooring" ||
-    params.slug.split("--")[0] === "wallpanel" ||
-    params.slug.split("--")[0] === "carpet" ||
-    params.slug.split("--")[0] === "decking" ||
-    params.slug.split("--")[0] === "rollerblind"
-  ) {
-    queryCategory["filters[keyPageCondition][$eq]"] =
-      params.slug.split("--")[0];
-  } else {
-    queryCategory["filters[slug][$eq]"] = params.slug.split("--")[0];
-  }
+  const slug = (await params).slug;
 
   const categories: CategoryProps = await getData({
     path: `categories`,
-    params: queryCategory,
+    params: {
+      populate: "sub_categories",
+      "fields[0]": "sub_categories",
+    },
   });
 
   const homepage: HomepageProps = await getData({
@@ -115,13 +100,45 @@ export default async function SlugProducts({ params }: Slug) {
     },
   });
 
+  // Wallpaper Start
+  const clearance = await getData({
+    path: "brands",
+    params: {
+      populate: "categories,sub_categories,images",
+      "fields[0]": "images",
+      "fields[1]": "slug",
+      "fields[2]": "title",
+      "fields[3]": "thickness",
+      "fields[4]": "size_height",
+      "fields[5]": "size_width",
+      "fields[6]": "unitOfMeasureHeight",
+      "fields[7]": "discount",
+      "fields[8]": "price",
+      "fields[9]": "pricePerMeter",
+      "filters[categories][slug][$eq]": "wallpaper",
+      "filters[sub_categories][slug][$eq]": "clearance",
+    },
+  });
+  // Wallpaper End
+
+  const heroBanners = await getData({
+    path: "categories",
+    params: {
+      populate: "banners,sub_categories,thumbnail",
+      "fields[0]": "banners",
+      "fields[1]": "sub_categories",
+      "fields[2]": "thumbnail",
+      "filters[slug][$eq]": "wallpaper",
+    },
+  });
+
   return (
     <>
-      {params.slug.split("--")[0] === "wallpaper" ? (
+      {slug.split("--")[0] === "wallpaper" ? (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-            <Hero categories={categories} />
-            <Clearance categories={categories} />
+            <Hero heroBanners={heroBanners.data} />
+            <Clearance productsClearanceResult={clearance.data} />
             <ContainerWallpaper
               wallpaperByStyle={wallpaperByStyle}
               wallpaperByColor={wallpaperByColor}
@@ -131,10 +148,10 @@ export default async function SlugProducts({ params }: Slug) {
             <Socmed homepage={homepage} />
           </main>
         </>
-      ) : params.slug.split("--")[0] === "rollerblind" ? (
+      ) : slug.split("--")[0] === "rollerblind" ? (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-            <HeroCategory categories={categories} />
+            <HeroCategory heroBanners={heroBanners.data} />
             {categories.data[0].attributes.sub_categories.data
               .sort(
                 (a, b) =>
@@ -146,14 +163,14 @@ export default async function SlugProducts({ params }: Slug) {
               ))}
           </main>
         </>
-      ) : params.slug.split("--")[0] === "flooring" ||
-        params.slug.split("--")[0] === "wallpanel" ||
-        params.slug.split("--")[0] === "carpet" ||
-        params.slug.split("--")[0] === "decking" ? (
+      ) : slug.split("--")[0] === "flooring" ||
+        slug.split("--")[0] === "wallpanel" ||
+        slug.split("--")[0] === "carpet" ||
+        slug.split("--")[0] === "decking" ? (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-            <HeroFlooring categories={categories} />
-            <CategoriesFlooring categories={categories} />
+            <HeroFlooring heroBanners={heroBanners.data} />
+            <CategoriesFlooring heroBanners={heroBanners.data} />
             {categories.data[0].attributes.sub_categories.data
               .sort(
                 (a, b) =>
@@ -169,7 +186,7 @@ export default async function SlugProducts({ params }: Slug) {
       ) : (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-            <HeroOthers categories={categories} />
+            <HeroOthers heroBanners={heroBanners.data} />
             {categories.data[0]?.attributes?.sub_categories?.data?.length > 0 &&
               categories.data[0].attributes.sub_categories.data
                 .sort(

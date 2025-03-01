@@ -71,15 +71,6 @@ export default function Detail({ loginUrl, about }: SectionCartProps) {
     setIsModalOpen(false);
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
-
   // Start
   useEffect(() => {
     const token = getDecryptedLocalStorage(

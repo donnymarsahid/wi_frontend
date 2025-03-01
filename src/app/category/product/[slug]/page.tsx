@@ -12,11 +12,12 @@ type Slug = {
 };
 
 export async function generateMetadata({ params }: Slug): Promise<Metadata> {
+  const slug = (await params).slug;
   const brands: BrandsProps = await getData({
     path: `brands`,
     params: {
       populate: "seo",
-      "filters[slug][$eq]": params.slug,
+      "filters[slug][$eq]": slug,
     },
   });
   try {
@@ -41,12 +42,13 @@ export async function generateMetadata({ params }: Slug): Promise<Metadata> {
 }
 
 export default async function SlugProducts({ params }: Slug) {
+  const slug = (await params).slug;
   const brands: BrandsProps = await getData({
     path: `brands`,
     params: {
       populate:
         "products,products.discount,products.images,sub_categories,sub_categories.categories,products.brands,products.brands.discount,products.wallpaper_by_colors,products.wallpaper_by_styles,products.wallpaper_by_designers",
-      "filters[slug][$eq]": params.slug,
+      "filters[slug][$eq]": slug,
       "sort[0]": "date:desc",
     },
   });
@@ -78,7 +80,7 @@ export default async function SlugProducts({ params }: Slug) {
           wallpaper_by_colors={wallpaper_by_colors}
           wallpaper_by_styles={wallpaper_by_styles}
           wallpaper_by_designers={wallpaper_by_designers}
-          slug={params.slug}
+          slug={slug}
         />
       </main>
     </>

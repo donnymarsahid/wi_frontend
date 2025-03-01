@@ -86,7 +86,7 @@ export default function CarouselBannerFlooring({
 }: HeroCategoryProps) {
   return (
     <>
-      {categories.data[0].attributes?.banners?.data?.length ? (
+      {categories[0].attributes?.banners?.data?.length ? (
         <>
           <style>{styles}</style>
           <div className="carousel-container">
@@ -122,22 +122,20 @@ export default function CarouselBannerFlooring({
               slidesToSlide={1}
               swipeable
             >
-              {categories.data[0].attributes?.banners?.data?.length &&
-                categories.data[0].attributes.banners.data.map(
-                  (item, index) => (
-                    <div key={index}>
-                      <Image
-                        src={`${STRAPI_URL}${item.attributes.url}`}
-                        placeholder="blur"
-                        blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
-                        width={1000}
-                        height={150}
-                        className="bg-cover bg-center w-full h-full pb-4"
-                        alt="banners"
-                      />
-                    </div>
-                  )
-                )}
+              {categories[0].attributes?.banners?.data?.length &&
+                categories[0].attributes.banners.data.map((item, index) => (
+                  <div key={index}>
+                    <Image
+                      src={`${STRAPI_URL}${item.attributes.url}`}
+                      placeholder="blur"
+                      blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
+                      width={1000}
+                      height={150}
+                      className="bg-cover bg-center w-full h-full pb-4"
+                      alt="banners"
+                    />
+                  </div>
+                ))}
             </Carousel>
           </div>
         </>

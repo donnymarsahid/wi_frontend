@@ -8,7 +8,6 @@ import { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   const about: AboutProps = await getData({
     path: "about?populate=seo",
-    revalidate: 120,
   });
 
   try {
@@ -24,8 +23,10 @@ export async function generateMetadata(): Promise<Metadata> {
     };
   } catch (error) {
     return {
-      title: "Wallpaper Indonesia | Pusat Belanja Online Material Interior di Indonesia",
-      description: "Wallpaper Indonesia merupakan pusat pembelanjaan online untuk material interior mulai dari Wallpaper, Wallfoam 3D, Vinyl Flooring, Parquet Flooring, Gordyn, Blind dan Carpet Tile. Tersedia dalam beragam motif, warna, dan merek yang sesuai dengan kebutuhan Anda.",
+      title:
+        "Wallpaper Indonesia | Pusat Belanja Online Material Interior di Indonesia",
+      description:
+        "Wallpaper Indonesia merupakan pusat pembelanjaan online untuk material interior mulai dari Wallpaper, Wallfoam 3D, Vinyl Flooring, Parquet Flooring, Gordyn, Blind dan Carpet Tile. Tersedia dalam beragam motif, warna, dan merek yang sesuai dengan kebutuhan Anda.",
     };
   }
 }

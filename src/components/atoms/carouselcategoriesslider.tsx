@@ -118,7 +118,7 @@ export default function CarouselCategoriesSlider({
           slidesToSlide={1}
           swipeable
         >
-          {categories.data[0].attributes.sub_categories.data
+          {categories[0].attributes.sub_categories.data
             .sort(
               (a, b) =>
                 new Date(b.attributes.date).getTime() -
@@ -134,13 +134,15 @@ export default function CarouselCategoriesSlider({
                   key={index}
                   className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4"
                 >
-                  <Image
-                    src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes.url}`}
-                    width={400}
-                    height={400}
-                    alt="wall"
-                    className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
-                  />
+                  {item.attributes?.thumbnail?.data?.attributes?.url && (
+                    <Image
+                      src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
+                      width={400}
+                      height={400}
+                      alt="wall"
+                      className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
+                    />
+                  )}
                 </div>
                 <div>
                   <div className="w-full mb-4">
@@ -158,7 +160,7 @@ export default function CarouselCategoriesSlider({
                 </div>
               </Link>
             ))}
-          {categories.data[0].attributes.sub_categories.data
+          {categories[0].attributes.sub_categories.data
             .sort(
               (a, b) =>
                 new Date(b.attributes.date).getTime() -
@@ -170,13 +172,15 @@ export default function CarouselCategoriesSlider({
                   key={index}
                   className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4"
                 >
-                  <Image
-                    src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes.url}`}
-                    width={400}
-                    height={400}
-                    alt="wall"
-                    className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
-                  />
+                  {item.attributes?.thumbnail?.data?.attributes?.url && (
+                    <Image
+                      src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
+                      width={400}
+                      height={400}
+                      alt="wall"
+                      className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
+                    />
+                  )}
                 </div>
                 <div>
                   <div className="w-full">

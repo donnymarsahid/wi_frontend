@@ -17,11 +17,11 @@ export default function CardProduct(item: Daum7 | any) {
       <Link href={`/category/product/${item.attributes?.slug || ""}`}>
         <div className="relative mt-4 overflow-hidden cursor-pointer">
           {item.attributes?.images?.data?.length &&
-            item.attributes?.images?.data[0]?.attributes?.url && (
+            item.attributes?.images?.data[0]?.attributes?.formats.small.url && (
               <Image
-                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}`}
                 placeholder="blur"
-                blurDataURL={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}?w=30&q=10`} // Placeholder low-res
+                blurDataURL={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}?w=30&q=10`} // Placeholder low-res
                 width={400}
                 height={400}
                 alt="wall"
