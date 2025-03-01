@@ -121,9 +121,9 @@ export default function CarouselBannerPortfolio({ about }: HeroHomeProps) {
           {about.data.attributes.portfolios.data.map((item, index) => (
             <div key={index}>
               <Image
-                src={`${STRAPI_URL}${item.attributes.url}`}
+                src={`${STRAPI_URL}${item.attributes.formats.small.url}`}
                 placeholder="blur"
-                blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
+                blurDataURL={`${STRAPI_URL}${item.attributes.formats.small.url}?w=30&q=10`} // Placeholder low-res
                 width={1000}
                 height={150}
                 className="bg-cover bg-center w-full h-full pb-4"

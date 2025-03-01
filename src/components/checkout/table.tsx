@@ -75,7 +75,7 @@ export const Table: React.FC<CartProps> = (dataOrder) => {
             src={
               STRAPI_URL +
               dataOrder.detail_product.data[0].attributes.images.data[0]
-                .attributes.url
+                .attributes.formats.small.url
             }
             width={100}
             height={50}

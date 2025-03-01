@@ -78,26 +78,23 @@ export default async function SlugProducts({ params }: Slug) {
       populate: "banners",
     },
   });
+
+  let queryWallpaper = {
+    populate: "thumbnail",
+  };
+
   const wallpaperByStyle: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-styles`,
-    params: {
-      populate:
-        "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
-    },
+    params: queryWallpaper,
   });
+
   const wallpaperByColor: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-colors`,
-    params: {
-      populate:
-        "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
-    },
+    params: queryWallpaper,
   });
   const wallpaperByDesigner: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-designers`,
-    params: {
-      populate:
-        "thumbnail,products,products.brands,products.brands.sub_categories,products.brands.sub_categories.categories",
-    },
+    params: queryWallpaper,
   });
 
   // Wallpaper Start
@@ -132,6 +129,35 @@ export default async function SlugProducts({ params }: Slug) {
     },
   });
 
+  let subCategoriesSectionqueryCategory = {};
+  if (
+    slug.split("--")[0] === "wallpaper" ||
+    slug.split("--")[0] === "flooring" ||
+    slug.split("--")[0] === "wallpanel" ||
+    slug.split("--")[0] === "carpet" ||
+    slug.split("--")[0] === "decking" ||
+    slug.split("--")[0] === "rollerblind"
+  ) {
+    subCategoriesSectionqueryCategory[
+      "filters[categories][keyPageCondition][$eq]"
+    ] = slug.split("--")[0];
+  } else {
+    subCategoriesSectionqueryCategory["filters[categories][slug][$eq]"] =
+      slug.split("--")[0];
+  }
+
+  const subCategoriesSection = await getData({
+    path: "sub-categories",
+    params: {
+      populate: "brands,brands.images,banners,categories,thumbnail",
+      "fields[0]": "banners",
+      "fields[1]": "categories",
+      "fields[2]": "name",
+      "fields[3]": "thumbnail",
+      ...subCategoriesSectionqueryCategory,
+    },
+  });
+
   return (
     <>
       {slug.split("--")[0] === "wallpaper" ? (
@@ -152,7 +178,7 @@ export default async function SlugProducts({ params }: Slug) {
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroCategory heroBanners={heroBanners.data} />
-            {categories.data[0].attributes.sub_categories.data
+            {subCategoriesSection.data
               .sort(
                 (a, b) =>
                   new Date(b.attributes.date).getTime() -
@@ -170,8 +196,8 @@ export default async function SlugProducts({ params }: Slug) {
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroFlooring heroBanners={heroBanners.data} />
-            <CategoriesFlooring heroBanners={heroBanners.data} />
-            {categories.data[0].attributes.sub_categories.data
+            <CategoriesFlooring heroBanners={subCategoriesSection.data} />
+            {subCategoriesSection.data
               .sort(
                 (a, b) =>
                   new Date(b.attributes.date).getTime() -
@@ -187,8 +213,8 @@ export default async function SlugProducts({ params }: Slug) {
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroOthers heroBanners={heroBanners.data} />
-            {categories.data[0]?.attributes?.sub_categories?.data?.length > 0 &&
-              categories.data[0].attributes.sub_categories.data
+            {subCategoriesSection?.data?.length > 0 &&
+              subCategoriesSection?.data
                 .sort(
                   (a, b) =>
                     new Date(b.attributes.date).getTime() -
@@ -196,7 +222,7 @@ export default async function SlugProducts({ params }: Slug) {
                 )
                 .map((item, index) => <Others data={item} key={index} />)}
 
-            {!categories.data[0]?.attributes?.sub_categories?.data?.length && (
+            {!subCategoriesSection?.data?.length && (
               <>
                 <div
                   className={`w-full flex justify-center my-24 ${cx(

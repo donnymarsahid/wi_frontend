@@ -248,7 +248,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     <div className="ms-2 w-full">
                       <div className="cursor-pointer" onClick={openModal}>
                         <Image
-                          src={`${STRAPI_URL}${data.data[0].attributes.images.data[mainImageIndex].attributes.url}`}
+                          src={`${STRAPI_URL}${data.data[0].attributes.images.data[mainImageIndex].attributes.formats.small.url}`}
                           width={400}
                           height={400}
                           alt="wall"
@@ -267,7 +267,9 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             <div className="flex h-full w-full items-center justify-center">
                               <Image
                                 unoptimized
-                                src={STRAPI_URL + item.attributes.url}
+                                src={
+                                  STRAPI_URL + item.attributes.formats.small.url
+                                }
                                 width={400}
                                 height={400}
                                 className="w-full md:h-[100px] h-[50px] object-cover"
@@ -570,7 +572,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             {item.attributes?.images?.data[0]?.attributes
                               ?.url && (
                               <Image
-                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}`}
                                 width={400}
                                 height={400}
                                 alt="wall"
@@ -797,7 +799,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
             <ModalImage
               openModal={isModalOpen}
               setOpenModal={setIsModalOpen}
-              urlImage={`${data.data[0].attributes.images.data[mainImageIndex].attributes.url}`}
+              urlImage={`${data.data[0].attributes.images.data[mainImageIndex].attributes.formats.small.url}`}
             />
           </div>
         </div>

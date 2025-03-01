@@ -18,13 +18,14 @@ type WallpaperPageProps = {
 };
 
 export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
-  const filteredData = data.data.filter((itemData) => {
-    const product = itemData?.attributes?.products?.data[0];
-    const brand = product?.attributes?.brands?.data[0];
-    const subCategory = brand?.attributes?.sub_categories?.data[0];
-    const category = subCategory?.attributes?.categories?.data[0];
-    return category?.attributes?.keyPageCondition === "wallpaper";
-  });
+  // const filteredData = data.data.filter((itemData) => {
+  //   const product = itemData?.attributes?.products?.data[0];
+  //   const brand = product?.attributes?.brands?.data[0];
+  //   const subCategory = brand?.attributes?.sub_categories?.data[0];
+  //   const category = subCategory?.attributes?.categories?.data[0];
+  //   return category?.attributes?.keyPageCondition === "wallpaper";
+  // });
+  const filteredData = data.data;
 
   return (
     <>

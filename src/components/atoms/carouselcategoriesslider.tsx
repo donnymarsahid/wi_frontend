@@ -11,7 +11,7 @@ import cx from "classnames";
 import { poppins } from "@/app/fonts";
 
 type HeroHomeProps = {
-  categories: CategoryProps;
+  categories: any;
 };
 
 const responsive = {
@@ -118,7 +118,7 @@ export default function CarouselCategoriesSlider({
           slidesToSlide={1}
           swipeable
         >
-          {categories[0].attributes.sub_categories.data
+          {categories
             .sort(
               (a, b) =>
                 new Date(b.attributes.date).getTime() -
@@ -160,7 +160,7 @@ export default function CarouselCategoriesSlider({
                 </div>
               </Link>
             ))}
-          {categories[0].attributes.sub_categories.data
+          {categories
             .sort(
               (a, b) =>
                 new Date(b.attributes.date).getTime() -

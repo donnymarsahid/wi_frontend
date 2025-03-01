@@ -309,14 +309,14 @@ export default function Content({
                           <path
                             d="M12 6V18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                           <path
                             d="M6 12H18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>
                       )}
@@ -332,8 +332,8 @@ export default function Content({
                           <path
                             d="M6 12H18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>
                       )}
@@ -425,14 +425,14 @@ export default function Content({
                           <path
                             d="M12 6V18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                           <path
                             d="M6 12H18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>
                       )}
@@ -448,8 +448,8 @@ export default function Content({
                           <path
                             d="M6 12H18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>
                       )}
@@ -543,14 +543,14 @@ export default function Content({
                           <path
                             d="M12 6V18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                           <path
                             d="M6 12H18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>
                       )}
@@ -566,8 +566,8 @@ export default function Content({
                           <path
                             d="M6 12H18"
                             stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
                           />
                         </svg>
                       )}

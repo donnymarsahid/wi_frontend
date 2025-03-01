@@ -39,7 +39,7 @@ export default function Content({ data }: PromosPageProps) {
                               {item.attributes?.images?.data[0]?.attributes
                                 ?.url && (
                                 <Image
-                                  src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                                  src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}`}
                                   width={400}
                                   height={400}
                                   alt="wall"

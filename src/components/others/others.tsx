@@ -39,7 +39,7 @@ export default function Others({ data }: WallpaperPageProps) {
                           <Link href={""} key={index}>
                             <div className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer">
                               <Image
-                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}`}
                                 width={400}
                                 height={400}
                                 alt="wall"

@@ -93,7 +93,7 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
                     className="flex-shrink-0 px-2"
                   >
                     <Image
-                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
+                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.formats.small.url}`}
                       width={500}
                       height={500}
                       alt="logo"
@@ -107,7 +107,7 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
                     className="flex-shrink-0 px-2"
                   >
                     <Image
-                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
+                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.formats.small.url}`}
                       width={500}
                       height={500}
                       alt="logo"
