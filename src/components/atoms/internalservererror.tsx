@@ -1,8 +1,6 @@
 "use client";
 import { Breadcrumbs } from "@/components/atoms/breadcrumbs";
 
-type Slug = { params: { slug: string } };
-
 export default function InternalServerError() {
   const handleRefresh = () => {
     window.location.reload();

@@ -31,9 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-type Slug = { params: { slug: string } };
-
-export default async function SlugProducts({ params }: Slug) {
+export default async function SlugProducts() {
   const about: AboutProps = await getData({
     path: `about`,
     params: {

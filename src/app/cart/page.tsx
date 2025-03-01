@@ -3,10 +3,7 @@ import { getData } from "../utils/fetching";
 import cx from "classnames";
 import { poppins } from "../fonts";
 import { AboutProps } from "@/types/about";
-
-const Detail = dynamic(() => import("@/components/cart/detail"), {
-  ssr: false,
-});
+import Detail from "@/components/cart/detail";
 
 export default async function Cart() {
   const { url: urlLogin } = await getData({

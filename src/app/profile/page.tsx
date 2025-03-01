@@ -6,10 +6,7 @@ import { CitiesProps, Result } from "@/types/cities";
 import { getData } from "../utils/fetching";
 import cx from "classnames";
 import { poppins } from "../fonts";
-
-const Section = dynamic(() => import("@/components/profile/section"), {
-  ssr: false,
-});
+import Section from "@/components/profile/section";
 
 export default async function Profile() {
   const listProvincies: ProvinciesProps = await getData({

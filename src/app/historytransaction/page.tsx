@@ -2,19 +2,13 @@ import { Breadcrumbs } from "@/components/atoms/breadcrumbs";
 import dynamic from "next/dynamic";
 import cx from "classnames";
 import { poppins } from "../fonts";
+import Section from "@/components/historytransaction/section";
 
 type HistoryPageProps = {
   searchParams: {
     q: string;
   };
 };
-
-const Section: any = dynamic(
-  () => import("@/components/historytransaction/section"),
-  {
-    ssr: false,
-  }
-);
 
 export default async function Page({ searchParams }: HistoryPageProps) {
   const dataPaymentStatus =
