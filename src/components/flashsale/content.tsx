@@ -32,11 +32,11 @@ export default function Content(flashsale: FlashSaleProps) {
         <div className="md:mx-10 mx-4">
           <div className=" ">
             <div>
-              {flashsale.data.attributes.products.data?.length ? (
+              {flashsale.data.attributes?.products?.data?.length ? (
                 <>
                   <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
-                    {flashsale.data.attributes.products.data?.length &&
-                      flashsale.data.attributes.products.data?.map(
+                    {flashsale.data.attributes?.products?.data?.length &&
+                      flashsale.data.attributes?.products?.data?.map(
                         (item, index) => (
                           <div key={index}>
                             <CardProductToDetail {...item} />
