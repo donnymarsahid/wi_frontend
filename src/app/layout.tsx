@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: attributes.title,
       description: attributes.description,
       metadataBase: new URL(attributes.metadataBase),
-      themeColor: "#FFF",
+      // themeColor: "#FFF",
       keywords: attributes.keywords,
       authors: [{ url: attributes.authors.url, name: attributes.authors.name }],
       robots: attributes.robots,

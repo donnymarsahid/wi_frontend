@@ -18,7 +18,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
         <div className="relative mt-4 overflow-hidden cursor-pointer">
           {item.attributes?.images?.data[0]?.attributes?.url && (
             <Image
-              src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.formats.small.url}`}
+              src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
               width={400}
               height={400}
               alt="wall"
