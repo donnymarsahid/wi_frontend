@@ -31,7 +31,7 @@ const calculateTimeLeft = (expiryDate: string) => {
 
 export const FlashSale = (flashsale: FlashSaleProps) => {
   const [expiryDate, setExpiryDate] = useState(
-    flashsale.data.attributes.expiry_date
+    flashsale.data.attributes?.expiry_date
   );
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
 
