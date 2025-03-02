@@ -52,7 +52,7 @@ export default function Detail({ data }: NewsPageProps) {
           <div className="mt-6">
             <div className="bg-[#F3F4F6] p-1">
               <Image
-                src={`${STRAPI_URL}${data.data[0].attributes.thumbnail.data.attributes.formats.small.url}`}
+                src={`${STRAPI_URL}${data.data[0].attributes.thumbnail.data.attributes.url}`}
                 width={400}
                 height={400}
                 alt="wall"

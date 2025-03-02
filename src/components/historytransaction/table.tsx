@@ -37,8 +37,7 @@ export const Table = ({ dataHistory, index }: SectionHistoryOrder) => {
               <Image
                 src={
                   STRAPI_URL +
-                  item.detail_product.attributes.images.data[0].attributes
-                    .formats.small.url
+                  item.detail_product.attributes.images.data[0].attributes.url
                 }
                 width={200}
                 height={200}

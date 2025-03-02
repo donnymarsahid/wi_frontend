@@ -82,8 +82,7 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
             unoptimized
             src={
               STRAPI_URL +
-              dataCart.detail_product.attributes.images.data[0].attributes
-                .formats.small.url
+              dataCart.detail_product.attributes.images.data[0].attributes.url
             }
             width={100}
             height={50}

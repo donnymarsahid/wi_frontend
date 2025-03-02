@@ -74,8 +74,7 @@ export const Table: React.FC<any> = (dataOrder) => {
             unoptimized
             src={
               STRAPI_URL +
-              dataOrder.detail_product.attributes.images.data[0].attributes
-                .formats.small.url
+              dataOrder.detail_product.attributes.images.data[0].attributes.url
             }
             width={100}
             height={50}

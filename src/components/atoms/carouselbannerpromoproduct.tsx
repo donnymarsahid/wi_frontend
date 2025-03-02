@@ -133,12 +133,12 @@ export default function CarouselBannerPromoProduct({
                 <div key={indexChild} className="relative group">
                   {child?.attributes?.thumbnail?.data?.attributes?.url && (
                     <Image
-                      src={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.formats.small.url}`}
+                      src={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}`}
                       width={1000}
                       height={600}
                       className="w-full h-full pb-4 rounded-lg"
                       placeholder="blur"
-                      blurDataURL={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.formats.small.url}?w=30&q=10`} // Placeholder low-res
+                      blurDataURL={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}?w=30&q=10`} // Placeholder low-res
                       alt="banners"
                     />
                   )}
