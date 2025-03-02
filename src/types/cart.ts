@@ -2,7 +2,7 @@ export interface CartProps {
   quantity: number;
   original_price: number;
   total_price: number;
-  detail_product: any;
+  detail_product: ProductsProps;
 }
 
 export interface ProductsProps {

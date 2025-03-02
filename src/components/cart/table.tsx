@@ -16,7 +16,7 @@ import { STRAPI_URL } from "@/app/utils/constans";
 import ModalDetail from "../atoms/modaldetail";
 
 type SectionCartPage = {
-  dataCart: any;
+  dataCart: CartProps;
   index: number;
 };
 
@@ -72,30 +72,25 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
     });
   };
 
-  console.log(dataCart, "dataCart");
-
   return (
     <section className="mb-6">
       <div className="flex">
         <div>
-          {dataCart?.detail_product?.attributes?.images &&
-            dataCart?.detail_product?.attributes?.images?.data?.length && (
-              <Image
-                unoptimized
-                src={
-                  STRAPI_URL +
-                  dataCart.detail_product.attributes.images.data[0].attributes
-                    .url
-                }
-                width={100}
-                height={50}
-                alt="image"
-              />
-            )}
+          <Image
+            unoptimized
+            src={
+              STRAPI_URL +
+              dataCart.detail_product.data[0].attributes.images.data[0]
+                .attributes.url
+            }
+            width={100}
+            height={50}
+            alt="image"
+          />
         </div>
         <div className="ms-4">
           <h1 className="font-medium capitalize">
-            {dataCart.detail_product.attributes.title}
+            {dataCart.detail_product.data[0].attributes.title}
           </h1>
           <div className="mb-2 text-xs font-medium text-primary-400">
             <button className="flex cursor-pointer" onClick={openModal}>
