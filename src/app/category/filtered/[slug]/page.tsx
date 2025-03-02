@@ -6,6 +6,12 @@ import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 import { Metadata } from "next";
 
 type tParams = Promise<{ slug: string }>;
+type tSecondParams = Promise<{
+  page: string;
+  colors: string;
+  styles: string;
+  designers: string;
+}>;
 
 export async function generateMetadata(props: {
   params: tParams;
@@ -39,8 +45,15 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function SlugProducts(props: { params: tParams }) {
+export default async function SlugProducts(props: {
+  params: tParams;
+  searchParams: tSecondParams;
+}) {
   const slug = (await props.params).slug;
+  const page = (await props.searchParams).page;
+  const colors = (await props.searchParams).colors?.split(",");
+  const styles = (await props.searchParams).styles?.split(",");
+  const designers = (await props.searchParams).designers?.split(",");
 
   let queryProducts = null;
 
@@ -58,8 +71,25 @@ export default async function SlugProducts(props: { params: tParams }) {
       "sort[0]": "date:desc",
       [`filters[${categoriesMap[category]}][slug][$eq]`]: slugValue,
       "filters[brands][categories][slug][$eq]": "wallpaper",
-      "pagination[pageSize]": "1000",
+      "pagination[page]": page,
+      "pagination[pageSize]": "9",
     };
+  }
+
+  // Colors
+  for (let i = 0; i < colors?.length; i++) {
+    queryProducts[`filters[wallpaper_by_colors][title][[$in][${i}]`] =
+      colors[i];
+  }
+  // Styles
+  for (let i = 0; i < styles?.length; i++) {
+    queryProducts[`filters[wallpaper_by_styles][title][[$in][${i}]`] =
+      styles[i];
+  }
+  // Designers
+  for (let i = 0; i < designers?.length; i++) {
+    queryProducts[`filters[wallpaper_by_designers][title][[$in][${i}]`] =
+      designers[i];
   }
 
   const products: ProductsProps = await getData({
@@ -67,36 +97,12 @@ export default async function SlugProducts(props: { params: tParams }) {
     params: queryProducts,
   });
 
-  const queryWallpaperBy = {
-    populate: "products,products.brands",
-    "fields[0]": "title",
-    "fields[1]": "products",
-  };
-
-  const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
-    path: `wallpaper-by-colors`,
-    params: queryWallpaperBy,
-    revalidate: 0,
-  });
-  const wallpaper_by_styles: WallpaperByGeneralProps = await getData({
-    path: `wallpaper-by-styles`,
-    params: queryWallpaperBy,
-    revalidate: 0,
-  });
-  const wallpaper_by_designers: WallpaperByGeneralProps = await getData({
-    path: `wallpaper-by-designers`,
-    params: queryWallpaperBy,
-    revalidate: 0,
-  });
-
   return (
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
         <List
+          searchParams={await props.searchParams}
           products={products}
-          wallpaper_by_colors={wallpaper_by_colors}
-          wallpaper_by_styles={wallpaper_by_styles}
-          wallpaper_by_designers={wallpaper_by_designers}
           slug={slug}
         />
       </main>

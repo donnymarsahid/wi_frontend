@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
@@ -8,33 +8,58 @@ import "../../app/blockStyle.css";
 import { BrandsProps } from "@/types/brands";
 import CardProductToDetail from "../atoms/cardProductToDetail";
 import Image from "next/image";
-import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
+import {
+  WallpaperByGeneralProps,
+  WallpaperByGeneralPropsDaum,
+} from "@/types/wallpaperByGeneral";
 import { ProductsProps } from "@/types/products";
+import { buildPathWithQueryParams } from "@/utils/queryParams";
+import Pagination from "../atoms/paginations";
+import { useRouter } from "next/navigation";
+import { getData } from "@/app/utils/fetching";
 
 type ListProductPageProps = {
   products: ProductsProps;
-  wallpaper_by_colors: WallpaperByGeneralProps;
-  wallpaper_by_styles: WallpaperByGeneralProps;
-  wallpaper_by_designers: WallpaperByGeneralProps;
   slug: string;
+  searchParams: {
+    page: string;
+  };
 };
 
 export default function List({
   products,
-  wallpaper_by_colors,
-  wallpaper_by_styles,
-  wallpaper_by_designers,
   slug,
+  searchParams,
 }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
-  const productsPerPage = 15;
+
+  const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
+    useState<boolean>(false);
+
+  // Wallpaper By
+  const [wallpaper_by_colors, setWallpaper_by_colors] = useState<
+    WallpaperByGeneralPropsDaum[] | null
+  >([]);
+  const [wallpaper_by_styles, setWallpaper_by_styles] = useState<
+    WallpaperByGeneralPropsDaum[] | null
+  >([]);
+  const [wallpaper_by_designers, setWallpaper_by_designers] = useState<
+    WallpaperByGeneralPropsDaum[] | null
+  >([]);
+
+  const router = useRouter();
 
   const [isOpenColor, setIsOpenColor] = useState(false);
   const [isOpenMotif, setIsOpenMotif] = useState(false);
   const [isOpenDesigner, setIsOpenDesigner] = useState(false);
+
+  const path = buildPathWithQueryParams(
+    `/category/filtered/${slug}`,
+    searchParams
+  );
 
   const toggleDropdownColor = () => {
     setIsOpenColor(!isOpenColor);
@@ -45,35 +70,6 @@ export default function List({
   const toggleDropdownDesigner = () => {
     setIsOpenDesigner(!isOpenDesigner);
   };
-
-  const productsResult = products.data.filter(
-    (product: any) =>
-      (!selectedColors.length ||
-        product.attributes.wallpaper_by_colors.data.some((color: any) =>
-          selectedColors.includes(color.attributes.title)
-        )) &&
-      (!selectedMotifs.length ||
-        product.attributes.wallpaper_by_styles.data.some((motif: any) =>
-          selectedMotifs.includes(motif.attributes.title)
-        )) &&
-      (!selectedDesigners.length ||
-        product.attributes.wallpaper_by_designers.data.some((motif: any) =>
-          selectedDesigners.includes(motif.attributes.title)
-        ))
-  );
-
-  const totalProducts = productsResult.length;
-  const totalPages = Math.ceil(totalProducts / productsPerPage);
-
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-
-  const currentProducts = productsResult.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // Fungsi untuk mengelola perubahan checkbox tanpa query params
   const handleFilterChange = (color: string) => {
@@ -111,7 +107,77 @@ export default function List({
     }
   };
 
-  // Filter produk berdasarkan warna yang dipilih
+  function slugToText(slug: string): string {
+    return slug
+      .replace(/-/g, " ") // Ganti "-" dengan spasi
+      .replace(/\b\w/g, (char) => char.toUpperCase()); // Kapitalisasi setiap kata
+  }
+
+  useEffect(() => {
+    const result = selectedColors.join(",");
+    const href = buildPathWithQueryParams(path, {
+      colors: result,
+    });
+
+    router.push(href);
+  }, [selectedColors]);
+
+  useEffect(() => {
+    const result = selectedMotifs.join(",");
+    const href = buildPathWithQueryParams(path, {
+      styles: result,
+    });
+
+    router.push(href);
+  }, [selectedMotifs]);
+
+  useEffect(() => {
+    const result = selectedDesigners.join(",");
+    const href = buildPathWithQueryParams(path, {
+      designers: result,
+    });
+
+    router.push(href);
+  }, [selectedDesigners]);
+
+  const fetchWallpaperBy = useCallback(async () => {
+    setLoadFetchWallpaperBy(true);
+    try {
+      const queryWallpaperBy = {
+        populate: "products,products.brands",
+        "fields[0]": "title",
+        "fields[1]": "products",
+      };
+
+      const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
+        path: `wallpaper-by-colors`,
+        params: queryWallpaperBy,
+        revalidate: 0,
+      });
+      const wallpaper_by_styles: WallpaperByGeneralProps = await getData({
+        path: `wallpaper-by-styles`,
+        params: queryWallpaperBy,
+        revalidate: 0,
+      });
+      const wallpaper_by_designers: WallpaperByGeneralProps = await getData({
+        path: `wallpaper-by-designers`,
+        params: queryWallpaperBy,
+        revalidate: 0,
+      });
+
+      setWallpaper_by_colors(wallpaper_by_colors.data);
+      setWallpaper_by_styles(wallpaper_by_styles.data);
+      setWallpaper_by_designers(wallpaper_by_designers.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadFetchWallpaperBy(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchWallpaperBy();
+  }, []);
 
   return (
     <div className="mt-10 mb-10">
@@ -132,18 +198,10 @@ export default function List({
                 <p className="title-custom-2">Beranda</p>
               </Link>
               /
-              <Link
-                className="font-medium hover:text-[#2FD1C1] mx-2"
-                href={`/category/wallpaper--Wallpaper`}
-              >
-                <p className="title-custom-2">Wallpaper</p>
-              </Link>
-              /
-              <Link
-                className="font-medium hover:text-[#2FD1C1] mx-2"
-                href={"#"}
-              >
-                <p className="title-custom-2">{slug.split("--")[0]}</p>
+              <Link className="font-medium hover:text-[#2FD1C1] mx-2" href="#">
+                <p className="title-custom-2">
+                  {slugToText(slug.split("--")[0])}
+                </p>
               </Link>
             </div>
           </div>
@@ -156,338 +214,363 @@ export default function List({
             )}`}
           >
             {/* Filters */}
-            <div className="md:col-span-1 col-span-3">
-              <div className="mb-6">
-                {selectedColors?.length
-                  ? selectedColors.map((item, index) => (
-                      <div
-                        className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
-                        key={index}
-                      >
-                        <p className="text-white">{item}</p>
-                        <button
-                          onClick={() => handleFilterChange(item)}
-                          className="text-white"
-                        >
-                          X
-                        </button>
-                      </div>
-                    ))
-                  : ""}
-                {selectedMotifs?.length
-                  ? selectedMotifs.map((item, index) => (
-                      <div
-                        className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
-                        key={index}
-                      >
-                        <p className="text-white">{item}</p>
-                        <button
-                          onClick={() => handleFilterMotifChange(item)}
-                          className="text-white"
-                        >
-                          X
-                        </button>
-                      </div>
-                    ))
-                  : ""}
-                {selectedDesigners?.length
-                  ? selectedDesigners.map((item, index) => (
-                      <div
-                        className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
-                        key={index}
-                      >
-                        <p className="text-white">{item}</p>
-                        <button
-                          onClick={() => handleFilterDesignerChange(item)}
-                          className="text-white"
-                        >
-                          X
-                        </button>
-                      </div>
-                    ))
-                  : ""}
+            {loadFetchWallpaperBy ? (
+              <div className="md:col-span-1 col-span-3">
+                <div className="space-y-5 animate-pulse w-full mt-4">
+                  <div className="flex items-center w-full space-x-2">
+                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
+                  </div>
+                  <div className="flex items-center w-full space-x-2">
+                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
+                  </div>
+                  <div className="flex items-center w-full space-x-2">
+                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
+                  </div>
+                </div>
               </div>
-              {slug.split("--")[1] !== "wallpaper-by-color" && (
-                <div>
-                  <button
-                    onClick={toggleDropdownColor}
-                    className="flex justify-between w-full"
-                  >
-                    <h3 className="text-lg font-semibold lucida-bright">
-                      COLOR
-                    </h3>
-                    {!isOpenColor && (
-                      <svg
-                        width="25px"
-                        height="25px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="24" height="24" fill="white" />
-                        <path
-                          d="M12 6V18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M6 12H18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                    {isOpenColor && (
-                      <svg
-                        width="25px"
-                        height="25px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="24" height="24" fill="white" />
-                        <path
-                          d="M6 12H18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                  <hr className="my-2" />
-                  <div className="space-y-2 mb-4">
-                    {isOpenColor &&
-                      wallpaper_by_colors.data.map((color, index) => {
-                        const filteredProducts =
-                          color?.attributes?.products?.data?.filter(
-                            (item) =>
-                              item?.attributes?.brands?.data[0]?.attributes
-                                ?.slug === slug.split("--")[0]
-                          ) || [];
-
-                        return (
-                          <label
-                            key={index}
-                            className="flex items-center text-sm cursor-pointer"
+            ) : (
+              <div className="md:col-span-1 col-span-3">
+                <div className="mb-6">
+                  {selectedColors?.length
+                    ? selectedColors.map((item, index) => (
+                        <div
+                          className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
+                          key={index}
+                        >
+                          <p className="text-white">{item}</p>
+                          <button
+                            onClick={() => handleFilterChange(item)}
+                            className="text-white"
                           >
-                            <input
-                              type="checkbox"
-                              className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                              checked={selectedColors.includes(
-                                color.attributes.title
-                              )}
-                              onChange={() =>
-                                handleFilterChange(color.attributes.title)
-                              }
-                            />
-                            <span className="ml-2 text-gray-700">
-                              {color.attributes.title} (
-                              {filteredProducts?.length})
-                            </span>
-                          </label>
-                        );
-                      })}
-                    {isOpenColor && !wallpaper_by_colors.data.length && (
-                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                        Color Kosong!
-                      </p>
-                    )}
-                  </div>
+                            X
+                          </button>
+                        </div>
+                      ))
+                    : ""}
+                  {selectedMotifs?.length
+                    ? selectedMotifs.map((item, index) => (
+                        <div
+                          className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
+                          key={index}
+                        >
+                          <p className="text-white">{item}</p>
+                          <button
+                            onClick={() => handleFilterMotifChange(item)}
+                            className="text-white"
+                          >
+                            X
+                          </button>
+                        </div>
+                      ))
+                    : ""}
+                  {selectedDesigners?.length
+                    ? selectedDesigners.map((item, index) => (
+                        <div
+                          className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
+                          key={index}
+                        >
+                          <p className="text-white">{item}</p>
+                          <button
+                            onClick={() => handleFilterDesignerChange(item)}
+                            className="text-white"
+                          >
+                            X
+                          </button>
+                        </div>
+                      ))
+                    : ""}
                 </div>
-              )}
-              {slug.split("--")[1] !== "wallpaper-by-style" && (
-                <div>
-                  <button
-                    onClick={toggleDropdownMotif}
-                    className="flex justify-between w-full"
-                  >
-                    <h3 className="text-lg font-semibold lucida-bright">
-                      MOTIF
-                    </h3>
-                    {!isOpenMotif && (
-                      <svg
-                        width="25px"
-                        height="25px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="24" height="24" fill="white" />
-                        <path
-                          d="M12 6V18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M6 12H18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                    {isOpenMotif && (
-                      <svg
-                        width="25px"
-                        height="25px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="24" height="24" fill="white" />
-                        <path
-                          d="M6 12H18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                  <hr className="my-2" />
-                  <div className="space-y-2 mb-4">
-                    {isOpenMotif &&
-                      wallpaper_by_styles.data.map((motif, index) => {
-                        const filteredProducts =
-                          motif?.attributes?.products?.data?.filter(
-                            (item) =>
-                              item?.attributes?.brands?.data[0]?.attributes
-                                ?.slug === slug.split("--")[0]
-                          ) || [];
+                {slug.split("--")[1] !== "wallpaper-by-color" && (
+                  <div>
+                    <button
+                      onClick={toggleDropdownColor}
+                      className="flex justify-between w-full"
+                    >
+                      <h3 className="text-lg font-semibold lucida-bright">
+                        COLOR
+                      </h3>
+                      {!isOpenColor && (
+                        <svg
+                          width="25px"
+                          height="25px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M12 6V18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M6 12H18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                      {isOpenColor && (
+                        <svg
+                          width="25px"
+                          height="25px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M6 12H18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                    <hr className="my-2" />
+                    <div className="space-y-2 mb-4">
+                      {isOpenColor &&
+                        wallpaper_by_colors.map((color, index) => {
+                          const filteredProducts =
+                            color?.attributes?.products?.data?.filter(
+                              (item) =>
+                                item?.attributes?.brands?.data[0]?.attributes
+                                  ?.slug === slug.split("--")[0]
+                            ) || [];
 
-                        return (
-                          <label
-                            key={index}
-                            className="flex items-center text-sm cursor-pointer"
-                          >
-                            <input
-                              type="checkbox"
-                              className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                              checked={selectedMotifs.includes(
-                                motif.attributes.title
-                              )}
-                              onChange={() =>
-                                handleFilterMotifChange(motif.attributes.title)
-                              }
-                            />
-                            <span className="ml-2 text-gray-700">
-                              {motif.attributes.title} (
-                              {filteredProducts?.length})
-                            </span>
-                          </label>
-                        );
-                      })}
-                    {isOpenMotif && !wallpaper_by_styles.data.length && (
-                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                        Motif Kosong!
-                      </p>
-                    )}
+                          return (
+                            <label
+                              key={index}
+                              className="flex items-center text-sm cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                                checked={selectedColors.includes(
+                                  color.attributes.title
+                                )}
+                                onChange={() =>
+                                  handleFilterChange(color.attributes.title)
+                                }
+                              />
+                              <span className="ml-2 text-gray-700">
+                                {color.attributes.title} (
+                                {filteredProducts?.length})
+                              </span>
+                            </label>
+                          );
+                        })}
+
+                      {isOpenColor && !wallpaper_by_colors.length && (
+                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                          Color Kosong!
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
-              {slug.split("--")[1] !== "wallpaper-by-designer" && (
-                <div>
-                  <button
-                    onClick={toggleDropdownDesigner}
-                    className="flex justify-between w-full"
-                  >
-                    <h3 className="text-lg font-semibold lucida-bright">
-                      DESIGNER
-                    </h3>
-                    {!isOpenDesigner && (
-                      <svg
-                        width="25px"
-                        height="25px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="24" height="24" fill="white" />
-                        <path
-                          d="M12 6V18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M6 12H18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                    {isOpenDesigner && (
-                      <svg
-                        width="25px"
-                        height="25px"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect width="24" height="24" fill="white" />
-                        <path
-                          d="M6 12H18"
-                          stroke="#000000"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                  <hr className="my-2" />
-                  <div className="space-y-2 mb-4">
-                    {isOpenDesigner &&
-                      wallpaper_by_designers.data.map((designer, index) => {
-                        const filteredProducts =
-                          designer?.attributes?.products?.data?.filter(
-                            (item) =>
-                              item?.attributes?.brands?.data[0]?.attributes
-                                ?.slug === slug.split("--")[0]
-                          ) || [];
+                )}
+                {slug.split("--")[1] !== "wallpaper-by-style" && (
+                  <div>
+                    <button
+                      onClick={toggleDropdownMotif}
+                      className="flex justify-between w-full"
+                    >
+                      <h3 className="text-lg font-semibold lucida-bright">
+                        MOTIF
+                      </h3>
+                      {!isOpenMotif && (
+                        <svg
+                          width="25px"
+                          height="25px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M12 6V18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M6 12H18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                      {isOpenMotif && (
+                        <svg
+                          width="25px"
+                          height="25px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M6 12H18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                    <hr className="my-2" />
+                    <div className="space-y-2 mb-4">
+                      {isOpenMotif &&
+                        wallpaper_by_styles.map((motif, index) => {
+                          const filteredProducts =
+                            motif?.attributes?.products?.data?.filter(
+                              (item) =>
+                                item?.attributes?.brands?.data[0]?.attributes
+                                  ?.slug === slug.split("--")[0]
+                            ) || [];
 
-                        return (
-                          <label
-                            key={index}
-                            className="flex items-center text-sm cursor-pointer"
-                          >
-                            <input
-                              type="checkbox"
-                              className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                              checked={selectedDesigners.includes(
-                                designer.attributes.title
-                              )}
-                              onChange={() =>
-                                handleFilterDesignerChange(
+                          return (
+                            <label
+                              key={index}
+                              className="flex items-center text-sm cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                                checked={selectedMotifs.includes(
+                                  motif.attributes.title
+                                )}
+                                onChange={() =>
+                                  handleFilterMotifChange(
+                                    motif.attributes.title
+                                  )
+                                }
+                              />
+                              <span className="ml-2 text-gray-700">
+                                {motif.attributes.title} (
+                                {filteredProducts?.length})
+                              </span>
+                            </label>
+                          );
+                        })}
+                      {isOpenMotif && !wallpaper_by_styles.length && (
+                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                          Motif Kosong!
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {slug.split("--")[1] !== "wallpaper-by-designer" && (
+                  <div>
+                    <button
+                      onClick={toggleDropdownDesigner}
+                      className="flex justify-between w-full"
+                    >
+                      <h3 className="text-lg font-semibold lucida-bright">
+                        DESIGNER
+                      </h3>
+                      {!isOpenDesigner && (
+                        <svg
+                          width="25px"
+                          height="25px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M12 6V18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M6 12H18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                      {isOpenDesigner && (
+                        <svg
+                          width="25px"
+                          height="25px"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <rect width="24" height="24" fill="white" />
+                          <path
+                            d="M6 12H18"
+                            stroke="#000000"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                    </button>
+                    <hr className="my-2" />
+                    <div className="space-y-2 mb-4">
+                      {isOpenDesigner &&
+                        wallpaper_by_designers.map((designer, index) => {
+                          const filteredProducts =
+                            designer?.attributes?.products?.data?.filter(
+                              (item) =>
+                                item?.attributes?.brands?.data[0]?.attributes
+                                  ?.slug === slug.split("--")[0]
+                            ) || [];
+
+                          return (
+                            <label
+                              key={index}
+                              className="flex items-center text-sm cursor-pointer"
+                            >
+                              <input
+                                type="checkbox"
+                                className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                                checked={selectedDesigners.includes(
                                   designer.attributes.title
-                                )
-                              }
-                            />
-                            <span className="ml-2 text-gray-700">
-                              {designer.attributes.title} (
-                              {filteredProducts?.length})
-                            </span>
-                          </label>
-                        );
-                      })}
-                    {isOpenDesigner && !wallpaper_by_designers.data.length && (
-                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                        Designer Kosong!
-                      </p>
-                    )}
+                                )}
+                                onChange={() =>
+                                  handleFilterDesignerChange(
+                                    designer.attributes.title
+                                  )
+                                }
+                              />
+                              <span className="ml-2 text-gray-700">
+                                {designer.attributes.title} (
+                                {filteredProducts?.length})
+                              </span>
+                            </label>
+                          );
+                        })}
+                      {isOpenDesigner && !wallpaper_by_designers.length && (
+                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                          Designer Kosong!
+                        </p>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             {/* Product Grid */}
             <div className="col-span-3">
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
-                {currentProducts.map((item, index) => (
+                {products.data.map((item, index) => (
                   <div key={index}>
                     <CardProductToDetail {...item} />
                   </div>
@@ -495,7 +578,7 @@ export default function List({
               </div>
 
               {/* Empty State */}
-              {!currentProducts.length && (
+              {!products.data.length && (
                 <div
                   className={`w-full flex justify-center my-24 ${cx(
                     poppins,
@@ -518,24 +601,13 @@ export default function List({
 
               {/* Pagination */}
               <div className="flex justify-center mt-6">
-                <nav>
-                  <ul className="inline-flex space-x-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <li key={index}>
-                        <button
-                          onClick={() => paginate(index + 1)}
-                          className={`px-4 py-2 border rounded-md ${
-                            currentPage === index + 1
-                              ? "bg-blue-500 text-white"
-                              : "bg-white text-gray-700"
-                          }`}
-                        >
-                          {index + 1}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                <div>
+                  <Pagination
+                    currentPage={parseInt(searchParams.page ?? `1`)}
+                    totalPages={products.meta?.pagination.pageCount}
+                    path={path}
+                  />
+                </div>
               </div>
             </div>
           </div>
