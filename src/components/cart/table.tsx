@@ -72,6 +72,8 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
     });
   };
 
+  console.log(dataCart.detail_product, "dataCart.detail_product");
+
   return (
     <section className="mb-6">
       <div className="flex">
