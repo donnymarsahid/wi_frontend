@@ -28,8 +28,6 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
       "[]"
   );
 
-  console.log(dataCart, "dataCart");
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
