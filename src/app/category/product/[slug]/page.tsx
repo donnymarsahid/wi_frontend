@@ -63,25 +63,20 @@ export default async function SlugProducts(props: {
   });
 
   const queryWallpaperBy = {
-    populate: "products,products.brands",
     "fields[0]": "title",
-    "fields[1]": "products",
   };
 
   const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-colors`,
     params: queryWallpaperBy,
-    revalidate: 0,
   });
   const wallpaper_by_styles: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-styles`,
     params: queryWallpaperBy,
-    revalidate: 0,
   });
   const wallpaper_by_designers: WallpaperByGeneralProps = await getData({
     path: `wallpaper-by-designers`,
     params: queryWallpaperBy,
-    revalidate: 0,
   });
 
   return (
