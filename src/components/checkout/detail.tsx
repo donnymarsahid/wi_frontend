@@ -229,10 +229,10 @@ export default function Detail({
     if (courier) {
       let result = 0;
       for (const iterator of orderData.data[0].attributes.orderItems) {
-        result += iterator?.detail_product?.data[0]?.attributes?.brands?.data[0]
+        result += iterator?.detail_product?.attributes?.brands?.data[0]
           ?.attributes?.product_weight
-          ? iterator?.detail_product?.data[0]?.attributes?.brands?.data[0]
-              ?.attributes?.product_weight
+          ? iterator?.detail_product?.attributes?.brands?.data[0]?.attributes
+              ?.product_weight
           : 0;
       }
 
@@ -357,8 +357,9 @@ export default function Detail({
                                 {...register("courier", { required: true })}
                                 className="rounded-lg border border-1 outline-none"
                                 onChange={(e) => chooseCourier(e)}
+                                defaultValue={"no-option"}
                               >
-                                <option value="no-option" selected disabled>
+                                <option value="no-option" disabled>
                                   -- Pilih --
                                 </option>
                                 {/* {flexTransactionTenMillion && (
@@ -384,8 +385,9 @@ export default function Detail({
                                     })}
                                     onChange={(e) => chooseServiceCourier(e)}
                                     className="rounded-lg border border-1 outline-none"
+                                    defaultValue={"no-option"}
                                   >
-                                    <option value="no-option" selected disabled>
+                                    <option value="no-option" disabled>
                                       -- Pilih --
                                     </option>
                                     {serviceTypeCourer?.length &&
@@ -641,8 +643,8 @@ export default function Detail({
                         }}
                       >
                         <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
+                          fillRule="evenodd"
+                          clipRule="evenodd"
                           d="M17.641 5.18a3.46 3.46 0 001.439.37 1.68 1.68 0 011.61 1.84v3.5c0 5.42-3.37 8.21-6.69 10.21a3 3 0 01-2.01.64 3.7 3.7 0 01-2-.6c-4.05-2.33-6.76-4.97-6.76-10.25v-3.5a1.75 1.75 0 011.65-1.84 3.57 3.57 0 002.41-1.26 6.46 6.46 0 014.69-2.05 5.9 5.9 0 014.51 2 3.46 3.46 0 001.151.94zM13.23 19.89c4.25-2.61 6-5.21 6-9l.02-3.5c0-.08-.01-.34-.15-.34a4.89 4.89 0 01-3.62-1.72A4.42 4.42 0 0012 3.74a5 5 0 00-3.71 1.67 4.92 4.92 0 01-3.35 1.64c-.07 0-.15.18-.15.34v3.54c0 4.57 2.28 6.82 6 8.95.362.25.79.39 1.23.4a1.51 1.51 0 001.07-.28l.14-.11zM11 13l3-3a.75.75 0 011 1l-3.46 3.53a.74.74 0 01-.53.22.78.78 0 01-.51-.2l-2.08-1.91a.75.75 0 011-1.11L11 13z"
                         ></path>
                       </svg>
