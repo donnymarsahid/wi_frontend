@@ -82,8 +82,7 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
             unoptimized
             src={
               STRAPI_URL +
-              dataCart.detail_product.data[0].attributes.images.data[0]
-                .attributes.url
+              dataCart.detail_product.attributes.images.data[0].attributes.url
             }
             width={100}
             height={50}
@@ -92,7 +91,7 @@ export const Table = ({ dataCart, index }: SectionCartPage) => {
         </div>
         <div className="ms-4">
           <h1 className="font-medium capitalize">
-            {dataCart.detail_product.data[0].attributes.title}
+            {dataCart.detail_product.attributes.title}
           </h1>
           <div className="mb-2 text-xs font-medium text-primary-400">
             <button className="flex cursor-pointer" onClick={openModal}>
