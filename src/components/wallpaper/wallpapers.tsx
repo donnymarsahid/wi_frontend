@@ -40,7 +40,7 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                 <div className="grid gap-4 md:grid-cols-4 grid-cols-2">
                   {filteredData.map((item, index) => (
                     <Link
-                      href={`/products?styleFilter=${
+                      href={`/category/filtered/${
                         item.attributes.slug
                       }--${convertToSlug(titleKey)}`}
                       key={index}

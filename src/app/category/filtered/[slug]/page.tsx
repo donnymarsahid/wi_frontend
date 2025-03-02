@@ -1,5 +1,5 @@
 import { getData } from "@/app/utils/fetching";
-import List from "@/components/listProduct/detail";
+import List from "@/components/listProductFiltered/detail";
 import { BrandsProps } from "@/types/brands";
 import { ProductsProps } from "@/types/products";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
@@ -44,12 +44,23 @@ export default async function SlugProducts(props: { params: tParams }) {
 
   let queryProducts = null;
 
-  queryProducts = {
-    populate: `discount,images,brands,brands.discount,brands.categories,wallpaper_by_styles,wallpaper_by_colors,wallpaper_by_designers`,
-    "sort[0]": "date:desc",
-    [`filters[brands][slug][$eq]`]: slug,
-    "pagination[pageSize]": "1000",
+  const [slugValue, category] = slug.split("--") ?? [];
+
+  const categoriesMap: Record<string, string> = {
+    "wallpaper-by-style": "wallpaper_by_styles",
+    "wallpaper-by-color": "wallpaper_by_colors",
+    "wallpaper-by-designer": "wallpaper_by_designers",
   };
+
+  if (categoriesMap[category]) {
+    queryProducts = {
+      populate: `discount,images,brands,brands.discount,brands.categories,wallpaper_by_styles,wallpaper_by_colors,wallpaper_by_designers`,
+      "sort[0]": "date:desc",
+      [`filters[${categoriesMap[category]}][slug][$eq]`]: slugValue,
+      "filters[brands][categories][slug][$eq]": "wallpaper",
+      "pagination[pageSize]": "1000",
+    };
+  }
 
   const products: ProductsProps = await getData({
     path: `products`,

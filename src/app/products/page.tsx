@@ -9,7 +9,6 @@ type tParams = Promise<{
   category: string;
   subcategory: string;
   q: string;
-  styleFilter: string;
 }>;
 
 export default async function Products(props: { searchParams: tParams }) {

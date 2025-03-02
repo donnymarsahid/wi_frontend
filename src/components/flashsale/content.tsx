@@ -16,14 +16,6 @@ import CardProductToDetail from "../atoms/cardProductToDetail";
 import { FlashSaleProps } from "@/types/flashsale";
 import { FlashSale } from "../atoms/flashsale";
 
-type PromosPageProps = {
-  data: ProductsPropsDaum[];
-  query: {
-    q: string;
-    styleFilter: string;
-  };
-};
-
 export default function Content(flashsale: FlashSaleProps) {
   return (
     <div className="mt-10 mb-10">

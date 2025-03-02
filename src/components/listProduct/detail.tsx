@@ -9,9 +9,10 @@ import { BrandsProps } from "@/types/brands";
 import CardProductToDetail from "../atoms/cardProductToDetail";
 import Image from "next/image";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
+import { ProductsProps } from "@/types/products";
 
 type ListProductPageProps = {
-  brands: BrandsProps;
+  products: ProductsProps;
   wallpaper_by_colors: WallpaperByGeneralProps;
   wallpaper_by_styles: WallpaperByGeneralProps;
   wallpaper_by_designers: WallpaperByGeneralProps;
@@ -19,7 +20,7 @@ type ListProductPageProps = {
 };
 
 export default function List({
-  brands,
+  products,
   wallpaper_by_colors,
   wallpaper_by_styles,
   wallpaper_by_designers,
@@ -29,7 +30,7 @@ export default function List({
   const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
-  const productsPerPage = 16;
+  const productsPerPage = 15;
 
   const [isOpenColor, setIsOpenColor] = useState(false);
   const [isOpenMotif, setIsOpenMotif] = useState(false);
@@ -45,20 +46,34 @@ export default function List({
     setIsOpenDesigner(!isOpenDesigner);
   };
 
-  const products = brands.data[0].attributes.products.data
+  const productsResult = products.data
+    .filter(
+      (product: any) =>
+        (!selectedColors.length ||
+          product.attributes.wallpaper_by_colors.data.some((color: any) =>
+            selectedColors.includes(color.attributes.title)
+          )) &&
+        (!selectedMotifs.length ||
+          product.attributes.wallpaper_by_styles.data.some((motif: any) =>
+            selectedMotifs.includes(motif.attributes.title)
+          )) &&
+        (!selectedDesigners.length ||
+          product.attributes.wallpaper_by_designers.data.some((motif: any) =>
+            selectedDesigners.includes(motif.attributes.title)
+          ))
+    )
     .sort(
       (a, b) =>
         new Date(b.attributes.date).getTime() -
         new Date(a.attributes.date).getTime()
-    )
-    .filter((itemData) => itemData.attributes.available);
+    );
 
-  const totalProducts = products.length;
+  const totalProducts = productsResult.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = productsResult.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
@@ -101,28 +116,11 @@ export default function List({
     }
   };
 
-  // Filter produk berdasarkan warna yang dipilih
-  const filteredProducts = products.filter(
-    (product: any) =>
-      (!selectedColors.length ||
-        product.attributes.wallpaper_by_colors.data.some((color: any) =>
-          selectedColors.includes(color.attributes.title)
-        )) &&
-      (!selectedMotifs.length ||
-        product.attributes.wallpaper_by_styles.data.some((motif: any) =>
-          selectedMotifs.includes(motif.attributes.title)
-        )) &&
-      (!selectedDesigners.length ||
-        product.attributes.wallpaper_by_designers.data.some((motif: any) =>
-          selectedDesigners.includes(motif.attributes.title)
-        ))
-  );
-
-  useEffect(() => {
-    // console.log(selectedColors, "selectedColors");
-    // console.log(selectedMotifs, "selectedMotifs");
-    // console.log(selectedDesigners, "selectedDesigners");
-  }, [selectedColors, selectedMotifs, selectedDesigners]);
+  function slugToText(slug: string): string {
+    return slug
+      .replace(/-/g, " ") // Ganti "-" dengan spasi
+      .replace(/\b\w/g, (char) => char.toUpperCase()); // Kapitalisasi setiap kata
+  }
 
   return (
     <div className="mt-10 mb-10">
@@ -143,49 +141,8 @@ export default function List({
                 <p className="title-custom-2">Beranda</p>
               </Link>
               /
-              {brands.data[0].attributes.categories?.data?.length ? (
-                <Link
-                  className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${
-                    brands.data[0].attributes.categories.data[0].attributes
-                      .keyPageCondition
-                      ? `${brands.data[0].attributes.categories.data[0].attributes.keyPageCondition}--${brands.data[0].attributes.categories.data[0].attributes.slug}`
-                      : brands.data[0].attributes.categories.data[0].attributes
-                          .slug
-                  }`}
-                >
-                  <p className="title-custom-2">
-                    {
-                      brands.data[0].attributes.categories.data[0].attributes
-                        .title
-                    }
-                  </p>
-                </Link>
-              ) : (
-                <Link
-                  className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${
-                    brands.data[0].attributes.sub_categories?.data[0]
-                      ?.attributes?.categories?.data[0]?.attributes
-                      ?.keyPageCondition
-                      ? `${brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.keyPageCondition}--${brands.data[0].attributes.sub_categories.data[0].attributes.categories.data[0].attributes.slug}`
-                      : brands.data[0].attributes.sub_categories.data[0]
-                          .attributes.categories.data[0].attributes.slug
-                  }`}
-                >
-                  <p className="title-custom-2">
-                    {
-                      brands.data[0].attributes.sub_categories.data[0]
-                        .attributes.categories.data[0].attributes.title
-                    }
-                  </p>
-                </Link>
-              )}
-              /
               <Link className="font-medium hover:text-[#2FD1C1] mx-2" href="#">
-                <p className="title-custom-2">
-                  {brands.data[0].attributes.title}
-                </p>
+                <p className="title-custom-2">{slugToText(slug)}</p>
               </Link>
             </div>
           </div>
@@ -519,7 +476,7 @@ export default function List({
             {/* Product Grid */}
             <div className="col-span-3">
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
-                {filteredProducts.map((item, index) => (
+                {currentProducts.map((item, index) => (
                   <div key={index}>
                     <CardProductToDetail {...item} />
                   </div>
@@ -527,7 +484,7 @@ export default function List({
               </div>
 
               {/* Empty State */}
-              {!filteredProducts.length && (
+              {!currentProducts.length && (
                 <div
                   className={`w-full flex justify-center my-24 ${cx(
                     poppins,
