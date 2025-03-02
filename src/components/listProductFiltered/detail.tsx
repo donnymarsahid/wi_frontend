@@ -46,27 +46,21 @@ export default function List({
     setIsOpenDesigner(!isOpenDesigner);
   };
 
-  const productsResult = products.data
-    .filter(
-      (product: any) =>
-        (!selectedColors.length ||
-          product.attributes.wallpaper_by_colors.data.some((color: any) =>
-            selectedColors.includes(color.attributes.title)
-          )) &&
-        (!selectedMotifs.length ||
-          product.attributes.wallpaper_by_styles.data.some((motif: any) =>
-            selectedMotifs.includes(motif.attributes.title)
-          )) &&
-        (!selectedDesigners.length ||
-          product.attributes.wallpaper_by_designers.data.some((motif: any) =>
-            selectedDesigners.includes(motif.attributes.title)
-          ))
-    )
-    .sort(
-      (a, b) =>
-        new Date(b.attributes.date).getTime() -
-        new Date(a.attributes.date).getTime()
-    );
+  const productsResult = products.data.filter(
+    (product: any) =>
+      (!selectedColors.length ||
+        product.attributes.wallpaper_by_colors.data.some((color: any) =>
+          selectedColors.includes(color.attributes.title)
+        )) &&
+      (!selectedMotifs.length ||
+        product.attributes.wallpaper_by_styles.data.some((motif: any) =>
+          selectedMotifs.includes(motif.attributes.title)
+        )) &&
+      (!selectedDesigners.length ||
+        product.attributes.wallpaper_by_designers.data.some((motif: any) =>
+          selectedDesigners.includes(motif.attributes.title)
+        ))
+  );
 
   const totalProducts = productsResult.length;
   const totalPages = Math.ceil(totalProducts / productsPerPage);

@@ -60,14 +60,6 @@ export async function generateMetadata(props: {
 export default async function SlugProducts(props: { params: tParams }) {
   const slug = (await props.params).slug;
 
-  const categories: CategoryProps = await getData({
-    path: `categories`,
-    params: {
-      populate: "sub_categories",
-      "fields[0]": "sub_categories",
-    },
-  });
-
   const homepage: HomepageProps = await getData({
     path: `homepage`,
     params: {

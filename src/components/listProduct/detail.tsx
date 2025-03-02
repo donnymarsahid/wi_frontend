@@ -10,6 +10,8 @@ import CardProductToDetail from "../atoms/cardProductToDetail";
 import Image from "next/image";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 import { ProductsProps } from "@/types/products";
+import { buildPathWithQueryParams } from "@/utils/queryParams";
+import Pagination from "../atoms/paginations";
 
 type ListProductPageProps = {
   products: ProductsProps;
@@ -17,6 +19,9 @@ type ListProductPageProps = {
   wallpaper_by_styles: WallpaperByGeneralProps;
   wallpaper_by_designers: WallpaperByGeneralProps;
   slug: string;
+  searchParams: {
+    page: string;
+  };
 };
 
 export default function List({
@@ -25,6 +30,7 @@ export default function List({
   wallpaper_by_styles,
   wallpaper_by_designers,
   slug,
+  searchParams,
 }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
@@ -36,6 +42,11 @@ export default function List({
   const [isOpenMotif, setIsOpenMotif] = useState(false);
   const [isOpenDesigner, setIsOpenDesigner] = useState(false);
 
+  const path = buildPathWithQueryParams(
+    `/category/product/${slug}`,
+    searchParams
+  );
+
   const toggleDropdownColor = () => {
     setIsOpenColor(!isOpenColor);
   };
@@ -45,40 +56,6 @@ export default function List({
   const toggleDropdownDesigner = () => {
     setIsOpenDesigner(!isOpenDesigner);
   };
-
-  const productsResult = products.data
-    .filter(
-      (product: any) =>
-        (!selectedColors.length ||
-          product.attributes.wallpaper_by_colors.data.some((color: any) =>
-            selectedColors.includes(color.attributes.title)
-          )) &&
-        (!selectedMotifs.length ||
-          product.attributes.wallpaper_by_styles.data.some((motif: any) =>
-            selectedMotifs.includes(motif.attributes.title)
-          )) &&
-        (!selectedDesigners.length ||
-          product.attributes.wallpaper_by_designers.data.some((motif: any) =>
-            selectedDesigners.includes(motif.attributes.title)
-          ))
-    )
-    .sort(
-      (a, b) =>
-        new Date(b.attributes.date).getTime() -
-        new Date(a.attributes.date).getTime()
-    );
-
-  const totalProducts = productsResult.length;
-  const totalPages = Math.ceil(totalProducts / productsPerPage);
-
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productsResult.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   // Fungsi untuk mengelola perubahan checkbox tanpa query params
   const handleFilterChange = (color: string) => {
@@ -476,7 +453,7 @@ export default function List({
             {/* Product Grid */}
             <div className="col-span-3">
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
-                {currentProducts.map((item, index) => (
+                {products.data.map((item, index) => (
                   <div key={index}>
                     <CardProductToDetail {...item} />
                   </div>
@@ -484,7 +461,7 @@ export default function List({
               </div>
 
               {/* Empty State */}
-              {!currentProducts.length && (
+              {!products.data.length && (
                 <div
                   className={`w-full flex justify-center my-24 ${cx(
                     poppins,
@@ -507,24 +484,13 @@ export default function List({
 
               {/* Pagination */}
               <div className="flex justify-center mt-6">
-                <nav>
-                  <ul className="inline-flex space-x-2">
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <li key={index}>
-                        <button
-                          onClick={() => paginate(index + 1)}
-                          className={`px-4 py-2 border rounded-md ${
-                            currentPage === index + 1
-                              ? "bg-blue-500 text-white"
-                              : "bg-white text-gray-700"
-                          }`}
-                        >
-                          {index + 1}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
+                <div>
+                  <Pagination
+                    currentPage={parseInt(searchParams.page ?? `1`)}
+                    totalPages={products.meta?.pagination.pageCount}
+                    path={path}
+                  />
+                </div>
               </div>
             </div>
           </div>

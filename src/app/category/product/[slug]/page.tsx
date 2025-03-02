@@ -6,6 +6,7 @@ import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
 import { Metadata } from "next";
 
 type tParams = Promise<{ slug: string }>;
+type tSecondParams = Promise<{ page: string }>;
 
 export async function generateMetadata(props: {
   params: tParams;
@@ -39,8 +40,12 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function SlugProducts(props: { params: tParams }) {
+export default async function SlugProducts(props: {
+  params: tParams;
+  searchParams: tSecondParams;
+}) {
   const slug = (await props.params).slug;
+  const page = (await props.searchParams).page;
 
   let queryProducts = null;
 
@@ -48,7 +53,8 @@ export default async function SlugProducts(props: { params: tParams }) {
     populate: `discount,images,brands,brands.discount,brands.categories,wallpaper_by_styles,wallpaper_by_colors,wallpaper_by_designers`,
     "sort[0]": "date:desc",
     [`filters[brands][slug][$eq]`]: slug,
-    "pagination[pageSize]": "1000",
+    "pagination[page]": page,
+    "pagination[pageSize]": "9",
   };
 
   const products: ProductsProps = await getData({
@@ -82,6 +88,7 @@ export default async function SlugProducts(props: { params: tParams }) {
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
         <List
+          searchParams={await props.searchParams}
           products={products}
           wallpaper_by_colors={wallpaper_by_colors}
           wallpaper_by_styles={wallpaper_by_styles}
