@@ -37,8 +37,8 @@ export const Table = ({ dataHistory, index }: SectionHistoryOrder) => {
               <Image
                 src={
                   STRAPI_URL +
-                  item.detail_product.data[0].attributes.images.data[0]
-                    .attributes.formats.small.url
+                  item.detail_product.attributes.images.data[0].attributes
+                    .formats.small.url
                 }
                 width={200}
                 height={200}
@@ -51,7 +51,7 @@ export const Table = ({ dataHistory, index }: SectionHistoryOrder) => {
                 onClick={() => redirect(dataHistory.id)}
                 className="text-md text-left font-bold"
               >
-                {item.detail_product.data[0].attributes.title}
+                {item.detail_product.attributes.title}
               </button>
               <p className="text-xs font-medium text-primary-400 md:text-sm">
                 {dataHistory.attributes.paymentStatus == "Lunas" &&

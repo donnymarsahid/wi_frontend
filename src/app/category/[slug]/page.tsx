@@ -33,6 +33,7 @@ export async function generateMetadata(props: {
     params: {
       populate: "seo",
       "filters[slug][$eq]": slug.split("--")[0],
+      "fields[0]": "seo",
     },
   });
   try {
@@ -70,7 +71,8 @@ export default async function SlugProducts(props: { params: tParams }) {
   const homepage: HomepageProps = await getData({
     path: `homepage`,
     params: {
-      populate: "banners,socmed,socmed.logo",
+      populate: "socmed,socmed.logo",
+      "fields[0]": "socmed",
     },
   });
 
@@ -78,11 +80,15 @@ export default async function SlugProducts(props: { params: tParams }) {
     path: `wallpaper`,
     params: {
       populate: "banners",
+      "fields[0]": "youtubeChannel",
     },
   });
 
   let queryWallpaper = {
     populate: "thumbnail",
+    "fields[0]": "slug",
+    "fields[1]": "thumbnail",
+    "fields[2]": "title",
   };
 
   const wallpaperByStyle: WallpaperByGeneralProps = await getData({

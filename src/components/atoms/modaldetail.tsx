@@ -11,7 +11,7 @@ type ModalLoginProps = {
   openModal: boolean;
   setOpenModal: (isOpen: boolean) => void;
   urlImage: string;
-  dataCart: CartProps;
+  dataCart: any;
 };
 
 const ModalDetail = ({
@@ -52,40 +52,38 @@ const ModalDetail = ({
                 <td>Merk</td>
                 <td>
                   :{" "}
-                  {dataCart.detail_product.data[0].attributes?.brands?.data[0]
+                  {dataCart.detail_product.attributes?.brands?.data[0]
                     ?.attributes?.title || "-"}
                 </td>
               </tr>
               <tr>
                 <td>Kode</td>
                 <td>
-                  :{" "}
-                  {dataCart.detail_product.data[0].attributes?.product_code ||
-                    "-"}
+                  : {dataCart.detail_product.attributes?.product_code || "-"}
                 </td>
               </tr>
               <tr>
                 <td>Warna</td>
                 <td>
                   :{" "}
-                  {dataCart.detail_product.data[0].attributes
-                    ?.wallpaper_by_colors?.data[0]?.attributes?.title || "-"}
+                  {dataCart.detail_product.attributes?.wallpaper_by_colors
+                    ?.data[0]?.attributes?.title || "-"}
                 </td>
               </tr>
               <tr>
                 <td>Motif</td>
                 <td>
                   :{" "}
-                  {dataCart.detail_product.data[0].attributes
-                    ?.wallpaper_by_styles?.data[0]?.attributes?.title || "-"}
+                  {dataCart.detail_product.attributes?.wallpaper_by_styles
+                    ?.data[0]?.attributes?.title || "-"}
                 </td>
               </tr>
               <tr>
                 <td>Designer</td>
                 <td>
                   :{" "}
-                  {dataCart.detail_product.data[0].attributes
-                    ?.wallpaper_by_designers?.data[0]?.attributes?.title || "-"}
+                  {dataCart.detail_product.attributes?.wallpaper_by_designers
+                    ?.data[0]?.attributes?.title || "-"}
                 </td>
               </tr>
               <tr>
@@ -93,21 +91,21 @@ const ModalDetail = ({
                 <td>
                   : L=
                   {
-                    dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes.size_width
+                    dataCart.detail_product.attributes.brands.data[0].attributes
+                      .size_width
                   }
                   {
-                    dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes?.unitOfMeasureWidth
+                    dataCart.detail_product.attributes.brands.data[0].attributes
+                      ?.unitOfMeasureWidth
                   }{" "}
                   x P=
                   {
-                    dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes.size_height
+                    dataCart.detail_product.attributes.brands.data[0].attributes
+                      .size_height
                   }
                   {
-                    dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes?.unitOfMeasureHeight
+                    dataCart.detail_product.attributes.brands.data[0].attributes
+                      ?.unitOfMeasureHeight
                   }
                 </td>
               </tr>
@@ -116,8 +114,8 @@ const ModalDetail = ({
                 <td>
                   :{" "}
                   {
-                    dataCart.detail_product.data[0].attributes.brands.data[0]
-                      .attributes.thickness
+                    dataCart.detail_product.attributes.brands.data[0].attributes
+                      .thickness
                   }
                 </td>
               </tr>
@@ -126,12 +124,12 @@ const ModalDetail = ({
                 <td>
                   :{" "}
                   {
-                    dataCart.detail_product.data[0].attributes?.brands?.data[0]
+                    dataCart.detail_product.attributes?.brands?.data[0]
                       ?.attributes?.itemsPerBox
                   }
                   /{" "}
                   {
-                    dataCart.detail_product.data[0].attributes?.brands?.data[0]
+                    dataCart.detail_product.attributes?.brands?.data[0]
                       ?.attributes?.sheetsPerUnit
                   }{" "}
                 </td>
@@ -140,8 +138,8 @@ const ModalDetail = ({
                 <td>Berat</td>
                 <td>
                   :{" "}
-                  {dataCart.detail_product.data[0].attributes.brands.data[0]
-                    .attributes.product_weight || "-"}{" "}
+                  {dataCart.detail_product.attributes.brands.data[0].attributes
+                    .product_weight || "-"}{" "}
                   kg
                 </td>
               </tr>

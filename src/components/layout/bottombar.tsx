@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CartProps } from "@/types/cart";
@@ -11,6 +11,15 @@ import { useOpen } from "@/app/lib/openContext";
 
 export const BottomBar = () => {
   let storedImageData: CartProps[] | null = null;
+
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const storedData = JSON.parse(
+      getDecryptedLocalStorage(localStorage.getItem("dataCart")) || "[]"
+    );
+    setCartCount(storedData.length);
+  }, []);
 
   if (typeof window !== "undefined") {
     storedImageData =
@@ -72,9 +81,7 @@ export const BottomBar = () => {
             />
             <div>
               <span className="absolute bottom-3 left-3 rounded-full bg-[#44CBEB] bg-[#44CBEB] px-[6.5px] py-[2px] text-sm text-xs font-bold text-white">
-                {storedImageData?.length
-                  ? storedImageData?.length.toString()
-                  : "0"}
+                {cartCount}
               </span>
             </div>
           </div>

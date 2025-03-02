@@ -48,18 +48,21 @@ type SectionCartProps = {
 
 export default function Detail({ loginUrl, about }: SectionCartProps) {
   const router = useRouter();
-  let storedImageData: CartProps[] | null = null;
 
   const { totalCart, setTotalCart } = useCartProvider();
   const { totalProductCart, setTotalProductCart } = useCartProvider();
   const [value, setUser] = useState<any>();
   const [openModal, setOpenModal] = useState(false);
+  const [storedImageData, setStoredImageData] = useState<CartProps[] | null>(
+    null
+  );
 
-  if (typeof window !== "undefined") {
-    storedImageData = JSON.parse(
+  useEffect(() => {
+    const storedData = JSON.parse(
       getDecryptedLocalStorage(localStorage.getItem("dataCart")) || "null"
     );
-  }
+    setStoredImageData(storedData);
+  }, []);
 
   const cartDatas: DataCart = {
     data: storedImageData || [],

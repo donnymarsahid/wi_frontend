@@ -15,7 +15,7 @@ import { STRAPI_URL } from "@/app/utils/constans";
 import ModalDetail from "../atoms/modaldetail";
 import { CartProps } from "@/types/cart";
 
-export const Table: React.FC<CartProps> = (dataOrder) => {
+export const Table: React.FC<any> = (dataOrder) => {
   const router = useRouter();
   const storedData = JSON.parse(
     (typeof window !== "undefined" &&
@@ -74,8 +74,8 @@ export const Table: React.FC<CartProps> = (dataOrder) => {
             unoptimized
             src={
               STRAPI_URL +
-              dataOrder.detail_product.data[0].attributes.images.data[0]
-                .attributes.formats.small.url
+              dataOrder.detail_product.attributes.images.data[0].attributes
+                .formats.small.url
             }
             width={100}
             height={50}
@@ -84,7 +84,7 @@ export const Table: React.FC<CartProps> = (dataOrder) => {
         </div>
         <div className="ms-4">
           <h1 className="font-medium capitalize">
-            {dataOrder.detail_product.data[0].attributes.title}
+            {dataOrder.detail_product.attributes.title}
           </h1>
           <div className="mb-2 text-xs font-medium text-primary-400">
             <div className="flex cursor-pointer" onClick={openModal}>

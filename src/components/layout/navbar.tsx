@@ -42,6 +42,7 @@ export default function Navbar({
   const [isHovered, setIsHovered] = useState(false);
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
 
@@ -56,6 +57,13 @@ export default function Navbar({
       getDecryptedLocalStorage(localStorage.getItem("dataCart"))) ||
       "null"
   );
+
+  useEffect(() => {
+    const storedData = JSON.parse(
+      getDecryptedLocalStorage(localStorage.getItem("dataCart")) || "[]"
+    );
+    setCartCount(storedData.length);
+  }, []);
 
   const {
     register,
@@ -345,11 +353,7 @@ export default function Navbar({
                     className="md:w-[18px] md:h-[18px] w-[40px] h-w-[40px]"
                   />
                   <div className="bg-[#FF0000] w-[18px] h-[18px] flex items-center justify-center rounded-full absolute top-[-5px] right-0">
-                    <p className="text-[11px] text-white">
-                      {storedImageData?.length
-                        ? storedImageData?.length.toString()
-                        : "0"}
-                    </p>
+                    <p className="text-[11px] text-white">{cartCount}</p>
                   </div>
                 </Link>
                 <div className="md:flex items-center hidden">
