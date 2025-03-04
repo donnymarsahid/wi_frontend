@@ -144,9 +144,9 @@ export default function List({
     setLoadFetchWallpaperBy(true);
     try {
       const queryWallpaperBy = {
-        populate: "products,products.brands",
-        "fields[0]": "title",
-        "fields[1]": "products",
+        "fields[0]": "title", // Hanya ambil title
+        "populate[products][fields][0]": "id", // Ambil ID produk
+        "populate[products][populate][brands][fields][0]": "slug", // Hanya ambil slug dari brands
       };
 
       const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
@@ -197,6 +197,48 @@ export default function List({
               >
                 <p className="title-custom-2">Beranda</p>
               </Link>
+              /
+              {products.data[0]?.attributes?.brands?.data[0]?.attributes
+                ?.categories?.data?.length ? (
+                <Link
+                  className="font-medium hover:text-[#2FD1C1] mx-2"
+                  href={`/category/${
+                    products.data[0]?.attributes?.brands?.data[0]?.attributes
+                      .categories?.data[0]?.attributes?.keyPageCondition
+                      ? `${products.data[0]?.attributes?.brands?.data[0]?.attributes?.categories?.data[0]?.attributes?.keyPageCondition}--${products.data[0]?.attributes?.brands?.data[0]?.attributes?.categories?.data[0]?.attributes?.slug}`
+                      : products.data[0]?.attributes?.brands?.data[0]
+                          ?.attributes?.categories?.data[0]?.attributes?.slug
+                  }`}
+                >
+                  <p className="title-custom-2">
+                    {
+                      products.data[0]?.attributes?.brands?.data[0]?.attributes
+                        .categories?.data[0]?.attributes?.title
+                    }
+                  </p>
+                </Link>
+              ) : (
+                <Link
+                  className="font-medium hover:text-[#2FD1C1] mx-2"
+                  href={`/category/${
+                    products.data[0]?.attributes?.brands?.data[0]?.attributes
+                      .sub_categories?.data[0]?.attributes?.categories?.data[0]
+                      ?.attributes?.keyPageCondition
+                      ? `${products.data[0]?.attributes?.brands?.data[0]?.attributes.sub_categories?.data[0].attributes.categories?.data[0]?.attributes?.keyPageCondition}--${products.data[0]?.attributes?.brands?.data[0]?.attributes.sub_categories?.data[0].attributes?.categories?.data[0]?.attributes?.slug}`
+                      : products.data[0]?.attributes?.brands?.data[0]
+                          ?.attributes.sub_categories?.data[0].attributes
+                          ?.categories?.data[0]?.attributes?.slug
+                  }`}
+                >
+                  <p className="title-custom-2">
+                    {
+                      products.data[0]?.attributes?.brands?.data[0]?.attributes
+                        .sub_categories?.data[0].attributes.categories.data[0]
+                        .attributes.title
+                    }
+                  </p>
+                </Link>
+              )}
               /
               <Link className="font-medium hover:text-[#2FD1C1] mx-2" href="#">
                 <p className="title-custom-2">{slugToText(slug)}</p>
