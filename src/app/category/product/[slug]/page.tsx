@@ -11,6 +11,7 @@ type tSecondParams = Promise<{
   colors: string;
   styles: string;
   designers: string;
+  key: string;
 }>;
 
 export async function generateMetadata(props: {

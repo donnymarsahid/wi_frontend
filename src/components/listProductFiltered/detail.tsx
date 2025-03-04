@@ -198,33 +198,12 @@ export default function List({
                 <p className="title-custom-2">Beranda</p>
               </Link>
               /
-              {products.data[0]?.attributes?.brands?.data[0]?.attributes
-                ?.categories?.data?.length ? (
-                <Link
-                  className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${
-                    products.data[0]?.attributes?.brands?.data[0]?.attributes
-                      .categories?.data[0]?.attributes?.keyPageCondition
-                      ? `${products.data[0]?.attributes?.brands?.data[0]?.attributes?.categories?.data[0]?.attributes?.keyPageCondition}--${products.data[0]?.attributes?.brands?.data[0]?.attributes?.categories?.data[0]?.attributes?.slug}`
-                      : products.data[0]?.attributes?.brands?.data[0]
-                          ?.attributes?.categories?.data[0]?.attributes?.slug
-                  }`}
-                >
-                  <p className="title-custom-2">
-                    {
-                      products.data[0]?.attributes?.brands?.data[0]?.attributes
-                        .categories?.data[0]?.attributes?.title
-                    }
-                  </p>
-                </Link>
-              ) : (
-                <Link
-                  className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/wallpaper--Wallpaper`}
-                >
-                  <p className="title-custom-2">Wallpaper</p>
-                </Link>
-              )}
+              <Link
+                className="font-medium hover:text-[#2FD1C1] mx-2 capitalize"
+                href={`/category/wallpaper--Wallpaper`}
+              >
+                <p className="title-custom-2">Wallpaper</p>
+              </Link>
               /
               <Link className="font-medium hover:text-[#2FD1C1] mx-2" href="#">
                 <p className="title-custom-2">

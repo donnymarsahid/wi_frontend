@@ -17,9 +17,10 @@ import CardProduct from "../atoms/cardProduct";
 
 type WallpaperPageProps = {
   data: Daum5;
+  keyPage: string;
 };
 
-export default function RollerBlind({ data }: WallpaperPageProps) {
+export default function RollerBlind({ data, keyPage }: WallpaperPageProps) {
   return (
     <>
       <div className="mt-10 mb-10">
@@ -41,7 +42,7 @@ export default function RollerBlind({ data }: WallpaperPageProps) {
                       )
                       .map((item, index) => (
                         <Link
-                          href={`/category/${item.attributes.slug}`}
+                          href={`/category/${item.attributes.slug}?key=${keyPage}`}
                           key={index}
                         >
                           <div className="relative mt-4 overflow-hidden cursor-pointer">

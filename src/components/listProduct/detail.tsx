@@ -23,6 +23,7 @@ type ListProductPageProps = {
   slug: string;
   searchParams: {
     page: string;
+    key: string;
   };
 };
 
@@ -198,47 +199,14 @@ export default function List({
                 <p className="title-custom-2">Beranda</p>
               </Link>
               /
-              {products.data[0]?.attributes?.brands?.data[0]?.attributes
-                ?.categories?.data?.length ? (
-                <Link
-                  className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${
-                    products.data[0]?.attributes?.brands?.data[0]?.attributes
-                      .categories?.data[0]?.attributes?.keyPageCondition
-                      ? `${products.data[0]?.attributes?.brands?.data[0]?.attributes?.categories?.data[0]?.attributes?.keyPageCondition}--${products.data[0]?.attributes?.brands?.data[0]?.attributes?.categories?.data[0]?.attributes?.slug}`
-                      : products.data[0]?.attributes?.brands?.data[0]
-                          ?.attributes?.categories?.data[0]?.attributes?.slug
-                  }`}
-                >
-                  <p className="title-custom-2">
-                    {
-                      products.data[0]?.attributes?.brands?.data[0]?.attributes
-                        .categories?.data[0]?.attributes?.title
-                    }
-                  </p>
-                </Link>
-              ) : (
-                <Link
-                  className="font-medium hover:text-[#2FD1C1] mx-2"
-                  href={`/category/${
-                    products.data[0]?.attributes?.brands?.data[0]?.attributes
-                      .sub_categories?.data[0]?.attributes?.categories?.data[0]
-                      ?.attributes?.keyPageCondition
-                      ? `${products.data[0]?.attributes?.brands?.data[0]?.attributes.sub_categories?.data[0].attributes.categories?.data[0]?.attributes?.keyPageCondition}--${products.data[0]?.attributes?.brands?.data[0]?.attributes.sub_categories?.data[0].attributes?.categories?.data[0]?.attributes?.slug}`
-                      : products.data[0]?.attributes?.brands?.data[0]
-                          ?.attributes.sub_categories?.data[0].attributes
-                          ?.categories?.data[0]?.attributes?.slug
-                  }`}
-                >
-                  <p className="title-custom-2">
-                    {
-                      products.data[0]?.attributes?.brands?.data[0]?.attributes
-                        .sub_categories?.data[0].attributes.categories.data[0]
-                        .attributes.title
-                    }
-                  </p>
-                </Link>
-              )}
+              <Link
+                className="font-medium hover:text-[#2FD1C1] mx-2 capitalize"
+                href={searchParams?.key ? `/category/${searchParams.key}` : "#"}
+              >
+                <p className="title-custom-2">
+                  {String(searchParams?.key ?? "").split("--")[0]}
+                </p>
+              </Link>
               /
               <Link className="font-medium hover:text-[#2FD1C1] mx-2" href="#">
                 <p className="title-custom-2">{slugToText(slug)}</p>

@@ -165,7 +165,10 @@ export default async function SlugProducts(props: { params: tParams }) {
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <Hero heroBanners={heroBanners.data} />
-            <Clearance productsClearanceResult={clearance.data} />
+            <Clearance
+              productsClearanceResult={clearance.data}
+              keyPage={slug}
+            />
             <ContainerWallpaper
               wallpaperByStyle={wallpaperByStyle}
               wallpaperByColor={wallpaperByColor}
@@ -186,7 +189,7 @@ export default async function SlugProducts(props: { params: tParams }) {
                   new Date(a.attributes.date).getTime()
               )
               .map((item, index) => (
-                <RollerBlind data={item} key={index} />
+                <RollerBlind data={item} keyPage={slug} key={index} />
               ))}
           </main>
         </>
@@ -205,7 +208,7 @@ export default async function SlugProducts(props: { params: tParams }) {
                   new Date(a.attributes.date).getTime()
               )
               .map((item, index) => (
-                <Floors data={item} key={index} />
+                <Floors data={item} keyPage={slug} key={index} />
               ))}
             <SocmedFlooring homepage={homepage} />
           </main>
@@ -221,7 +224,9 @@ export default async function SlugProducts(props: { params: tParams }) {
                     new Date(b.attributes.date).getTime() -
                     new Date(a.attributes.date).getTime()
                 )
-                .map((item, index) => <Others data={item} key={index} />)}
+                .map((item, index) => (
+                  <Others data={item} keyPage={slug} key={index} />
+                ))}
 
             {!subCategoriesSection?.data?.length && (
               <>

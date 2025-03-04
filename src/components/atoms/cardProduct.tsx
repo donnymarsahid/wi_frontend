@@ -11,10 +11,12 @@ import Link from "next/link";
 import React, { useState } from "react";
 import cx from "classnames";
 
-export default function CardProduct(item: Daum7 | any) {
+export default function CardProduct({ item, keyPage }: any) {
   return (
     <>
-      <Link href={`/category/product/${item.attributes?.slug || ""}`}>
+      <Link
+        href={`/category/product/${item.attributes?.slug || ""}?key=${keyPage}`}
+      >
         <div className="relative mt-4 overflow-hidden cursor-pointer">
           {item.attributes?.images?.data?.length &&
             item.attributes?.images?.data[0]?.attributes?.url && (

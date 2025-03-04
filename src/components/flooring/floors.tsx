@@ -17,9 +17,10 @@ import CardProduct from "../atoms/cardProduct";
 
 type WallpaperPageProps = {
   data: Daum5;
+  keyPage: string;
 };
 
-export default function Floors({ data }: WallpaperPageProps) {
+export default function Floors({ data, keyPage }: WallpaperPageProps) {
   return (
     <>
       {data.attributes.name.toLowerCase().includes("accessories") ? (
@@ -44,7 +45,10 @@ export default function Floors({ data }: WallpaperPageProps) {
                               new Date(a.attributes.date).getTime()
                           )
                           .map((item, index) => (
-                            <Link href={""} key={index}>
+                            <Link
+                              href={`/category/${item.attributes.slug}?key=${keyPage}`}
+                              key={index}
+                            >
                               <div className="border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] relative mt-4 overflow-hidden cursor-pointer">
                                 <Image
                                   src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
@@ -94,7 +98,7 @@ export default function Floors({ data }: WallpaperPageProps) {
                         )
                         .map((item, index) => (
                           <div key={index}>
-                            <CardProduct {...item} />
+                            <CardProduct item={item} keyPage={keyPage} />
                           </div>
                         ))}
                   </div>
