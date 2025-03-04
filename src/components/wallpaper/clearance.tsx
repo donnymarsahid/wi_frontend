@@ -27,7 +27,7 @@ export default function Clearance({
               <div>
                 <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                   {productsClearanceResult.map((item, index) => (
-                    <CardProduct item={...item} keyPage={keyPage} key={index} />
+                    <CardProduct item={item} keyPage={keyPage} key={index} />
                   ))}
                 </div>
               </div>
