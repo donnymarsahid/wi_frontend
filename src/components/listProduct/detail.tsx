@@ -223,7 +223,7 @@ export default function List({
           >
             {/* Filters */}
             {loadFetchWallpaperBy ? (
-              <div className="md:col-span-1 col-span-3">
+              <div className="md:col-span-1 col-span-3 mt-[-30px] md:mt-0">
                 <div className="space-y-5 animate-pulse w-full mt-4">
                   <div className="flex items-center w-full space-x-2">
                     <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
@@ -244,17 +244,19 @@ export default function List({
               </div>
             ) : (
               <div className="md:col-span-1 col-span-3">
-                <div className="mb-6">
+                <div>
                   {selectedColors?.length
                     ? selectedColors.map((item, index) => (
                         <div
                           className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
                           key={index}
                         >
-                          <p className="text-white">{item}</p>
+                          <p className="text-white md:text-sm text-xs">
+                            {item}
+                          </p>
                           <button
                             onClick={() => handleFilterChange(item)}
-                            className="text-white"
+                            className="text-white md:text-sm text-xs"
                           >
                             X
                           </button>
@@ -267,10 +269,12 @@ export default function List({
                           className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
                           key={index}
                         >
-                          <p className="text-white">{item}</p>
+                          <p className="text-white md:text-sm text-xs">
+                            {item}
+                          </p>
                           <button
                             onClick={() => handleFilterMotifChange(item)}
-                            className="text-white"
+                            className="text-white md:text-sm text-xs"
                           >
                             X
                           </button>
@@ -283,10 +287,12 @@ export default function List({
                           className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
                           key={index}
                         >
-                          <p className="text-white">{item}</p>
+                          <p className="text-white md:text-sm text-xs">
+                            {item}
+                          </p>
                           <button
                             onClick={() => handleFilterDesignerChange(item)}
-                            className="text-white"
+                            className="text-white md:text-sm text-xs"
                           >
                             X
                           </button>
@@ -299,7 +305,7 @@ export default function List({
                     onClick={toggleDropdownColor}
                     className="flex justify-between w-full"
                   >
-                    <h3 className="text-lg font-semibold lucida-bright">
+                    <h3 className="lg:text-lg text-sm font-semibold lucida-bright">
                       COLOR
                     </h3>
                     {!isOpenColor && (
@@ -357,7 +363,7 @@ export default function List({
                         return (
                           <label
                             key={index}
-                            className="flex items-center text-sm cursor-pointer"
+                            className="flex items-center md:text-sm text-xs cursor-pointer"
                           >
                             <input
                               type="checkbox"
@@ -389,7 +395,7 @@ export default function List({
                     onClick={toggleDropdownMotif}
                     className="flex justify-between w-full"
                   >
-                    <h3 className="text-lg font-semibold lucida-bright">
+                    <h3 className="lg:text-lg text-sm font-semibold lucida-bright">
                       MOTIF
                     </h3>
                     {!isOpenMotif && (
@@ -447,7 +453,7 @@ export default function List({
                         return (
                           <label
                             key={index}
-                            className="flex items-center text-sm cursor-pointer"
+                            className="flex items-center md:text-sm text-xs cursor-pointer"
                           >
                             <input
                               type="checkbox"
@@ -478,7 +484,7 @@ export default function List({
                     onClick={toggleDropdownDesigner}
                     className="flex justify-between w-full"
                   >
-                    <h3 className="text-lg font-semibold lucida-bright">
+                    <h3 className="lg:text-lg text-sm font-semibold lucida-bright">
                       DESIGNER
                     </h3>
                     {!isOpenDesigner && (
@@ -536,7 +542,7 @@ export default function List({
                         return (
                           <label
                             key={index}
-                            className="flex items-center text-sm cursor-pointer"
+                            className="flex items-center md:text-sm text-xs cursor-pointer"
                           >
                             <input
                               type="checkbox"
@@ -568,7 +574,7 @@ export default function List({
             )}
 
             {/* Product Grid */}
-            <div className="col-span-3">
+            <div className="col-span-3 mt-[-30px] md:mt-0">
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
                 {products.data.map((item, index) => (
                   <div key={index}>

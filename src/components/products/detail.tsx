@@ -274,6 +274,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     {isFlashSale && <FlashSaleDetailProduct {...flashsale} />}
                     <div className="flex justify-between">
                       <h1 className="font-bold md:text-[24px] text-[20px] text-blue-400">
+                        {data?.attributes?.brands?.data[0]?.attributes?.title}{" "}
                         {data.attributes.title}
                       </h1>
                       <div>

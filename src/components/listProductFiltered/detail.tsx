@@ -32,9 +32,21 @@ export default function List({
   searchParams,
 }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
-  const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
-  const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>(
+    slug.split("--")[1] === "wallpaper-by-color"
+      ? [slugToText(slug.split("--")[0])]
+      : []
+  ); // State untuk filter warna
+  const [selectedMotifs, setSelectedMotifs] = useState<string[]>(
+    slug.split("--")[1] === "wallpaper-by-style"
+      ? [slugToText(slug.split("--")[0])]
+      : []
+  );
+  const [selectedDesigners, setSelectedDesigners] = useState<string[]>(
+    slug.split("--")[1] === "wallpaper-by-designer"
+      ? [slugToText(slug.split("--")[0])]
+      : []
+  );
 
   const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
     useState<boolean>(false);
@@ -145,8 +157,11 @@ export default function List({
     try {
       const queryWallpaperBy = {
         "fields[0]": "title", // Hanya ambil title
+        "fields[1]": "slug", // Hanya ambil title
         "populate[products][fields][0]": "id", // Ambil ID produk
         "populate[products][populate][brands][fields][0]": "slug", // Hanya ambil slug dari brands
+        "populate[products][populate][brands][populate][categories][fields][0]":
+          "keyPageCondition", // Hanya ambil keyPageCondition dari categories dalam brands
       };
 
       const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
@@ -164,6 +179,8 @@ export default function List({
         params: queryWallpaperBy,
         revalidate: 0,
       });
+
+      console.log(wallpaper_by_designers, "wallpaper_by_designers");
 
       setWallpaper_by_colors(wallpaper_by_colors.data);
       setWallpaper_by_styles(wallpaper_by_styles.data);
@@ -222,7 +239,7 @@ export default function List({
           >
             {/* Filters */}
             {loadFetchWallpaperBy ? (
-              <div className="md:col-span-1 col-span-3">
+              <div className="md:col-span-1 col-span-3 mt-[-30px] md:mt-0">
                 <div className="space-y-5 animate-pulse w-full mt-4">
                   <div className="flex items-center w-full space-x-2">
                     <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
@@ -243,17 +260,19 @@ export default function List({
               </div>
             ) : (
               <div className="md:col-span-1 col-span-3">
-                <div className="mb-6">
+                <div>
                   {selectedColors?.length
                     ? selectedColors.map((item, index) => (
                         <div
                           className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
                           key={index}
                         >
-                          <p className="text-white">{item}</p>
+                          <p className="text-white md:text-sm text-xs">
+                            {item}
+                          </p>
                           <button
                             onClick={() => handleFilterChange(item)}
-                            className="text-white"
+                            className="text-white md:text-sm text-xs"
                           >
                             X
                           </button>
@@ -266,10 +285,12 @@ export default function List({
                           className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
                           key={index}
                         >
-                          <p className="text-white">{item}</p>
+                          <p className="text-white md:text-sm text-xs">
+                            {item}
+                          </p>
                           <button
                             onClick={() => handleFilterMotifChange(item)}
-                            className="text-white"
+                            className="text-white md:text-sm text-xs"
                           >
                             X
                           </button>
@@ -282,10 +303,12 @@ export default function List({
                           className="shadow-lg bg-[#10D3A2] px-4 py-1 flex justify-between mb-2"
                           key={index}
                         >
-                          <p className="text-white">{item}</p>
+                          <p className="text-white md:text-sm text-xs">
+                            {item}
+                          </p>
                           <button
                             onClick={() => handleFilterDesignerChange(item)}
-                            className="text-white"
+                            className="text-white md:text-sm text-xs"
                           >
                             X
                           </button>
@@ -293,289 +316,335 @@ export default function List({
                       ))
                     : ""}
                 </div>
-                {slug.split("--")[1] !== "wallpaper-by-color" && (
-                  <div>
-                    <button
-                      onClick={toggleDropdownColor}
-                      className="flex justify-between w-full"
-                    >
-                      <h3 className="text-lg font-semibold lucida-bright">
-                        COLOR
-                      </h3>
-                      {!isOpenColor && (
-                        <svg
-                          width="25px"
-                          height="25px"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="white" />
-                          <path
-                            d="M12 6V18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M6 12H18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                      {isOpenColor && (
-                        <svg
-                          width="25px"
-                          height="25px"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="white" />
-                          <path
-                            d="M6 12H18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                    <hr className="my-2" />
-                    <div className="space-y-2 mb-4">
-                      {isOpenColor &&
-                        wallpaper_by_colors.map((color, index) => {
-                          const filteredProducts =
+
+                <div>
+                  <button
+                    onClick={toggleDropdownColor}
+                    className="flex justify-between w-full"
+                  >
+                    <h3 className="lg:text-lg text-sm font-semibold lucida-bright">
+                      COLOR
+                    </h3>
+                    {!isOpenColor && (
+                      <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="24" height="24" fill="white" />
+                        <path
+                          d="M12 6V18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M6 12H18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                    {isOpenColor && (
+                      <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="24" height="24" fill="white" />
+                        <path
+                          d="M6 12H18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                  <hr className="my-2" />
+                  <div className="space-y-2 mb-4">
+                    {isOpenColor &&
+                      wallpaper_by_colors.map((color, index) => {
+                        let filteredProducts = null;
+
+                        if (slug.split("--")[1] !== "wallpaper-by-color") {
+                          filteredProducts =
                             color?.attributes?.products?.data?.filter(
                               (item) =>
                                 item?.attributes?.brands?.data[0]?.attributes
                                   ?.slug === slug.split("--")[0]
                             ) || [];
+                        } else {
+                          filteredProducts = color?.attributes?.products?.data;
+                        }
 
-                          return (
-                            <label
-                              key={index}
-                              className="flex items-center text-sm cursor-pointer"
-                            >
-                              <input
-                                type="checkbox"
-                                className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                                checked={selectedColors.includes(
-                                  color.attributes.title
-                                )}
-                                onChange={() =>
-                                  handleFilterChange(color.attributes.title)
+                        return (
+                          <label
+                            key={index}
+                            className="flex items-center md:text-sm text-xs cursor-pointer"
+                          >
+                            <input
+                              type="checkbox"
+                              className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                              checked={selectedColors.includes(
+                                color.attributes.title
+                              )}
+                              onChange={() => {
+                                if (
+                                  slug.split("--")[1] !== "wallpaper-by-color"
+                                ) {
+                                  handleFilterChange(color.attributes.title);
+                                } else {
+                                  router.push(
+                                    `/category/filtered/${
+                                      color.attributes.slug
+                                    }--${slug.split("--")[1]}`
+                                  );
                                 }
-                              />
-                              <span className="ml-2 text-gray-700">
-                                {color.attributes.title} (
-                                {filteredProducts?.length})
-                              </span>
-                            </label>
-                          );
-                        })}
+                              }}
+                            />
+                            <span className="ml-2 text-gray-700">
+                              {color.attributes.title} (
+                              {filteredProducts?.length})
+                            </span>
+                          </label>
+                        );
+                      })}
 
-                      {isOpenColor && !wallpaper_by_colors.length && (
-                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                          Color Kosong!
-                        </p>
-                      )}
-                    </div>
+                    {isOpenColor && !wallpaper_by_colors.length && (
+                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                        Color Kosong!
+                      </p>
+                    )}
                   </div>
-                )}
-                {slug.split("--")[1] !== "wallpaper-by-style" && (
-                  <div>
-                    <button
-                      onClick={toggleDropdownMotif}
-                      className="flex justify-between w-full"
-                    >
-                      <h3 className="text-lg font-semibold lucida-bright">
-                        MOTIF
-                      </h3>
-                      {!isOpenMotif && (
-                        <svg
-                          width="25px"
-                          height="25px"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="white" />
-                          <path
-                            d="M12 6V18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M6 12H18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                      {isOpenMotif && (
-                        <svg
-                          width="25px"
-                          height="25px"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="white" />
-                          <path
-                            d="M6 12H18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                    <hr className="my-2" />
-                    <div className="space-y-2 mb-4">
-                      {isOpenMotif &&
-                        wallpaper_by_styles.map((motif, index) => {
-                          const filteredProducts =
+                </div>
+
+                <div>
+                  <button
+                    onClick={toggleDropdownMotif}
+                    className="flex justify-between w-full"
+                  >
+                    <h3 className="lg:text-lg text-sm font-semibold lucida-bright">
+                      MOTIF
+                    </h3>
+                    {!isOpenMotif && (
+                      <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="24" height="24" fill="white" />
+                        <path
+                          d="M12 6V18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M6 12H18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                    {isOpenMotif && (
+                      <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="24" height="24" fill="white" />
+                        <path
+                          d="M6 12H18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                  <hr className="my-2" />
+                  <div className="space-y-2 mb-4">
+                    {isOpenMotif &&
+                      wallpaper_by_styles.map((motif, index) => {
+                        let filteredProducts = null;
+
+                        if (slug.split("--")[1] !== "wallpaper-by-style") {
+                          filteredProducts =
                             motif?.attributes?.products?.data?.filter(
                               (item) =>
                                 item?.attributes?.brands?.data[0]?.attributes
                                   ?.slug === slug.split("--")[0]
                             ) || [];
+                        } else {
+                          filteredProducts = motif?.attributes?.products?.data;
+                        }
 
-                          return (
-                            <label
-                              key={index}
-                              className="flex items-center text-sm cursor-pointer"
-                            >
-                              <input
-                                type="checkbox"
-                                className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                                checked={selectedMotifs.includes(
-                                  motif.attributes.title
-                                )}
-                                onChange={() =>
+                        return (
+                          <label
+                            key={index}
+                            className="flex items-center md:text-sm text-xs cursor-pointer"
+                          >
+                            <input
+                              type="checkbox"
+                              className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                              checked={selectedMotifs.includes(
+                                motif.attributes.title
+                              )}
+                              onChange={() => {
+                                if (
+                                  slug.split("--")[1] !== "wallpaper-by-style"
+                                ) {
                                   handleFilterMotifChange(
                                     motif.attributes.title
-                                  )
+                                  );
+                                } else {
+                                  router.push(
+                                    `/category/filtered/${
+                                      motif.attributes.slug
+                                    }--${slug.split("--")[1]}`
+                                  );
                                 }
-                              />
-                              <span className="ml-2 text-gray-700">
-                                {motif.attributes.title} (
-                                {filteredProducts?.length})
-                              </span>
-                            </label>
-                          );
-                        })}
-                      {isOpenMotif && !wallpaper_by_styles.length && (
-                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                          Motif Kosong!
-                        </p>
-                      )}
-                    </div>
+                              }}
+                            />
+                            <span className="ml-2 text-gray-700">
+                              {motif.attributes.title} (
+                              {filteredProducts?.length})
+                            </span>
+                          </label>
+                        );
+                      })}
+                    {isOpenMotif && !wallpaper_by_styles.length && (
+                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                        Motif Kosong!
+                      </p>
+                    )}
                   </div>
-                )}
-                {slug.split("--")[1] !== "wallpaper-by-designer" && (
-                  <div>
-                    <button
-                      onClick={toggleDropdownDesigner}
-                      className="flex justify-between w-full"
-                    >
-                      <h3 className="text-lg font-semibold lucida-bright">
-                        DESIGNER
-                      </h3>
-                      {!isOpenDesigner && (
-                        <svg
-                          width="25px"
-                          height="25px"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="white" />
-                          <path
-                            d="M12 6V18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                          <path
-                            d="M6 12H18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                      {isOpenDesigner && (
-                        <svg
-                          width="25px"
-                          height="25px"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect width="24" height="24" fill="white" />
-                          <path
-                            d="M6 12H18"
-                            stroke="#000000"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </button>
-                    <hr className="my-2" />
-                    <div className="space-y-2 mb-4">
-                      {isOpenDesigner &&
-                        wallpaper_by_designers.map((designer, index) => {
-                          const filteredProducts =
+                </div>
+
+                <div>
+                  <button
+                    onClick={toggleDropdownDesigner}
+                    className="flex justify-between w-full"
+                  >
+                    <h3 className="lg:text-lg text-sm font-semibold lucida-bright">
+                      DESIGNER
+                    </h3>
+                    {!isOpenDesigner && (
+                      <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="24" height="24" fill="white" />
+                        <path
+                          d="M12 6V18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M6 12H18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                    {isOpenDesigner && (
+                      <svg
+                        width="25px"
+                        height="25px"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect width="24" height="24" fill="white" />
+                        <path
+                          d="M6 12H18"
+                          stroke="#000000"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                  <hr className="my-2" />
+                  <div className="space-y-2 mb-4">
+                    {isOpenDesigner &&
+                      wallpaper_by_designers.map((designer, index) => {
+                        let filteredProducts = null;
+                        if (slug.split("--")[1] !== "wallpaper-by-designer") {
+                          filteredProducts =
                             designer?.attributes?.products?.data?.filter(
                               (item) =>
                                 item?.attributes?.brands?.data[0]?.attributes
                                   ?.slug === slug.split("--")[0]
                             ) || [];
+                        } else {
+                          filteredProducts =
+                            designer?.attributes?.products?.data;
+                        }
 
-                          return (
-                            <label
-                              key={index}
-                              className="flex items-center text-sm cursor-pointer"
-                            >
-                              <input
-                                type="checkbox"
-                                className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                                checked={selectedDesigners.includes(
-                                  designer.attributes.title
-                                )}
-                                onChange={() =>
+                        return (
+                          <label
+                            key={index}
+                            className="flex items-center md:text-sm text-xs cursor-pointer"
+                          >
+                            <input
+                              type="checkbox"
+                              className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
+                              checked={selectedDesigners.includes(
+                                designer.attributes.title
+                              )}
+                              onChange={() => {
+                                if (
+                                  slug.split("--")[1] !==
+                                  "wallpaper-by-designer"
+                                ) {
                                   handleFilterDesignerChange(
                                     designer.attributes.title
-                                  )
+                                  );
+                                } else {
+                                  router.push(
+                                    `/category/filtered/${
+                                      designer.attributes.slug
+                                    }--${slug.split("--")[1]}`
+                                  );
                                 }
-                              />
-                              <span className="ml-2 text-gray-700">
-                                {designer.attributes.title} (
-                                {filteredProducts?.length})
-                              </span>
-                            </label>
-                          );
-                        })}
-                      {isOpenDesigner && !wallpaper_by_designers.length && (
-                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                          Designer Kosong!
-                        </p>
-                      )}
-                    </div>
+                              }}
+                            />
+                            <span className="ml-2 text-gray-700">
+                              {designer.attributes.title} (
+                              {filteredProducts?.length})
+                            </span>
+                          </label>
+                        );
+                      })}
+                    {isOpenDesigner && !wallpaper_by_designers.length && (
+                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                        Designer Kosong!
+                      </p>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
             )}
 
             {/* Product Grid */}
-            <div className="col-span-3">
+            <div className="col-span-3 mt-[-30px] md:mt-0">
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
                 {products.data.map((item, index) => (
                   <div key={index}>
