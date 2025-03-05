@@ -363,3 +363,7 @@ export const convertToSlug = (text: string) => {
     .replace(/-+/g, "-")
     .replace(/^-|-$/g, "");
 };
+
+export const decodeText = (encodedText: string) => {
+  return decodeURIComponent(encodedText);
+};

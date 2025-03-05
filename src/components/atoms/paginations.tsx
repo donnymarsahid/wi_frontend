@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
-import { usePathname } from "next/navigation";
 import { buildPathWithQueryParams } from "@/utils/queryParams";
 
 interface PaginationProps {
@@ -15,8 +14,8 @@ const Pagination: React.FC<PaginationProps> = ({
   totalPages,
   path,
 }) => {
-  const isFirstPage = currentPage == 1;
-  const isLastPage = currentPage == totalPages;
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
 
   const prevPage = buildPathWithQueryParams(path, {
     page: currentPage - 1,
@@ -25,42 +24,65 @@ const Pagination: React.FC<PaginationProps> = ({
     page: currentPage + 1,
   });
 
+  const generatePageNumbers = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      pages.push(1); // Selalu tampilkan halaman pertama
+
+      if (currentPage > 3) pages.push("..."); // Tambahkan ellipsis jika perlu
+
+      let start = Math.max(2, currentPage - 1);
+      let end = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - 2) pages.push("..."); // Tambahkan ellipsis jika perlu
+
+      pages.push(totalPages); // Selalu tampilkan halaman terakhir
+    }
+
+    return pages;
+  };
+
   return (
     <div className="flex justify-center mt-6">
-      <div className="flex items-center">
+      <div className="flex items-center space-x-2">
         {!isFirstPage && (
-          <div>
-            <Link href={prevPage} className="px-4 py-2">
-              <div className="px-3 py-2 rounded-l hover:bg-gray-200">
-                <IoMdArrowDropleft className="w-5 h-5 bg-transparent" />
-              </div>
-            </Link>
-          </div>
+          <Link href={prevPage} className="px-3 py-2 rounded hover:bg-gray-200">
+            <IoMdArrowDropleft className="w-5 h-5" />
+          </Link>
         )}
 
-        {Array.from({ length: totalPages }, (_, i) => i + 1)?.map((page) => (
-          <div key={page}>
+        {generatePageNumbers().map((page, index) =>
+          typeof page === "string" ? (
+            <span key={`ellipsis-${index}`} className="px-3 py-2">
+              {" "}
+              {page}{" "}
+            </span>
+          ) : (
             <Link
-              href={buildPathWithQueryParams(path, {
-                page,
-              })}
-              className={`px-4 py-2 mx-1 rounded hover:bg-gray-200 ${
-                currentPage == page ? "bg-gray-200" : ""
+              key={`page-${page}`}
+              href={buildPathWithQueryParams(path, { page })}
+              className={`px-3 py-2 rounded hover:bg-gray-200 ${
+                currentPage === page ? "bg-gray-300 font-bold" : ""
               }`}
             >
               {page}
             </Link>
-          </div>
-        ))}
+          )
+        )}
 
         {!isLastPage && (
-          <div>
-            <Link href={nextPage} className="px-4 py-2">
-              <div className="px-3 py-2 hover:bg-gray-200 rounded-r">
-                <IoMdArrowDropright className="w-5 h-5 bg-transparent" />
-              </div>
-            </Link>
-          </div>
+          <Link href={nextPage} className="px-3 py-2 rounded hover:bg-gray-200">
+            <IoMdArrowDropright className="w-5 h-5" />
+          </Link>
         )}
       </div>
     </div>

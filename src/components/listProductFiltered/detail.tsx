@@ -17,6 +17,7 @@ import { buildPathWithQueryParams } from "@/utils/queryParams";
 import Pagination from "../atoms/paginations";
 import { useRouter } from "next/navigation";
 import { getData } from "@/app/utils/fetching";
+import { decodeText } from "@/lib/utils";
 
 type ListProductPageProps = {
   products: ProductsProps;
@@ -34,17 +35,17 @@ export default function List({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-color"
-      ? [slugToText(slug.split("--")[0])]
+      ? [decodeText(slug.split("--")[2])]
       : []
   ); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-style"
-      ? [slugToText(slug.split("--")[0])]
+      ? [decodeText(slug.split("--")[2])]
       : []
   );
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-designer"
-      ? [slugToText(slug.split("--")[0])]
+      ? [decodeText(slug.split("--")[2])]
       : []
   );
 
@@ -64,9 +65,15 @@ export default function List({
 
   const router = useRouter();
 
-  const [isOpenColor, setIsOpenColor] = useState(false);
-  const [isOpenMotif, setIsOpenMotif] = useState(false);
-  const [isOpenDesigner, setIsOpenDesigner] = useState(false);
+  const [isOpenColor, setIsOpenColor] = useState(
+    slug.split("--")[1] === "wallpaper-by-color" ? true : false
+  );
+  const [isOpenMotif, setIsOpenMotif] = useState(
+    slug.split("--")[1] === "wallpaper-by-style" ? true : false
+  );
+  const [isOpenDesigner, setIsOpenDesigner] = useState(
+    slug.split("--")[1] === "wallpaper-by-designer" ? true : false
+  );
 
   const path = buildPathWithQueryParams(
     `/category/filtered/${slug}`,
@@ -403,7 +410,9 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       color.attributes.slug
-                                    }--${slug.split("--")[1]}`
+                                    }--${slug.split("--")[1]}--${
+                                      color.attributes.title
+                                    }`
                                   );
                                 }
                               }}
@@ -512,7 +521,9 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       motif.attributes.slug
-                                    }--${slug.split("--")[1]}`
+                                    }--${slug.split("--")[1]}--${
+                                      motif.attributes.title
+                                    }`
                                   );
                                 }
                               }}
@@ -621,7 +632,9 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       designer.attributes.slug
-                                    }--${slug.split("--")[1]}`
+                                    }--${slug.split("--")[1]}--${
+                                      designer.attributes.title
+                                    }`
                                   );
                                 }
                               }}
