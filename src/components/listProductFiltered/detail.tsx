@@ -159,16 +159,23 @@ export default function List({
     router.push(href);
   }, [selectedDesigners]);
 
+  const convertField = () => {
+    if (slug.split("--")[1] === "wallpaper-by-color")
+      return "wallpaper_by_colors";
+    else if (slug.split("--")[1] === "wallpaper-by-style")
+      return "wallpaper_by_styles";
+    else if (slug.split("--")[1] === "wallpaper-by-designer")
+      return "wallpaper_by_designers";
+  };
+
   const fetchWallpaperBy = useCallback(async () => {
     setLoadFetchWallpaperBy(true);
     try {
       const queryWallpaperBy = {
-        "fields[0]": "title", // Hanya ambil title
-        "fields[1]": "slug", // Hanya ambil title
-        "populate[products][fields][0]": "id", // Ambil ID produk
-        "populate[products][populate][brands][fields][0]": "slug", // Hanya ambil slug dari brands
-        "populate[products][populate][brands][populate][categories][fields][0]":
-          "keyPageCondition", // Hanya ambil keyPageCondition dari categories dalam brands
+        "fields[0]": "title",
+        "fields[1]": "slug",
+        "populate[products][fields][0]": "id",
+        [`populate[products][populate][${convertField()}][fields][0]`]: "slug",
       };
 
       const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
@@ -377,14 +384,16 @@ export default function List({
                   <div className="space-y-2 mb-4">
                     {isOpenColor &&
                       wallpaper_by_colors.map((color, index) => {
+                        const [filterValue, filterType] = slug.split("--");
                         let filteredProducts = null;
 
-                        if (slug.split("--")[1] !== "wallpaper-by-color") {
+                        if (filterType !== "wallpaper-by-color") {
                           filteredProducts =
-                            color?.attributes?.products?.data?.filter(
-                              (item) =>
-                                item?.attributes?.brands?.data[0]?.attributes
-                                  ?.slug === slug.split("--")[0]
+                            color?.attributes?.products?.data?.filter((item) =>
+                              item?.attributes?.[convertField()]?.data?.some(
+                                (category) =>
+                                  category.attributes.slug === filterValue
+                              )
                             ) || [];
                         } else {
                           filteredProducts = color?.attributes?.products?.data;
@@ -486,14 +495,16 @@ export default function List({
                   <div className="space-y-2 mb-4">
                     {isOpenMotif &&
                       wallpaper_by_styles.map((motif, index) => {
+                        const [filterValue, filterType] = slug.split("--");
                         let filteredProducts = null;
 
-                        if (slug.split("--")[1] !== "wallpaper-by-style") {
+                        if (filterType !== "wallpaper-by-style") {
                           filteredProducts =
-                            motif?.attributes?.products?.data?.filter(
-                              (item) =>
-                                item?.attributes?.brands?.data[0]?.attributes
-                                  ?.slug === slug.split("--")[0]
+                            motif?.attributes?.products?.data?.filter((item) =>
+                              item?.attributes?.[convertField()]?.data?.some(
+                                (category) =>
+                                  category.attributes.slug === filterValue
+                              )
                             ) || [];
                         } else {
                           filteredProducts = motif?.attributes?.products?.data;
@@ -596,13 +607,17 @@ export default function List({
                   <div className="space-y-2 mb-4">
                     {isOpenDesigner &&
                       wallpaper_by_designers.map((designer, index) => {
+                        const [filterValue, filterType] = slug.split("--");
                         let filteredProducts = null;
-                        if (slug.split("--")[1] !== "wallpaper-by-designer") {
+
+                        if (filterType !== "wallpaper-by-designer") {
                           filteredProducts =
                             designer?.attributes?.products?.data?.filter(
                               (item) =>
-                                item?.attributes?.brands?.data[0]?.attributes
-                                  ?.slug === slug.split("--")[0]
+                                item?.attributes?.[convertField()]?.data?.some(
+                                  (category) =>
+                                    category.attributes.slug === filterValue
+                                )
                             ) || [];
                         } else {
                           filteredProducts =
