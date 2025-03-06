@@ -24,6 +24,7 @@ type ListProductPageProps = {
   slug: string;
   searchParams: {
     page: string;
+    title: string;
   };
 };
 
@@ -35,17 +36,17 @@ export default function List({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-color"
-      ? [decodeText(slug.split("--")[2])]
+      ? [decodeText(searchParams.title)]
       : []
   ); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-style"
-      ? [decodeText(slug.split("--")[2])]
+      ? [decodeText(searchParams.title)]
       : []
   );
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-designer"
-      ? [decodeText(slug.split("--")[2])]
+      ? [decodeText(searchParams.title)]
       : []
   );
 
@@ -419,7 +420,7 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       color.attributes.slug
-                                    }--${slug.split("--")[1]}--${
+                                    }--${slug.split("--")[1]}?title=${
                                       color.attributes.title
                                     }`
                                   );
@@ -532,7 +533,7 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       motif.attributes.slug
-                                    }--${slug.split("--")[1]}--${
+                                    }--${slug.split("--")[1]}?title=${
                                       motif.attributes.title
                                     }`
                                   );
@@ -647,7 +648,7 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       designer.attributes.slug
-                                    }--${slug.split("--")[1]}--${
+                                    }--${slug.split("--")[1]}?title=${
                                       designer.attributes.title
                                     }`
                                   );

@@ -8,6 +8,7 @@ import { Metadata } from "next";
 type tParams = Promise<{ slug: string }>;
 type tSecondParams = Promise<{
   page: string;
+  title: string;
   colors: string;
   styles: string;
   designers: string;
