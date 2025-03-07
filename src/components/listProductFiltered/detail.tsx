@@ -177,6 +177,7 @@ export default function List({
         "fields[1]": "slug",
         "populate[products][fields][0]": "id",
         [`populate[products][populate][${convertField()}][fields][0]`]: "slug",
+        "pagination[pageSize]": "1000",
       };
 
       const wallpaper_by_colors: WallpaperByGeneralProps = await getData({

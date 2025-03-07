@@ -148,6 +148,7 @@ export default function List({
         "fields[0]": "title", // Hanya ambil title
         "populate[products][fields][0]": "id", // Ambil ID produk
         "populate[products][populate][brands][fields][0]": "slug", // Hanya ambil slug dari brands
+        "pagination[pageSize]": "1000",
       };
 
       const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
