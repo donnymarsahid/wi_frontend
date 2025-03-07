@@ -81,7 +81,7 @@ export default async function SlugProducts(props: { params: tParams }) {
     "fields[0]": "slug",
     "fields[1]": "thumbnail",
     "fields[2]": "title",
-    "pagination[pageSize]": "1000",
+    "pagination[pageSize]": "50",
   };
 
   const wallpaperByStyle: WallpaperByGeneralProps = await getData({
