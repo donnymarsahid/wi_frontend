@@ -120,7 +120,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                       </div>
                       <div className="text-[14.5px]">
                         <div>
-                          <p className="md:text-[14.5px] text-[9.5px] font-medium text-[#474747]">
+                          <p className="md:text-[17.5px] text-[12.5px] font-bold">
                             {!item?.attributes?.brands?.data[0]?.attributes
                               ?.discount &&
                               formatRupiah(
@@ -148,7 +148,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                                 : 0
                             )}{" "}
                             /{" "}
-                            <span className="capitalize md:text-[14.5px] text-[9.5px]">
+                            <span className="capitalize md:text-[17.5px] text-[12.5px] font-bold">
                               {item?.attributes?.brands?.data[0]?.attributes
                                 ?.unit
                                 ? String(

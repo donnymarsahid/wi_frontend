@@ -300,7 +300,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                       </div>
                     </div>
                     {data.attributes.brands.data[0].attributes.discount ? (
-                      <div className="flex w-full flex-col justify-between">
+                      <div className="flex w-full flex-row">
                         <div className="text-xl text-blue-400 line-through">
                           {formatRupiah(
                             parseFloat(
@@ -310,7 +310,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             )
                           )}
                         </div>
-                        <div className="text-xl text-red-400">
+                        <div className="md:text-2xl text-xl text-[#FF0000] font-bold ms-4">
                           {calculateDiscount(
                             parseFloat(
                               data.attributes.brands.data[0].attributes.price
@@ -519,12 +519,17 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                       Tambahkan ke Keranjang
                     </button>
                   </div>
-                  <div className="mt-10 flex-col bg-gray-100 p-4 text-sm">
-                    <h1 className="mb-4 font-medium">Deskripsi</h1>
-                    <hr />
-                    <div className="mt-2"></div>
-                    <MarkdownComponent markdown={data.attributes.desc} />
-                  </div>
+                </div>
+              </div>
+
+              {/* Deskripsi */}
+
+              <div>
+                <div className="mt-2 flex-col bg-gray-100 p-4 text-sm">
+                  <h1 className="mb-4 font-medium">Deskripsi</h1>
+                  <hr />
+                  <div className="mt-2"></div>
+                  <MarkdownComponent markdown={data.attributes.desc} />
                 </div>
               </div>
 
