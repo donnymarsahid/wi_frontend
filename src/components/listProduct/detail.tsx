@@ -607,7 +607,7 @@ export default function List({
               )}
 
               {/* Pagination */}
-              <div className="flex justify-center mt-6">
+              {/* <div className="flex justify-center mt-6">
                 <div>
                   <Pagination
                     currentPage={parseInt(searchParams.page ?? `1`)}
@@ -615,7 +615,7 @@ export default function List({
                     path={path}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

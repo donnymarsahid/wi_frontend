@@ -10,7 +10,7 @@ import { SubCategoryPropsDaum } from "@/types/subCategories";
 import { STRAPI_URL } from "@/app/utils/constans";
 import { Daum5 } from "@/types/categories";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
-import { convertToSlug } from "@/lib/utils";
+import { convertToSlug, replaceAmpersand } from "@/lib/utils";
 
 type WallpaperPageProps = {
   titleKey: string;
@@ -42,9 +42,9 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                     <Link
                       href={`/category/filtered/${
                         item.attributes.slug
-                      }--${convertToSlug(titleKey)}?title=${
+                      }--${convertToSlug(titleKey)}?title=${replaceAmpersand(
                         item.attributes.title
-                      }`}
+                      )}`}
                       key={index}
                     >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">

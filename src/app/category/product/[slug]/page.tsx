@@ -62,8 +62,9 @@ export default async function SlugProducts(props: {
     populate: `discount,images,brands,brands.discount,brands.categories`,
     "sort[0]": "date:desc",
     [`filters[brands][slug][$eq]`]: slug,
-    "pagination[page]": page,
-    "pagination[pageSize]": "9",
+    // "pagination[page]": page,
+    // "pagination[pageSize]": "9",
+    "pagination[pageSize]": "9999",
   };
 
   // Colors

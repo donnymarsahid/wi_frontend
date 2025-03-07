@@ -367,3 +367,11 @@ export const convertToSlug = (text: string) => {
 export const decodeText = (encodedText: string) => {
   return decodeURIComponent(encodedText);
 };
+
+export const replaceAmpersand = (text: string) => {
+  return text.replace(/&/g, "andsymbol");
+};
+
+export const restoreAmpersand = (text: string) => {
+  return text.replace(/andsymbol/g, "&");
+};

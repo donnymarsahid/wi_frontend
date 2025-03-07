@@ -17,7 +17,7 @@ import { buildPathWithQueryParams } from "@/utils/queryParams";
 import Pagination from "../atoms/paginations";
 import { useRouter } from "next/navigation";
 import { getData } from "@/app/utils/fetching";
-import { decodeText } from "@/lib/utils";
+import { decodeText, replaceAmpersand, restoreAmpersand } from "@/lib/utils";
 
 type ListProductPageProps = {
   products: ProductsProps;
@@ -36,17 +36,17 @@ export default function List({
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-color"
-      ? [decodeText(searchParams.title)]
+      ? [decodeText(restoreAmpersand(searchParams.title))]
       : []
   ); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-style"
-      ? [decodeText(searchParams.title)]
+      ? [decodeText(restoreAmpersand(searchParams.title))]
       : []
   );
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>(
     slug.split("--")[1] === "wallpaper-by-designer"
-      ? [decodeText(searchParams.title)]
+      ? [decodeText(restoreAmpersand(searchParams.title))]
       : []
   );
 
@@ -421,9 +421,11 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       color.attributes.slug
-                                    }--${slug.split("--")[1]}?title=${
+                                    }--${
+                                      slug.split("--")[1]
+                                    }?title=${replaceAmpersand(
                                       color.attributes.title
-                                    }`
+                                    )}`
                                   );
                                 }
                               }}
@@ -534,9 +536,11 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       motif.attributes.slug
-                                    }--${slug.split("--")[1]}?title=${
+                                    }--${
+                                      slug.split("--")[1]
+                                    }?title=${replaceAmpersand(
                                       motif.attributes.title
-                                    }`
+                                    )}`
                                   );
                                 }
                               }}
@@ -649,9 +653,11 @@ export default function List({
                                   router.push(
                                     `/category/filtered/${
                                       designer.attributes.slug
-                                    }--${slug.split("--")[1]}?title=${
+                                    }--${
+                                      slug.split("--")[1]
+                                    }?title=${replaceAmpersand(
                                       designer.attributes.title
-                                    }`
+                                    )}`
                                   );
                                 }
                               }}
@@ -706,7 +712,7 @@ export default function List({
               )}
 
               {/* Pagination */}
-              <div className="flex justify-center mt-6">
+              {/* <div className="flex justify-center mt-6">
                 <div>
                   <Pagination
                     currentPage={parseInt(searchParams.page ?? `1`)}
@@ -714,7 +720,7 @@ export default function List({
                     path={path}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
