@@ -374,7 +374,14 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                           )}
                           <tr>
                             <td>Kode</td>
-                            <td>: {data.attributes?.product_code || "-"}</td>
+                            <td>
+                              :{" "}
+                              {data.attributes?.product_code
+                                ? data.attributes?.product_code
+                                : data.attributes.title
+                                ? data.attributes.title
+                                : "-"}
+                            </td>
                           </tr>
                           <tr>
                             <td>Warna</td>
