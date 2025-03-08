@@ -20,7 +20,7 @@ export default function CallculatorWallpaper({
         <div className="container mx-auto">
           <div className="md:mx-10 mx-4 flex justify-between items-center md:flex-row flex-col">
             <Link
-              href={""}
+              href={`/calculatorWallpaper`}
               className="md:w-[49%] w-full bg-[#F5F5F5] h-[100px] px-6 flex items-center border-2 border-[#10D3A2] rounded-lg scale-100 hover:scale-105 transition duration-2"
             >
               <Image

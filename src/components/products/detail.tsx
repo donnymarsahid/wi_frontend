@@ -28,6 +28,7 @@ import Swal from "sweetalert2";
 import { CartProps } from "@/types/cart";
 import { FlashSaleProps } from "@/types/flashsale";
 import { FlashSaleDetailProduct } from "../atoms/flashsaledetailproduct";
+import WallpaperCalculator from "../atoms/wallpaperCalculator";
 
 type ProductPageProps = {
   data: any;
@@ -242,7 +243,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                           width={400}
                           height={400}
                           alt="wall"
-                          className="w-full md:h-[500px] h-[300px] item.-cover"
+                          className="w-full object-cover"
                         />
                       </div>
                     </div>
@@ -259,7 +260,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                               src={STRAPI_URL + item.attributes.url}
                               width={400}
                               height={400}
-                              className="w-full md:h-[100px] h-[50px] object-cover"
+                              className="w-[105px] object-cover"
                               alt={"image"}
                             />
                           </div>
@@ -518,6 +519,10 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     >
                       Tambahkan ke Keranjang
                     </button>
+                  </div>
+
+                  <div className="mt-6">
+                    <WallpaperCalculator />
                   </div>
                 </div>
               </div>
