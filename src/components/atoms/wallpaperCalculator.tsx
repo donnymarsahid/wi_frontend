@@ -1,5 +1,6 @@
-import Link from "next/link";
 import { useState } from "react";
+import cx from "classnames";
+import { poppins } from "@/app/fonts";
 
 const WallpaperCalculator = () => {
   const [wallAreas, setWallAreas] = useState(
@@ -39,7 +40,12 @@ const WallpaperCalculator = () => {
   };
 
   return (
-    <div className="container mx-auto text-sm bg-gray-100 p-2 rounded">
+    <div
+      className={`container mx-auto text-sm bg-gray-100 p-2 rounded ${cx(
+        poppins,
+        poppins.className
+      )}`}
+    >
       <div className="mb-2">
         <p>
           Kalkulator Hitung Butuh bantuan hitung kebutuhan ?{" "}
