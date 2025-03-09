@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 
 const WallpaperCalculator = () => {
@@ -29,8 +30,24 @@ const WallpaperCalculator = () => {
     setWallpaperNeeded(Math.ceil(area / selectedWallpaper));
   };
 
+  const handleClick = () => {
+    const messageText = `*Halo Wallpaper Indonesia, saya mau tanya terkait calculator wallpaper`;
+    const encodedMessage = encodeURIComponent(messageText);
+    let result = `https://api.whatsapp.com/send?phone=${"+6282111135402"}&text=${encodedMessage}`;
+
+    window.open(result, "_blank");
+  };
+
   return (
     <div className="container mx-auto text-sm bg-gray-100 p-2 rounded">
+      <div className="mb-2">
+        <p>
+          Kalkulator Hitung Butuh bantuan hitung kebutuhan ?{" "}
+          <button onClick={handleClick} className="font-bold underline">
+            hubungi kami
+          </button>
+        </p>
+      </div>
       <div className="space-y-4">
         <div>
           <label className="block font-medium">Ukuran Wallpaper</label>
