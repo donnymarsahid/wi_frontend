@@ -27,7 +27,7 @@ const WallpaperCalculator = () => {
       return sum + width * height;
     }, 0);
 
-    setTotalArea(area);
+    setTotalArea(parseFloat(area.toFixed(2)));
     setWallpaperNeeded(Math.ceil(area / selectedWallpaper));
   };
 
@@ -41,22 +41,25 @@ const WallpaperCalculator = () => {
 
   return (
     <div
-      className={`container mx-auto text-sm bg-gray-100 p-2 rounded ${cx(
+      className={`container mx-auto text-sm bg-gray-100 p-4 rounded ${cx(
         poppins,
         poppins.className
       )}`}
     >
       <div className="mb-2">
+        <h1 className="md:text-2xl text-lg font-bold">
+          Hitung Kebutuhan Wallpaper
+        </h1>
         <p>
-          Kalkulator Hitung Butuh bantuan hitung kebutuhan ?{" "}
+          Butuh bantuan hitung kebutuhan ?{" "}
           <button onClick={handleClick} className="font-bold underline">
             hubungi kami
           </button>
         </p>
       </div>
       <div className="space-y-4">
-        <div>
-          <label className="block font-medium">Ukuran Wallpaper</label>
+        <div className="mt-4">
+          <label className="block font-semibold">Pilih Ukuran Wallpaper</label>
           <select
             className="w-full p-2 border rounded-md outline-none"
             value={selectedWallpaper}
@@ -72,7 +75,9 @@ const WallpaperCalculator = () => {
         {wallAreas.map((wall, index) => (
           <div key={index} className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block font-medium">Lebar (m)</label>
+              <label className="block font-semibold">
+                Lebar Dinding (meter)
+              </label>
               <input
                 type="number"
                 className="w-full p-2 border rounded-md outline-none"
@@ -84,7 +89,9 @@ const WallpaperCalculator = () => {
               />
             </div>
             <div>
-              <label className="block font-medium">Panjang (m)</label>
+              <label className="block font-semibold">
+                Panjang Dinding (meter)
+              </label>
               <input
                 type="number"
                 className="w-full p-2 border rounded-md outline-none"
@@ -97,6 +104,12 @@ const WallpaperCalculator = () => {
             </div>
           </div>
         ))}
+        <button
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+          onClick={calculateWallpaper}
+        >
+          HITUNG WALLPAPER
+        </button>
         <div className="flex justify-between items-center">
           <span className="font-medium">Total Area Dinding (m2):</span>
           <input
@@ -113,12 +126,6 @@ const WallpaperCalculator = () => {
             readOnly
           />
         </div>
-        <button
-          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-          onClick={calculateWallpaper}
-        >
-          HITUNG WALLPAPER
-        </button>
       </div>
     </div>
   );
