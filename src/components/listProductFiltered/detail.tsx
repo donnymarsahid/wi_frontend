@@ -24,7 +24,7 @@ type ListProductPageProps = {
   slug: string;
   searchParams: {
     page: string;
-    title: string;
+    multiple: string;
   };
 };
 
@@ -34,21 +34,9 @@ export default function List({
   searchParams,
 }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedColors, setSelectedColors] = useState<string[]>(
-    slug.split("--")[1] === "wallpaper-by-color"
-      ? [decodeText(restoreAmpersand(searchParams.title))]
-      : []
-  ); // State untuk filter warna
-  const [selectedMotifs, setSelectedMotifs] = useState<string[]>(
-    slug.split("--")[1] === "wallpaper-by-style"
-      ? [decodeText(restoreAmpersand(searchParams.title))]
-      : []
-  );
-  const [selectedDesigners, setSelectedDesigners] = useState<string[]>(
-    slug.split("--")[1] === "wallpaper-by-designer"
-      ? [decodeText(restoreAmpersand(searchParams.title))]
-      : []
-  );
+  const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
+  const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
+  const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
 
   const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
     useState<boolean>(false);
@@ -91,40 +79,59 @@ export default function List({
     setIsOpenDesigner(!isOpenDesigner);
   };
 
+  const updateQueryParams = (others: string[]) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (others.length > 0) {
+      params.set("multiple", others.join(","));
+    } else {
+      params.delete("multiple");
+    }
+
+    router.push(`/category/filtered/${slug}?${params.toString()}`);
+  };
+
   // Fungsi untuk mengelola perubahan checkbox tanpa query params
   const handleFilterChange = (color: string) => {
     const currentFilters = [...selectedColors];
+    let updatedFilters: string[];
+
     if (currentFilters.includes(color)) {
-      // Hapus filter jika sudah dipilih
-      const updatedFilters = currentFilters.filter((c) => c !== color);
-      setSelectedColors(updatedFilters);
+      updatedFilters = currentFilters.filter((m) => m !== color);
     } else {
-      // Tambahkan filter jika belum dipilih
-      currentFilters.push(color);
-      setSelectedColors(currentFilters);
+      updatedFilters = [...currentFilters, color];
     }
+
+    setSelectedColors(updatedFilters);
+    updateQueryParams(updatedFilters);
   };
 
   const handleFilterMotifChange = (motif: string) => {
     const currentFilters = [...selectedMotifs];
+    let updatedFilters: string[];
+
     if (currentFilters.includes(motif)) {
-      const updatedFilters = currentFilters.filter((m) => m !== motif);
-      setSelectedMotifs(updatedFilters);
+      updatedFilters = currentFilters.filter((m) => m !== motif);
     } else {
-      currentFilters.push(motif);
-      setSelectedMotifs(currentFilters);
+      updatedFilters = [...currentFilters, motif];
     }
+
+    setSelectedMotifs(updatedFilters);
+    updateQueryParams(updatedFilters);
   };
 
   const handleFilterDesignerChange = (motif: string) => {
     const currentFilters = [...selectedDesigners];
+    let updatedFilters: string[];
+
     if (currentFilters.includes(motif)) {
-      const updatedFilters = currentFilters.filter((m) => m !== motif);
-      setSelectedDesigners(updatedFilters);
+      updatedFilters = currentFilters.filter((m) => m !== motif);
     } else {
-      currentFilters.push(motif);
-      setSelectedDesigners(currentFilters);
+      updatedFilters = [...currentFilters, motif];
     }
+
+    setSelectedDesigners(updatedFilters);
+    updateQueryParams(updatedFilters);
   };
 
   function slugToText(slug: string): string {
@@ -196,8 +203,6 @@ export default function List({
         revalidate: 0,
       });
 
-      console.log(wallpaper_by_designers, "wallpaper_by_designers");
-
       setWallpaper_by_colors(wallpaper_by_colors.data);
       setWallpaper_by_styles(wallpaper_by_styles.data);
       setWallpaper_by_designers(wallpaper_by_designers.data);
@@ -210,6 +215,30 @@ export default function List({
 
   useEffect(() => {
     fetchWallpaperBy();
+  }, []);
+
+  useEffect(() => {
+    const multiple = searchParams.multiple;
+
+    if (multiple) {
+      const selected = multiple.split(",");
+      let result = [];
+      for (const item of selected) {
+        result.push(decodeText(restoreAmpersand(item)));
+      }
+      if (slug.split("--")[1] === "wallpaper-by-color")
+        setSelectedColors(result);
+      else if (slug.split("--")[1] === "wallpaper-by-style")
+        setSelectedMotifs(result);
+      else if (slug.split("--")[1] === "wallpaper-by-designer")
+        setSelectedDesigners(result);
+    } else {
+      if (slug.split("--")[1] === "wallpaper-by-color") setSelectedColors([]);
+      else if (slug.split("--")[1] === "wallpaper-by-style")
+        setSelectedMotifs([]);
+      else if (slug.split("--")[1] === "wallpaper-by-designer")
+        setSelectedDesigners([]);
+    }
   }, []);
 
   return (
@@ -412,23 +441,9 @@ export default function List({
                               checked={selectedColors.includes(
                                 color.attributes.title
                               )}
-                              onChange={() => {
-                                if (
-                                  slug.split("--")[1] !== "wallpaper-by-color"
-                                ) {
-                                  handleFilterChange(color.attributes.title);
-                                } else {
-                                  router.push(
-                                    `/category/filtered/${
-                                      color.attributes.slug
-                                    }--${
-                                      slug.split("--")[1]
-                                    }?title=${replaceAmpersand(
-                                      color.attributes.title
-                                    )}`
-                                  );
-                                }
-                              }}
+                              onChange={() =>
+                                handleFilterChange(color.attributes.title)
+                              }
                             />
                             <span className="ml-2 text-gray-700">
                               {color.attributes.title} (
@@ -525,25 +540,9 @@ export default function List({
                               checked={selectedMotifs.includes(
                                 motif.attributes.title
                               )}
-                              onChange={() => {
-                                if (
-                                  slug.split("--")[1] !== "wallpaper-by-style"
-                                ) {
-                                  handleFilterMotifChange(
-                                    motif.attributes.title
-                                  );
-                                } else {
-                                  router.push(
-                                    `/category/filtered/${
-                                      motif.attributes.slug
-                                    }--${
-                                      slug.split("--")[1]
-                                    }?title=${replaceAmpersand(
-                                      motif.attributes.title
-                                    )}`
-                                  );
-                                }
-                              }}
+                              onChange={() =>
+                                handleFilterMotifChange(motif.attributes.title)
+                              }
                             />
                             <span className="ml-2 text-gray-700">
                               {motif.attributes.title} (
@@ -641,26 +640,11 @@ export default function List({
                               checked={selectedDesigners.includes(
                                 designer.attributes.title
                               )}
-                              onChange={() => {
-                                if (
-                                  slug.split("--")[1] !==
-                                  "wallpaper-by-designer"
-                                ) {
-                                  handleFilterDesignerChange(
-                                    designer.attributes.title
-                                  );
-                                } else {
-                                  router.push(
-                                    `/category/filtered/${
-                                      designer.attributes.slug
-                                    }--${
-                                      slug.split("--")[1]
-                                    }?title=${replaceAmpersand(
-                                      designer.attributes.title
-                                    )}`
-                                  );
-                                }
-                              }}
+                              onChange={() =>
+                                handleFilterDesignerChange(
+                                  designer.attributes.title
+                                )
+                              }
                             />
                             <span className="ml-2 text-gray-700">
                               {designer.attributes.title} (

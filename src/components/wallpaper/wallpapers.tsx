@@ -44,7 +44,7 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                         item.attributes.slug
                       }--${convertToSlug(titleKey)}?title=${replaceAmpersand(
                         item.attributes.title
-                      )}`}
+                      )}&multiple=${replaceAmpersand(item.attributes.title)}`}
                       key={index}
                     >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">

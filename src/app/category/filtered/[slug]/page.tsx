@@ -13,6 +13,7 @@ type tSecondParams = Promise<{
   styles: string;
   designers: string;
   key: string;
+  multiple: string;
 }>;
 
 export async function generateMetadata(props: {
@@ -57,6 +58,14 @@ export default async function SlugProducts(props: {
   const styles = (await props.searchParams).styles?.split(",");
   const designers = (await props.searchParams).designers?.split(",");
 
+  const slugs = (await props.searchParams).multiple;
+  let multiple: string[] = [];
+
+  // slugs bisa undefined/null, jadi cek dulu
+  if (slugs) {
+    multiple = slugs.split(",");
+  }
+
   let queryProducts = null;
 
   const [slugValue, category] = slug.split("--") ?? [];
@@ -71,13 +80,19 @@ export default async function SlugProducts(props: {
     queryProducts = {
       populate: `discount,images,brands,brands.discount,brands.categories,wallpaper_by_styles,wallpaper_by_colors,wallpaper_by_designers`,
       "sort[0]": "date:desc",
-      [`filters[${categoriesMap[category]}][slug][$eq]`]: slugValue,
+      // [`filters[${categoriesMap[category]}][slug][$eq]`]: slugValue,
       "filters[brands][categories][slug][$eq]": "wallpaper",
       // "pagination[page]": page,
       // "pagination[pageSize]": "9",
       "pagination[pageSize]": "9999",
     };
   }
+
+  multiple.forEach((item, index) => {
+    queryProducts[
+      `filters[${categoriesMap[category]}][title][[$in][${index}]`
+    ] = multiple[index];
+  });
 
   // Colors
   for (let i = 0; i < colors?.length; i++) {
