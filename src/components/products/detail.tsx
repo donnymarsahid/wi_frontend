@@ -278,6 +278,53 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         {data?.attributes?.brands?.data[0]?.attributes?.title}{" "}
                         {data.attributes.title}
                       </h1>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      {data.attributes.brands.data[0].attributes.discount ? (
+                        <div className="flex w-full flex-row">
+                          <div className="text-xl text-blue-400 line-through">
+                            {formatRupiah(
+                              parseFloat(
+                                parseFloat(
+                                  data.attributes.brands.data[0].attributes
+                                    .price
+                                ).toString()
+                              )
+                            )}
+                          </div>
+                          <div className="md:text-2xl text-xl text-[#FF0000] font-bold ms-4">
+                            {calculateDiscount(
+                              parseFloat(
+                                data.attributes.brands.data[0].attributes.price
+                              ),
+                              data.attributes.brands.data[0].attributes.discount
+                                ?.type
+                                ? data.attributes.brands.data[0].attributes
+                                    .discount?.type
+                                : "",
+                              parseFloat(
+                                data.attributes.brands.data[0].attributes
+                                  .discount?.value
+                              )
+                                ? parseFloat(
+                                    data.attributes.brands.data[0].attributes
+                                      .discount?.value
+                                  )
+                                : 0
+                            )}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-xl text-blue-400">
+                          {formatRupiah(
+                            parseFloat(
+                              parseFloat(
+                                data.attributes.brands.data[0].attributes.price
+                              ).toString()
+                            )
+                          )}
+                        </div>
+                      )}
                       <div>
                         <button className="shadow-lg flex flex-row items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 p-1 text-white border-[1px] border-white">
                           <p className="font-bold text-[18px]">
@@ -300,50 +347,6 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                         </button>
                       </div>
                     </div>
-                    {data.attributes.brands.data[0].attributes.discount ? (
-                      <div className="flex w-full flex-row">
-                        <div className="text-xl text-blue-400 line-through">
-                          {formatRupiah(
-                            parseFloat(
-                              parseFloat(
-                                data.attributes.brands.data[0].attributes.price
-                              ).toString()
-                            )
-                          )}
-                        </div>
-                        <div className="md:text-2xl text-xl text-[#FF0000] font-bold ms-4">
-                          {calculateDiscount(
-                            parseFloat(
-                              data.attributes.brands.data[0].attributes.price
-                            ),
-                            data.attributes.brands.data[0].attributes.discount
-                              ?.type
-                              ? data.attributes.brands.data[0].attributes
-                                  .discount?.type
-                              : "",
-                            parseFloat(
-                              data.attributes.brands.data[0].attributes.discount
-                                ?.value
-                            )
-                              ? parseFloat(
-                                  data.attributes.brands.data[0].attributes
-                                    .discount?.value
-                                )
-                              : 0
-                          )}
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="text-xl text-blue-400">
-                        {formatRupiah(
-                          parseFloat(
-                            parseFloat(
-                              data.attributes.brands.data[0].attributes.price
-                            ).toString()
-                          )
-                        )}
-                      </div>
-                    )}
 
                     <div className="bg-[#F3F4F6] p-2 mt-2 rounded-md">
                       <table className="text-[10px] md:text-[16px] font-light">
