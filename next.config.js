@@ -1,9 +1,8 @@
 const nextConfig = {
   reactStrictMode: false,
-  experimental: {
-    images: {
-      unoptimized: true,
-    },
+  images: {
+    loader: "imgix",
+    path: "/",
   },
   images: {
     domains: [
