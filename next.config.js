@@ -1,5 +1,6 @@
 const nextConfig = {
   reactStrictMode: false,
+  unoptimized: true,
   images: {
     domains: [
       "panel.wallpaperindonesia.com",
