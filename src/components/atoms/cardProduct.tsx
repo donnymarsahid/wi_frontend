@@ -77,6 +77,17 @@ export default function CardProduct({ item, keyPage }: any) {
                   <div className={`${cx(poppins, poppins.className)} ps-2`}>
                     <div className="flex flex-col mt-2 pb-2">
                       <div className="text-sm">
+                        {/* START */}
+                        <div
+                          className={`${
+                            item.attributes.discount ? "" : "hidden"
+                          } flex`}
+                        >
+                          <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
+                            {formatRupiah(parseFloat(item.attributes.price))}
+                          </p>
+                        </div>
+                        {/* END */}
                         {item.attributes?.pricePerMeter ? (
                           <div className="">
                             <p className="md:text-sm text-[9.5px] font-semibold">
