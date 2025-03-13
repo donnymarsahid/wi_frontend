@@ -84,15 +84,27 @@ export default function CardProduct({ item, keyPage }: any) {
                           } flex`}
                         >
                           <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
-                            {formatRupiah(parseFloat(item.attributes.price))}
+                            {formatRupiah(
+                              parseFloat(item.attributes.pricePerMeter)
+                            )}
                           </p>
                         </div>
                         {/* END */}
                         {item.attributes?.pricePerMeter ? (
                           <div className="">
                             <p className="md:text-sm text-[9.5px] font-semibold">
-                              {formatRupiah(
-                                Number(item.attributes.pricePerMeter)
+                              {!item.attributes.discount &&
+                                formatRupiah(
+                                  parseFloat(item.attributes.pricePerMeter)
+                                )}
+                              {calculateDiscount(
+                                parseFloat(item.attributes.pricePerMeter),
+                                item.attributes.discount?.type
+                                  ? item.attributes.discount?.type
+                                  : "",
+                                item.attributes.discount?.value
+                                  ? parseFloat(item.attributes.discount?.value)
+                                  : 0
                               )}{" "}
                               / m2
                             </p>
