@@ -77,6 +77,18 @@ export default function CardProduct({ item, keyPage }: any) {
                   <div className={`${cx(poppins, poppins.className)} ps-2`}>
                     <div className="flex flex-col mt-2 pb-2">
                       <div className="text-sm">
+                        {item.attributes?.pricePerMeter ? (
+                          <div className="">
+                            <p className="md:text-sm text-[9.5px] font-semibold">
+                              {formatRupiah(
+                                Number(item.attributes.pricePerMeter)
+                              )}{" "}
+                              / m2
+                            </p>
+                          </div>
+                        ) : (
+                          ""
+                        )}
                         {/* START */}
                         <div
                           className={`${
@@ -112,21 +124,11 @@ export default function CardProduct({ item, keyPage }: any) {
                           </p>
                         </div>
                       </div>
-                      {item.attributes?.pricePerMeter ? (
-                        <div className="flex justify-between items-center">
-                          <div></div>
-                          <p className="md:text-sm text-[9.5px] font-medium">
-                            {item.attributes.pricePerMeter}
-                          </p>
-                        </div>
-                      ) : (
-                        ""
-                      )}
                     </div>
                   </div>
                 </div>
                 <div
-                  className={`pe-2 absolute top-0 right-0 ${cx(
+                  className={`pe-2 absolute bottom-[5px] right-0 ${cx(
                     poppins,
                     poppins.className
                   )}`}

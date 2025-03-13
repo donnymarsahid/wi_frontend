@@ -83,122 +83,177 @@ const styles = `
 }
 `;
 
+// Versi Slider
+// export default function CarouselCategoriesSlider({
+//   categories,
+// }: HeroHomeProps) {
+//   return (
+//     <>
+//       <style>{styles}</style>
+//       <div className="carousel-container">
+//         <Carousel
+//           additionalTransfrom={0}
+//           arrows={true}
+//           centerMode={false}
+//           className=""
+//           containerClass="container-with-dots"
+//           dotListClass=""
+//           draggable={true}
+//           focusOnSelect={false}
+//           infinite
+//           itemClass=""
+//           keyBoardControl
+//           minimumTouchDrag={80}
+//           pauseOnHover
+//           customDot={<CustomDot />}
+//           renderArrowsWhenDisabled={false}
+//           renderButtonGroupOutside={false}
+//           renderDotsOutside={false}
+//           responsive={responsive}
+//           rewind={false}
+//           rewindWithAnimation={false}
+//           rtl={false}
+//           shouldResetAutoplay
+//           showDots={false}
+//           sliderClass=""
+//           slidesToSlide={1}
+//           swipeable
+//         >
+//           {categories
+//             .sort(
+//               (a, b) =>
+//                 new Date(b.attributes.date).getTime() -
+//                 new Date(a.attributes.date).getTime()
+//             )
+//             .map((item, index) => (
+//               <Link
+//                 href={`#${item.attributes.name}`}
+//                 className="mt-2"
+//                 key={index}
+//               >
+//                 <div
+//                   key={index}
+//                   className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4"
+//                 >
+//                   {item.attributes?.thumbnail?.data?.attributes?.url && (
+//                     <Image
+//                       src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
+//                       width={400}
+//                       height={400}
+//                       alt="wall"
+//                       className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
+//                     />
+//                   )}
+//                 </div>
+//                 <div>
+//                   <div className="w-full mb-4">
+//                     <div
+//                       className={`relative mt-[-20px] flex justify-center ${cx(
+//                         poppins,
+//                         poppins.className
+//                       )}`}
+//                     >
+//                       <h3 className="py-2 px-4 bg-white bg-opacity-90 rounded-2xl lg:text-[16px] text-[10px] text-center shadow-lg">
+//                         {item.attributes.name.replace("Lantai", "")}
+//                       </h3>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </Link>
+//             ))}
+//           {categories
+//             .sort(
+//               (a, b) =>
+//                 new Date(b.attributes.date).getTime() -
+//                 new Date(a.attributes.date).getTime()
+//             )
+//             .map((item, index) => (
+//               <Link href={""} className="mt-2" key={index}>
+//                 <div
+//                   key={index}
+//                   className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4"
+//                 >
+//                   {item.attributes?.thumbnail?.data?.attributes?.url && (
+//                     <Image
+//                       src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
+//                       width={400}
+//                       height={400}
+//                       alt="wall"
+//                       className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
+//                     />
+//                   )}
+//                 </div>
+//                 <div>
+//                   <div className="w-full">
+//                     <div
+//                       className={`relative mt-[-20px] flex justify-center ${cx(
+//                         poppins,
+//                         poppins.className
+//                       )}`}
+//                     >
+//                       <h3 className="py-2 px-4 bg-white bg-opacity-90 rounded-2xl lg:text-[16px] text-[10px] text-center shadow-lg">
+//                         {item.attributes.name.replace("Lantai", "")}
+//                       </h3>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </Link>
+//             ))}
+//         </Carousel>
+//       </div>
+//     </>
+//   );
+// }
+
+// Versi Tidak Slider
 export default function CarouselCategoriesSlider({
   categories,
 }: HeroHomeProps) {
   return (
     <>
-      <style>{styles}</style>
-      <div className="carousel-container">
-        <Carousel
-          additionalTransfrom={0}
-          arrows={true}
-          centerMode={false}
-          className=""
-          containerClass="container-with-dots"
-          dotListClass=""
-          draggable={true}
-          focusOnSelect={false}
-          infinite
-          itemClass=""
-          keyBoardControl
-          minimumTouchDrag={80}
-          pauseOnHover
-          customDot={<CustomDot />}
-          renderArrowsWhenDisabled={false}
-          renderButtonGroupOutside={false}
-          renderDotsOutside={false}
-          responsive={responsive}
-          rewind={false}
-          rewindWithAnimation={false}
-          rtl={false}
-          shouldResetAutoplay
-          showDots={false}
-          sliderClass=""
-          slidesToSlide={1}
-          swipeable
-        >
-          {categories
-            .sort(
-              (a, b) =>
-                new Date(b.attributes.date).getTime() -
-                new Date(a.attributes.date).getTime()
-            )
-            .map((item, index) => (
-              <Link
-                href={`#${item.attributes.name}`}
-                className="mt-2"
+      <div className="grid lg:grid-cols-6 md:grid-cols-4 grid-cols-3 gap-4">
+        {categories
+          .sort(
+            (a, b) =>
+              new Date(b.attributes.date).getTime() -
+              new Date(a.attributes.date).getTime()
+          )
+          .map((item, index) => (
+            <Link
+              href={`#${item.attributes.name}`}
+              className="w-full"
+              key={index}
+            >
+              <div
                 key={index}
+                className="relative overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4 w-full"
               >
-                <div
-                  key={index}
-                  className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4"
-                >
-                  {item.attributes?.thumbnail?.data?.attributes?.url && (
-                    <Image
-                      src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
-                      width={400}
-                      height={400}
-                      alt="wall"
-                      className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
-                    />
-                  )}
-                </div>
-                <div>
-                  <div className="w-full mb-4">
-                    <div
-                      className={`relative mt-[-20px] flex justify-center ${cx(
-                        poppins,
-                        poppins.className
-                      )}`}
-                    >
-                      <h3 className="py-2 px-4 bg-white bg-opacity-90 rounded-2xl lg:text-[16px] text-[10px] text-center shadow-lg">
-                        {item.attributes.name.replace("Lantai", "")}
-                      </h3>
-                    </div>
+                {item.attributes?.thumbnail?.data?.attributes?.url && (
+                  <Image
+                    src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
+                    width={400}
+                    height={400}
+                    alt="wall"
+                    className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
+                  />
+                )}
+              </div>
+              <div>
+                <div className="w-full">
+                  <div
+                    className={`relative mt-[-20px] flex justify-center ${cx(
+                      poppins,
+                      poppins.className
+                    )}`}
+                  >
+                    <h3 className="py-2 px-4 bg-white bg-opacity-90 rounded-2xl lg:text-[15px] text-[10px] text-center shadow-lg">
+                      {item.attributes.name.replace("Lantai", "")}
+                    </h3>
                   </div>
                 </div>
-              </Link>
-            ))}
-          {categories
-            .sort(
-              (a, b) =>
-                new Date(b.attributes.date).getTime() -
-                new Date(a.attributes.date).getTime()
-            )
-            .map((item, index) => (
-              <Link href={""} className="mt-2" key={index}>
-                <div
-                  key={index}
-                  className="relative mt-4 overflow-hidden cursor-pointer rounded-lg md:h-[98px] h-[60px] me-4"
-                >
-                  {item.attributes?.thumbnail?.data?.attributes?.url && (
-                    <Image
-                      src={`${STRAPI_URL}${item.attributes?.thumbnail?.data?.attributes?.url}`}
-                      width={400}
-                      height={400}
-                      alt="wall"
-                      className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
-                    />
-                  )}
-                </div>
-                <div>
-                  <div className="w-full">
-                    <div
-                      className={`relative mt-[-20px] flex justify-center ${cx(
-                        poppins,
-                        poppins.className
-                      )}`}
-                    >
-                      <h3 className="py-2 px-4 bg-white bg-opacity-90 rounded-2xl lg:text-[16px] text-[10px] text-center shadow-lg">
-                        {item.attributes.name.replace("Lantai", "")}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-        </Carousel>
+              </div>
+            </Link>
+          ))}
       </div>
     </>
   );

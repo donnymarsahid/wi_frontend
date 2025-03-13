@@ -102,7 +102,7 @@ export default async function SlugProducts(props: { params: tParams }) {
   const clearance = await getData({
     path: "brands",
     params: {
-      populate: "categories,sub_categories,images",
+      populate: "categories,sub_categories,images,discount",
       "fields[0]": "images",
       "fields[1]": "slug",
       "fields[2]": "title",
@@ -150,7 +150,8 @@ export default async function SlugProducts(props: { params: tParams }) {
   const subCategoriesSection = await getData({
     path: "sub-categories",
     params: {
-      populate: "brands,brands.images,banners,categories,thumbnail",
+      populate:
+        "brands,brands.images,banners,categories,thumbnail,brands.discount",
       "fields[0]": "banners",
       "fields[1]": "categories",
       "fields[2]": "name",
