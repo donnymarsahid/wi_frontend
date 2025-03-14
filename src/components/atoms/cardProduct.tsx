@@ -48,7 +48,7 @@ export default function CardProduct({ item, keyPage }: any) {
                   poppins.className
                 )} flex justify-between items-center p-2  border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
               >
-                <div className="md:text-xs text-[9px] text-[#474747]">
+                <div className="md:text-xs text-[7.3px] text-[#474747]">
                   <table>
                     <tbody>
                       <tr
