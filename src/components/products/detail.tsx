@@ -386,14 +386,18 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                 : "-"}
                             </td>
                           </tr>
-                          <tr>
-                            <td>Warna</td>
-                            <td>
-                              :{" "}
-                              {data.attributes?.wallpaper_by_colors?.data[0]
-                                ?.attributes?.title || "-"}
-                            </td>
-                          </tr>
+                          {data.attributes?.wallpaper_by_colors?.data[0]
+                            ?.attributes?.title && (
+                            <tr>
+                              <td>Warna</td>
+                              <td>
+                                :{" "}
+                                {data.attributes?.wallpaper_by_colors?.data[0]
+                                  ?.attributes?.title || "-"}
+                              </td>
+                            </tr>
+                          )}
+
                           {data.attributes?.brands?.data[0]?.attributes
                             ?.sub_categories.data[0]?.attributes?.categories
                             ?.data[0]?.attributes?.keyPageCondition ===
@@ -531,9 +535,13 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                     </button>
                   </div>
 
-                  <div className="mt-6">
-                    <WallpaperCalculator />
-                  </div>
+                  {data.attributes?.brands?.data[0]?.attributes?.sub_categories
+                    .data[0]?.attributes?.categories?.data[0]?.attributes
+                    ?.keyPageCondition === "wallpaper" && (
+                    <div className="mt-6">
+                      <WallpaperCalculator />
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -563,18 +571,24 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                       )
                       .slice(0, 6)
                       .map((item, index) => (
-                        <Link href={item.attributes?.slug || ""} key={index}>
+                        <Link
+                          href={`/products/${item.attributes?.slug || ""}`}
+                          key={index}
+                        >
                           <div className="relative mt-4 overflow-hidden cursor-pointer">
-                            {item.attributes?.images?.data[0]?.attributes
-                              ?.url && (
-                              <Image
-                                src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
-                                width={400}
-                                height={400}
-                                alt="wall"
-                                className="w-full md:h-[284px] h-[135px] object-cover transform transition-transform duration-500 hover:scale-110"
-                              />
-                            )}
+                            {item.attributes?.images?.data?.length &&
+                              item.attributes?.images?.data[0]?.attributes
+                                ?.url && (
+                                <Image
+                                  src={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}`}
+                                  placeholder="blur"
+                                  blurDataURL={`${STRAPI_URL}${item.attributes.images.data[0].attributes.url}?w=30&q=10`} // Placeholder low-res
+                                  width={400}
+                                  height={400}
+                                  alt="wall"
+                                  className="w-full object-cover transform transition-transform duration-500 hover:scale-110"
+                                />
+                              )}
                           </div>
                           <div>
                             <div className="w-full">
@@ -589,7 +603,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                     item?.attributes?.brands?.data[0]
                                       ?.attributes?.title
                                   }{" "}
-                                  {item?.attributes?.title}
+                                  {item.attributes.title}
                                 </h3>
                                 <div
                                   className={`${cx(
@@ -612,38 +626,39 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                           <td>
                                             :{" "}
                                             {
-                                              item?.attributes?.brands?.data[0]
-                                                ?.attributes?.thickness
-                                            }{" "}
+                                              item.attributes?.brands?.data[0]
+                                                ?.attributes.thickness
+                                            }
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td>
+                                            <p className="">Ukuran</p>
+                                          </td>
+                                          <td>
+                                            <span className="inline-block whitespace-normal break-words">
+                                              : Panjang{" "}
+                                              {item.attributes.size_height}{" "}
+                                              {
+                                                item.attributes?.brands?.data[0]
+                                                  ?.attributes
+                                                  .unitOfMeasureHeight
+                                              }{" "}
+                                              x Lebar{" "}
+                                              {
+                                                item.attributes?.brands?.data[0]
+                                                  ?.attributes.size_width
+                                              }{" "}
+                                              {
+                                                item.attributes?.brands?.data[0]
+                                                  ?.attributes
+                                                  .unitOfMeasureWidth
+                                              }
+                                            </span>
                                           </td>
                                         </tr>
                                       </tbody>
                                     </table>
-                                    <div>
-                                      <p className="font-medium">
-                                        Ukuran:{" "}
-                                        <span className="inline-block whitespace-normal break-words">
-                                          Panjang{" "}
-                                          {
-                                            item?.attributes?.brands?.data[0]
-                                              ?.attributes?.size_height
-                                          }{" "}
-                                          {
-                                            item?.attributes?.brands?.data[0]
-                                              ?.attributes?.unitOfMeasureHeight
-                                          }{" "}
-                                          x Lebar{" "}
-                                          {
-                                            item?.attributes?.brands?.data[0]
-                                              ?.attributes?.size_width
-                                          }{" "}
-                                          {
-                                            item?.attributes?.brands?.data[0]
-                                              ?.attributes?.unitOfMeasureWidth
-                                          }
-                                        </span>
-                                      </p>
-                                    </div>
                                   </div>
                                 </div>
                                 <div className="flex justify-between border-l-[1px] border-r-[1px] border-b-[1px] border-[#A5A5A5] relative">
@@ -659,7 +674,72 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                           {/* START */}
                                           <div
                                             className={`${
-                                              item?.attributes?.brands?.data[0]
+                                              item.attributes?.brands?.data[0]
+                                                ?.attributes?.discount &&
+                                              item.attributes?.brands?.data[0]
+                                                ?.attributes?.pricePerMeter
+                                                ? ""
+                                                : "hidden"
+                                            } flex`}
+                                          >
+                                            <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
+                                              {formatRupiah(
+                                                parseFloat(
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    ?.pricePerMeter
+                                                )
+                                              )}
+                                            </p>
+                                          </div>
+                                          {/* END */}
+                                          {item.attributes?.brands?.data[0]
+                                            ?.attributes?.pricePerMeter ? (
+                                            <div className="">
+                                              <p className="md:text-sm text-[9.5px] font-semibold">
+                                                {!item.attributes?.brands
+                                                  ?.data[0]?.attributes
+                                                  ?.discount &&
+                                                  formatRupiah(
+                                                    parseFloat(
+                                                      item.attributes?.brands
+                                                        ?.data[0]?.attributes
+                                                        ?.pricePerMeter
+                                                    )
+                                                  )}
+                                                {calculateDiscount(
+                                                  parseFloat(
+                                                    item.attributes?.brands
+                                                      ?.data[0]?.attributes
+                                                      ?.pricePerMeter
+                                                  ),
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    ?.discount?.type
+                                                    ? item.attributes?.brands
+                                                        ?.data[0]?.attributes
+                                                        ?.discount?.type
+                                                    : "",
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    ?.discount?.value
+                                                    ? parseFloat(
+                                                        item.attributes?.brands
+                                                          ?.data[0]?.attributes
+                                                          ?.discount?.value
+                                                      )
+                                                    : 0
+                                                )}{" "}
+                                                / m2
+                                              </p>
+                                            </div>
+                                          ) : (
+                                            ""
+                                          )}
+                                          {/* START */}
+                                          <div
+                                            className={`${
+                                              item.attributes?.brands?.data[0]
                                                 ?.attributes?.discount
                                                 ? ""
                                                 : "hidden"
@@ -668,7 +748,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                             <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
                                               {formatRupiah(
                                                 parseFloat(
-                                                  item?.attributes?.brands
+                                                  item.attributes?.brands
                                                     ?.data[0]?.attributes?.price
                                                 )
                                               )}
@@ -679,33 +759,30 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                         <div className="text-[14.5px]">
                                           <div>
                                             <p className="md:text-[17.5px] text-[12.5px] font-bold">
-                                              {!item?.attributes?.brands
-                                                ?.data[0]?.attributes
-                                                ?.discount &&
+                                              {!item.attributes?.brands?.data[0]
+                                                ?.attributes?.discount &&
                                                 formatRupiah(
                                                   parseFloat(
-                                                    item?.attributes?.brands
+                                                    item.attributes?.brands
                                                       ?.data[0]?.attributes
                                                       ?.price
                                                   )
                                                 )}
                                               {calculateDiscount(
                                                 parseFloat(
-                                                  item?.attributes?.brands
+                                                  item.attributes?.brands
                                                     ?.data[0]?.attributes?.price
                                                 ),
-                                                item?.attributes?.brands
-                                                  ?.data[0]?.attributes
-                                                  ?.discount?.type
-                                                  ? item?.attributes?.brands
+                                                item.attributes?.brands?.data[0]
+                                                  ?.attributes?.discount?.type
+                                                  ? item.attributes?.brands
                                                       ?.data[0]?.attributes
                                                       ?.discount?.type
                                                   : "",
-                                                item?.attributes?.brands
-                                                  ?.data[0]?.attributes
-                                                  ?.discount?.value
+                                                item.attributes?.brands?.data[0]
+                                                  ?.attributes?.discount?.value
                                                   ? parseFloat(
-                                                      item?.attributes?.brands
+                                                      item.attributes?.brands
                                                         ?.data[0]?.attributes
                                                         ?.discount?.value
                                                     )
@@ -713,10 +790,10 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                               )}{" "}
                                               /{" "}
                                               <span className="capitalize md:text-[17.5px] text-[12.5px] font-bold">
-                                                {item?.attributes?.brands
+                                                {item.attributes?.brands
                                                   ?.data[0]?.attributes?.unit
                                                   ? String(
-                                                      item?.attributes?.brands
+                                                      item.attributes?.brands
                                                         ?.data[0]?.attributes
                                                         ?.unit
                                                     ).toLowerCase()
@@ -725,45 +802,30 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                             </p>
                                           </div>
                                         </div>
-                                        {item?.attributes?.brands?.data[0]
-                                          ?.attributes?.pricePerMeter ? (
-                                          <div className="flex justify-between items-center">
-                                            <div></div>
-                                            <p className="md:text-sm text-[9.5px] font-medium">
-                                              {
-                                                item?.attributes?.brands
-                                                  ?.data[0]?.attributes
-                                                  ?.pricePerMeter
-                                              }
-                                            </p>
-                                          </div>
-                                        ) : (
-                                          ""
-                                        )}
                                       </div>
                                     </div>
                                   </div>
                                   <div
-                                    className={`pe-2 absolute top-0 right-0 ${cx(
+                                    className={`pe-2 absolute bottom-[5px] right-0 ${cx(
                                       poppins,
                                       poppins.className
                                     )}`}
                                   >
-                                    {item?.attributes?.brands?.data[0]
+                                    {item.attributes?.brands?.data[0]
                                       ?.attributes?.discount ? (
                                       <>
                                         <div className="shadow-lg flex flex-row items-center justify-center bg-gradient-to-r from-[#FF0000] to-red-700 rounded-md md:px-4 md:py-2 text-white border-[1px] border-white p-1">
                                           <p className="font-bold md:text-[18px] text-[12px]">
-                                            {item?.attributes?.brands?.data[0]
+                                            {item.attributes?.brands?.data[0]
                                               ?.attributes?.discount?.type ==
                                             "discount_percentage"
-                                              ? `${item?.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
+                                              ? `${item.attributes?.brands?.data[0]?.attributes?.discount?.value}%`
                                               : formatNumberToLetter(
-                                                  item?.attributes?.brands
+                                                  item.attributes?.brands
                                                     ?.data[0]?.attributes
                                                     ?.discount?.value
                                                     ? parseFloat(
-                                                        item?.attributes?.brands
+                                                        item.attributes?.brands
                                                           ?.data[0]?.attributes
                                                           ?.discount?.value
                                                       )

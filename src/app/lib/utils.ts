@@ -45,9 +45,9 @@ export const calculateDiscount = (
 ) => {
   if (type == "discount_percentage") {
     const getNominalPercentage = number * (value / 100);
-    return formatRupiah(number - getNominalPercentage);
+    return formatRupiah(Math.round(number - getNominalPercentage));
   } else if (type == "discount_rupiah") {
-    return formatRupiah(number - value);
+    return formatRupiah(Math.round(number - value));
   }
 };
 

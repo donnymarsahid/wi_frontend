@@ -57,19 +57,21 @@ export default function CardProduct({ item, keyPage }: any) {
                         <td>Ketebalan</td>
                         <td>: {item.attributes.thickness}</td>
                       </tr>
+                      <tr>
+                        <td>
+                          <p className="">Ukuran</p>
+                        </td>
+                        <td>
+                          <span className="inline-block whitespace-normal break-words">
+                            : Panjang {item.attributes.size_height}{" "}
+                            {item.attributes?.unitOfMeasureHeight} x Lebar{" "}
+                            {item.attributes.size_width}{" "}
+                            {item.attributes?.unitOfMeasureWidth}
+                          </span>
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
-                  <div>
-                    <p className="font-medium">
-                      Ukuran:{" "}
-                      <span className="inline-block whitespace-normal break-words">
-                        Panjang {item.attributes.size_height}{" "}
-                        {item.attributes?.unitOfMeasureHeight} x Lebar{" "}
-                        {item.attributes.size_width}{" "}
-                        {item.attributes?.unitOfMeasureWidth}
-                      </span>
-                    </p>
-                  </div>
                 </div>
               </div>
               <div className="flex justify-between border-l-[1px] border-r-[1px] border-b-[1px] border-[#A5A5A5] relative">
@@ -80,7 +82,10 @@ export default function CardProduct({ item, keyPage }: any) {
                         {/* START */}
                         <div
                           className={`${
-                            item.attributes.discount ? "" : "hidden"
+                            item.attributes.discount &&
+                            item.attributes?.pricePerMeter
+                              ? ""
+                              : "hidden"
                           } flex`}
                         >
                           <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
