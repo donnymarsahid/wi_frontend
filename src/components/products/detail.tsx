@@ -622,44 +622,60 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                               : "hidden"
                                           }
                                         >
-                                          <td>Ketebalan</td>
+                                          <td className="flex items-start">
+                                            <p className="flex flex-row justify-between w-full">
+                                              Ketebalan <span>:</span>
+                                            </p>
+                                          </td>
                                           <td>
-                                            :{" "}
                                             {
                                               item.attributes?.brands?.data[0]
                                                 ?.attributes.thickness
                                             }
                                           </td>
                                         </tr>
-                                        <tr>
-                                          <td className="flex items-start">
-                                            <p className="">Ukuran</p>
-                                          </td>
-                                          <td>
-                                            <span className="inline-block whitespace-normal break-words">
-                                              : Panjang{" "}
-                                              {
-                                                item.attributes?.brands?.data[0]
-                                                  ?.attributes?.size_height
-                                              }{" "}
-                                              {
-                                                item.attributes?.brands?.data[0]
-                                                  ?.attributes
-                                                  .unitOfMeasureHeight
-                                              }{" "}
-                                              x Lebar{" "}
-                                              {
-                                                item.attributes?.brands?.data[0]
-                                                  ?.attributes.size_width
-                                              }{" "}
-                                              {
-                                                item.attributes?.brands?.data[0]
-                                                  ?.attributes
-                                                  .unitOfMeasureWidth
-                                              }
-                                            </span>
-                                          </td>
-                                        </tr>
+                                        {item.attributes?.brands?.data[0]
+                                          ?.attributes?.size_height &&
+                                        item.attributes?.brands?.data[0]
+                                          ?.attributes.size_width ? (
+                                          <tr>
+                                            <td className="flex items-start">
+                                              <td className="flex items-start">
+                                                <p className="flex flex-row justify-between w-full">
+                                                  Ukuran <span>:</span>
+                                                </p>
+                                              </td>
+                                            </td>
+                                            <td>
+                                              <span className="inline-block whitespace-normal break-words">
+                                                Panjang{" "}
+                                                {
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    ?.size_height
+                                                }{" "}
+                                                {
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    .unitOfMeasureHeight
+                                                }{" "}
+                                                x Lebar{" "}
+                                                {
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    .size_width
+                                                }{" "}
+                                                {
+                                                  item.attributes?.brands
+                                                    ?.data[0]?.attributes
+                                                    .unitOfMeasureWidth
+                                                }
+                                              </span>
+                                            </td>
+                                          </tr>
+                                        ) : (
+                                          ""
+                                        )}
                                       </tbody>
                                     </table>
                                   </div>

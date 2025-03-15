@@ -54,22 +54,33 @@ export default function CardProduct({ item, keyPage }: any) {
                       <tr
                         className={item.attributes?.thickness ? "" : "hidden"}
                       >
-                        <td>Ketebalan</td>
-                        <td>: {item.attributes.thickness}</td>
-                      </tr>
-                      <tr>
                         <td className="flex items-start">
-                          <p className="">Ukuran</p>
+                          <p className="flex flex-row justify-between w-full">
+                            Ketebalan <span>:</span>
+                          </p>
                         </td>
-                        <td>
-                          <span className="inline-block whitespace-normal break-words">
-                            : Panjang {item.attributes.size_height}{" "}
-                            {item.attributes?.unitOfMeasureHeight} x Lebar{" "}
-                            {item.attributes.size_width}{" "}
-                            {item.attributes?.unitOfMeasureWidth}
-                          </span>
-                        </td>
+                        <td>{item.attributes.thickness}</td>
                       </tr>
+                      {item.attributes.size_height &&
+                      item.attributes.size_width ? (
+                        <tr>
+                          <td className="flex items-start">
+                            <p className="flex flex-row justify-between w-full">
+                              Ukuran <span>:</span>
+                            </p>
+                          </td>
+                          <td>
+                            <span className="inline-block whitespace-normal break-words">
+                              Panjang {item.attributes.size_height}{" "}
+                              {item.attributes?.unitOfMeasureHeight} x Lebar{" "}
+                              {item.attributes.size_width}{" "}
+                              {item.attributes?.unitOfMeasureWidth}
+                            </span>
+                          </td>
+                        </tr>
+                      ) : (
+                        ""
+                      )}
                     </tbody>
                   </table>
                 </div>
