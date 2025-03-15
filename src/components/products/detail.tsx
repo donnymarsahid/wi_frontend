@@ -640,11 +640,9 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                           ?.attributes.size_width ? (
                                           <tr>
                                             <td className="flex items-start">
-                                              <td className="flex items-start">
-                                                <p className="flex flex-row justify-between w-full">
-                                                  Ukuran <span>:</span>
-                                                </p>
-                                              </td>
+                                              <p className="flex flex-row justify-between w-full">
+                                                Ukuran <span>:</span>
+                                              </p>
                                             </td>
                                             <td>
                                               <span className="inline-block whitespace-normal break-words">
