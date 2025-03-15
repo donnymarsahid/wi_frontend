@@ -114,6 +114,7 @@ export default async function SlugProducts(props: { params: tParams }) {
       "fields[8]": "price",
       "fields[9]": "pricePerMeter",
       "fields[10]": "unit",
+      "fields[11]": "unitOfMeasureWidth",
       "filters[categories][slug][$eq]": "wallpaper",
       "filters[sub_categories][slug][$eq]": "clearance",
     },
