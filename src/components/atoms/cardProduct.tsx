@@ -58,7 +58,7 @@ export default function CardProduct({ item, keyPage }: any) {
                         <td>: {item.attributes.thickness}</td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="flex items-start">
                           <p className="">Ukuran</p>
                         </td>
                         <td>
@@ -131,7 +131,7 @@ export default function CardProduct({ item, keyPage }: any) {
                       </div>
                       <div className="text-[14.5px]">
                         <div>
-                          <p className="md:text-[17.5px] text-[10.8px] font-bold">
+                          <p className="md:text-[17.5px] text-[12.5px] font-bold">
                             {!item.attributes.discount &&
                               formatRupiah(parseFloat(item.attributes.price))}
                             {calculateDiscount(
@@ -144,7 +144,7 @@ export default function CardProduct({ item, keyPage }: any) {
                                 : 0
                             )}{" "}
                             /{" "}
-                            <span className="capitalize md:text-[17.5px] text-[10.8px] font-bold">
+                            <span className="capitalize md:text-[17.5px] text-[12.5px] font-bold">
                               {item.attributes.unit
                                 ? String(item.attributes.unit).toLowerCase()
                                 : ""}
@@ -156,7 +156,7 @@ export default function CardProduct({ item, keyPage }: any) {
                   </div>
                 </div>
                 <div
-                  className={`pe-2 absolute bottom-[5px] right-0 ${cx(
+                  className={`pe-2 absolute bottom-[27px] md:bottom-[5px] right-0 ${cx(
                     poppins,
                     poppins.className
                   )}`}

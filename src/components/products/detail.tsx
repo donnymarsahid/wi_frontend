@@ -632,13 +632,16 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                           </td>
                                         </tr>
                                         <tr>
-                                          <td>
+                                          <td className="flex items-start">
                                             <p className="">Ukuran</p>
                                           </td>
                                           <td>
                                             <span className="inline-block whitespace-normal break-words">
                                               : Panjang{" "}
-                                              {item.attributes.size_height}{" "}
+                                              {
+                                                item.attributes?.brands?.data[0]
+                                                  ?.attributes?.size_height
+                                              }{" "}
                                               {
                                                 item.attributes?.brands?.data[0]
                                                   ?.attributes
@@ -758,7 +761,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                         </div>
                                         <div className="text-[14.5px]">
                                           <div>
-                                            <p className="md:text-[17.5px] text-[9px] font-bold">
+                                            <p className="md:text-[17.5px] text-[12px] font-bold">
                                               {!item.attributes?.brands?.data[0]
                                                 ?.attributes?.discount &&
                                                 formatRupiah(
@@ -789,7 +792,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                                   : 0
                                               )}{" "}
                                               /{" "}
-                                              <span className="capitalize md:text-[17.5px] text-[9px] font-bold">
+                                              <span className="capitalize md:text-[17.5px] text-[12px] font-bold">
                                                 {item.attributes?.brands
                                                   ?.data[0]?.attributes?.unit
                                                   ? String(
@@ -806,7 +809,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                     </div>
                                   </div>
                                   <div
-                                    className={`pe-2 absolute bottom-[5px] right-0 ${cx(
+                                    className={`pe-2 absolute bottom-[27px] md:bottom-[5px] right-0 ${cx(
                                       poppins,
                                       poppins.className
                                     )}`}

@@ -68,12 +68,16 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                         </td>
                       </tr>
                       <tr>
-                        <td>
+                        <td className="flex items-start">
                           <p className="">Ukuran</p>
                         </td>
                         <td>
                           <span className="inline-block whitespace-normal break-words">
-                            : Panjang {item.attributes.size_height}{" "}
+                            : Panjang{" "}
+                            {
+                              item.attributes?.brands?.data[0]?.attributes
+                                .size_height
+                            }{" "}
                             {
                               item.attributes?.brands?.data[0]?.attributes
                                 .unitOfMeasureHeight
@@ -178,7 +182,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                       </div>
                       <div className="text-[14.5px]">
                         <div>
-                          <p className="md:text-[17.5px] text-[10.8px] font-bold">
+                          <p className="md:text-[17.5px] text-[12.5px] font-bold">
                             {!item.attributes?.brands?.data[0]?.attributes
                               ?.discount &&
                               formatRupiah(
@@ -206,7 +210,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                                 : 0
                             )}{" "}
                             /{" "}
-                            <span className="capitalize md:text-[17.5px] text-[10.8px] font-bold">
+                            <span className="capitalize md:text-[17.5px] text-[12.5px] font-bold">
                               {item.attributes?.brands?.data[0]?.attributes
                                 ?.unit
                                 ? String(
@@ -222,7 +226,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                   </div>
                 </div>
                 <div
-                  className={`pe-2 absolute bottom-[5px] right-0 ${cx(
+                  className={`pe-2 absolute bottom-[27px] md:bottom-[5px] right-0 ${cx(
                     poppins,
                     poppins.className
                   )}`}
