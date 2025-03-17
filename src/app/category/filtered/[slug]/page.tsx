@@ -1,5 +1,6 @@
 import { getData } from "@/app/utils/fetching";
 import List from "@/components/listProductFiltered/detail";
+import { decodeText, restoreAmpersand } from "@/lib/utils";
 import { BrandsProps } from "@/types/brands";
 import { ProductsProps } from "@/types/products";
 import { WallpaperByGeneralProps } from "@/types/wallpaperByGeneral";
@@ -54,7 +55,9 @@ export default async function SlugProducts(props: {
 }) {
   const slug = (await props.params).slug;
   const page = (await props.searchParams).page;
-  const title = (await props.searchParams).title;
+  const title = restoreAmpersand(
+    decodeText((await props.searchParams).title).replace("+", " ")
+  );
   const colors = (await props.searchParams).colors?.split(",");
   const styles = (await props.searchParams).styles?.split(",");
   const designers = (await props.searchParams).designers?.split(",");
@@ -93,7 +96,8 @@ export default async function SlugProducts(props: {
     const field = categoriesMap[category];
 
     // Masukin ke $or sesuai field
-    queryProducts[`filters[$or][${orIndex}][${field}][title][$eq]`] = item;
+    queryProducts[`filters[$or][${orIndex}][${field}][title][$eq]`] =
+      restoreAmpersand(decodeText(item).replace("+", " "));
 
     orIndex++;
   });
