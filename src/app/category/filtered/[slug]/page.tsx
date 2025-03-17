@@ -80,10 +80,7 @@ export default async function SlugProducts(props: {
     queryProducts = {
       populate: `discount,images,brands,brands.discount,brands.categories,wallpaper_by_styles,wallpaper_by_colors,wallpaper_by_designers`,
       "sort[0]": "date:desc",
-      // [`filters[${categoriesMap[category]}][slug][$eq]`]: slugValue,
-      "filters[brands][categories][slug][$eq]": "wallpaper",
-      // "pagination[page]": page,
-      // "pagination[pageSize]": "9",
+      "pagination[page]": "1",
       "pagination[pageSize]": "9999",
     };
   }
