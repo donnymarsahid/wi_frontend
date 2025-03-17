@@ -115,6 +115,8 @@ export default async function SlugProducts(props: {
     params: queryProducts,
   });
 
+  console.log(products.data.length, "products length");
+
   return (
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">

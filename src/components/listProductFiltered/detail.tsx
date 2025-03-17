@@ -206,6 +206,7 @@ export default function List({
       setWallpaper_by_colors(wallpaper_by_colors.data);
       setWallpaper_by_styles(wallpaper_by_styles.data);
       setWallpaper_by_designers(wallpaper_by_designers.data);
+      setLoadFetchWallpaperBy(false);
     } catch (error) {
       console.log(error);
     } finally {
@@ -287,18 +288,12 @@ export default function List({
               <div className="md:col-span-1 col-span-3 mt-[-30px] md:mt-0">
                 <div className="space-y-5 animate-pulse w-full mt-4">
                   <div className="flex items-center w-full space-x-2">
-                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
-                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
                     <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
                   </div>
                   <div className="flex items-center w-full space-x-2">
-                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
-                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
                     <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
                   </div>
                   <div className="flex items-center w-full space-x-2">
-                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
-                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
                     <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
                   </div>
                 </div>
@@ -415,20 +410,8 @@ export default function List({
                   <div className="space-y-2 mb-4">
                     {isOpenColor &&
                       wallpaper_by_colors.map((color, index) => {
-                        const [filterValue, filterType] = slug.split("--");
-                        let filteredProducts = null;
-
-                        if (filterType !== "wallpaper-by-color") {
-                          filteredProducts =
-                            color?.attributes?.products?.data?.filter((item) =>
-                              item?.attributes?.[convertField()]?.data?.some(
-                                (category) =>
-                                  category.attributes.slug === filterValue
-                              )
-                            ) || [];
-                        } else {
-                          filteredProducts = color?.attributes?.products?.data;
-                        }
+                        let filteredProducts =
+                          color?.attributes?.products?.data?.length ?? 0;
 
                         return (
                           <label
@@ -446,8 +429,7 @@ export default function List({
                               }
                             />
                             <span className="ml-2 text-gray-700">
-                              {color.attributes.title} (
-                              {filteredProducts?.length})
+                              {color.attributes.title} ({filteredProducts})
                             </span>
                           </label>
                         );
@@ -514,21 +496,8 @@ export default function List({
                   <div className="space-y-2 mb-4">
                     {isOpenMotif &&
                       wallpaper_by_styles.map((motif, index) => {
-                        const [filterValue, filterType] = slug.split("--");
-                        let filteredProducts = null;
-
-                        if (filterType !== "wallpaper-by-style") {
-                          filteredProducts =
-                            motif?.attributes?.products?.data?.filter((item) =>
-                              item?.attributes?.[convertField()]?.data?.some(
-                                (category) =>
-                                  category.attributes.slug === filterValue
-                              )
-                            ) || [];
-                        } else {
-                          filteredProducts = motif?.attributes?.products?.data;
-                        }
-
+                        let filteredProducts =
+                          motif?.attributes?.products?.data?.length ?? 0;
                         return (
                           <label
                             key={index}
@@ -545,8 +514,7 @@ export default function List({
                               }
                             />
                             <span className="ml-2 text-gray-700">
-                              {motif.attributes.title} (
-                              {filteredProducts?.length})
+                              {motif.attributes.title} ({filteredProducts})
                             </span>
                           </label>
                         );
@@ -612,22 +580,8 @@ export default function List({
                   <div className="space-y-2 mb-4">
                     {isOpenDesigner &&
                       wallpaper_by_designers.map((designer, index) => {
-                        const [filterValue, filterType] = slug.split("--");
-                        let filteredProducts = null;
-
-                        if (filterType !== "wallpaper-by-designer") {
-                          filteredProducts =
-                            designer?.attributes?.products?.data?.filter(
-                              (item) =>
-                                item?.attributes?.[convertField()]?.data?.some(
-                                  (category) =>
-                                    category.attributes.slug === filterValue
-                                )
-                            ) || [];
-                        } else {
-                          filteredProducts =
-                            designer?.attributes?.products?.data;
-                        }
+                        let filteredProducts =
+                          designer?.attributes?.products?.data?.length ?? 0;
 
                         return (
                           <label
@@ -647,8 +601,7 @@ export default function List({
                               }
                             />
                             <span className="ml-2 text-gray-700">
-                              {designer.attributes.title} (
-                              {filteredProducts?.length})
+                              {designer.attributes.title} ({filteredProducts})
                             </span>
                           </label>
                         );
