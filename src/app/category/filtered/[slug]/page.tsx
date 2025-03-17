@@ -54,6 +54,7 @@ export default async function SlugProducts(props: {
 }) {
   const slug = (await props.params).slug;
   const page = (await props.searchParams).page;
+  const title = (await props.searchParams).title;
   const colors = (await props.searchParams).colors?.split(",");
   const styles = (await props.searchParams).styles?.split(",");
   const designers = (await props.searchParams).designers?.split(",");
@@ -85,34 +86,55 @@ export default async function SlugProducts(props: {
     };
   }
 
+  let orIndex = 0; // Buat urutan OR filter
+
+  // Multiple (Dynamic categories)
   multiple.forEach((item, index) => {
-    queryProducts[
-      `filters[${categoriesMap[category]}][title][[$in][${index}]`
-    ] = multiple[index];
+    const field = categoriesMap[category];
+
+    // Masukin ke $or sesuai field
+    queryProducts[`filters[$or][${orIndex}][${field}][title][$eq]`] = item;
+
+    orIndex++;
   });
 
   // Colors
-  for (let i = 0; i < colors?.length; i++) {
-    queryProducts[`filters[wallpaper_by_colors][title][[$in][${i}]`] =
-      colors[i];
+  if (colors?.length > 0) {
+    for (let i = 0; i < colors.length; i++) {
+      if (colors[i] !== title)
+        queryProducts[
+          `filters[$or][${orIndex}][wallpaper_by_colors][title][$eq]`
+        ] = colors[i];
+      orIndex++;
+    }
   }
+
   // Styles
-  for (let i = 0; i < styles?.length; i++) {
-    queryProducts[`filters[wallpaper_by_styles][title][[$in][${i}]`] =
-      styles[i];
+  if (styles?.length > 0) {
+    for (let i = 0; i < styles.length; i++) {
+      if (slugs[i] !== title)
+        queryProducts[
+          `filters[$or][${orIndex}][wallpaper_by_styles][title][$eq]`
+        ] = styles[i];
+      orIndex++;
+    }
   }
+
   // Designers
-  for (let i = 0; i < designers?.length; i++) {
-    queryProducts[`filters[wallpaper_by_designers][title][[$in][${i}]`] =
-      designers[i];
+  if (designers?.length > 0) {
+    for (let i = 0; i < designers.length; i++) {
+      if (designers[i] !== title)
+        queryProducts[
+          `filters[$or][${orIndex}][wallpaper_by_designers][title][$eq]`
+        ] = designers[i];
+      orIndex++;
+    }
   }
 
   const products: ProductsProps = await getData({
     path: `products`,
     params: queryProducts,
   });
-
-  console.log(products.data.length, "products length");
 
   return (
     <>

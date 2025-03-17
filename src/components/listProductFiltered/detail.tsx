@@ -39,7 +39,7 @@ export default function List({
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
 
   const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
-    useState<boolean>(false);
+    useState<boolean>(true);
 
   // Wallpaper By
   const [wallpaper_by_colors, setWallpaper_by_colors] = useState<
