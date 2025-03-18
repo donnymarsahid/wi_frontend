@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import Link from "next/link";
 import cx from "classnames";
 import { poppins } from "@/app/fonts";
@@ -38,6 +38,8 @@ export default function List({
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
 
+  const slugType = useMemo(() => slug.split("--")[1], [slug]);
+
   const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
     useState<boolean>(true);
 
@@ -55,13 +57,13 @@ export default function List({
   const router = useRouter();
 
   const [isOpenColor, setIsOpenColor] = useState(
-    slug.split("--")[1] === "wallpaper-by-color" ? true : false
+    slugType === "wallpaper-by-color" ? true : false
   );
   const [isOpenMotif, setIsOpenMotif] = useState(
-    slug.split("--")[1] === "wallpaper-by-style" ? true : false
+    slugType === "wallpaper-by-style" ? true : false
   );
   const [isOpenDesigner, setIsOpenDesigner] = useState(
-    slug.split("--")[1] === "wallpaper-by-designer" ? true : false
+    slugType === "wallpaper-by-designer" ? true : false
   );
 
   const path = buildPathWithQueryParams(
@@ -140,7 +142,17 @@ export default function List({
       .replace(/\b\w/g, (char) => char.toUpperCase()); // Kapitalisasi setiap kata
   }
 
+  // Buat flag untuk masing-masing state
+  const isFirstRenderColors = useRef(true);
+  const isFirstRenderMotifs = useRef(true);
+  const isFirstRenderDesigners = useRef(true);
+
   useEffect(() => {
+    if (isFirstRenderColors.current) {
+      isFirstRenderColors.current = false;
+      return; // Skip first render
+    }
+
     const result = selectedColors.join(",");
     const href = buildPathWithQueryParams(path, {
       colors: result,
@@ -150,6 +162,11 @@ export default function List({
   }, [selectedColors]);
 
   useEffect(() => {
+    if (isFirstRenderMotifs.current) {
+      isFirstRenderMotifs.current = false;
+      return; // Skip first render
+    }
+
     const result = selectedMotifs.join(",");
     const href = buildPathWithQueryParams(path, {
       styles: result,
@@ -159,6 +176,11 @@ export default function List({
   }, [selectedMotifs]);
 
   useEffect(() => {
+    if (isFirstRenderDesigners.current) {
+      isFirstRenderDesigners.current = false;
+      return; // Skip first render
+    }
+
     const result = selectedDesigners.join(",");
     const href = buildPathWithQueryParams(path, {
       designers: result,
@@ -168,11 +190,9 @@ export default function List({
   }, [selectedDesigners]);
 
   const convertField = () => {
-    if (slug.split("--")[1] === "wallpaper-by-color")
-      return "wallpaper_by_colors";
-    else if (slug.split("--")[1] === "wallpaper-by-style")
-      return "wallpaper_by_styles";
-    else if (slug.split("--")[1] === "wallpaper-by-designer")
+    if (slugType === "wallpaper-by-color") return "wallpaper_by_colors";
+    else if (slugType === "wallpaper-by-style") return "wallpaper_by_styles";
+    else if (slugType === "wallpaper-by-designer")
       return "wallpaper_by_designers";
   };
 
@@ -227,20 +247,16 @@ export default function List({
       for (const item of selected) {
         result.push(decodeText(restoreAmpersand(item)));
       }
-      if (slug.split("--")[1] === "wallpaper-by-color")
-        setSelectedColors(result);
-      else if (slug.split("--")[1] === "wallpaper-by-style")
-        setSelectedMotifs(result);
-      else if (slug.split("--")[1] === "wallpaper-by-designer")
+      if (slugType === "wallpaper-by-color") setSelectedColors(result);
+      else if (slugType === "wallpaper-by-style") setSelectedMotifs(result);
+      else if (slugType === "wallpaper-by-designer")
         setSelectedDesigners(result);
     } else {
-      if (slug.split("--")[1] === "wallpaper-by-color") setSelectedColors([]);
-      else if (slug.split("--")[1] === "wallpaper-by-style")
-        setSelectedMotifs([]);
-      else if (slug.split("--")[1] === "wallpaper-by-designer")
-        setSelectedDesigners([]);
+      if (slugType === "wallpaper-by-color") setSelectedColors([]);
+      else if (slugType === "wallpaper-by-style") setSelectedMotifs([]);
+      else if (slugType === "wallpaper-by-designer") setSelectedDesigners([]);
     }
-  }, []);
+  }, [searchParams.multiple]);
 
   return (
     <div className="mt-10 mb-10">
