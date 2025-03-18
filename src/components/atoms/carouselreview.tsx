@@ -180,13 +180,13 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               </div>
               <div
                 className={`${
-                  item.attributes.images.data.length === 1 ? "" : "hidden"
+                  item?.attributes?.images?.data?.length === 1 ? "" : "hidden"
                 }`}
               >
                 <div>
                   <Image
                     src={
-                      item.attributes.images.data[0]?.attributes?.url
+                      item.attributes?.images?.data?.length
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
                         : "/assets/images/review.png"
                     } // replace with your image path
@@ -196,7 +196,7 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                     className="h-[201px] object-cover"
                     placeholder="blur"
                     blurDataURL={`${
-                      item.attributes.images.data[0]?.attributes?.url
+                      item.attributes.images.data?.length
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
                         : "/assets/images/review.png"
                     }?w=30&q=10`} // Placeholder low-res
@@ -205,13 +205,13 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               </div>
               <div
                 className={`${
-                  item.attributes.images.data.length === 2 ? "" : "hidden"
+                  item?.attributes?.images?.data?.length === 2 ? "" : "hidden"
                 }`}
               >
                 <div>
                   <Image
                     src={
-                      item.attributes.images.data[0]?.attributes?.url
+                      item.attributes.images.data?.length
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
                         : "/assets/images/review.png"
                     } // replace with your image path
@@ -222,7 +222,7 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                   />
                   <Image
                     src={
-                      item.attributes.images.data[1]?.attributes?.url
+                      item.attributes.images.data?.length > 1
                         ? `${STRAPI_URL}${item.attributes.images.data[1]?.attributes?.url}`
                         : "/assets/images/review.png"
                     } // replace with your image path
@@ -235,13 +235,13 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
               </div>
               <div
                 className={`${
-                  item.attributes.images.data.length === 3 ? "" : "hidden"
+                  item?.attributes?.images?.data?.length === 3 ? "" : "hidden"
                 }`}
               >
                 <div>
                   <Image
                     src={
-                      item.attributes.images.data[0]?.attributes?.url
+                      item.attributes.images.data?.length
                         ? `${STRAPI_URL}${item.attributes.images.data[0]?.attributes?.url}`
                         : "/assets/images/review.png"
                     } // replace with your image path
@@ -253,7 +253,7 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                   <div className="flex justify-between">
                     <Image
                       src={
-                        item.attributes.images.data[1]?.attributes?.url
+                        item.attributes.images.data?.length > 1
                           ? `${STRAPI_URL}${item.attributes.images.data[1]?.attributes?.url}`
                           : "/assets/images/review.png"
                       } // replace with your image path
@@ -264,7 +264,7 @@ export default function CarouselReview({ reviews }: ReviewsHomeProps) {
                     />
                     <Image
                       src={
-                        item.attributes.images.data[2]?.attributes?.url
+                        item.attributes.images.data?.length > 2
                           ? `${STRAPI_URL}${item.attributes.images.data[2]?.attributes?.url}`
                           : "/assets/images/review.png"
                       } // replace with your image path
