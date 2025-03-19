@@ -218,42 +218,60 @@ export default async function SlugProducts(props: { params: tParams }) {
           </main>
         </>
       ) : (
+        // ) : (
+        //   <>
+        //     <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
+        //       <HeroOthers heroBanners={heroBanners.data} />
+        //       {subCategoriesSection?.data?.length > 0 &&
+        //         subCategoriesSection?.data
+        //           .sort(
+        //             (a, b) =>
+        //               new Date(b.attributes.date).getTime() -
+        //               new Date(a.attributes.date).getTime()
+        //           )
+        //           .map((item, index) => (
+        //             <Others data={item} keyPage={slug} key={index} />
+        //           ))}
+
+        //       {!subCategoriesSection?.data?.length && (
+        //         <>
+        //           <div
+        //             className={`w-full flex justify-center my-24 ${cx(
+        //               poppins,
+        //               poppins.className
+        //             )}`}
+        //           >
+        //             <div>
+        //               <Image
+        //                 src="/assets/icons/empty.jpg"
+        //                 width={200}
+        //                 height={200}
+        //                 alt="logo-horizontal"
+        //               />
+        //               <h1 className="text-center font-bold text-[#44CBEB]">
+        //                 Data Kosong!
+        //               </h1>
+        //             </div>
+        //           </div>
+        //         </>
+        //       )}
+        //       <SocmedFlooring homepage={homepage} />
+        //     </main>
+        //   </>
+        // )}
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-            <HeroOthers heroBanners={heroBanners.data} />
-            {subCategoriesSection?.data?.length > 0 &&
-              subCategoriesSection?.data
-                .sort(
-                  (a, b) =>
-                    new Date(b.attributes.date).getTime() -
-                    new Date(a.attributes.date).getTime()
-                )
-                .map((item, index) => (
-                  <Others data={item} keyPage={slug} key={index} />
-                ))}
-
-            {!subCategoriesSection?.data?.length && (
-              <>
-                <div
-                  className={`w-full flex justify-center my-24 ${cx(
-                    poppins,
-                    poppins.className
-                  )}`}
-                >
-                  <div>
-                    <Image
-                      src="/assets/icons/empty.jpg"
-                      width={200}
-                      height={200}
-                      alt="logo-horizontal"
-                    />
-                    <h1 className="text-center font-bold text-[#44CBEB]">
-                      Data Kosong!
-                    </h1>
-                  </div>
-                </div>
-              </>
-            )}
+            <HeroFlooring heroBanners={heroBanners.data} />
+            <CategoriesFlooring heroBanners={subCategoriesSection.data} />
+            {subCategoriesSection.data
+              .sort(
+                (a, b) =>
+                  new Date(b.attributes.date).getTime() -
+                  new Date(a.attributes.date).getTime()
+              )
+              .map((item, index) => (
+                <Floors data={item} keyPage={slug} key={index} />
+              ))}
             <SocmedFlooring homepage={homepage} />
           </main>
         </>
