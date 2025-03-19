@@ -306,12 +306,18 @@ export default function List({
               <div className="md:col-span-1 col-span-3 mt-[-30px] md:mt-0">
                 <div className="space-y-5 animate-pulse w-full mt-4">
                   <div className="flex items-center w-full space-x-2">
+                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
                     <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
                   </div>
                   <div className="flex items-center w-full space-x-2">
+                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
                     <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
                   </div>
                   <div className="flex items-center w-full space-x-2">
+                    <div className="h-8 bg-gray-200 rounded-md dark:bg-gray-500 w-32"></div>
+                    <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-24"></div>
                     <div className="h-8 bg-gray-300 rounded-md dark:bg-gray-400 w-full"></div>
                   </div>
                 </div>

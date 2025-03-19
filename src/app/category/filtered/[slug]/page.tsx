@@ -142,8 +142,6 @@ export default async function SlugProducts(props: {
     params: queryProducts,
   });
 
-  console.log("test 001");
-
   return (
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
