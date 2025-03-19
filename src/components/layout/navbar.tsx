@@ -163,10 +163,10 @@ export default function Navbar({
                           alt="wa-logo"
                         />
                         <button className="ms-1 flex flex-col">
-                          <p className="text-white lg:text-sm text-[10px]">
+                          <p className="text-white 2xl:text-sm md:text-xs text-[10px]">
                             Whatsapp
                           </p>
-                          <p className="text-white lg:text-sm text-[10px] font-bold">
+                          <p className="text-white 2xl:text-sm md:text-xs text-[10px] font-bold">
                             {item.attributes.name}
                           </p>
                         </button>
