@@ -56,7 +56,9 @@ export default async function SlugProducts(props: {
   const slug = (await props.params).slug;
   const page = (await props.searchParams).page;
   const title = restoreAmpersand(
-    decodeText((await props.searchParams).title).replace("+", " ")
+    decodeText(
+      (await props.searchParams).title.replace("symbolplus", "+")
+    ).replace("+", " ")
   );
   const colors = (await props.searchParams).colors?.split(",");
   const styles = (await props.searchParams).styles?.split(",");
@@ -97,7 +99,7 @@ export default async function SlugProducts(props: {
 
     // Masukin ke $or sesuai field
     queryProducts[`filters[$or][${orIndex}][${field}][title][$eq]`] =
-      restoreAmpersand(decodeText(item).replace("+", " "));
+      restoreAmpersand(decodeText(item.replace("symbolplus", "+")));
 
     orIndex++;
   });
@@ -139,6 +141,8 @@ export default async function SlugProducts(props: {
     path: `products`,
     params: queryProducts,
   });
+
+  console.log("test 001");
 
   return (
     <>

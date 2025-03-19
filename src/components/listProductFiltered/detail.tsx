@@ -245,7 +245,9 @@ export default function List({
       const selected = multiple.split(",");
       let result = [];
       for (const item of selected) {
-        result.push(decodeText(restoreAmpersand(item)));
+        result.push(
+          decodeText(restoreAmpersand(item.replace("symbolplus", "+")))
+        );
       }
       if (slugType === "wallpaper-by-color") setSelectedColors(result);
       else if (slugType === "wallpaper-by-style") setSelectedMotifs(result);

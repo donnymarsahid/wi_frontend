@@ -355,11 +355,9 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                             <td>Jenis</td>
                             <td>
                               :{" "}
-                              {
-                                data.attributes?.brands?.data[0]?.attributes
-                                  ?.sub_categories?.data[0]?.attributes
-                                  ?.categories?.data[0]?.attributes?.title
-                              }
+                              {data.attributes?.brands?.data[0]?.attributes
+                                ?.sub_categories?.data[0]?.attributes?.name ??
+                                "-"}
                             </td>
                           </tr>
                           {data.attributes?.brands?.data[0]?.attributes

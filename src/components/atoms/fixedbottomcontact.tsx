@@ -28,7 +28,7 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
       {/* Tombol Utama */}
       <button
         onClick={toggleContacts}
-        className="bg-[#46BDDC] text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition flex items-center justify-center"
+        className="bg-[#46BDDC] text-white p-4 rounded-full shadow-lg transition flex items-center justify-center"
       >
         <Image
           src="/assets/icons/logos_whatsapp-icon.svg"
@@ -47,7 +47,7 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
               href={`https://api.whatsapp.com/send?phone=${item.attributes.whatsapp}&text=Halo%20Ka%20${item.attributes.name}%20Wallpaper%20Indonesia`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#1ad03f] hover:bg-green-600 text-white px-4 py-2 rounded-2xl shadow-md flex items-center gap-2 transition"
+              className="bg-[#1ad03f] text-white px-4 py-2 rounded-2xl shadow-md flex items-center gap-2 transition"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

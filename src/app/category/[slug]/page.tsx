@@ -197,6 +197,7 @@ export default async function SlugProducts(props: { params: tParams }) {
           </main>
         </>
       ) : slug.split("--")[0] === "flooring" ||
+        slug.split("--")[0] === "lem" ||
         slug.split("--")[0] === "wallpanel" ||
         slug.split("--")[0] === "carpet" ||
         slug.split("--")[0] === "decking" ? (
