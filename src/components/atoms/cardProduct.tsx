@@ -54,7 +54,7 @@ export default function CardProduct({ item, keyPage }: any) {
                       <tr
                         className={item.attributes?.thickness ? "" : "hidden"}
                       >
-                        <td className="flex items-start">
+                        <td className="flex items-start w-[80px]">
                           <p className="flex flex-row justify-between w-full">
                             Ketebalan <span>:</span>
                           </p>

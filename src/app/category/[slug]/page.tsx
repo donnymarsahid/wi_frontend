@@ -128,7 +128,7 @@ export default async function SlugProducts(props: { params: tParams }) {
       "fields[0]": "banners",
       "fields[1]": "sub_categories",
       "fields[2]": "thumbnail",
-      "filters[slug][$eq]": "wallpaper",
+      "filters[slug][$eq]": slug.split("--")[1],
     },
   });
 
@@ -158,6 +158,7 @@ export default async function SlugProducts(props: { params: tParams }) {
       "fields[1]": "categories",
       "fields[2]": "name",
       "fields[3]": "thumbnail",
+      "fields[4]": "date",
       ...subCategoriesSectionqueryCategory,
     },
   });

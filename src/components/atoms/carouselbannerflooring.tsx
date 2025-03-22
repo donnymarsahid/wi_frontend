@@ -86,7 +86,7 @@ export default function CarouselBannerFlooring({
 }: HeroCategoryProps) {
   return (
     <>
-      {categories[0].attributes?.banners?.data?.length ? (
+      {categories[0]?.attributes?.banners?.data?.length ? (
         <>
           <style>{styles}</style>
           <div className="carousel-container">

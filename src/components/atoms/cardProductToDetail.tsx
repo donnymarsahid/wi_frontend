@@ -58,7 +58,7 @@ export default function CardProductToDetail(item: ProductsPropsDaum | any) {
                             : "hidden"
                         }
                       >
-                        <td className="flex items-start">
+                        <td className="flex items-start w-[80px]">
                           <p className="flex flex-row justify-between w-full">
                             Ketebalan <span>:</span>
                           </p>

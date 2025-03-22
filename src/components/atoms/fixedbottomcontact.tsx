@@ -25,19 +25,6 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
         poppins.className
       )}`}
     >
-      {/* Tombol Utama */}
-      <button
-        onClick={toggleContacts}
-        className="bg-[#46BDDC] text-white p-4 rounded-full shadow-lg transition flex items-center justify-center"
-      >
-        <Image
-          src="/assets/icons/logos_whatsapp-icon.svg"
-          width={35}
-          height={35}
-          alt="wa-logo"
-        />
-      </button>
-
       {/* List Kontak */}
       {showContacts && (
         <div className="flex flex-col items-end gap-2">
@@ -64,6 +51,19 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
           ))}
         </div>
       )}
+
+      {/* Tombol Utama */}
+      <button
+        onClick={toggleContacts}
+        className="bg-[#46BDDC] text-white p-4 rounded-full shadow-lg transition flex items-center justify-center"
+      >
+        <Image
+          src="/assets/icons/logos_whatsapp-icon.svg"
+          width={35}
+          height={35}
+          alt="wa-logo"
+        />
+      </button>
     </div>
   );
 };
