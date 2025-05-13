@@ -18,12 +18,13 @@ export default function Socmed({ homepage }: SocmedSectionProps) {
       <div className="mt-6 mb-4">
         <div className="container mx-auto">
           <div className="md:mx-10 mx-4 flex justify-between items-center">
-            <div>
+            <div className="p-2">
               <Image
                 src="/assets/images/logo-horizontal.png"
                 width={300}
                 height={300}
                 alt="wp"
+                className="py-3"
               />
             </div>
             <div>

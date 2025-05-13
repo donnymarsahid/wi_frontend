@@ -259,7 +259,7 @@ export default function Navbar({
                   width={140}
                   height={140}
                   alt="logo"
-                  className="lg:mt-[-30px] md:w-[130px] md:h-[100px] w-[90px] h-[70px]"
+                  className="lg:mt-[-30px] md:w-[130px] md:h-[110px] w-[90px] h-[80px] md:p-2 p-3"
                 />
               </Link>
               <div>
