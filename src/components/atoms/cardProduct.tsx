@@ -38,7 +38,7 @@ export default function CardProduct({ item, keyPage }: any) {
                 className={`${cx(
                   poppins,
                   poppins.className
-                )} font-bold p-2 border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-start`}
+                )} font-bold p-1 border-l-[1px] border-r-[1px] border-t-[1px] border-[#A5A5A5] lg:text-[18px] text-[10px] text-start`}
               >
                 {item.attributes.title}
               </h3>
@@ -46,15 +46,15 @@ export default function CardProduct({ item, keyPage }: any) {
                 className={`${cx(
                   poppins,
                   poppins.className
-                )} flex justify-between items-center p-2  border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
+                )} flex justify-between items-center p-1  border-l-[1px] border-r-[1px] border-[#A5A5A5]`}
               >
-                <div className="md:text-xs text-[9px] text-[#474747]">
+                <div className="md:text-xs text-[7.6px] text-[#474747]">
                   <table>
                     <tbody>
                       <tr
                         className={item.attributes?.thickness ? "" : "hidden"}
                       >
-                        <td className="flex items-start w-[80px]">
+                        <td className="flex items-start md:w-[80px] w-[45px]">
                           <p className="flex flex-row justify-between w-full">
                             Ketebalan <span>:</span>
                           </p>
@@ -87,19 +87,19 @@ export default function CardProduct({ item, keyPage }: any) {
               </div>
               <div className="flex justify-between border-l-[1px] border-r-[1px] border-b-[1px] border-[#A5A5A5] relative">
                 <div>
-                  <div className={`${cx(poppins, poppins.className)} ps-2`}>
-                    <div className="flex flex-col mt-2 pb-2">
+                  <div className={`${cx(poppins, poppins.className)} ps-1`}>
+                    <div className="flex flex-col mt-2 pb-1">
                       <div className="text-sm">
                         {/* START */}
                         <div
-                          className={`${
+                          className={`md:mb-0 mb-[-5px] ${
                             item.attributes.discount &&
                             item.attributes?.pricePerMeter
                               ? ""
                               : "hidden"
                           } flex`}
                         >
-                          <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
+                          <p className="text-[#FF0000] line-through md:text-sm text-[9px]">
                             {formatRupiah(
                               parseFloat(item.attributes.pricePerMeter)
                             )}
@@ -107,8 +107,8 @@ export default function CardProduct({ item, keyPage }: any) {
                         </div>
                         {/* END */}
                         {item.attributes?.pricePerMeter ? (
-                          <div className="">
-                            <p className="md:text-sm text-[9.5px] font-semibold">
+                          <div className="md:mb-0 mb-[-5px]">
+                            <p className="md:text-sm text-[9px] font-semibold">
                               {!item.attributes.discount &&
                                 formatRupiah(
                                   parseFloat(item.attributes.pricePerMeter)
@@ -134,7 +134,7 @@ export default function CardProduct({ item, keyPage }: any) {
                             item.attributes.discount ? "" : "hidden"
                           } flex`}
                         >
-                          <p className="text-[#FF0000] line-through md:text-sm text-[9.5px]">
+                          <p className="text-[#FF0000] line-through md:text-sm text-[9px]">
                             {formatRupiah(parseFloat(item.attributes.price))}
                           </p>
                         </div>
@@ -142,7 +142,7 @@ export default function CardProduct({ item, keyPage }: any) {
                       </div>
                       <div className="text-[14.5px]">
                         <div>
-                          <p className="md:text-[17.5px] text-[11.5px] font-bold">
+                          <p className="md:text-[13.5px] 2xl:text-[17.5px] text-[9.5px] font-bold">
                             {!item.attributes.discount &&
                               formatRupiah(parseFloat(item.attributes.price))}
                             {calculateDiscount(
@@ -155,7 +155,7 @@ export default function CardProduct({ item, keyPage }: any) {
                                 : 0
                             )}{" "}
                             /{" "}
-                            <span className="capitalize md:text-[17.5px] text-[10.5px] font-bold">
+                            <span className="capitalize md:text-[13.5px] 2xl:text-[17.5px] text-[7.5px] font-bold">
                               {item.attributes.unit
                                 ? String(item.attributes.unit).toLowerCase()
                                 : ""}
@@ -167,7 +167,7 @@ export default function CardProduct({ item, keyPage }: any) {
                   </div>
                 </div>
                 <div
-                  className={`pe-2 absolute bottom-[27px] md:bottom-[5px] right-0 ${cx(
+                  className={`pe-1 absolute bottom-[2px] md:bottom-[5px] right-0 ${cx(
                     poppins,
                     poppins.className
                   )}`}
