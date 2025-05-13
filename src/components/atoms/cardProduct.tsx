@@ -142,7 +142,7 @@ export default function CardProduct({ item, keyPage }: any) {
                       </div>
                       <div className="text-[14.5px]">
                         <div>
-                          <p className="md:text-[17.5px] text-[12.5px] font-bold">
+                          <p className="md:text-[17.5px] text-[11.5px] font-bold">
                             {!item.attributes.discount &&
                               formatRupiah(parseFloat(item.attributes.price))}
                             {calculateDiscount(
@@ -155,7 +155,7 @@ export default function CardProduct({ item, keyPage }: any) {
                                 : 0
                             )}{" "}
                             /{" "}
-                            <span className="capitalize md:text-[17.5px] text-[12.5px] font-bold">
+                            <span className="capitalize md:text-[17.5px] text-[10.5px] font-bold">
                               {item.attributes.unit
                                 ? String(item.attributes.unit).toLowerCase()
                                 : ""}

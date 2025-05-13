@@ -773,7 +773,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                         </div>
                                         <div className="text-[14.5px]">
                                           <div>
-                                            <p className="md:text-[17.5px] text-[12px] font-bold">
+                                            <p className="md:text-[17.5px] text-[10px] font-bold">
                                               {!item.attributes?.brands?.data[0]
                                                 ?.attributes?.discount &&
                                                 formatRupiah(
@@ -804,7 +804,7 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                                   : 0
                                               )}{" "}
                                               /{" "}
-                                              <span className="capitalize md:text-[17.5px] text-[12px] font-bold">
+                                              <span className="capitalize md:text-[17.5px] text-[9px] font-bold">
                                                 {item.attributes?.brands
                                                   ?.data[0]?.attributes?.unit
                                                   ? String(
