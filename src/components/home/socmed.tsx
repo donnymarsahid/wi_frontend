@@ -20,7 +20,7 @@ export default function Socmed({ homepage }: SocmedSectionProps) {
           <div className="md:mx-10 mx-4 flex justify-between items-center">
             <div className="p-2">
               <Image
-                src="/assets/images/logo-horizontal.png"
+                src="/assets/images/logo-horizontal-upd.png"
                 width={300}
                 height={300}
                 alt="wp"

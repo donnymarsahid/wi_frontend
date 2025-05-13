@@ -255,7 +255,7 @@ export default function Navbar({
                 className="flex justify-center lg:justify-start lg:w-[200px] w-full"
               >
                 <Image
-                  src="/assets/images/logo.png"
+                  src="/assets/images/logo-upd.png"
                   width={140}
                   height={140}
                   alt="logo"
@@ -405,7 +405,7 @@ export default function Navbar({
       >
         <div className="bg-white flex items-center justify-center p-2">
           <Image
-            src="/assets/images/logo-horizontal.png"
+            src="/assets/images/logo-horizontal-upd.png"
             width={200}
             height={200}
             alt="head-logo"

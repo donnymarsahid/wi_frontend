@@ -33,7 +33,7 @@ const ModalDetail = ({
       <Modal.Header className="bg-white border-b-1">
         <div>
           <Image
-            src="/assets/images/logo-horizontal.png"
+            src="/assets/images/logo-horizontal-upd.png"
             width={200}
             height={200}
             alt="logo-horizontal"

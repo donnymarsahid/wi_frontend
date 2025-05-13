@@ -20,7 +20,7 @@ export default function SocmedFlooring({ homepage }: SocmedSectionProps) {
           <div className="md:mx-10 mx-4 flex justify-between items-center">
             <div>
               <Image
-                src="/assets/images/logo-horizontal.png"
+                src="/assets/images/logo-horizontal-upd.png"
                 width={300}
                 height={300}
                 alt="wp"
