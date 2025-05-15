@@ -16,6 +16,7 @@ import { OpenProvider } from "./lib/openContext";
 import { CartDataProvider } from "@/utils/cartProvider";
 import { SeoProps } from "@/types/seo";
 import FixedContact from "@/components/atoms/fixedbottomcontact";
+import GoogleTagManager from "@/components/GoogleTagManager";
 
 export async function generateMetadata(): Promise<Metadata> {
   const seo: SeoProps = await getData({
@@ -89,8 +90,19 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <link rel="shortcut icon" href="/favicon.ico" />
+      <head>
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <GoogleTagManager />
+      </head>
       <body suppressHydrationWarning={true}>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-5NM4ZX6G"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
         <UserProvider>
           <OpenProvider>
             <div className="fixed top-0 w-full z-[9999]">
