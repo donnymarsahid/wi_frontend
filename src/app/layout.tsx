@@ -92,6 +92,10 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <link rel="shortcut icon" href="/favicon.ico" />
+        <meta
+          name="google-site-verification"
+          content="O22Z-eY2MtqN8TftUUf7o5_wmtfTMdeaSjMsRZU4Xd4"
+        />
         <GoogleTagManager />
       </head>
       <body suppressHydrationWarning={true}>
