@@ -445,25 +445,36 @@ export default function Navbar({
                     >
                       <div className="bg-[#34b1e3] px-4">
                         {categories.data.map((product, i) => (
-                          <Link
-                            href={`/category/${
-                              product.attributes.keyPageCondition
-                                ? `${product.attributes.keyPageCondition}--${product.attributes.slug}`
-                                : product.attributes.slug
-                            }`}
+                          <button
+                            onClick={() => {
+                              router.push(
+                                `/category/${
+                                  product.attributes.keyPageCondition
+                                    ? `${product.attributes.keyPageCondition}--${product.attributes.slug}`
+                                    : product.attributes.slug
+                                }`
+                              );
+                              handleOpen();
+                            }}
                             key={i}
-                            className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md text-white"
+                            className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md text-white w-full text-left"
                           >
                             {product.attributes.title}
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     </div>
                   </>
                 ) : (
-                  <Link href={item.url}>
+                  <button
+                    onClick={() => {
+                      router.push(item.url);
+                      handleOpen();
+                    }}
+                    className="w-full text-left"
+                  >
                     <p className="text-white text-sm">{item.title}</p>
-                  </Link>
+                  </button>
                 )}
               </li>
             ))}
