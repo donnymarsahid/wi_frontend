@@ -34,7 +34,7 @@ const WallpaperCalculator = () => {
   const handleClick = () => {
     const messageText = `*Halo Wallpaper Indonesia, saya mau tanya terkait calculator wallpaper`;
     const encodedMessage = encodeURIComponent(messageText);
-    let result = `https://api.whatsapp.com/send?phone=${"+6282111135402"}&text=${encodedMessage}`;
+    let result = `https://api.whatsapp.com/send?phone=${"+6281212093613"}&text=${encodedMessage}`;
 
     window.open(result, "_blank");
   };
