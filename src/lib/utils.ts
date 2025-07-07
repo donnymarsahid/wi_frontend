@@ -108,10 +108,11 @@ export const generateWhatsAppLink = (
   quoteData: CartProps,
   index: number,
   lastIndex: number,
-  grandTotal: string,
+  grandTotalValue: string,
   orderNumber: string,
   ongkir?: any
 ) => {
+  const grandTotal = parseFloat(grandTotalValue);
   const firstQuote = quoteData;
 
   const number = index + 1;
