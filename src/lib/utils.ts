@@ -118,13 +118,13 @@ export const generateWhatsAppLink = (
   const number = index + 1;
 
   const messageText = `*Pesanan ${number}*\nNama Produk : ${
-    quoteData.detail_product.attributes.title
+    quoteData.detail_product.attributes.title ?? "-"
   }\nKode Produk : ${
-    firstQuote.detail_product.attributes.product_code
+    firstQuote.detail_product.attributes.product_code ?? "-"
   }\nJumlah : ${firstQuote.quantity}\n${
     firstQuote.detail_product.attributes.brands.data[0].attributes.discount
       ? "Harga Diskon!\n"
-      : ""
+      : "-"
   }Harga : ${formatRupiah(firstQuote.total_price)}\n\n`;
 
   let resultNumber = ongkir?.nominalOngkir ? ongkir?.nominalOngkir : 0;
