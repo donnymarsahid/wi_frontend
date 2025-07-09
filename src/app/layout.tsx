@@ -96,9 +96,9 @@ export default async function RootLayout({
           name="google-site-verification"
           content="O22Z-eY2MtqN8TftUUf7o5_wmtfTMdeaSjMsRZU4Xd4"
         />
-        <GoogleTagManager />
       </head>
       <body suppressHydrationWarning={true}>
+        {/* GTM NoScript */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-5NM4ZX6G"
@@ -107,6 +107,10 @@ export default async function RootLayout({
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
+
+        {/* GTM Script */}
+        <GoogleTagManager />
+
         <UserProvider>
           <OpenProvider>
             <div className="fixed top-0 w-full z-[9999]">
@@ -118,13 +122,14 @@ export default async function RootLayout({
                 header={header}
               />
             </div>
+
             <Suspense fallback={<Loading />}>
               <CartDataProvider>
                 <FixedContact customerServices={customerServices} />
-
                 <div className="md:mt-[130px] mt-[175px]">{children}</div>
               </CartDataProvider>
             </Suspense>
+
             <BottomBar />
             <Footer footer={footer} categories={categories} />
           </OpenProvider>

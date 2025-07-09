@@ -15,6 +15,7 @@ import {
 import { NewsProps } from "@/types/news";
 import CardNews from "../atoms/cardNews";
 import "../../app/blockStyle.css";
+import { sanitizeHtml } from "@/utils/sanitizeHtml";
 
 type NewsPageProps = {
   data: NewsProps;
@@ -91,7 +92,7 @@ export default function Detail({ data }: NewsPageProps) {
               <div
                 className="customStyle mt-6"
                 dangerouslySetInnerHTML={{
-                  __html: data.data[0].attributes.content,
+                  __html: sanitizeHtml(data.data[0].attributes.content),
                 }}
               />
             </div>

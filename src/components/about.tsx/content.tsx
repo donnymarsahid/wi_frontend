@@ -54,21 +54,6 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             </div>
           </div>
 
-          {/* <div>
-            {data.data.attributes.maps && (
-              <div className="my-16 flex justify-center flex-col items-center">
-                <h1 className="lg:text-[35px] md:text-[28px] lucida-bright text-center">
-                  Maps
-                </h1>
-                <div
-                className="maps-custom"
-                  dangerouslySetInnerHTML={{
-                    __html: data.data.attributes.maps,
-                  }}
-                />
-              </div>
-            )}
-          </div> */}
           <div>
             <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
               Kantor Cabang
