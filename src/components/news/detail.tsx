@@ -89,12 +89,12 @@ export default function Detail({ data }: NewsPageProps) {
               >
                 {data.data[0].attributes.description}
               </p>
-              <div
+              {/* <div
                 className="customStyle mt-6"
                 dangerouslySetInnerHTML={{
                   __html: sanitizeHtml(data.data[0].attributes.content),
                 }}
-              />
+              /> */}
             </div>
           </div>
         </div>
