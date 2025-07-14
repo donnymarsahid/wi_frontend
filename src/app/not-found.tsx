@@ -11,12 +11,12 @@ const NotFound = () => {
       )}`}
     >
       <div className="text-center">
-        <Image
+        {/* <Image
           src={"/assets/images/404_page-not-found-1024x576.jpg"}
           width={500}
           height={500}
           alt="404"
-        />
+        /> */}
       </div>
     </div>
   );
