@@ -1,6 +1,6 @@
 import cx from "classnames";
 import { poppins } from "./fonts";
-import Image from "next/image";
+// import Image from "next/image";
 
 const NotFound = () => {
   return (
