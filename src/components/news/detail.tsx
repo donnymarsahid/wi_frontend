@@ -21,8 +21,7 @@ type NewsPageProps = {
   data: NewsProps;
 };
 
-// export default function Detail({ data }: NewsPageProps) {
-export default function Detail() {
+export default function Detail({ data }: NewsPageProps) {
   return (
     <div className="mt-10 mb-10">
       <div className="container mx-auto">
@@ -44,26 +43,26 @@ export default function Detail() {
               <p>Berita</p>
             </Link>
             <p>/</p>
-            {/* <Link
+            <Link
               className="ms-2 me-2 font-medium hover:text-[#2FD1C1] title-custom-2"
               href={`/news/${data.data[0].attributes.slug}`}
             >
               <p>{data.data[0].attributes.title}</p>
-            </Link> */}
+            </Link>
           </div>
           <div className="mt-6">
             <div className="bg-[#F3F4F6] p-1">
-              {/* <Image
+              <Image
                 src={`${STRAPI_URL}${data.data[0].attributes.thumbnail.data.attributes.url}`}
                 width={400}
                 height={400}
                 alt="wall"
                 className="w-full md:h-[300px] h-[100px] object-cover "
-              /> */}
+              />
             </div>
             <div className="p-2">
               <h3 className="font-bold lucida-bright lg:text-[18px] text-[10px] title-custom text-[14px]">
-                {/* {data.data[0].attributes.title} */}
+                {data.data[0].attributes.title}
               </h3>
               <div className="flex items-center py-2">
                 <Image
@@ -79,7 +78,7 @@ export default function Detail() {
                     poppins.className
                   )} text-[14px] font-semibold text-[#B3B3B3]`}
                 >
-                  {/* {formatDate(data.data[0].attributes.date)} */}
+                  {formatDate(data.data[0].attributes.date)}
                 </p>
               </div>
               <p
@@ -88,14 +87,14 @@ export default function Detail() {
                   poppins.className
                 )}`}
               >
-                {/* {data.data[0].attributes.description} */}
+                {data.data[0].attributes.description}
               </p>
-              {/* <div
+              <div
                 className="customStyle mt-6"
                 dangerouslySetInnerHTML={{
                   __html: sanitizeHtml(data.data[0].attributes.content),
                 }}
-              /> */}
+              />
             </div>
           </div>
         </div>

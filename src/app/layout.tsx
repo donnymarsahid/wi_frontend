@@ -18,34 +18,34 @@ import { SeoProps } from "@/types/seo";
 import FixedContact from "@/components/atoms/fixedbottomcontact";
 // import GoogleTagManager from "@/components/GoogleTagManager";
 
-// export async function generateMetadata(): Promise<Metadata> {
-//   const seo: SeoProps = await getData({
-//     path: "seo",
-//     params: {
-//       populate: "authors",
-//     },
-//   });
+export async function generateMetadata(): Promise<Metadata> {
+  const seo: SeoProps = await getData({
+    path: "seo",
+    params: {
+      populate: "authors",
+    },
+  });
 
-//   try {
-//     const { attributes } = seo.data;
-//     return {
-//       title: attributes.title,
-//       description: attributes.description,
-//       metadataBase: new URL(attributes.metadataBase),
-//       // themeColor: "#FFF",
-//       keywords: attributes.keywords,
-//       authors: [{ url: attributes.authors.url, name: attributes.authors.name }],
-//       robots: attributes.robots,
-//     };
-//   } catch (error) {
-//     return {
-//       title:
-//         "Wallpaper Indonesia | Pusat Belanja Online Material Interior di Indonesia",
-//       description:
-//         "Wallpaper Indonesia merupakan pusat pembelanjaan online untuk material interior mulai dari Wallpaper, Wallfoam 3D, Vinyl Flooring, Parquet Flooring, Gordyn, Blind dan Carpet Tile. Tersedia dalam beragam motif, warna, dan merek yang sesuai dengan kebutuhan Anda.",
-//     };
-//   }
-// }
+  try {
+    const { attributes } = seo.data;
+    return {
+      title: attributes.title,
+      description: attributes.description,
+      metadataBase: new URL(attributes.metadataBase),
+      // themeColor: "#FFF",
+      keywords: attributes.keywords,
+      authors: [{ url: attributes.authors.url, name: attributes.authors.name }],
+      robots: attributes.robots,
+    };
+  } catch (error) {
+    return {
+      title:
+        "Wallpaper Indonesia | Pusat Belanja Online Material Interior di Indonesia",
+      description:
+        "Wallpaper Indonesia merupakan pusat pembelanjaan online untuk material interior mulai dari Wallpaper, Wallfoam 3D, Vinyl Flooring, Parquet Flooring, Gordyn, Blind dan Carpet Tile. Tersedia dalam beragam motif, warna, dan merek yang sesuai dengan kebutuhan Anda.",
+    };
+  }
+}
 
 type PageProps = {
   searchParams: {
