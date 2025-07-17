@@ -18,8 +18,7 @@ type NewsPageProps = {
   data: NewsProps;
 };
 
-// export default function Content({ data }: NewsPageProps) {
-export default function Content() {
+export default function Content({ data }: NewsPageProps) {
   return (
     <div className="mt-10 mb-10">
       <div className="container mx-auto">
@@ -42,7 +41,7 @@ export default function Content() {
             </Link>
           </div>
           <div>
-            {/* {data.data.length ? (
+            {data.data.length ? (
               <div className="grid gap-4 md:grid-cols-2 grid-cols-1">
                 {data.data.map((item, index) => (
                   <div key={index}>
@@ -69,7 +68,7 @@ export default function Content() {
                   </h1>
                 </div>
               </div>
-            )} */}
+            )}
           </div>
         </div>
       </div>
