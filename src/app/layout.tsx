@@ -127,6 +127,16 @@ export default async function RootLayout({
         {/* GTM Script */}
         {/* <GoogleTagManager /> */}
 
+        {/* Noscript fallback (as JSX) */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1280292583433659&ev=PageView&noscript=1"
+          />
+        </noscript>
+
         <UserProvider>
           <OpenProvider>
             <div className="fixed top-0 w-full z-[9999]">
@@ -150,16 +160,6 @@ export default async function RootLayout({
             <Footer footer={footer} categories={categories} />
           </OpenProvider>
         </UserProvider>
-
-        {/* Noscript fallback (as JSX) */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1280292583433659&ev=PageView&noscript=1"
-          />
-        </noscript>
       </body>
     </html>
   );
