@@ -97,8 +97,8 @@ export default async function RootLayout({
           name="google-site-verification"
           content="O22Z-eY2MtqN8TftUUf7o5_wmtfTMdeaSjMsRZU4Xd4"
         />
-        {/* Meta Pixel Code */}
-        <Script id="facebook-pixel" strategy="afterInteractive">
+        {/* Meta Pixel Script */}
+        <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -127,7 +127,7 @@ export default async function RootLayout({
         {/* GTM Script */}
         {/* <GoogleTagManager /> */}
 
-        {/* Noscript fallback (as JSX) */}
+        {/* NoScript Fallback */}
         <noscript>
           <img
             height="1"
