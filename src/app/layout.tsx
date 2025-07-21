@@ -97,8 +97,8 @@ export default async function RootLayout({
           name="google-site-verification"
           content="O22Z-eY2MtqN8TftUUf7o5_wmtfTMdeaSjMsRZU4Xd4"
         />
-        {/* Meta Pixel Script */}
-        <Script id="meta-pixel" strategy="afterInteractive">
+        {/* Meta Pixel Code */}
+        <Script id="facebook-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -127,16 +127,6 @@ export default async function RootLayout({
         {/* GTM Script */}
         {/* <GoogleTagManager /> */}
 
-        {/* NoScript Fallback */}
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=1280292583433659&ev=PageView&noscript=1"
-          />
-        </noscript>
-
         <UserProvider>
           <OpenProvider>
             <div className="fixed top-0 w-full z-[9999]">
@@ -160,6 +150,16 @@ export default async function RootLayout({
             <Footer footer={footer} categories={categories} />
           </OpenProvider>
         </UserProvider>
+
+        {/* Noscript fallback (as JSX) */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1280292583433659&ev=PageView&noscript=1"
+          />
+        </noscript>
       </body>
     </html>
   );
