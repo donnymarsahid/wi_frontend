@@ -9,9 +9,19 @@ import { poppins } from "../fonts";
 import Section from "@/components/profile/section";
 
 export default async function Profile() {
-  const listProvincies: ProvinciesProps = await getData({
-    path: `rajaongkir/provincies`,
-  });
+  let listProvincies: ProvinciesProps | null = null;
+
+  try {
+    listProvincies = await getData({ path: `rajaongkir/provincies` });
+  } catch (error) {
+    console.error("Failed to fetch provinces:", error);
+  }
+
+  const results = listProvincies?.rajaongkir?.results;
+
+  if (!results || results.length === 0) {
+    return <div className="text-center mt-10">Tidak ada data provinsi.</div>;
+  }
 
   return (
     <main
@@ -20,7 +30,7 @@ export default async function Profile() {
         poppins.className
       )}`}
     >
-      <Section listProvincies={listProvincies.rajaongkir.results} />
+      <Section listProvincies={results} />
     </main>
   );
 }
