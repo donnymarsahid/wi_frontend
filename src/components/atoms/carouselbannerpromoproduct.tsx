@@ -141,6 +141,7 @@ export default function CarouselBannerPromoProduct({
                       blurDataURL={`${STRAPI_URL}${child.attributes.thumbnail.data.attributes.url}?w=30&q=10`} // Placeholder low-res
                       alt="banners"
                       priority
+                      sizes="100vw"
                     />
                   )}
                   <Link
