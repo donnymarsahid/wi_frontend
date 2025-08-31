@@ -235,6 +235,7 @@ export default function CarouselCategoriesSlider({
                     height={400}
                     alt="wall"
                     className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-lg"
+                    priority
                   />
                 )}
               </div>

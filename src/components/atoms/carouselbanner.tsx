@@ -127,6 +127,7 @@ export default function CarouselBanner({ homepage }: HeroHomeProps) {
                 blurDataURL={`${STRAPI_URL}${item.attributes.url}?w=30&q=10`} // Placeholder low-res
                 className="bg-cover bg-center w-full h-full pb-4"
                 alt="banners"
+                priority
               />
             </div>
           ))}
