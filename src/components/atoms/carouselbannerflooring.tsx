@@ -133,8 +133,6 @@ export default function CarouselBannerFlooring({
                       height={150}
                       className="bg-cover bg-center w-full h-full pb-4"
                       alt="banners"
-                      priority
-                      sizes="100vw"
                     />
                   </div>
                 ))}
