@@ -53,7 +53,7 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
       )}
 
       {/* Tombol Utama */}
-      <button
+      {/* <button
         onClick={toggleContacts}
         className="bg-[#46BDDC] text-white p-4 rounded-full shadow-lg transition flex items-center justify-center"
       >
@@ -63,7 +63,19 @@ const FixedContact = ({ customerServices }: CustomerServices) => {
           height={35}
           alt="wa-logo"
         />
-      </button>
+      </button> */}
+      <Link
+        href={`https://tanya.web.id/cs-wallpaper-indonesia`}
+        target="_blank"
+        className="bg-[#46BDDC] text-white p-4 rounded-full shadow-lg transition flex items-center justify-center"
+      >
+        <Image
+          src="/assets/icons/logos_whatsapp-icon.svg"
+          width={35}
+          height={35}
+          alt="wa-logo"
+        />
+      </Link>
     </div>
   );
 };
