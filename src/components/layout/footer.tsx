@@ -32,15 +32,23 @@ export const Footer = ({ footer, categories }: SectionFooterProps) => {
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE]">
                   Kantor Pusat
                 </h1>
-                <p className="md:text-xs text-[10px]">
+                <Link
+                  href={footer.data.attributes.office_center_link_maps}
+                  target="_blank"
+                  className="md:text-xs text-[10px] hover:text-[#44CBEB]"
+                >
                   {footer.data.attributes.office_center}
-                </p>
+                </Link>
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE]">
                   Kantor cabang
                 </h1>
-                <p className="text-[10px] md:text-xs">
+                <Link
+                  href={footer.data.attributes.office_branch_link_maps}
+                  target="_blank"
+                  className="text-[10px] md:text-xs hover:text-[#44CBEB]"
+                >
                   {footer.data.attributes.office_branch}
-                </p>
+                </Link>
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE]">
                   <Link
                     href={`tel:${footer.data.attributes.office_telp.replace(

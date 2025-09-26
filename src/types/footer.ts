@@ -11,6 +11,8 @@ export interface FooterPropsData {
 export interface Attributes {
   office_center: string;
   office_branch: string;
+  office_center_link_maps: string;
+  office_branch_link_maps: string;
   office_telp: string;
   email: string;
   copyright: string;

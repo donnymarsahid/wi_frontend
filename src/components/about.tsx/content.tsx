@@ -11,6 +11,7 @@ import { STRAPI_URL } from "@/app/utils/constans";
 import CarouselBannerPortfolio from "../atoms/carouselbannerportfolio";
 import { FooterProps } from "@/types/footer";
 import Marquee from "react-fast-marquee";
+import Link from "next/link";
 
 type AboutDetailProps = {
   data: AboutProps;
@@ -58,11 +59,23 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
               Kantor Cabang
             </h1>
-            <p>{footer.data.attributes.office_branch}</p>
+            <Link
+              href={footer.data.attributes.office_branch_link_maps}
+              target="_blank"
+              className="hover:text-[#44CBEB]"
+            >
+              {footer.data.attributes.office_branch}
+            </Link>
             <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
               Kantor Pusat
             </h1>
-            <p>{footer.data.attributes.office_center}</p>
+            <Link
+              href={footer.data.attributes.office_center_link_maps}
+              target="_blank"
+              className="hover:text-[#44CBEB]"
+            >
+              {footer.data.attributes.office_center}
+            </Link>
           </div>
           <div className="flex items-center flex-col my-8">
             <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
