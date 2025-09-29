@@ -71,7 +71,7 @@ export const ButtonView = ({ text, rounded, onClick }: Button) => (
 
 // export const ButtonCart = ({ text, rounded, onClick }: Button) => (
 //   <Link href={onClick} className={`${sameClass} border-white text-blue-600 lg:p-5 bg-transparent rounded-full hover:bg-blue-600 hover:text-white md:p-3 p-3`}>
-//     <Image    unoptimized  src="/assets/icons/cart.svg" width={30} height={30} alt="template-check-icon" />
+//     <Image    unoptimized  src="/assets/icons/troli-cart.svg" width={30} height={30} alt="template-check-icon" />
 //   </Link>
 // );
 
@@ -116,9 +116,9 @@ export const ButtonCart = ({ text, rounded, onClick }: Button) => (
     <div className="relative flex">
       <Image
         unoptimized
-        src="/assets/icons/cart.svg"
-        width={25}
-        height={25}
+        src="/assets/icons/troli-cart.svg"
+        width={30}
+        height={30}
         alt="cart-icon"
       />
       <div>

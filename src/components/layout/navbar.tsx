@@ -343,14 +343,14 @@ export default function Navbar({
               <div className="flex items-center">
                 <Link
                   href={"/cart"}
-                  className="bg-[#44CBEB] p-3 rounded-full me-2 relative hover:bg-[#76E5FF] transition"
+                  className="bg-[#44CBEB] p-2 rounded-full me-2 relative hover:bg-[#76E5FF] transition"
                 >
                   <Image
-                    src="/assets/icons/cart.svg"
-                    width={18}
-                    height={18}
+                    src="/assets/icons/troli-cart.svg"
+                    width={25}
+                    height={25}
                     alt="wa-logo"
-                    className="md:w-[18px] md:h-[18px] w-[40px] h-w-[40px]"
+                    className="md:w-[25px] md:h-[25px] w-[40px] h-w-[40px]"
                   />
                   <div className="bg-[#FF0000] w-[18px] h-[18px] flex items-center justify-center rounded-full absolute top-[-5px] right-0">
                     <p className="text-[11px] text-white">{cartCount}</p>
@@ -423,7 +423,7 @@ export default function Navbar({
           </div>
           <ul className="w-full">
             {link.map((item, index) => (
-              <li key={index} className="p-4 border-b-[1px] border-white-100">
+              <li key={index} className="p-4 border-b-[2px] border-white-100">
                 {item.title === "Produk" ? (
                   <>
                     {/* Button to toggle dropdown */}
@@ -431,7 +431,9 @@ export default function Navbar({
                       onClick={toggleDropdown}
                       className="flex justify-between items-center w-full text-left cursor-pointer"
                     >
-                      <p className="text-white text-sm">{item.title}</p>
+                      <p className="text-white text-sm font-medium">
+                        {item.title}
+                      </p>
                       <span className="text-white transform transition-transform duration-300 ease-in-out">
                         {isDropdownOpen ? "▲" : "▼"}
                       </span>
@@ -443,7 +445,7 @@ export default function Navbar({
                         isDropdownOpen ? "max-h-screen" : "max-h-0"
                       }`}
                     >
-                      <div className="bg-[#34b1e3] px-4">
+                      <div>
                         {categories.data.map((product, i) => (
                           <button
                             onClick={() => {
@@ -457,7 +459,7 @@ export default function Navbar({
                               handleOpen();
                             }}
                             key={i}
-                            className="p-3 text-sm hover:bg-[#35B6D6] transition-colors block rounded-md text-white w-full text-left"
+                            className="py-2 text-xs font-extralight hover:bg-[#35B6D6] transition-colors block rounded-md text-white w-full text-left"
                           >
                             {product.attributes.title}
                           </button>
@@ -473,14 +475,16 @@ export default function Navbar({
                     }}
                     className="w-full text-left"
                   >
-                    <p className="text-white text-sm">{item.title}</p>
+                    <p className="text-white text-sm font-medium">
+                      {item.title}
+                    </p>
                   </button>
                 )}
               </li>
             ))}
           </ul>
           <div className="p-4">
-            <h1 className="text-white text-xs font-bold">Customer Service</h1>
+            <h1 className="text-white text-sm font-bold">Customer Services</h1>
             <Link
               target="blank"
               href={`tel:${header.data.attributes.office_telp.replace(
@@ -506,7 +510,7 @@ export default function Navbar({
                   alt="wa-logo"
                 />
                 <button className="ms-1 flex flex-col">
-                  <p className="text-white text-xs">Whatsapp</p>
+                  <p className="text-white text-xs font-medium">Whatsapp</p>
                   <p className="text-white text-xs font-bold">
                     {item.attributes.name}
                   </p>
