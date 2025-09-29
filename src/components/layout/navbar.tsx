@@ -431,7 +431,7 @@ export default function Navbar({
                       onClick={toggleDropdown}
                       className="flex justify-between items-center w-full text-left cursor-pointer"
                     >
-                      <p className="text-white text-sm font-medium">
+                      <p className="text-white text-sm font-bold">
                         {item.title}
                       </p>
                       <span className="text-white transform transition-transform duration-300 ease-in-out">
@@ -459,7 +459,7 @@ export default function Navbar({
                               handleOpen();
                             }}
                             key={i}
-                            className="py-2 text-xs font-extralight hover:bg-[#35B6D6] transition-colors block rounded-md text-white w-full text-left"
+                            className="py-2 text-sm font-extralight hover:bg-[#35B6D6] transition-colors block rounded-md text-white w-full text-left"
                           >
                             {product.attributes.title}
                           </button>
@@ -475,9 +475,7 @@ export default function Navbar({
                     }}
                     className="w-full text-left"
                   >
-                    <p className="text-white text-sm font-medium">
-                      {item.title}
-                    </p>
+                    <p className="text-white text-sm font-bold">{item.title}</p>
                   </button>
                 )}
               </li>
