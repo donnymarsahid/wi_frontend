@@ -277,6 +277,7 @@ export interface Attributes6 {
   name: string;
   slug: string;
   date: string;
+  description: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

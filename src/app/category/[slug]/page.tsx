@@ -159,6 +159,7 @@ export default async function SlugProducts(props: { params: tParams }) {
       "fields[2]": "name",
       "fields[3]": "thumbnail",
       "fields[4]": "date",
+      "fields[5]": "description",
       ...subCategoriesSectionqueryCategory,
     },
   });
