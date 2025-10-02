@@ -375,16 +375,9 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                           )}
                           <tr>
                             <td>Kode</td>
-                            <td>
-                              :{" "}
-                              {data.attributes?.product_code
-                                ? data.attributes?.product_code
-                                : data.attributes.title
-                                ? data.attributes.title
-                                : "-"}
-                            </td>
+                            <td>: {data.attributes?.product_code || "-"}</td>
                           </tr>
-                          {data.attributes?.wallpaper_by_colors?.data[0]
+                          {/* {data.attributes?.wallpaper_by_colors?.data[0]
                             ?.attributes?.title && (
                             <tr>
                               <td>Warna</td>
@@ -394,7 +387,15 @@ export default function Detail({ data, flashsale }: ProductPageProps) {
                                   ?.attributes?.title || "-"}
                               </td>
                             </tr>
-                          )}
+                          )} */}
+                          <tr>
+                            <td>Warna</td>
+                            <td>
+                              :{" "}
+                              {data.attributes?.wallpaper_by_colors?.data[0]
+                                ?.attributes?.title || "-"}
+                            </td>
+                          </tr>
 
                           {data.attributes?.brands?.data[0]?.attributes
                             ?.sub_categories.data[0]?.attributes?.categories
