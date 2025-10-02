@@ -167,7 +167,7 @@ export default function CardProduct({ item, keyPage }: any) {
                   </div>
                 </div>
                 <div
-                  className={`pe-1 absolute bottom-[2px] md:bottom-[5px] right-0 ${cx(
+                  className={`pe-1 absolute bottom-[18px] md:bottom-[5px] right-0 ${cx(
                     poppins,
                     poppins.className
                   )}`}
