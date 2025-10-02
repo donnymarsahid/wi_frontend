@@ -62,12 +62,12 @@ export default function CarouselCategoriesSlider({
                     width={400}
                     height={400}
                     alt="wall"
-                    className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-t-lg border-s-[1.2px] border-e-[1.2px] border-t-[1.2px] border-[#201E1C]"
+                    className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110 rounded-t-lg border-s-[0.9px] md:border-s-[1.2px] border-e-[0.9px] md:border-e-[1.2px] border-t-[0.9px] md:border-t-[1.2px] border-[#201E1C]"
                   />
                 )}
               </div>
               <div>
-                <div className="w-full rounded-b-lg border-s-[1.2px] border-e-[1.2px] border-b-[1.2px] border-[#201E1C]">
+                <div className="w-full rounded-b-lg border-s-[0.9px] md:border-s-[1.2px] border-e-[0.9px] md:border-e-[1.2px] border-b-[0.9px] md:border-b-[1.2px] border-[#201E1C]">
                   <div
                     className={`flex justify-center ${cx(
                       poppins,
