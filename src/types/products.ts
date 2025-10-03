@@ -15,6 +15,7 @@ export interface Attributes {
   updatedAt: string;
   publishedAt: string;
   slug: string;
+  keyword: string;
   date: string;
   product_code: string;
   stock: number;

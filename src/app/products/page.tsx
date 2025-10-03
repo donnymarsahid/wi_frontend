@@ -19,7 +19,14 @@ export default async function Products(props: { searchParams: tParams }) {
         "images,brands,brands.discount,brands.sub_categories,brands.sub_categories.categories",
 
       "filters[available][$eq]": "true",
-      "filters[title][$containsi]": (await props.searchParams).q,
+
+      // pakai OR: title atau brand name
+      "filters[$or][0][title][$containsi]": (await props.searchParams).q,
+      "filters[$or][1][slug][$containsi]": (await props.searchParams).q,
+      "filters[$or][2][keyword][$containsi]": (await props.searchParams).q,
+      "filters[$or][3][brands][title][$containsi]": (
+        await props.searchParams
+      ).q,
     },
   });
 
