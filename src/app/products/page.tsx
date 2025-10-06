@@ -27,6 +27,7 @@ export default async function Products(props: { searchParams: tParams }) {
       "filters[$or][3][brands][title][$containsi]": (
         await props.searchParams
       ).q,
+      "pagination[pageSize]": "9999",
     },
   });
 
