@@ -8,6 +8,7 @@ import { STRAPI_URL } from "@/app/utils/constans";
 import { ReviewsProps } from "@/types/reviews";
 import CarouselReview from "../atoms/carouselreview";
 import Marquee from "react-fast-marquee";
+import CardClientAndReview from "../atoms/cardClientAndReview";
 
 type ClientSectionProps = {
   clients: ClientProps;
@@ -28,41 +29,21 @@ export default function Clients({ clients, reviews }: ClientSectionProps) {
               <div className="w-full mt-4 overflow-hidden">
                 {/* Wrapper div with duplicate content for seamless scrolling */}
                 <Marquee>
-                  {clients.data.map((el, index) => (
-                    <div
-                      key={`duplicate-${index}`}
-                      className="flex-shrink-0 px-2"
-                    >
-                      <Image
-                        src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
-                        width={500}
-                        height={500}
-                        alt="logo"
-                        className="object-contain rounded-md lg:w-[250px] md:w-[150px] w-[100px] h-auto"
-                      />
-                    </div>
+                  {reviews.data.map((el, index) => (
+                    <CardClientAndReview item={el} key={`duplicate-${index}`} />
                   ))}
-                  {clients.data.map((el, index) => (
-                    <div
-                      key={`duplicate-${index}`}
-                      className="flex-shrink-0 px-2"
-                    >
-                      <Image
-                        src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
-                        width={500}
-                        height={500}
-                        alt="logo"
-                        className="object-contain rounded-md lg:w-[250px] md:w-[150px] w-[100px] h-auto"
-                      />
-                    </div>
+                  {reviews.data.map((el, index) => (
+                    <CardClientAndReview item={el} key={`duplicate-${index}`} />
                   ))}
                 </Marquee>
-                <div className="mt-4">
+                {/* <div className="mt-4">
                   <CarouselReview reviews={reviews} />
-                </div>
+                </div> */}
               </div>
             </div>
-            <div className={`${poppins.className} absolute bottom-4 right-4`}>
+            <div
+              className={`${poppins.className} absolute bottom-4 right-4 z-[99]`}
+            >
               <Link
                 href="https://g.page/r/CYzIUSlQzWIpEAE/review"
                 target="blank"

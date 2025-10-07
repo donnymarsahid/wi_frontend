@@ -58,7 +58,7 @@ export default async function Home() {
   const reviews: ReviewsProps = await getData({
     path: `reviews`,
     params: {
-      populate: "images",
+      populate: "images,logo",
       "sort[0]": "createdAt:desc",
       "fields[0]": "thumbnail",
       "fields[1]": "slug",

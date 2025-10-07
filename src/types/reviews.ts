@@ -17,6 +17,7 @@ export interface Attributes {
   updatedAt: string;
   publishedAt: string;
   images: Images;
+  logo: Logo;
 }
 
 export interface Images {
@@ -100,6 +101,63 @@ export interface Large {
   height: number;
   size: number;
   url: string;
+}
+
+export interface Logo {
+  data: Data;
+}
+
+export interface Data {
+  id: number;
+  attributes: Attributes3;
+}
+
+export interface Attributes3 {
+  name: string;
+  alternativeText: any;
+  caption: any;
+  width: number;
+  height: number;
+  formats: Formats2;
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: any;
+  provider: string;
+  provider_metadata: any;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Formats2 {
+  small: Small2;
+  thumbnail: Thumbnail2;
+}
+
+export interface Small2 {
+  ext: string;
+  url: string;
+  hash: string;
+  mime: string;
+  name: string;
+  path: any;
+  size: number;
+  width: number;
+  height: number;
+}
+
+export interface Thumbnail2 {
+  ext: string;
+  url: string;
+  hash: string;
+  mime: string;
+  name: string;
+  path: any;
+  size: number;
+  width: number;
+  height: number;
 }
 
 export interface Meta {
