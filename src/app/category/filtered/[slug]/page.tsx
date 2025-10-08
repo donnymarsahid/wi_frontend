@@ -88,52 +88,58 @@ export default async function SlugProducts(props: {
       "sort[0]": "date:desc",
       "pagination[page]": "1",
       "pagination[pageSize]": "9999",
-    };
+    } as Record<string, string>;
   }
 
-  let orIndex = 0; // Buat urutan OR filter
+  // Tentukan operator utama
+  // Jika ada category + title aktif → pakai $and, supaya hasil lebih spesifik
+  const filterOperator =
+    category && title && categoriesMap[category] ? "$and" : "$or";
+
+  let filterIndex = 0;
 
   // Multiple (Dynamic categories)
-  multiple.forEach((item, index) => {
+  multiple.forEach((item) => {
     const field = categoriesMap[category];
-
-    // Masukin ke $or sesuai field
-    queryProducts[`filters[$or][${orIndex}][${field}][title][$eq]`] =
-      restoreAmpersand(decodeText(item.replace("symbolplus", "+")));
-
-    orIndex++;
+    queryProducts[
+      `filters[${filterOperator}][${filterIndex}][${field}][title][$eq]`
+    ] = restoreAmpersand(decodeText(item.replace("symbolplus", "+")));
+    filterIndex++;
   });
 
   // Colors
   if (colors?.length > 0) {
     for (let i = 0; i < colors.length; i++) {
-      if (colors[i] !== title)
+      if (colors[i] !== title) {
         queryProducts[
-          `filters[$or][${orIndex}][wallpaper_by_colors][title][$eq]`
+          `filters[${filterOperator}][${filterIndex}][wallpaper_by_colors][title][$eq]`
         ] = colors[i];
-      orIndex++;
+        filterIndex++;
+      }
     }
   }
 
   // Styles
   if (styles?.length > 0) {
     for (let i = 0; i < styles.length; i++) {
-      if (slugs[i] !== title)
+      if (styles[i] !== title) {
         queryProducts[
-          `filters[$or][${orIndex}][wallpaper_by_styles][title][$eq]`
+          `filters[${filterOperator}][${filterIndex}][wallpaper_by_styles][title][$eq]`
         ] = styles[i];
-      orIndex++;
+        filterIndex++;
+      }
     }
   }
 
   // Designers
   if (designers?.length > 0) {
     for (let i = 0; i < designers.length; i++) {
-      if (designers[i] !== title)
+      if (designers[i] !== title) {
         queryProducts[
-          `filters[$or][${orIndex}][wallpaper_by_designers][title][$eq]`
+          `filters[${filterOperator}][${filterIndex}][wallpaper_by_designers][title][$eq]`
         ] = designers[i];
-      orIndex++;
+        filterIndex++;
+      }
     }
   }
 
