@@ -26,7 +26,7 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
           />
         </div>
         <div className="flex-1 text-center md:text-left">
-          <h3 className="text-[35px] font-light">
+          <h3 className="md:text-[35px] text-[20px] font-light">
             {howToShop.data.attributes.consultation_desc}
           </h3>
           <a
@@ -59,11 +59,11 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
       {/* Step 1 */}
       <div className="grid md:grid-cols-2 gap-6 items-center">
         <div>
-          <h3 className="font-bold text-2xl mb-2">
+          <h3 className="font-bold md:text-2xl text-lg mb-2">
             {howToShop.data.attributes.how_to_shop_title}
           </h3>
           <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#57d0fb] mb-2"></div>
-          <p className="text-gray-700 text-sm leading-relaxed">
+          <p className="text-gray-700 md:text-lg text-sm leading-relaxed">
             {howToShop.data.attributes.how_to_shop_desc}
           </p>
         </div>
@@ -92,11 +92,11 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
           className="rounded-lg shadow-sm order-2 md:order-1"
         />
         <div className="order-1 md:order-2">
-          <h3 className="font-bold text-2xl mb-2">
+          <h3 className="font-bold md:text-2xl text-lg mb-2">
             {howToShop.data.attributes.review_cart_title}
           </h3>
           <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#10d4a2] mb-2"></div>
-          <p className="text-gray-700 text-sm leading-relaxed">
+          <p className="text-gray-700 md:text-lg text-sm leading-relaxed">
             {howToShop.data.attributes.review_cart_desc}
           </p>
         </div>
@@ -105,11 +105,11 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
       {/* Step 3 */}
       <div className="grid md:grid-cols-2 gap-6 items-center">
         <div>
-          <h3 className="font-bold text-2xl mb-2">
+          <h3 className="font-bold md:text-2xl text-lg mb-2">
             {howToShop.data.attributes.shipping_method_title}
           </h3>
           <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#57d0fb] mb-2"></div>
-          <p className="text-gray-700 text-sm leading-relaxed">
+          <p className="text-gray-700 md:text-lg text-sm leading-relaxed">
             {howToShop.data.attributes.shipping_method_desc}
           </p>
         </div>
@@ -138,11 +138,11 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
           className="rounded-lg shadow-sm order-2 md:order-1"
         />
         <div className="order-1 md:order-2">
-          <h3 className="font-bold text-2xl mb-2">
+          <h3 className="font-bold md:text-2xl text-lg mb-2">
             {howToShop.data.attributes.submit_order_title}
           </h3>
           <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#10d4a2] mb-2"></div>
-          <p className="text-gray-700 text-sm leading-relaxed">
+          <p className="text-gray-700 md:text-lg text-sm leading-relaxed">
             {howToShop.data.attributes.submit_order_desc}
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
 
       {/* Bagian rekening */}
       <div className="pt-10 border-t border-gray-200">
-        <h3 className="font-bold text-2xl mb-4">
+        <h3 className="font-bold md:text-2xl text-lg mb-4">
           {howToShop.data.attributes.payment_account_title}
         </h3>
         <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#57d0fb] mb-2"></div>
