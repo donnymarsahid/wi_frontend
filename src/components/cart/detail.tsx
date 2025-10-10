@@ -174,8 +174,30 @@ export default function Detail({ loginUrl, about }: SectionCartProps) {
                 method: "POST",
               });
               if (res?.data !== null) {
+                Swal.fire("Berhasil membuatkan orderan", "", "success");
                 localStorage.removeItem("dataCart");
-                router.push(`/checkout/${res?.data.id}`);
+                const messageText = `*Halo Wallpaper Indonesia, saya ${
+                  value?.fullname ?? ""
+                } ingin pesan produk berikut*\n\n`;
+                const encodedMessage = encodeURIComponent(messageText);
+                let result = `https://api.whatsapp.com/send?phone=${about.data.attributes.no_telp_admin_order}&text=${encodedMessage}`;
+
+                if (dataGetCart && dataGetCart.length) {
+                  for (let i = 0; i < dataGetCart.length; i++) {
+                    result += generateWhatsAppLink(
+                      dataGetCart[i],
+                      i,
+                      dataGetCart.length - 1,
+                      totalCart.toString() || "0",
+                      formData.orderNumber
+                    );
+                  }
+                }
+
+                window.open(result, "_blank");
+                window.location.reload();
+                // localStorage.removeItem("dataCart");
+                // router.push(`/checkout/${res?.data.id}`);
               } else Swal.fire("Internal server error!");
             } catch (error) {
               console.error(error);
