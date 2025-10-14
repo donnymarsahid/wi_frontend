@@ -68,9 +68,12 @@ export default function Categories({
               </div>
             </div>
             <div className={`md:mt-16 mt-6 ${cx(poppins, poppins.className)}`}>
-              <div className="p-4 bg-[#F5F5F5] rounded-lg border border-2 border-[#10D3A2] grid gap-3 md:grid-cols-3 grid-cols-1">
+              <div className="md:px-4 md:py-4 px-4 py-2 bg-[#F5F5F5] rounded-lg border border-2 border-[#10D3A2] md:flex justify-between">
                 {services.data.map((item, index) => (
-                  <div key={index} className="flex items-center">
+                  <div
+                    key={index}
+                    className="flex items-center w-fit md:my-0 my-2"
+                  >
                     <Image
                       src={`${STRAPI_URL}${item.attributes.icon.data.attributes.url}`}
                       placeholder="blur"

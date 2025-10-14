@@ -40,7 +40,7 @@ export const Footer = ({ footer, categories }: SectionFooterProps) => {
                   {footer.data.attributes.office_center}
                 </Link>
                 <h1 className="font-bold mt-4 text-xs md:text-sm lg:text-lg text-[#5BC0DE]">
-                  Kantor cabang
+                  Kantor Cabang
                 </h1>
                 <Link
                   href={footer.data.attributes.office_branch_link_maps}
