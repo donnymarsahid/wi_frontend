@@ -152,7 +152,7 @@ export default function Navbar({
                     {customerServices.data.map((item, index) => (
                       <Link
                         target="blank"
-                        href={`https://api.whatsapp.com/send?phone=${item.attributes.whatsapp}&text=Halo%20Ka%20${item.attributes.name}%20Wallpaper%20Indonesia`}
+                        href={item.attributes.whatsapp}
                         className="flex items-center me-4"
                         key={index}
                       >
