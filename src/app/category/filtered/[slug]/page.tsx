@@ -9,6 +9,7 @@ import { Metadata } from "next";
 type tParams = Promise<{ slug: string }>;
 type tSecondParams = Promise<{
   category: string;
+  title: string;
 }>;
 
 export async function generateMetadata(props: {
@@ -49,10 +50,11 @@ export default async function SlugProducts(props: {
 }) {
   const slug = (await props.params).slug;
   const category = (await props.searchParams).category;
+  const title = (await props.searchParams).title;
   return (
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-        <List category={category} slug={slug} />
+        <List category={category} slug={slug} title={title} />
       </main>
     </>
   );

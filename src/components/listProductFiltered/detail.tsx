@@ -24,6 +24,7 @@ import { WallpaperStatisticProps } from "@/types/wallpapperStatistic";
 type ListProductPageProps = {
   slug: string;
   category: string;
+  title: string;
 };
 
 type FormDataWallpStatistics = {
@@ -31,7 +32,7 @@ type FormDataWallpStatistics = {
   value: String;
 };
 
-export default function List({ slug, category }: ListProductPageProps) {
+export default function List({ slug, category, title }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
@@ -41,21 +42,19 @@ export default function List({ slug, category }: ListProductPageProps) {
   const [wallpaperStatistics, setWallpaperStatistics] =
     useState<WallpaperStatisticProps | null>(null);
 
-  const slugType = useMemo(() => slug.split("--")[1], [slug]);
-
   const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
     useState<boolean>(true);
 
   const router = useRouter();
 
   const [isOpenColor, setIsOpenColor] = useState(
-    slugType === "wallpaper-by-color" ? true : false
+    category === "wallpaper-by-color" ? true : false
   );
   const [isOpenMotif, setIsOpenMotif] = useState(
-    slugType === "wallpaper-by-style" ? true : false
+    category === "wallpaper-by-style" ? true : false
   );
   const [isOpenDesigner, setIsOpenDesigner] = useState(
-    slugType === "wallpaper-by-designer" ? true : false
+    category === "wallpaper-by-designer" ? true : false
   );
 
   const toggleDropdownColor = () => {
@@ -127,9 +126,9 @@ export default function List({ slug, category }: ListProductPageProps) {
   }, [selectedDesigners]);
 
   const convertField = () => {
-    if (slugType === "wallpaper-by-color") return "wallpaper_by_colors";
-    else if (slugType === "wallpaper-by-style") return "wallpaper_by_styles";
-    else if (slugType === "wallpaper-by-designer")
+    if (category === "wallpaper-by-color") return "wallpaper_by_colors";
+    else if (category === "wallpaper-by-style") return "wallpaper_by_styles";
+    else if (category === "wallpaper-by-designer")
       return "wallpaper_by_designers";
   };
 
@@ -153,7 +152,7 @@ export default function List({ slug, category }: ListProductPageProps) {
         isValidation: true,
       });
 
-      console.log(response, "response wallpaper by");
+      setWallpaperStatistics(response);
     } catch (error) {
       console.log(error);
     } finally {
@@ -163,6 +162,14 @@ export default function List({ slug, category }: ListProductPageProps) {
 
   useEffect(() => {
     fetchWallpaperBy();
+
+    if (category) {
+      let result = [title];
+      if (category === "wallpaper-by-color") setSelectedColors(result);
+      else if (category === "wallpaper-by-style") setSelectedMotifs(result);
+      else if (category === "wallpaper-by-designer")
+        setSelectedDesigners(result);
+    }
   }, []);
 
   return (
@@ -338,7 +345,7 @@ export default function List({ slug, category }: ListProductPageProps) {
                   <hr className="my-2" />
                   <div className="space-y-2 mb-4">
                     {isOpenColor &&
-                      wallpaperStatistics["wallpaper-by-color"].map(
+                      wallpaperStatistics["wallpaper-by-color"]?.map(
                         (color, index) => (
                           <label
                             key={index}
@@ -418,7 +425,7 @@ export default function List({ slug, category }: ListProductPageProps) {
                   <hr className="my-2" />
                   <div className="space-y-2 mb-4">
                     {isOpenMotif &&
-                      wallpaperStatistics["wallpaper-by-style"].map(
+                      wallpaperStatistics["wallpaper-by-style"]?.map(
                         (motif, index) => (
                           <label
                             key={index}
@@ -499,7 +506,7 @@ export default function List({ slug, category }: ListProductPageProps) {
                   <hr className="my-2" />
                   <div className="space-y-2 mb-4">
                     {isOpenDesigner &&
-                      wallpaperStatistics["wallpaper-by-designer"].map(
+                      wallpaperStatistics["wallpaper-by-designer"]?.map(
                         (designer, index) => (
                           <label
                             key={index}

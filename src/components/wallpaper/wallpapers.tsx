@@ -42,7 +42,11 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                     <Link
                       href={`/category/filtered/${
                         item.attributes.slug
-                      }?category=${convertToSlug(titleKey)}`}
+                      }?category=${convertToSlug(
+                        titleKey
+                      )}&title=${replaceAmpersand(
+                        item.attributes.title.replace("+", "symbolplus")
+                      )}`}
                       key={index}
                     >
                       <div className="relative mt-4 overflow-hidden cursor-pointer">
