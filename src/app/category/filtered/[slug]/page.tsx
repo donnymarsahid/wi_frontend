@@ -8,13 +8,7 @@ import { Metadata } from "next";
 
 type tParams = Promise<{ slug: string }>;
 type tSecondParams = Promise<{
-  page: string;
-  title: string;
-  colors: string;
-  styles: string;
-  designers: string;
-  key: string;
-  multiple: string;
+  category: string;
 }>;
 
 export async function generateMetadata(props: {
@@ -54,108 +48,11 @@ export default async function SlugProducts(props: {
   searchParams: tSecondParams;
 }) {
   const slug = (await props.params).slug;
-  const page = (await props.searchParams).page;
-  const title = restoreAmpersand(
-    decodeText(
-      (await props.searchParams).title.replace("symbolplus", "+")
-    ).replace("+", " ")
-  );
-  const colors = (await props.searchParams).colors?.split(",");
-  const styles = (await props.searchParams).styles?.split(",");
-  const designers = (await props.searchParams).designers?.split(",");
-
-  const slugs = (await props.searchParams).multiple;
-  let multiple: string[] = [];
-
-  // slugs bisa undefined/null, jadi cek dulu
-  if (slugs) {
-    multiple = slugs.split(",");
-  }
-
-  let queryProducts = null;
-
-  const [slugValue, category] = slug.split("--") ?? [];
-
-  const categoriesMap: Record<string, string> = {
-    "wallpaper-by-style": "wallpaper_by_styles",
-    "wallpaper-by-color": "wallpaper_by_colors",
-    "wallpaper-by-designer": "wallpaper_by_designers",
-  };
-
-  if (categoriesMap[category]) {
-    queryProducts = {
-      populate: `discount,images,brands,brands.discount,brands.categories,wallpaper_by_styles,wallpaper_by_colors,wallpaper_by_designers`,
-      "sort[0]": "date:desc",
-      "pagination[page]": "1",
-      "pagination[pageSize]": "9999",
-    } as Record<string, string>;
-  }
-
-  // Tentukan operator utama
-  // Jika ada category + title aktif → pakai $and, supaya hasil lebih spesifik
-  const filterOperator =
-    category && title && categoriesMap[category] ? "$and" : "$or";
-
-  let filterIndex = 0;
-
-  // Multiple (Dynamic categories)
-  multiple.forEach((item) => {
-    const field = categoriesMap[category];
-    queryProducts[
-      `filters[${filterOperator}][${filterIndex}][${field}][title][$eq]`
-    ] = restoreAmpersand(decodeText(item.replace("symbolplus", "+")));
-    filterIndex++;
-  });
-
-  // Colors
-  if (colors?.length > 0) {
-    for (let i = 0; i < colors.length; i++) {
-      if (colors[i] !== title) {
-        queryProducts[
-          `filters[${filterOperator}][${filterIndex}][wallpaper_by_colors][title][$eq]`
-        ] = colors[i];
-        filterIndex++;
-      }
-    }
-  }
-
-  // Styles
-  if (styles?.length > 0) {
-    for (let i = 0; i < styles.length; i++) {
-      if (styles[i] !== title) {
-        queryProducts[
-          `filters[${filterOperator}][${filterIndex}][wallpaper_by_styles][title][$eq]`
-        ] = styles[i];
-        filterIndex++;
-      }
-    }
-  }
-
-  // Designers
-  if (designers?.length > 0) {
-    for (let i = 0; i < designers.length; i++) {
-      if (designers[i] !== title) {
-        queryProducts[
-          `filters[${filterOperator}][${filterIndex}][wallpaper_by_designers][title][$eq]`
-        ] = designers[i];
-        filterIndex++;
-      }
-    }
-  }
-
-  const products: ProductsProps = await getData({
-    path: `products`,
-    params: queryProducts,
-  });
-
+  const category = (await props.searchParams).category;
   return (
     <>
       <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-        <List
-          searchParams={await props.searchParams}
-          products={products}
-          slug={slug}
-        />
+        <List category={category} slug={slug} />
       </main>
     </>
   );

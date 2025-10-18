@@ -16,43 +16,35 @@ import { ProductsProps } from "@/types/products";
 import { buildPathWithQueryParams } from "@/utils/queryParams";
 import Pagination from "../atoms/paginations";
 import { useRouter } from "next/navigation";
-import { getData } from "@/app/utils/fetching";
+import { getData, postData } from "@/app/utils/fetching";
 import { decodeText, replaceAmpersand, restoreAmpersand } from "@/lib/utils";
+import { WallpaperFilterProps } from "@/types/wallpaperFilter";
+import { WallpaperStatisticProps } from "@/types/wallpapperStatistic";
 
 type ListProductPageProps = {
-  products: ProductsProps;
   slug: string;
-  searchParams: {
-    page: string;
-    multiple: string;
-  };
+  category: string;
 };
 
-export default function List({
-  products,
-  slug,
-  searchParams,
-}: ListProductPageProps) {
+type FormDataWallpStatistics = {
+  category: string;
+  value: String;
+};
+
+export default function List({ slug, category }: ListProductPageProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedColors, setSelectedColors] = useState<string[]>([]); // State untuk filter warna
   const [selectedMotifs, setSelectedMotifs] = useState<string[]>([]);
   const [selectedDesigners, setSelectedDesigners] = useState<string[]>([]);
+  const [wallpaperFilters, setWallpaperFilters] =
+    useState<WallpaperFilterProps | null>(null);
+  const [wallpaperStatistics, setWallpaperStatistics] =
+    useState<WallpaperStatisticProps | null>(null);
 
   const slugType = useMemo(() => slug.split("--")[1], [slug]);
 
   const [loadFetchWallpaperBy, setLoadFetchWallpaperBy] =
     useState<boolean>(true);
-
-  // Wallpaper By
-  const [wallpaper_by_colors, setWallpaper_by_colors] = useState<
-    WallpaperByGeneralPropsDaum[] | null
-  >([]);
-  const [wallpaper_by_styles, setWallpaper_by_styles] = useState<
-    WallpaperByGeneralPropsDaum[] | null
-  >([]);
-  const [wallpaper_by_designers, setWallpaper_by_designers] = useState<
-    WallpaperByGeneralPropsDaum[] | null
-  >([]);
 
   const router = useRouter();
 
@@ -66,11 +58,6 @@ export default function List({
     slugType === "wallpaper-by-designer" ? true : false
   );
 
-  const path = buildPathWithQueryParams(
-    `/category/filtered/${slug}`,
-    searchParams
-  );
-
   const toggleDropdownColor = () => {
     setIsOpenColor(!isOpenColor);
   };
@@ -79,18 +66,6 @@ export default function List({
   };
   const toggleDropdownDesigner = () => {
     setIsOpenDesigner(!isOpenDesigner);
-  };
-
-  const updateQueryParams = (others: string[]) => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (others.length > 0) {
-      params.set("multiple", others.join(","));
-    } else {
-      params.delete("multiple");
-    }
-
-    router.push(`/category/filtered/${slug}?${params.toString()}`);
   };
 
   // Fungsi untuk mengelola perubahan checkbox tanpa query params
@@ -105,7 +80,6 @@ export default function List({
     }
 
     setSelectedColors(updatedFilters);
-    updateQueryParams(updatedFilters);
   };
 
   const handleFilterMotifChange = (motif: string) => {
@@ -119,7 +93,6 @@ export default function List({
     }
 
     setSelectedMotifs(updatedFilters);
-    updateQueryParams(updatedFilters);
   };
 
   const handleFilterDesignerChange = (motif: string) => {
@@ -133,7 +106,6 @@ export default function List({
     }
 
     setSelectedDesigners(updatedFilters);
-    updateQueryParams(updatedFilters);
   };
 
   function slugToText(slug: string): string {
@@ -142,51 +114,16 @@ export default function List({
       .replace(/\b\w/g, (char) => char.toUpperCase()); // Kapitalisasi setiap kata
   }
 
-  // Buat flag untuk masing-masing state
-  const isFirstRenderColors = useRef(true);
-  const isFirstRenderMotifs = useRef(true);
-  const isFirstRenderDesigners = useRef(true);
-
   useEffect(() => {
-    if (isFirstRenderColors.current) {
-      isFirstRenderColors.current = false;
-      return; // Skip first render
-    }
-
-    const result = selectedColors.join(",");
-    const href = buildPathWithQueryParams(path, {
-      colors: result,
-    });
-
-    router.push(href);
+    console.log("selected colors");
   }, [selectedColors]);
 
   useEffect(() => {
-    if (isFirstRenderMotifs.current) {
-      isFirstRenderMotifs.current = false;
-      return; // Skip first render
-    }
-
-    const result = selectedMotifs.join(",");
-    const href = buildPathWithQueryParams(path, {
-      styles: result,
-    });
-
-    router.push(href);
+    console.log("selected motifs");
   }, [selectedMotifs]);
 
   useEffect(() => {
-    if (isFirstRenderDesigners.current) {
-      isFirstRenderDesigners.current = false;
-      return; // Skip first render
-    }
-
-    const result = selectedDesigners.join(",");
-    const href = buildPathWithQueryParams(path, {
-      designers: result,
-    });
-
-    router.push(href);
+    console.log("selected designers");
   }, [selectedDesigners]);
 
   const convertField = () => {
@@ -199,34 +136,24 @@ export default function List({
   const fetchWallpaperBy = useCallback(async () => {
     setLoadFetchWallpaperBy(true);
     try {
-      const queryWallpaperBy = {
-        "fields[0]": "title",
-        "fields[1]": "slug",
-        "populate[products][fields][0]": "id",
-        [`populate[products][populate][${convertField()}][fields][0]`]: "slug",
-        "pagination[pageSize]": "50",
+      const formData: FormDataWallpStatistics = {
+        category,
+        value: slug,
       };
 
-      const wallpaper_by_colors: WallpaperByGeneralProps = await getData({
-        path: `wallpaper-by-colors`,
-        params: queryWallpaperBy,
-        revalidate: 0,
-      });
-      const wallpaper_by_styles: WallpaperByGeneralProps = await getData({
-        path: `wallpaper-by-styles`,
-        params: queryWallpaperBy,
-        revalidate: 0,
-      });
-      const wallpaper_by_designers: WallpaperByGeneralProps = await getData({
-        path: `wallpaper-by-designers`,
-        params: queryWallpaperBy,
-        revalidate: 0,
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      const response = await postData({
+        path: "wallpaper-statistics",
+        body: formData,
+        headers: headers,
+        method: "POST",
+        isValidation: true,
       });
 
-      setWallpaper_by_colors(wallpaper_by_colors.data);
-      setWallpaper_by_styles(wallpaper_by_styles.data);
-      setWallpaper_by_designers(wallpaper_by_designers.data);
-      setLoadFetchWallpaperBy(false);
+      console.log(response, "response wallpaper by");
     } catch (error) {
       console.log(error);
     } finally {
@@ -237,28 +164,6 @@ export default function List({
   useEffect(() => {
     fetchWallpaperBy();
   }, []);
-
-  useEffect(() => {
-    const multiple = searchParams.multiple;
-
-    if (multiple) {
-      const selected = multiple.split(",");
-      let result = [];
-      for (const item of selected) {
-        result.push(
-          decodeText(restoreAmpersand(item.replace("symbolplus", "+")))
-        );
-      }
-      if (slugType === "wallpaper-by-color") setSelectedColors(result);
-      else if (slugType === "wallpaper-by-style") setSelectedMotifs(result);
-      else if (slugType === "wallpaper-by-designer")
-        setSelectedDesigners(result);
-    } else {
-      if (slugType === "wallpaper-by-color") setSelectedColors([]);
-      else if (slugType === "wallpaper-by-style") setSelectedMotifs([]);
-      else if (slugType === "wallpaper-by-designer") setSelectedDesigners([]);
-    }
-  }, [searchParams.multiple]);
 
   return (
     <div className="mt-10 mb-10">
@@ -433,11 +338,8 @@ export default function List({
                   <hr className="my-2" />
                   <div className="space-y-2 mb-4">
                     {isOpenColor &&
-                      wallpaper_by_colors.map((color, index) => {
-                        let filteredProducts =
-                          color?.attributes?.products?.data?.length ?? 0;
-
-                        return (
+                      wallpaperStatistics["wallpaper-by-color"].map(
+                        (color, index) => (
                           <label
                             key={index}
                             className="flex items-center md:text-sm text-xs cursor-pointer"
@@ -445,25 +347,22 @@ export default function List({
                             <input
                               type="checkbox"
                               className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                              checked={selectedColors.includes(
-                                color.attributes.title
-                              )}
-                              onChange={() =>
-                                handleFilterChange(color.attributes.title)
-                              }
+                              checked={selectedColors.includes(color.name)}
+                              onChange={() => handleFilterChange(color.name)}
                             />
                             <span className="ml-2 text-gray-700">
-                              {color.attributes.title} ({filteredProducts})
+                              {color.name} ({color.count})
                             </span>
                           </label>
-                        );
-                      })}
+                        )
+                      )}
 
-                    {isOpenColor && !wallpaper_by_colors.length && (
-                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                        Color Kosong!
-                      </p>
-                    )}
+                    {isOpenColor &&
+                      !wallpaperStatistics["wallpaper-by-color"]?.length && (
+                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                          Color Kosong!
+                        </p>
+                      )}
                   </div>
                 </div>
 
@@ -519,10 +418,8 @@ export default function List({
                   <hr className="my-2" />
                   <div className="space-y-2 mb-4">
                     {isOpenMotif &&
-                      wallpaper_by_styles.map((motif, index) => {
-                        let filteredProducts =
-                          motif?.attributes?.products?.data?.length ?? 0;
-                        return (
+                      wallpaperStatistics["wallpaper-by-style"].map(
+                        (motif, index) => (
                           <label
                             key={index}
                             className="flex items-center md:text-sm text-xs cursor-pointer"
@@ -530,24 +427,23 @@ export default function List({
                             <input
                               type="checkbox"
                               className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
-                              checked={selectedMotifs.includes(
-                                motif.attributes.title
-                              )}
+                              checked={selectedMotifs.includes(motif.name)}
                               onChange={() =>
-                                handleFilterMotifChange(motif.attributes.title)
+                                handleFilterMotifChange(motif.name)
                               }
                             />
                             <span className="ml-2 text-gray-700">
-                              {motif.attributes.title} ({filteredProducts})
+                              {motif.name} ({motif.count})
                             </span>
                           </label>
-                        );
-                      })}
-                    {isOpenMotif && !wallpaper_by_styles.length && (
-                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                        Motif Kosong!
-                      </p>
-                    )}
+                        )
+                      )}
+                    {isOpenMotif &&
+                      !wallpaperStatistics["wallpaper-by-style"]?.length && (
+                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                          Motif Kosong!
+                        </p>
+                      )}
                   </div>
                 </div>
 
@@ -603,11 +499,8 @@ export default function List({
                   <hr className="my-2" />
                   <div className="space-y-2 mb-4">
                     {isOpenDesigner &&
-                      wallpaper_by_designers.map((designer, index) => {
-                        let filteredProducts =
-                          designer?.attributes?.products?.data?.length ?? 0;
-
-                        return (
+                      wallpaperStatistics["wallpaper-by-designer"].map(
+                        (designer, index) => (
                           <label
                             key={index}
                             className="flex items-center md:text-sm text-xs cursor-pointer"
@@ -616,25 +509,24 @@ export default function List({
                               type="checkbox"
                               className="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-0"
                               checked={selectedDesigners.includes(
-                                designer.attributes.title
+                                designer.name
                               )}
                               onChange={() =>
-                                handleFilterDesignerChange(
-                                  designer.attributes.title
-                                )
+                                handleFilterDesignerChange(designer.name)
                               }
                             />
                             <span className="ml-2 text-gray-700">
-                              {designer.attributes.title} ({filteredProducts})
+                              {designer.name} ({designer.count})
                             </span>
                           </label>
-                        );
-                      })}
-                    {isOpenDesigner && !wallpaper_by_designers.length && (
-                      <p className="text-center text-[12px] bg-gray-200 text-gray-600">
-                        Designer Kosong!
-                      </p>
-                    )}
+                        )
+                      )}
+                    {isOpenDesigner &&
+                      !wallpaperStatistics["wallpaper-by-designer"]?.length && (
+                        <p className="text-center text-[12px] bg-gray-200 text-gray-600">
+                          Designer Kosong!
+                        </p>
+                      )}
                   </div>
                 </div>
               </div>
@@ -643,7 +535,7 @@ export default function List({
             {/* Product Grid */}
             <div className="col-span-3 mt-[-30px] md:mt-0">
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-2">
-                {products.data.map((item, index) => (
+                {wallpaperFilters?.products?.map((item, index) => (
                   <div key={index}>
                     <CardProductToDetail {...item} />
                   </div>
@@ -651,7 +543,7 @@ export default function List({
               </div>
 
               {/* Empty State */}
-              {!products.data.length && (
+              {!wallpaperFilters?.products?.length && (
                 <div
                   className={`w-full flex justify-center my-24 ${cx(
                     poppins,
