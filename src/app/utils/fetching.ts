@@ -13,6 +13,7 @@ type propsAction = {
   body?: Record<string, any>;
   revalidate?: number;
   params?: Record<string, any>;
+  isValidation?: boolean;
 };
 type propsActionFormData = {
   path: string;
@@ -70,6 +71,7 @@ export const postData = async ({
   body,
   revalidate,
   params,
+  isValidation = false,
 }: propsAction) => {
   const url = new URL(path, `${STRAPI_URL}/api/`);
 
@@ -84,7 +86,12 @@ export const postData = async ({
   const res = await fetch(url, {
     method: "POST",
     headers: headers,
-    body: body instanceof FormData ? body : JSON.stringify({ data: body }), // Use FormData for file upload, otherwise use JSON.stringify
+    body:
+      body instanceof FormData
+        ? body
+        : isValidation
+        ? JSON.stringify(body)
+        : JSON.stringify({ data: body }), // Use FormData for file upload, otherwise use JSON.stringify
     next: {
       revalidate: revalidate ?? 60,
     },

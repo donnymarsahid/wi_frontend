@@ -42,9 +42,9 @@ export default function Wallpapers({ titleKey, data }: WallpaperPageProps) {
                     <Link
                       href={`/category/filtered/${
                         item.attributes.slug
-                      }--${convertToSlug(titleKey)}?title=${replaceAmpersand(
-                        item.attributes.title.replace("+", "symbolplus")
-                      )}&multiple=${replaceAmpersand(
+                      }?category=${convertToSlug(
+                        titleKey
+                      )}&title=${replaceAmpersand(
                         item.attributes.title.replace("+", "symbolplus")
                       )}`}
                       key={index}
