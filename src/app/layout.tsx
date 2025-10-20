@@ -136,6 +136,21 @@ export default async function RootLayout({
     gtag('config', 'G-KMCYHQV6GM');
   `}
         </Script>
+
+        {/* Google Tag tambahan dari tim SEO */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=GT-5MR682C7"
+          strategy="afterInteractive"
+        />
+        <Script id="ga-gtag-5MR682C7" strategy="afterInteractive">
+          {`
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GT-5MR682C7');
+  `}
+        </Script>
       </head>
       <body suppressHydrationWarning={true}>
         {/* GTM NoScript */}
