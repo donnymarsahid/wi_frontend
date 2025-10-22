@@ -2,7 +2,7 @@
 import { STRAPI_URL } from "@/app/utils/constans";
 import { HowToShopProps } from "@/types/howToShop";
 import Image from "next/image";
-import { FaWhatsapp } from "react-icons/fa";
+import MarkdownComponent from "../atoms/markdown";
 
 type DetailHowToShopProps = {
   howToShop: HowToShopProps;
@@ -25,15 +25,16 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
             className="rounded-2xl border border-cyan-300"
           />
         </div>
-        <div className="flex-1 text-center md:text-left">
-          <h3 className="md:text-[35px] text-[20px] font-light">
-            {howToShop.data.attributes.consultation_desc}
-          </h3>
+        <div className="flex-1 text-center md:text-left md:text-[35px] text-[20px] font-light">
+          <MarkdownComponent
+            markdown={howToShop.data.attributes.consultation_desc}
+          />
           <a
             href={`https://api.whatsapp.com/send?phone=${howToShop.data.attributes.consultation_no_telp}&text=Halo%20Admin%20Wallpaper%20Indonesia`}
             target="_blank"
             rel="noopener noreferrer"
             className="
+            mt-4
         inline-flex items-center gap-2 
         bg-white border border-black 
         text-black font-bold text-lg 
@@ -43,17 +44,26 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
         transition-all duration-150
       "
           >
-            <FaWhatsapp className="text-green-600 text-2xl" />
+            <Image
+              src="/assets/icons/logos_whatsapp-icon.svg"
+              width={25}
+              height={25}
+              alt="wa-logo"
+            />
             Hubungi kami
           </a>
         </div>
       </div>
 
       {/* Judul utama */}
-      <div className="text-left">
-        <h2 className="text-3xl md:text-[80px] font-extrabold text-[#10d4a2]">
-          CARA BELANJA.
-        </h2>
+      <div className="flex justify-center items-center bg-[#e4e4e4] rounded-[10px] p-6">
+        <Image
+          src="/assets/images/carabelanja.png"
+          width={1000}
+          height={1000}
+          alt="carabelanja"
+          className="md:w-[550px] w-[300px] h-[full]"
+        />
       </div>
 
       {/* Step 1 */}
