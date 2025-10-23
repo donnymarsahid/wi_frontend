@@ -85,7 +85,7 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
           alt="Add to Cart"
           width={500}
           height={300}
-          className="rounded-lg shadow-sm"
+          className="rounded-lg "
         />
       </div>
 
@@ -99,7 +99,7 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
           alt="Cart Review"
           width={500}
           height={300}
-          className="rounded-lg shadow-sm order-2 md:order-1"
+          className="rounded-lg  order-2 md:order-1"
         />
         <div className="order-1 md:order-2">
           <h3 className="font-bold md:text-2xl text-lg mb-2">
@@ -131,22 +131,24 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
           alt="Delivery"
           width={500}
           height={300}
-          className="rounded-lg shadow-sm"
+          className="rounded-lg "
         />
       </div>
 
       {/* Step 4 */}
       <div className="grid md:grid-cols-2 gap-6 items-center">
-        <Image
-          src={
-            STRAPI_URL +
-            howToShop.data.attributes.submit_order_image.data.attributes.url
-          }
-          alt="Submit Order"
-          width={500}
-          height={300}
-          className="rounded-lg shadow-sm order-2 md:order-1"
-        />
+        <div className="flex justify-center items-center order-2 md:order-1">
+          <Image
+            src={
+              STRAPI_URL +
+              howToShop.data.attributes.submit_order_image.data.attributes.url
+            }
+            alt="Submit Order"
+            width={200}
+            height={100}
+            className="rounded-lg"
+          />
+        </div>
         <div className="order-1 md:order-2">
           <h3 className="font-bold md:text-2xl text-lg mb-2">
             {howToShop.data.attributes.submit_order_title}
@@ -159,24 +161,34 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
       </div>
 
       {/* Bagian rekening */}
-      <div className="pt-10 border-t border-gray-200">
+      <div className="pt-10">
         <h3 className="font-bold md:text-2xl text-lg mb-4">
           {howToShop.data.attributes.payment_account_title}
         </h3>
-        <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#57d0fb] mb-2"></div>
+        <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#57d0fb] mb-8"></div>
         {howToShop.data.attributes.payment_account_content.map(
           (item, index) => (
-            <div className="flex items-center gap-3" key={index}>
-              <Image
-                src={STRAPI_URL + item.logo.data.attributes.url}
-                alt="BCA"
-                width={60}
-                height={40}
-              />
-              <p className="text-gray-700">
-                <span className="font-bold">{item.no_rek}</span>{" "}
-                {item.account_number}
-              </p>
+            <div className="flex flex-col items-center gap-3" key={index}>
+              <div>
+                <Image
+                  src={STRAPI_URL + item.logo.data.attributes.url}
+                  alt="BCA"
+                  width={1000}
+                  height={1000}
+                  className="md:w-[300px] w-[250px] h-full"
+                />
+              </div>
+              <div className="bg-[#57d0fb] px-4 rounded-full">
+                <p className="text-white font-bold md:text-[40px] text-[30px]">
+                  {item.no_rek}
+                </p>
+              </div>
+              <div>
+                <h1 className="md:text-[40px] text-[18px]">
+                  {" "}
+                  {item.account_number}
+                </h1>
+              </div>
             </div>
           )
         )}

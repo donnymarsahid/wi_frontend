@@ -12,14 +12,21 @@ import CarouselBannerPortfolio from "../atoms/carouselbannerportfolio";
 import { FooterProps } from "@/types/footer";
 import Marquee from "react-fast-marquee";
 import Link from "next/link";
+import { ReviewsProps } from "@/types/reviews";
 
 type AboutDetailProps = {
   data: AboutProps;
   clients: ClientProps;
   footer: FooterProps;
+  reviews: ReviewsProps;
 };
 
-export default function Content({ data, clients, footer }: AboutDetailProps) {
+export default function Content({
+  data,
+  clients,
+  footer,
+  reviews,
+}: AboutDetailProps) {
   return (
     <div>
       <div
@@ -55,7 +62,7 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
               Kantor Cabang
             </h1>
@@ -76,45 +83,9 @@ export default function Content({ data, clients, footer }: AboutDetailProps) {
             >
               {footer.data.attributes.office_center}
             </Link>
-          </div>
-          <div className="flex items-center flex-col my-8">
-            <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
-              Klien Kami
-            </h1>
-            <div className="md:h-[3px] h-[1px] lg:w-[300px] md:w-[500px] w-[300px] bg-[#20D3B6] text-center"></div>
-            <div className="w-full mt-4 overflow-hidden">
-              {/* Wrapper div with duplicate content for seamless scrolling */}
-              <Marquee>
-                {clients.data.map((el, index) => (
-                  <div
-                    key={`duplicate-${index}`}
-                    className="flex-shrink-0 px-2"
-                  >
-                    <Image
-                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
-                      width={500}
-                      height={500}
-                      alt="logo"
-                      className="object-contain rounded-md lg:w-[250px] md:w-[150px] w-[100px] h-auto"
-                    />
-                  </div>
-                ))}
-                {clients.data.map((el, index) => (
-                  <div
-                    key={`duplicate-${index}`}
-                    className="flex-shrink-0 px-2"
-                  >
-                    <Image
-                      src={`${STRAPI_URL}${el.attributes.logo.data.attributes.url}`}
-                      width={500}
-                      height={500}
-                      alt="logo"
-                      className="object-contain rounded-md lg:w-[250px] md:w-[150px] w-[100px] h-auto"
-                    />
-                  </div>
-                ))}
-              </Marquee>
-            </div>
+          </div> */}
+          <div>
+            <Clients clients={clients} reviews={reviews} />
           </div>
         </div>
       </div>

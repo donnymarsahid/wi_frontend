@@ -14,7 +14,7 @@ export default async function HowToShopPage() {
   });
   return (
     <main
-      className={`min-h-screen bg-gray-50 py-10 px-4 md:px-10 ${cx(
+      className={`min-h-screen bg-white py-10 px-4 md:px-10 ${cx(
         poppins,
         poppins.className
       )}`}

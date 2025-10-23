@@ -4,6 +4,7 @@ import { AboutProps } from "@/types/about";
 import { ClientProps } from "@/types/client";
 import { FooterProps } from "@/types/footer";
 import { Metadata } from "next";
+import { ReviewsProps } from "@/types/reviews";
 
 export async function generateMetadata(): Promise<Metadata> {
   const about: AboutProps = await getData({
@@ -47,6 +48,18 @@ export default async function SlugProducts() {
     },
   });
 
+  const reviews: ReviewsProps = await getData({
+    path: `reviews`,
+    params: {
+      populate: "images,logo",
+      "sort[0]": "createdAt:desc",
+      "fields[0]": "thumbnail",
+      "fields[1]": "slug",
+      "fields[2]": "username",
+      "fields[3]": "desc",
+    },
+  });
+
   const footer: FooterProps = await getData({
     path: `footer`,
   });
@@ -54,7 +67,12 @@ export default async function SlugProducts() {
   return (
     <>
       <main className="mt-[120px] md:mt-[200px] lg:mt-[120px]">
-        <Content data={about} clients={clients} footer={footer} />
+        <Content
+          data={about}
+          clients={clients}
+          footer={footer}
+          reviews={reviews}
+        />
       </main>
     </>
   );
