@@ -60,13 +60,13 @@ export default function Content({
             </div>
           </div>
           <div className="my-16">
-            <div className={`flex justify-center`}>
+            {/* <div className={`flex justify-center`}>
               <div className="flex items-center flex-col">
                 <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
                   Portfolio
                 </h1>
               </div>
-            </div>
+            </div> */}
             <div className="flex justify-center">
               <div className="max-w-6xl w-full">
                 {/* Grid 2 kolom */}
@@ -77,7 +77,7 @@ export default function Content({
                     {getImg(0) && (
                       <div
                         onClick={() => handleOpen(0)}
-                        className="relative cursor-pointer overflow-hidden  shadow-md md:h-[520px]"
+                        className="relative cursor-pointer overflow-hidden  shadow-md md:h-[520px] h-[316px]"
                       >
                         <img
                           src={STRAPI_URL + getImg(0).attributes.url}
@@ -99,7 +99,7 @@ export default function Content({
                       {getImg(3) ? (
                         <div
                           onClick={() => handleOpen(3)}
-                          className="relative cursor-pointer overflow-hidden  shadow-md md:h-[240px]"
+                          className="relative cursor-pointer overflow-hidden  shadow-md md:h-[240px] h-[100px]"
                         >
                           <img
                             src={STRAPI_URL + getImg(3).attributes.url}
@@ -117,7 +117,7 @@ export default function Content({
                       {getImg(4) ? (
                         <div
                           onClick={() => handleOpen(4)}
-                          className="relative cursor-pointer overflow-hidden  shadow-md md:h-[240px]"
+                          className="relative cursor-pointer overflow-hidden  shadow-md md:h-[240px] h-[100px]"
                         >
                           <img
                             src={STRAPI_URL + getImg(4).attributes.url}
