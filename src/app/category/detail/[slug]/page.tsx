@@ -22,6 +22,7 @@ import RollerBlind from "@/components/rollerblind/rollerblind";
 import HeroCategory from "@/components/rollerblind/hero";
 import { Metadata } from "next";
 import HeroFlooringDetail from "@/components/flooring/herodetail";
+import FloorsDetail from "@/components/flooring/floorsdetail";
 
 type tParams = Promise<{ slug: string }>;
 
@@ -207,7 +208,6 @@ export default async function SlugProducts(props: { params: tParams }) {
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroFlooringDetail heroBanners={heroBanners.data} />
-            <CategoriesFlooring heroBanners={subCategoriesSection.data} />
             {subCategoriesSection.data
               .sort(
                 (a, b) =>
@@ -215,7 +215,7 @@ export default async function SlugProducts(props: { params: tParams }) {
                   new Date(a.attributes.date).getTime()
               )
               .map((item, index) => (
-                <Floors data={item} keyPage={slug} key={index} />
+                <FloorsDetail data={item} keyPage={slug} key={index} />
               ))}
             <SocmedFlooring homepage={homepage} />
           </main>

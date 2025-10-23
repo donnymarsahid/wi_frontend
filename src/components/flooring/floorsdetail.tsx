@@ -20,7 +20,7 @@ type WallpaperPageProps = {
   keyPage: string;
 };
 
-export default function Floors({ data, keyPage }: WallpaperPageProps) {
+export default function FloorsDetail({ data, keyPage }: WallpaperPageProps) {
   return (
     <>
       {data.attributes.name.toLowerCase().includes("accessories") ? (
