@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@types/crypto-js": "^4.2.2",
     "@types/react-autosuggest": "^10.1.11",
     "classnames": "^2.5.1",
@@ -23,6 +24,7 @@
     "react-dom": "^19.0.0",
     "react-fast-marquee": "^1.6.5",
     "react-hook-form": "^7.53.0",
+    "react-image-gallery": "^1.4.0",
     "react-markdown": "^9.0.1",
     "react-multi-carousel": "^2.8.5",
     "react-spinners": "^0.15.0",
