@@ -164,7 +164,7 @@ export default async function SlugProducts(props: {
     path: "sub-categories",
     params: {
       populate:
-        "brands,brands.images,banners,categories,thumbnail,brands.discount",
+        "brands,brands.images,banners,categories,thumbnail,brands.discount,three_card_banner,three_card_banner.background_cover,three_card_banner.linked",
       "fields[0]": "banners",
       "fields[1]": "categories",
       "fields[2]": "name",
@@ -172,6 +172,7 @@ export default async function SlugProducts(props: {
       "fields[4]": "date",
       "fields[5]": "description",
       "fields[6]": "slug",
+      "fields[7]": "three_card_banner",
       ...subCategoriesSectionqueryCategory,
     },
   });
@@ -217,7 +218,11 @@ export default async function SlugProducts(props: {
         slug.split("--")[0] === "decking" ? (
         <>
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
-            <HeroFlooringDetail heroBanners={heroBanners.data} />
+            <HeroFlooringDetail
+              heroBanners={subCategoriesSection.data.filter(
+                (item) => item.attributes.slug === detail
+              )}
+            />
             {subCategoriesSection.data
               .filter((item) => item.attributes.slug === detail)
               .sort(

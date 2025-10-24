@@ -5,7 +5,7 @@ export default function HeroFlooringDetail({ heroBanners }: any) {
     <div>
       <div className="container mx-auto mt-[120px] md:mt-[150px] lg:mt-[0px]">
         <div className="md:mx-10 mx-4">
-          <BannerFlooringDetail />
+          <BannerFlooringDetail heroBanners={heroBanners} />
         </div>
       </div>
     </div>
