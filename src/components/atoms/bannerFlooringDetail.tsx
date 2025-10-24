@@ -13,7 +13,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
     <div className={`${cx(poppins, poppins.className)}`}>
       <div className="grid grid-cols-3 grid-rows-2 md:gap-4 gap-2">
         {/* div1: span 2 kolom dan 2 baris */}
-        <div className="bg-red-400 col-span-2 row-span-2 flex items-center justify-center text-white font-bold">
+        <div className="bg-[#D9D9D9] col-span-2 row-span-2 flex items-center justify-center text-white font-bold">
           <div className="relative w-full h-[400px] rounded-sm overflow-hidden shadow-card">
             <img
               src={
@@ -43,7 +43,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
         </div>
 
         {/* div2: kolom ke-3, baris ke-1 */}
-        <div className="bg-blue-400 col-start-3 row-start-1 flex items-center justify-center text-white font-bold">
+        <div className="bg-[#D9D9D9] col-start-3 row-start-1 flex items-center justify-center text-white font-bold">
           <div className="relative w-full h-full rounded-sm overflow-hidden shadow-card">
             <img
               src={
@@ -76,7 +76,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
         </div>
 
         {/* div3: kolom ke-3, baris ke-2 */}
-        <div className="bg-green-400 col-start-3 row-start-2 flex items-center justify-center text-white font-bold">
+        <div className="bg-[#D9D9D9] col-start-3 row-start-2 flex items-center justify-center text-white font-bold">
           <div className="relative w-full h-full rounded-sm overflow-hidden shadow-card">
             <img
               src={
