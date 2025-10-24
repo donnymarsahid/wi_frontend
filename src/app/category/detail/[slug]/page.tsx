@@ -26,10 +26,15 @@ import FloorsDetail from "@/components/flooring/floorsdetail";
 
 type tParams = Promise<{ slug: string }>;
 
+type tSecondParams = Promise<{
+  detail: string;
+}>;
+
 export async function generateMetadata(props: {
   params: tParams;
 }): Promise<Metadata> {
   const slug = (await props.params).slug;
+
   const categories: CategoryProps = await getData({
     path: `categories`,
     params: {
@@ -59,8 +64,12 @@ export async function generateMetadata(props: {
   }
 }
 
-export default async function SlugProducts(props: { params: tParams }) {
+export default async function SlugProducts(props: {
+  params: tParams;
+  searchParams: tSecondParams;
+}) {
   const slug = (await props.params).slug;
+  const detail = (await props.searchParams).detail;
 
   const homepage: HomepageProps = await getData({
     path: `homepage`,
@@ -162,6 +171,7 @@ export default async function SlugProducts(props: { params: tParams }) {
       "fields[3]": "thumbnail",
       "fields[4]": "date",
       "fields[5]": "description",
+      "fields[6]": "slug",
       ...subCategoriesSectionqueryCategory,
     },
   });
@@ -209,6 +219,7 @@ export default async function SlugProducts(props: { params: tParams }) {
           <main className="mt-[100px] md:mt-[200px] lg:mt-[100px]">
             <HeroFlooringDetail heroBanners={heroBanners.data} />
             {subCategoriesSection.data
+              .filter((item) => item.attributes.slug === detail)
               .sort(
                 (a, b) =>
                   new Date(b.attributes.date).getTime() -
@@ -217,6 +228,7 @@ export default async function SlugProducts(props: { params: tParams }) {
               .map((item, index) => (
                 <FloorsDetail data={item} keyPage={slug} key={index} />
               ))}
+
             <SocmedFlooring homepage={homepage} />
           </main>
         </>

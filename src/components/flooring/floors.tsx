@@ -35,6 +35,16 @@ export default function Floors({ data, keyPage }: WallpaperPageProps) {
                   <button className="lg:text-[35px] md:text-[28px] lucida-bright bg-[#10D3A2] px-4 py-1 text-white rounded-lg shadow-lg cursor-default">
                     {data.attributes.name}
                   </button>
+                  {data.attributes?.description && (
+                    <div className="flex items-end">
+                      <Link
+                        href={`/category/detail/flooring--lantai-vinyl-and-spc?detail=${data.attributes.slug}`}
+                        className="bg-[#57d0fb] md:p-2 p-1 rounded-md md:text-sm text-xs ms-2"
+                      >
+                        Cek Selengkapnya...
+                      </Link>
+                    </div>
+                  )}
                   <div>
                     <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                       {data.attributes.brands?.data.length &&
@@ -92,7 +102,7 @@ export default function Floors({ data, keyPage }: WallpaperPageProps) {
                     {data.attributes?.description && (
                       <div className="flex items-end">
                         <Link
-                          href={`/category/detail/flooring--lantai-vinyl-and-spc`}
+                          href={`/category/detail/flooring--lantai-vinyl-and-spc?detail=${data.attributes.slug}`}
                           className="bg-[#57d0fb] md:p-2 p-1 rounded-md md:text-sm text-xs ms-2"
                         >
                           Cek Selengkapnya...
