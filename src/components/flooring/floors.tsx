@@ -39,7 +39,10 @@ export default function Floors({ data, keyPage }: WallpaperPageProps) {
                     <div className="flex items-end">
                       <Link
                         href={`/category/detail/flooring--lantai-vinyl-and-spc?detail=${data.attributes.slug}`}
-                        className="bg-[#57d0fb] md:p-2 p-1 rounded-md md:text-sm text-xs ms-2"
+                        className={`bg-[#57d0fb] md:p-2 p-1 rounded-md md:text-sm text-xs ms-2 ${cx(
+                          poppins,
+                          poppins.className
+                        )}`}
                       >
                         Cek Selengkapnya...
                       </Link>
@@ -103,7 +106,10 @@ export default function Floors({ data, keyPage }: WallpaperPageProps) {
                       <div className="flex items-end">
                         <Link
                           href={`/category/detail/flooring--lantai-vinyl-and-spc?detail=${data.attributes.slug}`}
-                          className="bg-[#57d0fb] md:p-2 p-1 rounded-md md:text-sm text-xs ms-2"
+                          className={`bg-[#57d0fb] md:p-2 p-1 rounded-md md:text-sm text-xs ms-2 ${cx(
+                            poppins,
+                            poppins.className
+                          )}`}
                         >
                           Cek Selengkapnya...
                         </Link>
