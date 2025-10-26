@@ -1,19 +1,35 @@
+"use client";
 import Image from "next/image";
 
 import cx from "classnames";
 import { poppins } from "../../app/fonts";
 import { STRAPI_URL } from "@/app/utils/constans";
 import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
 
 export default function BannerFlooringDetail({ heroBanners }: any) {
   const dataAdjustment_1 = heroBanners[0]?.attributes?.three_card_banner[0];
   const dataAdjustment_2 = heroBanners[0]?.attributes?.three_card_banner[1];
   const dataAdjustment_3 = heroBanners[0]?.attributes?.three_card_banner[2];
+
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      easing: "ease-in-out",
+      once: false,
+    });
+  }, []);
+
   return (
     <div className={`${cx(poppins, poppins.className)}`}>
       <div className="grid grid-cols-3 grid-rows-2 md:gap-4 gap-2">
         {/* div1: span 2 kolom dan 2 baris */}
-        <div className="bg-[#D9D9D9] col-span-2 row-span-2 flex items-center justify-center text-white font-bold">
+        <div
+          data-aos="fade-up"
+          className="bg-[#D9D9D9] col-span-2 row-span-2 flex items-center justify-center text-white font-bold"
+        >
           <div className="relative w-full h-[400px] rounded-sm overflow-hidden shadow-card">
             <img
               src={
@@ -43,7 +59,10 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
         </div>
 
         {/* div2: kolom ke-3, baris ke-1 */}
-        <div className="bg-[#D9D9D9] col-start-3 row-start-1 flex items-center justify-center text-white font-bold">
+        <div
+          data-aos="fade-up"
+          className="bg-[#D9D9D9] col-start-3 row-start-1 flex items-center justify-center text-white font-bold"
+        >
           <div className="relative w-full h-full rounded-sm overflow-hidden shadow-card">
             <img
               src={
@@ -76,7 +95,10 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
         </div>
 
         {/* div3: kolom ke-3, baris ke-2 */}
-        <div className="bg-[#D9D9D9] col-start-3 row-start-2 flex items-center justify-center text-white font-bold">
+        <div
+          data-aos="fade-up"
+          className="bg-[#D9D9D9] col-start-3 row-start-2 flex items-center justify-center text-white font-bold"
+        >
           <div className="relative w-full h-full rounded-sm overflow-hidden shadow-card">
             <img
               src={
