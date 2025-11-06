@@ -164,7 +164,7 @@ export default async function SlugProducts(props: {
     path: "sub-categories",
     params: {
       populate:
-        "brands,brands.images,banners,categories,thumbnail,brands.discount,three_card_banner,three_card_banner.background_cover,three_card_banner.linked",
+        "brands,brands.images,banners,categories,thumbnail,brands.discount,three_card_banner,three_card_banner.background_cover,three_card_banner.linked,preview_image",
       "fields[0]": "banners",
       "fields[1]": "categories",
       "fields[2]": "name",

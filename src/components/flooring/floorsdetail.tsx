@@ -38,14 +38,40 @@ export default function FloorsDetail({ data, keyPage }: WallpaperPageProps) {
                         {data.attributes.name}
                       </h1>
                       <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#10D3A2]"></div>
-                      <p
-                        className={`md:text-base text-[10px] ${cx(
-                          poppins,
-                          poppins.className
-                        )}`}
-                      >
-                        {data.attributes.description}
-                      </p>
+                      {data.attributes?.preview_image?.data?.attributes?.url ? (
+                        <div className="flex">
+                          <div className="w-[60%]">
+                            <p
+                              className={`md:text-lg text-[10px] ${cx(
+                                poppins,
+                                poppins.className
+                              )}`}
+                            >
+                              {data.attributes.description}
+                            </p>
+                          </div>
+                          <div className="w-[40%] md:ps-4 md:pb-4 ps-2 pb-2">
+                            <img
+                              src={
+                                STRAPI_URL +
+                                data.attributes?.preview_image?.data?.attributes
+                                  ?.url
+                              }
+                              alt="image-wi"
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <p
+                          className={`md:text-lg text-[10px] ${cx(
+                            poppins,
+                            poppins.className
+                          )}`}
+                        >
+                          {data.attributes.description}
+                        </p>
+                      )}
 
                       <div>
                         <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
@@ -157,14 +183,41 @@ export default function FloorsDetail({ data, keyPage }: WallpaperPageProps) {
                       {data.attributes.name}
                     </button>
                     <div className="md:w-[350px] w-[150px] h-[3.5px] bg-[#10D3A2]"></div>
-                    <p
-                      className={`md:text-base text-[10px] ${cx(
-                        poppins,
-                        poppins.className
-                      )}`}
-                    >
-                      {data.attributes.description}
-                    </p>
+                    {data.attributes?.preview_image?.data?.attributes?.url ? (
+                      <div className="flex">
+                        <div className="w-[60%]">
+                          <p
+                            className={`md:text-lg text-[10px] ${cx(
+                              poppins,
+                              poppins.className
+                            )}`}
+                          >
+                            {data.attributes.description}
+                          </p>
+                        </div>
+                        <div className="w-[40%] md:ps-4 md:pb-4 ps-2 pb-2">
+                          <img
+                            src={
+                              STRAPI_URL +
+                              data.attributes?.preview_image?.data?.attributes
+                                ?.url
+                            }
+                            alt="image-wi"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <p
+                        className={`md:text-lg text-[10px] ${cx(
+                          poppins,
+                          poppins.className
+                        )}`}
+                      >
+                        {data.attributes.description}
+                      </p>
+                    )}
+
                     <div>
                       <div className="grid gap-4 lg:grid-cols-4 grid-cols-2">
                         {data.attributes.brands?.data.length &&

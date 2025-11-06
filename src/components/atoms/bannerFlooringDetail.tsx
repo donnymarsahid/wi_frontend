@@ -30,7 +30,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
           data-aos="fade-up"
           className="bg-[#D9D9D9] col-span-2 row-span-2 flex items-center justify-center text-white font-bold"
         >
-          <div className="relative w-full h-[400px] rounded-sm overflow-hidden shadow-card">
+          <div className="relative w-full md:h-[400px] h-[150px] rounded-sm overflow-hidden shadow-card">
             <img
               src={
                 STRAPI_URL +
@@ -76,7 +76,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
             <div className="absolute top-0 right-0 left-0 bottom-0 p-2">
               <div className="flex justify-center items-center w-full h-full">
                 <div className="flex justify-center flex-col items-center">
-                  <h1 className="font-medium md:text-xl text-sm text-center">
+                  <h1 className="font-medium md:text-xl text-[12px] text-center">
                     {dataAdjustment_2?.title}
                   </h1>
                   <p className="font-light text-center md:text-sm text-[8px]">
@@ -84,7 +84,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
                   </p>
                   <Link
                     href={dataAdjustment_2?.linked?.redirect}
-                    className="mt-2 md:text-sm text-[9px] bg-white md:px-4 px-2 py-1 rounded text-[#6b6b6b] uppercase font-medium border border-1 border-white hover:bg-transparent hover:text-white transition duration-300 ease-in-out"
+                    className="mt-2 md:text-sm text-[8px] bg-white md:px-4 px-2 py-1 rounded text-[#6b6b6b] uppercase font-medium border border-1 border-white hover:bg-transparent hover:text-white transition duration-300 ease-in-out"
                   >
                     {dataAdjustment_2?.linked?.name}
                   </Link>
@@ -112,7 +112,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
             <div className="absolute top-0 right-0 left-0 bottom-0 p-2">
               <div className="flex justify-center items-center w-full h-full">
                 <div className="flex justify-center flex-col items-center">
-                  <h1 className="font-medium md:text-xl text-sm text-center">
+                  <h1 className="font-medium md:text-xl text-[12px] text-center">
                     {dataAdjustment_3?.title}
                   </h1>
                   <p className="font-light text-center md:text-sm text-[8px]">
@@ -121,7 +121,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
                   </p>
                   <Link
                     href={dataAdjustment_3?.linked?.redirect}
-                    className="mt-2 md:text-sm text-[9px] bg-white md:px-4 px-2 py-1 rounded text-[#6b6b6b] uppercase font-medium border border-1 border-white hover:bg-transparent hover:text-white transition duration-300 ease-in-out"
+                    className="mt-2 md:text-sm text-[8px] bg-white md:px-4 px-2 py-1 rounded text-[#6b6b6b] uppercase font-medium border border-1 border-white hover:bg-transparent hover:text-white transition duration-300 ease-in-out"
                   >
                     {dataAdjustment_3?.linked?.name}
                   </Link>

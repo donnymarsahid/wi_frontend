@@ -56,7 +56,9 @@ export default function Content({
               <h1 className="lg:text-[35px] md:text-[28px] lucida-bright">
                 Experience Excellence
               </h1>
-              <p className="text-justify">{data.data.attributes.about}</p>
+              <p className="md:text-justify text-left">
+                {data.data.attributes.about}
+              </p>
             </div>
           </div>
           <div className="my-16">
