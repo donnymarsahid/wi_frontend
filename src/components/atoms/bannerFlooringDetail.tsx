@@ -27,7 +27,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
       <div className="grid grid-cols-3 grid-rows-2 md:gap-4 gap-2">
         {/* div1: span 2 kolom dan 2 baris */}
         <div
-          data-aos="fade-up"
+          data-aos="fade-right"
           className="bg-[#D9D9D9] col-span-2 row-span-2 flex items-center justify-center text-white font-bold"
         >
           <div className="relative w-full md:h-[400px] h-[150px] rounded-sm overflow-hidden shadow-card">
@@ -60,7 +60,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
 
         {/* div2: kolom ke-3, baris ke-1 */}
         <div
-          data-aos="fade-up"
+          data-aos="fade-left"
           className="bg-[#D9D9D9] col-start-3 row-start-1 flex items-center justify-center text-white font-bold"
         >
           <div className="relative w-full h-full rounded-sm overflow-hidden shadow-card">
@@ -96,7 +96,7 @@ export default function BannerFlooringDetail({ heroBanners }: any) {
 
         {/* div3: kolom ke-3, baris ke-2 */}
         <div
-          data-aos="fade-up"
+          data-aos="fade-left"
           className="bg-[#D9D9D9] col-start-3 row-start-2 flex items-center justify-center text-white font-bold"
         >
           <div className="relative w-full h-full rounded-sm overflow-hidden shadow-card">
