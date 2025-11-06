@@ -184,7 +184,7 @@ export default function DetailHowToShop({ howToShop }: DetailHowToShopProps) {
                 </p>
               </div>
               <div>
-                <h1 className="md:text-[40px] text-[18px]">
+                <h1 className="md:text-[40px] text-[16px]">
                   {" "}
                   {item.account_number}
                 </h1>
