@@ -164,7 +164,7 @@ export default async function SlugProducts(props: {
     path: "sub-categories",
     params: {
       populate:
-        "brands,brands.images,banners,categories,thumbnail,brands.discount,three_card_banner,three_card_banner.background_cover,three_card_banner.linked,preview_image",
+        "brands,brands.images,banners,categories,thumbnail,brands.discount,four_card_banner,four_card_banner.background_cover,four_card_banner.linked,preview_image",
       "fields[0]": "banners",
       "fields[1]": "categories",
       "fields[2]": "name",
@@ -172,7 +172,7 @@ export default async function SlugProducts(props: {
       "fields[4]": "date",
       "fields[5]": "description",
       "fields[6]": "slug",
-      "fields[7]": "three_card_banner",
+      "fields[7]": "four_card_banner",
       ...subCategoriesSectionqueryCategory,
     },
   });
