@@ -31,7 +31,7 @@ export default async function Products(props: { searchParams: tParams }) {
     },
   });
 
-  // Awalnya set filteredData sebagai semua data produk
+  // Awalnya set (filteredData) sebagai semua data produk
   let filteredData = products.data;
 
   return (
