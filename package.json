@@ -18,7 +18,7 @@
     "dompurify": "^3.2.6",
     "dotenv": "^16.4.5",
     "flowbite-react": "^0.10.1",
-    "next": "^15.2.6",
+    "next": "15.2.8",
     "node-cache": "^5.1.2",
     "react": "^19.0.0",
     "react-autosuggest": "^10.1.0",
